@@ -431,7 +431,7 @@ function update(){
     	addPathTree();
 			score+=2*treeReleaseInterval;
 			scoreText.innerHTML=score.toString();
-			health = ((25 - explosionCount)/25)*100;
+			health = ((25 - explosionCount)/26)*100;
 			healthText.innerHTML=health.toString();
     // 	if(!hasCollided){
 		// 	score+=2*treeReleaseInterval;
@@ -489,7 +489,7 @@ function doExplosionLogic(){
 }
 function explode(){
 
-	$('#exp').trigger("play");
+	//$('#exp').trigger("play");
 	particles.position.y=2;
 	particles.position.z=4.8;
 	particles.position.x=heroSphere.position.x;
