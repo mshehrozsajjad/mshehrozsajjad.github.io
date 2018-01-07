@@ -94,10 +94,10 @@ h3:after {
   margin: 5px 0 0 10px;
 }
 
-@import url(https://fonts.googleapis.com/css?family=VT323);
+
 p {
-  font-family: 'VT323';
-  font-size: 205px;
+  /* font-family: 'VT323'; */
+  font-size: 105px;
   text-align: center;
   vertical-align: middle;
   margin-top: 150px;
