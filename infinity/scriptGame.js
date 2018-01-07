@@ -33,6 +33,7 @@ var particleCount=20;
 var explosionPower =1.06;
 var particles;
 var explosionCount = 0;
+var healthText;
 //var stats;
 var scoreText;
 var score;
@@ -113,12 +114,14 @@ function createScene(){
 	document.onkeydown = handleKeyDown;
 
 	 scoreText = document.getElementById('minutes');
+	 healthText = document.getElementById('health');
 	// scoreText.style.position = 'absolute';
 	// //text2.style.zIndex = 1;    // if you still don't see the label, try uncommenting this
 	// scoreText.style.width = 100;
 	// scoreText.style.height = 100;
 	// //scoreText.style.backgroundColor = "blue";
 	 scoreText.innerHTML = "0";
+	 healthText.innerHTML="100";
 	// scoreText.style.top = 50 + 'px';
 	// scoreText.style.left = 10 + 'px';
 	// document.body.appendChild(scoreText);
@@ -428,6 +431,8 @@ function update(){
     	addPathTree();
 			score+=2*treeReleaseInterval;
 			scoreText.innerHTML=score.toString();
+			health = ((25 - explosionCount)/25)*100;
+			healthText.innerHTML=health.toString();
     // 	if(!hasCollided){
 		// 	score+=2*treeReleaseInterval;
 		// 	scoreText.innerHTML=score.toString();
@@ -502,7 +507,8 @@ function render(){
     renderer.render(scene, camera);//draw
 }
 function gameOver () {
-	$('#bgsound').trigger("pause");
+	$('#bgsound').trigger("pause");  //Pause Sound bg
+	healthText.innerHTML='0'; //Health to Zero
 	document.getElementById('exp').src = '';
 	var text2 = document.createElement('div');
 text2.style.position = 'absolute';
