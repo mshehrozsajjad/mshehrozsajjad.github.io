@@ -431,8 +431,8 @@ function update(){
     	addPathTree();
 			score+=2*treeReleaseInterval;
 			scoreText.innerHTML=score.toString();
-			health = ((25 - explosionCount)/26)*100;
-			healthText.innerHTML=health.toString();
+			health = ((25 - explosionCount)/25)*100;
+			healthText.innerHTML=parseInt(health).toString();
     // 	if(!hasCollided){
 		// 	score+=2*treeReleaseInterval;
 		// 	scoreText.innerHTML=score.toString();
