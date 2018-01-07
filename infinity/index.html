@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>three.js canvas - geometry - earth</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link href="bootstrap.min.css" type="text/css" rel="stylesheet" >
+	<link href="style.default.css" type="text/css" rel="stylesheet">
+	  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+	<link href="style.css" type="text/css" rel="stylesheet">
+	<link href="main.scss" type="text/css" rel="stylesheet">
+</head>
+<body>
+
+	<audio controls hidden id="exp"  loop>
+
+		<source src="exp.mp3" type="audio/mpeg"  >
+			Your browser does not support the audio element.
+		</audio>
+
+		<audio controls hidden id="bgsound" autoplay loop>
+
+			<source src="music.mp3" type="audio/mpeg"  >
+				Your browser does not support the audio element.
+			</audio>
+			<div id="TutContainer" style="background: url('space.png');background-size:cover;background-repeat:no-repeat;height:100vh;">
+				<div class="row">
+					<div class="col-sm-12 text-center">
+						<section class="text">
+							<h3>To inifinty & Beyond</h3>
+							<h1 class="mytitle"><span class="fontawesome-star star"></span> <span>Infinity Space Runner</span> <span class="fontawesome-star star"></span>
+								<br/>
+								<br/>
+								<button class="button btn  btn-lg" type="button"  id="play">
+									Play
+								</button>
+							</h1>
+
+
+
+						</section>
+					</div>
+
+				</div>
+
+			</div>
+			<h4 class="dev text-center">
+				Developed by Muhammad Shehroz Sajjad
+			</h4>
+			<div id="render-target"></div>
+			<script   src="https://code.jquery.com/jquery-3.2.1.min.js"   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>
+			<script src="three.min.js"></script>
+			<script src="OrbitControls.js"></script>
+			<script src="script.js"></script>
+
+
+		</body>
+		</html>
