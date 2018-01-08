@@ -24,10 +24,10 @@ var middleLane=0;
 var currentLane;
 var clock;
 var jumping;
-var treeReleaseInterval=0.5;
-var lastTreeReleaseTime=0;
-var treesInPath;
-var treesPool;
+var enemyReleaseInterval=0.5;
+var lastenemyReleaseTime=0;
+var enemysInPath;
+var enemysPool;
 var particleGeometry;
 var particleCount=20;
 var explosionPower =1.06;
@@ -64,8 +64,8 @@ function init() {
 function createScene(){
 	hasCollided=false;
 	score=0;
-	treesInPath=[];
-	treesPool=[];
+	enemysInPath=[];
+	enemysPool=[];
 	clock=new THREE.Clock();
 	clock.start();
 	heroRollingSpeed=0;
@@ -91,7 +91,7 @@ function createScene(){
 	dom.appendChild(renderer.domElement);
 	//stats = new Stats();
 	//dom.appendChild(stats.dom);
-	createTreesPool();
+	createenemysPool();
 	addWorld();
 	addHero();
 	addLight();
@@ -150,12 +150,12 @@ function addExplosion(){
 	scene.add( particles );
 	particles.visible=false;
 }
-function createTreesPool(){
-	var maxTreesInPool=10;
-	var newTree;
-	for(var i=0; i<maxTreesInPool;i++){
-		newTree=createTree();
-		treesPool.push(newTree);
+function createenemysPool(){
+	var maxenemysInPool=10;
+	var newenemy;
+	for(var i=0; i<maxenemysInPool;i++){
+		newenemy=createenemy();
+		enemysPool.push(newenemy);
 	}
 }
 function handleKeyDown(keyEvent){
@@ -269,11 +269,11 @@ function addWorld(){
 	scene.add( rollingGroundSphere );
 	rollingGroundSphere.position.y=-24;
 	rollingGroundSphere.position.z=5;
-	addWorldTrees();
+	addWorldenemys();
 }
 function addLight(){
 	var light	= new THREE.AmbientLight( 0x020202 )
-		scene.add( light )
+	scene.add( light )
 	var hemisphereLight = new THREE.HemisphereLight(0xfffafa,0x000000, 1.5)
 	scene.add(hemisphereLight);
 	sun = new THREE.DirectionalLight( 0xcdc1c5, 0.6);
@@ -286,35 +286,35 @@ function addLight(){
 	sun.shadow.camera.near = 0.5;
 	sun.shadow.camera.far = 50 ;
 }
-function addPathTree(){
+function addPathenemy(){
 	var options=[0,1,2];
 	var lane= Math.floor(Math.random()*3);
-	addTree(true,lane);
+	addenemy(true,lane);
 	options.splice(lane,1);
 	if(Math.random()>0.5){
 		lane= Math.floor(Math.random()*2);
-		addTree(true,options[lane]);
+		addenemy(true,options[lane]);
 	}
 }
-function addWorldTrees(){
-	var numTrees=36;
+function addWorldenemys(){
+	var numenemys=36;
 	var gap=6.28/36;
-	for(var i=0;i<numTrees;i++){
-		addTree(false,i*gap, true);
-		addTree(false,i*gap, false);
+	for(var i=0;i<numenemys;i++){
+		addenemy(false,i*gap, true);
+		addenemy(false,i*gap, false);
 	}
 }
-function addTree(inPath, row, isLeft){
-	var newTree;
+function addenemy(inPath, row, isLeft){
+	var newenemy;
 	if(inPath){
-		if(treesPool.length==0)return;
-		newTree=treesPool.pop();
-		newTree.visible=true;
-		//console.log("add tree");
-		treesInPath.push(newTree);
+		if(enemysPool.length==0)return;
+		newenemy=enemysPool.pop();
+		newenemy.visible=true;
+		//console.log("add enemy");
+		enemysInPath.push(newenemy);
 		sphericalHelper.set( worldRadius-0.3, pathAngleValues[row], -rollingGroundSphere.rotation.x+4 );
 	}else{
-		newTree=createTree();
+		newenemy=createenemy();
 		var forestAreaAngle=0;//[1.52,1.57,1.62];
 		if(isLeft){
 			forestAreaAngle=1.68+Math.random()*0.1;
@@ -323,90 +323,30 @@ function addTree(inPath, row, isLeft){
 		}
 		sphericalHelper.set( worldRadius-0.3, forestAreaAngle, row );
 	}
-	newTree.position.setFromSpherical( sphericalHelper );
+	newenemy.position.setFromSpherical( sphericalHelper );
 	var rollingGroundVector=rollingGroundSphere.position.clone().normalize();
-	var treeVector=newTree.position.clone().normalize();
-	newTree.quaternion.setFromUnitVectors(treeVector,rollingGroundVector);
-	newTree.rotation.x+=(Math.random()*(2*Math.PI/10))+-Math.PI/10;
+	var enemyVector=newenemy.position.clone().normalize();
+	newenemy.quaternion.setFromUnitVectors(enemyVector,rollingGroundVector);
+	newenemy.rotation.x+=(Math.random()*(2*Math.PI/10))+-Math.PI/10;
 
-	rollingGroundSphere.add(newTree);
+	rollingGroundSphere.add(newenemy);
 }
-function createTree(){
+function createenemy(){
 	var sides=4;
 	var tiers=6;
 	var scalarMultiplier=(Math.random()*(0.25-0.1))+0.05;
 	var midPointVector= new THREE.Vector3();
 	var vertexVector= new THREE.Vector3();
-	var treeGeometry = new THREE.ConeGeometry( 0.5, 1, sides, tiers);
-	var treeMaterial = new THREE.MeshStandardMaterial( { color: 0xc62c2b,shading:THREE.FlatShading  } );
-	var offset;
-	midPointVector=treeGeometry.vertices[0].clone();
-	var currentTier=0;
-	var vertexIndex;
-	blowUpTree(treeGeometry.vertices,sides,0,scalarMultiplier);
-	tightenTree(treeGeometry.vertices,sides,1);
-	blowUpTree(treeGeometry.vertices,sides,2,scalarMultiplier*1.1,true);
-	tightenTree(treeGeometry.vertices,sides,3);
-	blowUpTree(treeGeometry.vertices,sides,4,scalarMultiplier*1.2);
-	tightenTree(treeGeometry.vertices,sides,5);
-	var treeTop = new THREE.Mesh( treeGeometry, treeMaterial );
-	treeTop.castShadow=true;
-	treeTop.receiveShadow=false;
-	treeTop.position.y=0.5;
-	treeTop.rotation.y=(Math.random()*(Math.PI));
-	//var treeTrunkGeometry = new THREE.CylinderGeometry( 0.1, 0.1,0.5);
-	//var trunkMaterial = new THREE.MeshStandardMaterial( { color: 0x886633,shading:THREE.FlatShading  } );
-	//var treeTrunk = new THREE.Mesh( treeTrunkGeometry, trunkMaterial );
-	//treeTrunk.position.y=0.25;
-	var tree =new THREE.Object3D();
-	//tree.add(treeTrunk);
-	tree.add(treeTop);
-	return tree;
-}
-function blowUpTree(vertices,sides,currentTier,scalarMultiplier,odd){
-	var vertexIndex;
-	var vertexVector= new THREE.Vector3();
-	var midPointVector=vertices[0].clone();
-	var offset;
-	for(var i=0;i<sides;i++){
-		vertexIndex=(currentTier*sides)+1;
-		vertexVector=vertices[i+vertexIndex].clone();
-		midPointVector.y=vertexVector.y;
-		offset=vertexVector.sub(midPointVector);
-		if(odd){
-			if(i%2===0){
-				offset.normalize().multiplyScalar(scalarMultiplier/6);
-				vertices[i+vertexIndex].add(offset);
-			}else{
-				offset.normalize().multiplyScalar(scalarMultiplier);
-				vertices[i+vertexIndex].add(offset);
-				vertices[i+vertexIndex].y=vertices[i+vertexIndex+sides].y+0.05;
-			}
-		}else{
-			if(i%2!==0){
-				offset.normalize().multiplyScalar(scalarMultiplier/6);
-				vertices[i+vertexIndex].add(offset);
-			}else{
-				offset.normalize().multiplyScalar(scalarMultiplier);
-				vertices[i+vertexIndex].add(offset);
-				vertices[i+vertexIndex].y=vertices[i+vertexIndex+sides].y+0.05;
-			}
-		}
-	}
-}
-function tightenTree(vertices,sides,currentTier){
-	var vertexIndex;
-	var vertexVector= new THREE.Vector3();
-	var midPointVector=vertices[0].clone();
-	var offset;
-	for(var i=0;i<sides;i++){
-		vertexIndex=(currentTier*sides)+1;
-		vertexVector=vertices[i+vertexIndex].clone();
-		midPointVector.y=vertexVector.y;
-		offset=vertexVector.sub(midPointVector);
-		offset.normalize().multiplyScalar(0.06);
-		vertices[i+vertexIndex].sub(offset);
-	}
+	var enemyGeometry = new THREE.ConeGeometry( 0.5, 1, sides, tiers);
+	var enemyMaterial = new THREE.MeshStandardMaterial( { color: 0xc62c2b,shading:THREE.FlatShading  } );
+		var enemyTop = new THREE.Mesh( enemyGeometry, enemyMaterial );
+	enemyTop.castShadow=true;
+	enemyTop.receiveShadow=false;
+	enemyTop.position.y=0.5;
+	enemyTop.rotation.y=(Math.random()*(Math.PI));
+		var enemy =new THREE.Object3D();
+	enemy.add(enemyTop);
+	return enemy;
 }
 
 function update(){
@@ -426,36 +366,33 @@ function update(){
     heroSphere.position.y+=bounceValue;
     heroSphere.position.x=THREE.Math.lerp(heroSphere.position.x,currentLane, 2*clock.getDelta());//clock.getElapsedTime());
     bounceValue-=gravity;
-    if(clock.getElapsedTime()>treeReleaseInterval){
+    if(clock.getElapsedTime()>enemyReleaseInterval){
     	clock.start();
-    	addPathTree();
-			score+=2*treeReleaseInterval;
+    	addPathenemy();
+			score+=2*enemyReleaseInterval;
 			scoreText.innerHTML=score.toString();
 			health = ((25 - explosionCount)/25)*100;
 			healthText.innerHTML=parseInt(health).toString();
-    // 	if(!hasCollided){
-		// 	score+=2*treeReleaseInterval;
-		// 	scoreText.innerHTML=score.toString();
-		// }
+
     }
-    doTreeLogic();
+    doenemyLogic();
     doExplosionLogic();
     render();
 
 	requestAnimationFrame(update);//request next update
 }
-function doTreeLogic(){
+function doenemyLogic(){
 	var temp = 0;
-	var oneTree;
-	var treePos = new THREE.Vector3();
-	var treesToRemove=[];
-	treesInPath.forEach( function ( element, index ) {
-		oneTree=treesInPath[ index ];
-		treePos.setFromMatrixPosition( oneTree.matrixWorld );
-		if(treePos.z>6 &&oneTree.visible){//gone out of our view zone
-			treesToRemove.push(oneTree);
+	var oneenemy;
+	var enemyPos = new THREE.Vector3();
+	var enemysToRemove=[];
+	enemysInPath.forEach( function ( element, index ) {
+		oneenemy=enemysInPath[ index ];
+		enemyPos.setFromMatrixPosition( oneenemy.matrixWorld );
+		if(enemyPos.z>6 &&oneenemy.visible){//gone out of our view zone
+			enemysToRemove.push(oneenemy);
 		}else{//check collision
-				if(treePos.distanceTo(heroSphere.position)<=0.6){
+				if(enemyPos.distanceTo(heroSphere.position)<=0.6){
 					console.log("hit");
 					hasCollided=true;
 					explosionCount = explosionCount + 1;
@@ -466,13 +403,13 @@ function doTreeLogic(){
 		}
 	});
 	var fromWhere;
-	treesToRemove.forEach( function ( element, index ) {
-		oneTree=treesToRemove[ index ];
-		fromWhere=treesInPath.indexOf(oneTree);
-		treesInPath.splice(fromWhere,1);
-		treesPool.push(oneTree);
-		oneTree.visible=false;
-		console.log("remove tree");
+	enemysToRemove.forEach( function ( element, index ) {
+		oneenemy=enemysToRemove[ index ];
+		fromWhere=enemysInPath.indexOf(oneenemy);
+		enemysInPath.splice(fromWhere,1);
+		enemysPool.push(oneenemy);
+		oneenemy.visible=false;
+		console.log("remove enemy");
 	});
 }
 function doExplosionLogic(){
