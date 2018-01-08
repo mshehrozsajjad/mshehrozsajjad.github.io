@@ -115,26 +115,9 @@ function createScene(){
 
 	 scoreText = document.getElementById('minutes');
 	 healthText = document.getElementById('health');
-	// scoreText.style.position = 'absolute';
-	// //text2.style.zIndex = 1;    // if you still don't see the label, try uncommenting this
-	// scoreText.style.width = 100;
-	// scoreText.style.height = 100;
-	// //scoreText.style.backgroundColor = "blue";
+
 	 scoreText.innerHTML = "0";
 	 healthText.innerHTML="100";
-	// scoreText.style.top = 50 + 'px';
-	// scoreText.style.left = 10 + 'px';
-	// document.body.appendChild(scoreText);
-  // //
-    var infoText = document.createElement('div');
-	// infoText.style.position = 'absolute';
-	// infoText.style.width = 100;
-	// infoText.style.height = 100;
-	// infoText.style.backgroundColor = "yellow";
-	// infoText.innerHTML = "UP - Jump, Left/Right - Move";
-	// infoText.style.top = 10 + 'px';
-	// infoText.style.left = 10 + 'px';
-	//  document.body.appendChild(infoText);
 }
 function addExplosion(){
 	particleGeometry = new THREE.Geometry();
@@ -227,8 +210,8 @@ function addHero(){
 	//heroSphere1.position.x=currentLane;
 }
 function addWorld(){
-	var sides=180;
-	var tiers=180;
+	var sides=80;
+	var tiers=80;
 	var sphereGeometry = new THREE.SphereGeometry( worldRadius, sides,tiers);
 	var sphereMaterial = new THREE.MeshStandardMaterial( { color: 0x1a56c5 ,shading:THREE.FlatShading} )
 
