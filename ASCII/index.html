@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>InstaASCII</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <!-- Custom CSS -->
+  <link href="css/stylish-portfolio.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle">
+    <i class="fa fa-bars"></i>
+  </a>
+  <nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle">
+        <i class="fa fa-times"></i>
+      </a>
+      <li class="sidebar-brand">
+        <a class="js-scroll-trigger" href="#top">Start Bootstrap</a>
+      </li>
+      <li>
+        <a class="js-scroll-trigger" href="#top">Home</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header class="header" id="top" style="">
+    <div class="text-vertical-center" style="">
+      <h1>InstaASCII</h1>
+      <h3>Convert Your Insta Images to ASCII</h3>
+      <br>
+      <input class="input input-sm" type="text"  placeholder="Instagram Share Url" id="url" name="To"/>
+
+      <button  class="btn btn-dark btn-sm js-scroll-trigger" id="getResult">Get Ascii</button>
+    </div>
+  </header>
+<div class="col-sm-offset-2 col-sm-8" style="word-wrap: break-word; white-space: pre-wrap;">
+    <pre id="showresults"> </pre>
+      <!-- <iframe name="MyFrame"></iframe> -->
+
+</div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 mx-auto text-center">
+          <h4>
+            <strong>Start Bootstrap</strong>
+          </h4>
+          <p>3481 Melrose Place
+            <br>Beverly Hills, CA 90210</p>
+            <ul class="list-unstyled">
+              <li>
+                <i class="fa fa-phone fa-fw"></i>
+                (123) 456-7890</li>
+                <li>
+                  <i class="fa fa-envelope-o fa-fw"></i>
+                  <a href="mailto:name@example.com">name@example.com</a>
+                </li>
+              </ul>
+              <br>
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <a href="#">
+                    <i class="fa fa-facebook fa-fw fa-3x"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#">
+                    <i class="fa fa-twitter fa-fw fa-3x"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#">
+                    <i class="fa fa-dribbble fa-fw fa-3x"></i>
+                  </a>
+                </li>
+              </ul>
+              <hr class="small">
+              <p class="text-muted">Copyright &copy; Your Website 2017</p>
+            </div>
+          </div>
+        </div>
+        <a id="to-top" href="#top" class="btn btn-dark btn-lg js-scroll-trigger">
+          <i class="fa fa-chevron-up fa-fw fa-1x"></i>
+        </a>
+      </footer>
+
+      <!-- Bootstrap core JavaScript -->
+      <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="vendor/popper/popper.min.js"></script>
+      <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+      <!-- Plugin JavaScript -->
+      <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+      <!-- Custom scripts for this template -->
+      <script src="js/stylish-portfolio.js"></script>
+      <script>
+
+      $('#getResult').click(function(){
+        var murl = $('#url').val();
+        var url="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20json%20where%20url%3D%22http%3A%2F%2Fapi.instagram.com%2Foembed%3Furl%3D" + encodeURIComponent(murl) + "%22&format=json&diagnostics=true&callback=";
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+
+            var myArray = JSON.parse(xmlhttp.responseText);
+            var mediaID = myArray.query.results.json.media_id;
+            var thumbnail = myArray.query.results.json.thumbnail_url;
+            thumbnail = thumbnail.replace(/\/$/, "");
+            thumbnail = thumbnail+".txt";
+          //  alert(thumbnail+".txt");
+            $.ajax({
+           url: thumbnail,
+           type: "GET",
+           dataType : "html",
+           success: function( data ) {
+              $('#showresults').text(data);
+              var canvas = document.getElementById("showresults");
+              var img    = ($('#showresults')[0]).toDataURL("image/png");
+              document.write('<img src="'+img+'"/>');
+               //document.MyFrame.document.body.innerHTML =data;
+           },
+           error: function( xhr, status ) {
+           alert( "Sorry, there was a problem!" );
+           },
+           complete: function( xhr, status ) {
+               //$('#showresults').slideDown('slow')
+           }
+           });
+          }
+        }
+
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+
+      });
+      </script>
+
+  </body>
+
+  </html>
