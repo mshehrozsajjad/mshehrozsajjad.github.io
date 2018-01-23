@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Spotify</title>
+
+  <link rel="icon" type="image/png" href="img/icon.png" />
+
+
+  <link href="https://fonts.googleapis.com/css?family=Barlow:400,500,700" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="css/demo2.css" />
+  <link rel="stylesheet" type="text/css" href="css/revealer.css" />
+  <link href="css/custom.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"     crossorigin="anonymous" ></script>
+  <script>document.documentElement.className = 'js';</script>
+</head>
+<body >
+  <div >
+
+    <div class="demo-2">
+      <div class="hamburger js-hover">
+        <div class="hamburger__line hamburger__line--01">
+          <div class="hamburger__line-in hamburger__line-in--01"></div>
+        </div>
+        <div class="hamburger__line hamburger__line--02">
+          <div class="hamburger__line-in hamburger__line-in--02"></div>
+        </div>
+        <div class="hamburger__line hamburger__line--03">
+          <div class="hamburger__line-in hamburger__line-in--03"></div>
+        </div>
+        <div class="hamburger__line hamburger__line--cross01">
+          <div class="hamburger__line-in hamburger__line-in--cross01"></div>
+        </div>
+        <div class="hamburger__line hamburger__line--cross02">
+          <div class="hamburger__line-in hamburger__line-in--cross02"></div>
+        </div>
+      </div>
+      <section id="main">
+
+        <main>
+
+          <div class="content">
+            <!-- <canvas class="scene scene--full" id="scene"></canvas>
+            <script type="x-shader/x-vertex" id="wrapVertexShader">
+            #define PI 3.1415926535897932384626433832795
+            attribute float size;
+            void main() {
+              vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+              gl_PointSize = 3.0;
+              gl_Position = projectionMatrix * mvPosition;
+            }
+            </script>
+            <script type="x-shader/x-fragment" id="wrapFragmentShader">
+            uniform sampler2D texture;
+            void main(){
+              vec4 textureColor = texture2D( texture, gl_PointCoord );
+              if ( textureColor.a < 0.3 ) discard;
+              vec4 dotColor = vec4(0, 1, 0.60, 1);
+              vec4 color = dotColor * textureColor;
+              gl_FragColor = color;
+            }
+            </script> -->
+
+      				<canvas class="scene scene--full" id="scene"></canvas>
+      				<div class="content__inner">
+      					<h2 class="content__title content__titleMain">Music for Everyone.</h2>
+      				</div>
+
+            <!-- <div class="content__inner">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h3 class="content__title">Music for everyone.</h3>
+                    </div>
+                </div>
+              </div>
+
+
+            </div> -->
+          </div>
+        </main>
+
+
+
+      </section>
+
+      <div class="global-menu">
+        <div class="global-menu__wrap">
+          <a class="global-menu__item global-menu__item--demo-2" href="#">Premium</a>
+          <a class="global-menu__item global-menu__item--demo-2" href="#">Help</a>
+          <a class="global-menu__item global-menu__item--demo-2" href="#">Download</a>
+          <a class="global-menu__item global-menu__item--demo-2" href="#">Signup</a>
+        </div>
+      </div>
+      <svg class="shape-overlays" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path class="shape-overlays__path"></path>
+        <path class="shape-overlays__path"></path>
+        <path class="shape-overlays__path"></path>
+        <path class="shape-overlays__path"></path>
+      </svg>
+
+    </div>
+
+
+    <!-- <section id="lt-copyright" class="lt-section section">
+      <div class="lt-container container">
+        <div class="lt-content lt-copyright-content">
+
+        </div>
+      </div>
+    </section> -->
+  </div>
+
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/{{ this.theme.jQuery_version }}/jquery.min.js"></script> -->
+
+  <script src="js/demo.js"></script>
+  <script src="js/three.min.js"></script>
+  <script src="js/easings.js"></script>
+  <script src="js/perlin.js"></script>
+  <script src="js/TweenMax.min.js"></script>
+  <script src="js/demo3.js"></script>
+  <script src="js/anime.min.js"></script>
+  <script src="js/scrollMonitor.js"></script>
+
+
+</body>
+</html>
