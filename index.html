@@ -756,7 +756,9 @@ function build(){
   nodes = $$('.dot[data-o], .dot[data-from]').filter(visible).filter(el => !stage.contains(el)).map(el => ({el, y: pos(el).y}));
   // crossroads lines live inside the stage, so they stay put while it is pinned
   const lsvg = $('#local'); lsvg.setAttribute('viewBox', `0 0 ${st.width} ${st.height}`);
-  const entry = $('#lEntry'); entry.setAttribute('d', `M${ln.x.toFixed(1)} 0 L${ln.x.toFixed(1)} ${ln.y.toFixed(1)}`);
+  // the incoming line keeps the trail's movement: it carries the sweep in from the dark chapter, eases back, then settles into the fork
+  const sw = phone() ? [10, -6] : [-Math.min(90, st.width*0.07), Math.min(32, st.width*0.025)];
+  const entry = $('#lEntry'); entry.setAttribute('d', smooth([{x:ln.x, y:0}, {x:ln.x + sw[0], y:ln.y*0.36}, {x:ln.x + sw[1], y:ln.y*0.74}, ln]));
   const le = entry.getTotalLength(); entry.style.strokeDasharray = `${le} ${le}`; entry.dataset.l = le;
   const lg = $('#lBranches'); lg.innerHTML = '';
   localGeo = $$('#fields .opt').map(opt => {
