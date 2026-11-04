@@ -23,3 +23,17 @@ A short record of how the direction got here, so later changes have context.
 ## Kept on purpose despite the rules
 
 - The em dash in "stories—and the occasional robot" and the serif italic "design." in the hero, because they are in Shehroz's own study.
+
+## Polish pass — November 2026
+
+- Keep the story, trail, and supplied sprites; tighten typography, header alignment, and mobile spacing.
+- Replace the drawn avatar placeholder with an editorial introduction until real footage is ready.
+- Path selection requires a click or keyboard activation. Phones and short viewports use the unpinned crossroads.
+- Keep the current-work chapter dark in both themes.
+- Drawers contain keyboard focus and make the background inactive. Theme choice is remembered when storage is available.
+- Newsletter and preset-answer previews explicitly describe their limitations.
+
+## Interaction refinement
+
+- Restore Caveat handwriting for the personal annotations, as requested.
+- Add restrained navigation underlines, directional link movement, pressed button feedback, card lift, and path previews on hover or keyboard focus. Respect reduced motion and keep touch actions explicit.

@@ -31,11 +31,11 @@ Fonts load from Google Fonts. Everything else is in the file.
 ## How the homepage works
 
 1. **The shared story.** A single ultramarine trail draws itself as you scroll: the hero, chapter 01 (CodeJunkie, Porsche and cureVision, Beyond Presence) and the dark "now" chapter, which opens out to full width while product and marketing work enter together.
-2. **The crossroads.** Chapter 03 pins in place. Scrolling focuses each path in turn (building, making, telling) with a preview of where it starts. Pausing on a path fills a ring and takes it; clicking or the "Take this path" button does the same.
+2. **The crossroads.** Chapter 03 pins in place. Scrolling focuses each path in turn (building, making, telling) with a preview of where it starts. Clicking a path or the "Take this path" button opens it; pausing never navigates automatically.
 3. **A focused path.** Only the chosen field's stories unfold below, then a second fork (for building: SaaS, automation, open source) leads to finished work.
 4. **Return.** A breadcrumb (The story / Crossroads / field / sub-path) restores the crossroads and the scroll position you left it at.
 
-On phones the trail sways down the left margin and swings across the page between chapters. With reduced motion, nothing pins and nothing is chosen automatically.
+On phones the trail sways down the left margin and swings across the page between chapters. On phones, short viewports, and with reduced motion, the crossroads does not pin.
 
 ## Status
 
