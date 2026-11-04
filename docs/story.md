@@ -1,4 +1,4 @@
-# Story draft v1
+# Story draft v2
 
 Status: draft for Shehroz to edit. Nothing here is on the site yet. Lines marked **[?]** need an answer before they ship.
 
@@ -30,11 +30,23 @@ Alternative headline to test: "I take products from first sketch to first custom
 
 **Headline (keep):** Design became products. Products became *a company.*
 
-**Body:** I co-founded CodeJunkie in my final semester at NUST and ran it as CTO. We grew to a team of 25, launched MVPs for startups around the world, and built for corporate clients including banks in the UAE and Oman. I also trained and mentored our designers and developers.
+The chapter now follows those three words in order.
 
-**Milestone notes (margin):**
+**Design.** It started with design: freelance gigs, a contract with a social media design agency, and a company I founded in my first semester that took students on excursion trips, where I did all the design.
+
+**Products.** As a computer science student, building came naturally. My first app was a game on the App Store, with properly designed elements and a physics engine. From then on I designed the UI and UX for my own projects, and freelanced building full web apps.
+
+**A company.** In my final semester at NUST I co-founded CodeJunkie and ran it as CTO. We grew to a team of 25, launched MVPs for startups around the world, and built for corporate clients including banks in the UAE and Oman. I also trained and mentored our designers and developers.
+
+**Milestones (on the trail):**
+- **Design /** freelance, a social media design agency, my first-semester excursion company
+- **First app /** a game on the App Store, with its own physics engine
+- **CodeJunkie /** co-founder and CTO, 25 people
+
+**Margin notes:**
+- founded in my first semester
+- designed every element myself
 - started in my final semester
-- 25 people · clients worldwide
 - awards from DesignRush and **[?] second review platform**
 
 **Proof to show:** around $1M revenue, 20+ products delivered, 99% client satisfaction **[?] confirm these from the brief are still right to publish**
@@ -58,9 +70,9 @@ Alternative headline to test: "I take products from first sketch to first custom
 
 **Headline (keep):** Build the product. Then help it *reach people.*
 
-**Body:** I joined Beyond Presence as one of its first employees and helped take it from MVP to a full product. I work on the platform behind its real-time avatars, and on the pieces that take them into the world: avatars that join Zoom, Teams and Meet calls, a kiosk, and an AI concierge widget that controls a website while you talk to it.
+**Body:** I joined Beyond Presence, a VC-backed startup, at pre-seed as one of its first employees, and helped take it from MVP to a full product. I work on the platform behind its real-time avatars, and on the pieces that take them into the world: avatars that join Zoom, Teams and Meet calls, a kiosk, and an AI concierge widget that controls a website while you talk to it.
 
-**Caption (keep):** Exploring AI automation for our marketing and design work.
+**Caption:** Lately I'm automating our go-to-market work too: n8n and AI agents wired into Slack.
 **Margin note (keep):** the work doesn't end at launch
 
 ---
@@ -71,7 +83,11 @@ Alternative headline to test: "I take products from first sketch to first custom
 
 **Body:** Coming from engineering, I taught myself go-to-market on my own products. For myClosr and Slaptastic I ran ads, did SEO, automated the blog, and built n8n flows that send Stripe offers to re-engage and upsell customers. Slaptastic won paying customers from those ads.
 
-**Proof chips:** Ads · SEO · Automated content · n8n lifecycle flows · Stripe offers
+**Then back to the company:** Now I bring that into Beyond Presence. My latest initiative automates our go-to-market processes with n8n and AI agents linked to Slack, saving the team time and making the go-to-market side more productive.
+
+**Proof chips:** Ads · SEO · Automated content · n8n lifecycle flows · Stripe offers · AI agents in Slack
+
+This closes the loop the whole site is about: design → engineering → go-to-market, and back into the product.
 
 ---
 
@@ -106,10 +122,9 @@ RoomRush (my own problem) → myClosr and Slaptastic (learning to sell) → Vors
 
 ## Still to answer
 
-1. The first thing you remember designing, and the moment you started building it yourself.
-2. Porsche subsidiary: the name, whether it can be shown, and what you built.
-3. Keyhole: what you did.
-4. The second award platform, and whether the 2019 and 2020 awards from the brief are right.
-5. The Chrome extension's name and link; whether myClosr and Slaptastic are still live; any outcome you're happy to publish.
-6. Whether the German calling agent stays in the lab.
-7. The ask above.
+1. Porsche subsidiary: the name, whether it can be shown, and what you built.
+2. Keyhole: what you did.
+3. The second award platform, and whether the 2019 and 2020 awards from the brief are right.
+4. The Chrome extension's name and link; whether myClosr and Slaptastic are still live; any outcome you're happy to publish.
+5. Whether the German calling agent stays in the lab.
+6. The ask above.
