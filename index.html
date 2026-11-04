@@ -86,7 +86,24 @@ main{position:relative;overflow-x:clip}
 .hero .sub{font-size:clamp(18px,1.7vw,21px);max-width:44ch}
 .disc{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:38px;font:500 15px/1 var(--sans)}
 .disc i{font-style:normal;color:var(--muted)}
-.hero .hand{position:absolute;right:250px;bottom:16px}
+.hero .hand{position:absolute;right:460px;bottom:-14px}
+
+/* pixel sprites of Shehroz: real illustrations he supplied, placed where they act out the section */
+.sprite{display:block;height:var(--h,150px);width:auto;max-width:none;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.sprite-fig{margin:0;position:absolute;line-height:0}
+.sprite-fig .way{position:absolute}
+.s-draw{right:270px;bottom:-72px}
+.s-draw .sprite{--h:150px}
+.s-draw .pen{left:96.7%;top:85.1%}
+.ch1-low .s-sign{--h:176px;justify-self:center}
+.s-think{--h:150px;position:absolute;right:calc(100% + 26px);bottom:-6px}
+.s-field{--h:200px;position:absolute;right:max(16px,calc((100% - 1120px)/2 + 16px));top:76px}
+.end .s-point{--h:124px;flex:none;margin-right:6px}
+.end-body{display:grid;gap:14px}
+.end-actions{display:flex;flex-wrap:wrap;gap:12px}
+.s-wave{--h:118px;position:absolute;right:var(--gr);bottom:-64px}
+.js .s-wave.in{animation:wave 1.4s steps(1) infinite}
+@keyframes wave{50%{transform:translateY(-3px)}}
 .avatar{display:grid;gap:14px;margin-top:-6px}
 .avatar .ph{aspect-ratio:9/10;align-content:end;padding-bottom:22px;font-size:11px}
 .avatar .ph svg{position:absolute;inset:14% 18% 0;width:64%;height:auto;fill:color-mix(in srgb,var(--ph-ink) 30%,var(--ph))}
@@ -105,7 +122,7 @@ main{position:relative;overflow-x:clip}
 .mile b{display:block;font:700 20px/1.2 var(--sans);letter-spacing:-.02em}
 .mile:nth-child(2){margin-top:28px}
 .mile:nth-child(3){margin-top:12px}
-.ch1-low{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center;margin-top:48px}
+.ch1-low{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,.8fr);gap:32px;align-items:end;margin-top:48px}
 .ch1-low .ph{aspect-ratio:16/4.4}
 .ch1-low p{font:italic 400 18px/1.5 var(--sans);max-width:32ch}
 
@@ -204,15 +221,15 @@ main{position:relative;overflow-x:clip}
 .card p{margin-top:8px;color:var(--muted);font-size:16.5px}
 .card .note{font:400 23px/1.05 var(--hand);color:var(--signal);margin-top:10px;display:block}
 .card a{display:inline-block;margin-top:12px;font:600 15px/1 var(--sans);color:var(--signal);text-underline-offset:4px}
-.end{margin:96px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;position:relative}
-.end b{font:700 22px/1.2 var(--sans);letter-spacing:-.02em;width:100%}
+.end{margin:96px 0 0;display:flex;align-items:flex-end;gap:18px;position:relative}
+.end b{font:700 22px/1.2 var(--sans);letter-spacing:-.02em}
 .pill{border:1px solid var(--ink);background:none;border-radius:999px;padding:12px 18px;font:500 15px/1 var(--sans);cursor:pointer}
 .pill:hover{background:var(--ink);color:var(--paper)}
 .pill.pri{background:var(--signal);border-color:var(--signal);color:var(--on-signal)}
 
 /* foot */
 .foot{padding-block:56px 64px}
-.foot .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
+.foot .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;position:relative;padding-right:calc(var(--gr) + 110px)}
 .big-link{font:700 clamp(20px,2.2vw,24px)/1.2 var(--sans);color:var(--signal);letter-spacing:-.02em;background:none;border:0;padding:0;cursor:pointer}
 .big-link:hover{text-decoration:underline;text-underline-offset:5px}
 .slash{color:var(--muted);font-size:24px}
@@ -280,6 +297,20 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
   .hero{padding-block:34px 72px}
   .hero .wrap{grid-template-columns:minmax(0,1fr);gap:34px}
   .hero .hand{position:static;margin-top:26px}
+  .s-draw{right:auto;left:calc(var(--gl) + 4px);bottom:-118px}
+  .s-draw .sprite{--h:104px;transform:scaleX(-1)}
+  .s-draw .pen{left:3.3%}
+  .hero{padding-bottom:132px}
+  .ch1-low .s-sign{--h:132px;justify-self:start}
+  .s-think{--h:96px;right:auto;left:calc(100vw - 74px);bottom:-2px}
+  .s-field{--h:104px;top:70px;right:var(--gr)}
+  .fsec h2,.fsec .intro{padding-right:84px}
+  .end{align-items:flex-start}
+  .end .s-point{--h:92px}
+  .s-wave{--h:92px;bottom:-64px}
+  .foot .wrap{padding-right:calc(var(--gr) + 60px)}
+  .foot .slash{display:none}
+  .foot .big-link{width:100%}
   .avatar{grid-template-columns:120px minmax(0,1fr);align-items:center;gap:18px}
   .ask{text-align:left}
   .ch1 h2{margin-left:0;margin-top:70px}
@@ -313,7 +344,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
   .work{grid-template-columns:minmax(0,1fr);margin-left:0;gap:44px}
   .card:nth-child(even){margin-top:0}
   .dot{left:-30px}
-  .crumbs{top:auto;bottom:calc(76px + env(safe-area-inset-bottom,0px));transform:translate(-50%,180%)}
+  .crumbs{top:auto;bottom:calc(76px + env(safe-area-inset-bottom,0px));transform:translate(-50%,calc(100% + 120px))}
   .crumbs.show{transform:translate(-50%,0)}
 }
 @media (max-width:760px) and (max-height:700px){
@@ -358,6 +389,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
       <p class="disc">Design <i>·</i> Development <i>·</i> Marketing <i>·</i> AI</p>
     </div>
     <span class="hand c" aria-hidden="true">one thing led to another</span>
+    <figure class="sprite-fig s-draw c" aria-hidden="true"><img class="sprite" src="assets/sprites/shehroz-draw.webp" alt="" width="302" height="436"><span class="way pen" data-o="2.8"></span></figure>
     <div class="avatar c">
       <div class="ph"><svg viewBox="0 0 100 110" aria-hidden="true"><circle cx="50" cy="34" r="22"/><path d="M6 110c2-30 20-44 44-44s42 14 44 44z"/></svg><span>AI avatar<br>placeholder</span></div>
       <button class="ask" type="button" data-open="agent">Ask my AI self ↗</button>
@@ -377,6 +409,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
     </div>
     <div class="ch1-low c">
       <div class="ph rise">Personal archive /<br>your photos here</div>
+      <img class="sprite s-sign rise" src="assets/sprites/shehroz-sign.webp" alt="" width="280" height="473">
       <p class="rise">Along the way: a master’s in entrepreneurship in Munich.</p>
     </div>
   </div>
@@ -426,7 +459,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
           <div class="ph snap" style="--w:104px;--r:3/4;--x:78%;--y:6px;--rot:3deg;--i:3">photo</div>
         </div>
       </div>
-      <div class="cross-node c"><span class="dot fork hit" data-o="12" id="crossNode"></span></div>
+      <div class="cross-node c"><span class="dot fork hit" data-o="12" id="crossNode"></span><img class="sprite s-think" src="assets/sprites/shehroz-think.webp" alt="" width="199" height="484"></div>
       <div class="fields c" id="fields"></div>
       <div class="prompt c" id="prompt" role="status">
         <span class="pdots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -444,6 +477,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
     <button class="big-link" type="button" data-open="archive">Explore the full archive ↗</button>
     <span class="slash" aria-hidden="true">/</span>
     <button class="follow" type="button" id="follow" aria-expanded="false" aria-controls="signup">Follow what happens next</button>
+    <img class="sprite s-wave rise" src="assets/sprites/shehroz-wave.webp" alt="" width="248" height="481">
     <div class="signup" id="signup"><div>
       <form id="nl" novalidate>
         <label for="nl-email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Email address</label>
@@ -502,21 +536,21 @@ if (!reduce) document.documentElement.classList.add('js');
 
 /* ================= CONTENT ================= */
 const FIELDS = {
-  build: { opt:['Building products &amp; tools','SaaS · automation · open source'], crumb:'Building',
+  build: { opt:['Building products &amp; tools','SaaS · automation · open source'], crumb:'Building', sprite:'laptop',
     h:'I build the tools I wish existed.', intro:'Most of these started as a problem of my own. Some became products, some became automations, and some I gave away.',
     beats:[
       {k:'German calling agent', q:'I needed to make a phone call in German.', p:'So I built an agent that waits on hold, says it’s an AI, and books the table.'},
       {k:'RoomRush', q:'Finding a flat in Munich nearly broke me.', p:'So I built RoomRush.'},
       {k:'reels-in-code', q:'I was editing every reel by hand.', p:'So I wrote a Claude skill that takes an idea to a finished reel.'}],
     subs:{ saas:['SaaS','Vorsprech · Closr · RoomRush'], auto:['Automation','Calling agent · n8n node · concierge plugin'], oss:['Open source','reels-in-code · LiveKit JS plugin'] } },
-  make: { opt:['Things I make physical','Yolk · TARS / hardware experiments'], crumb:'Making',
+  make: { opt:['Things I make physical','Yolk · TARS / hardware experiments'], crumb:'Making', sprite:'solder',
     h:'Some ideas need a body.', intro:'Hardware, wiring and 3D models, mostly on my desk.',
     beats:[
       {k:'Yolk', q:'AI in a device you can hold.', p:'An e-ink screen, a rotary dial, voice to voice, and a ping when a task is done.'},
       {k:'TARS', q:'A robot on my desk with my face on it, which is a longer story.', p:'Face, voice and LLM run locally on a Mac. Only speech-to-text goes to the cloud.'},
       {k:'TARS', q:'Walking was the hardest part.', p:''}],
     subs:{ yolk:['Yolk','Pocket AI device'], tars:['TARS','Desk robot'], lab:['Experiments','Sketches, wiring, failures'] } },
-  tell: { opt:['Stories, frames &amp; motion','Photography · Video · AI-assisted creation'], crumb:'Telling',
+  tell: { opt:['Stories, frames &amp; motion','Photography · Video · AI-assisted creation'], crumb:'Telling', sprite:'camera',
     h:'Every build ships with a story.', intro:'A demo, a reel and a write-up for each one. Captions always on.',
     beats:[
       {k:'Reels', q:'Cold open on the strongest real moment.', p:'Then the reveal, the why, how it was built, and a close that loops.'},
@@ -597,7 +631,7 @@ function render(){
   let html = '';
   if (F){
     html += `<section class="fsec" id="field" aria-labelledby="fh"><div class="wrap">
-      <span class="way wd" data-o="19" style="left:max(8px,calc((100% - 1120px)/2 + 2px));top:28px"></span><div class="c ${reduce?'':'unfold'}"><p class="label">Path / ${F.crumb}</p><h2 id="fh">${F.h}</h2><p class="intro">${F.intro}</p></div>
+      <span class="way wd" data-o="19" style="left:max(8px,calc((100% - 1120px)/2 + 2px));top:28px"></span><div class="c ${reduce?'':'unfold'}"><p class="label">Path / ${F.crumb}</p><h2 id="fh">${F.h}</h2><p class="intro">${F.intro}</p></div><img class="sprite s-field c ${reduce?'':'unfold'}" src="assets/sprites/shehroz-${F.sprite}.webp" alt="" aria-hidden="true">
       <div class="beats c"><span class="way wd" data-o="19.5" style="left:calc(-1 * clamp(28px,5vw,60px) - 14px);top:-30px"></span>${F.beats.map((b,i) => `<div class="beat ${reduce?'':'rise'}"><span class="dot" data-o="${20+i}"></span><p class="k">${esc(b.k)}</p><q>${esc(b.q)}</q>${b.p?`<p>${esc(b.p)}</p>`:''}</div>`).join('')}</div>
       <div class="deeper c">
         <h3>Go deeper.</h3><p>Choose what to see finished.</p>
@@ -611,10 +645,11 @@ function render(){
     html += `<section class="wsec" id="work" aria-labelledby="wh"><div class="wrap">
       <span class="way wd" data-o="39" style="left:max(8px,calc((100% - 1120px)/2 + 2px));top:28px"></span><div class="c ${reduce?'':'unfold'}"><p class="label">${F.crumb} / ${S[0]}</p><h2 id="wh">${S[0]}, finished.</h2></div>
       <div class="work c"><span class="way wd" data-o="39.5" style="left:calc(-1 * clamp(28px,5vw,60px) - 14px);top:-30px"></span>${list.map((w,i) => `<article class="card ${reduce?'':'rise'}"><span class="dot" data-o="${40+i}"></span><div class="ph">${w.n} /<br>media placeholder</div><p class="st">${w.st}</p><h3>${w.n}</h3><p>${w.p}</p>${w.note?`<span class="note">${w.note}</span>`:''}${w.a?`<a href="${w.a[1]}" target="_blank" rel="noopener">${w.a[0]} ↗</a>`:''}</article>`).join('')}</div>
-      <div class="end c"><span class="dot" data-o="49"></span><b>That’s the end of this path.</b>
+      <div class="end c"><span class="dot" data-o="49"></span><img class="sprite s-point" src="assets/sprites/shehroz-point.webp" alt="" aria-hidden="true" width="257" height="473">
+        <div class="end-body"><b>That’s the end of this path.</b><div class="end-actions">
         <button class="pill" type="button" data-crumb="cross">Back to the crossroads</button>
         <button class="pill" type="button" data-crumb="field">Other ${F.crumb.toLowerCase()} work</button>
-        <button class="pill pri" type="button" data-ask="${f}/${state.sub}">Ask my AI about this</button></div>
+        <button class="pill pri" type="button" data-ask="${f}/${state.sub}">Ask my AI about this</button></div></div></div>
     </div></section>`;
   }
   $('#journey').innerHTML = html;
@@ -683,7 +718,7 @@ function phonePoints(pts, fromHero, tail){
   // a living line: it swings across the page in the empty bands between sections, and sways in the gutter between nodes
   const x0 = parseFloat(getComputedStyle($('main .wrap')).paddingLeft) - 24;
   pts = pts.filter(p => !p.el || !p.el.closest('.top'));
-  const norm = pts.map(p => p.entry ? {x:x0, y:p.y, entry:true} : (p.el.classList.contains('wm') ? {...p, swing:true} : {x:x0, y:p.y, el:p.el}));
+  const norm = pts.map(p => p.entry ? {x:x0, y:p.y, entry:true} : ((p.el.classList.contains('wm') || p.el.classList.contains('pen')) ? {...p, swing:true} : {x:x0, y:p.y, el:p.el}));
   if (fromHero) norm.unshift({x:x0, y: pos($('.hero .label')).y - 6});
   if (!norm.length) return [];
   const out = [norm[0]]; let alt = 1;
@@ -756,7 +791,9 @@ function build(){
   nodes = $$('.dot[data-o], .dot[data-from]').filter(visible).filter(el => !stage.contains(el)).map(el => ({el, y: pos(el).y}));
   // crossroads lines live inside the stage, so they stay put while it is pinned
   const lsvg = $('#local'); lsvg.setAttribute('viewBox', `0 0 ${st.width} ${st.height}`);
-  const entry = $('#lEntry'); entry.setAttribute('d', `M${ln.x.toFixed(1)} 0 L${ln.x.toFixed(1)} ${ln.y.toFixed(1)}`);
+  // the incoming line keeps the trail's movement: it carries the sweep in from the dark chapter, eases back, then settles into the fork
+  const sw = phone() ? [10, -6] : [-Math.min(90, st.width*0.07), Math.min(32, st.width*0.025)];
+  const entry = $('#lEntry'); entry.setAttribute('d', smooth([{x:ln.x, y:0}, {x:ln.x + sw[0], y:ln.y*0.36}, {x:ln.x + sw[1], y:ln.y*0.74}, ln]));
   const le = entry.getTotalLength(); entry.style.strokeDasharray = `${le} ${le}`; entry.dataset.l = le;
   const lg = $('#lBranches'); lg.innerHTML = '';
   localGeo = $$('#fields .opt').map(opt => {
