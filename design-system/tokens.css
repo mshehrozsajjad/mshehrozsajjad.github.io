@@ -1,0 +1,73 @@
+/* Shehroz Sajjad — generated from tokens.json */
+@font-face { font-family: "Instrument Sans"; src: url("fonts/instrument-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Instrument Sans"; src: url("fonts/instrument-sans-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Instrument Sans"; src: url("fonts/instrument-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("fonts/instrument-serif-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains-mono-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+:root, [data-theme="light"] {
+  --paper: #f3f3ef;
+  --paper-raised: #fbfbf9;
+  --line: #dcdcd5;
+  --lane: #e6e6e0;
+  --ink: #111113;
+  --ink-muted: #5c5c64;
+  --signal: #2d2be0;
+  --signal-soft: #e3e3fb;
+  --on-signal: #ffffff;
+  --stage: #0b0b0d;
+  --on-stage: #f3f3ef;
+  --on-stage-muted: #9b9ba3;
+  --stage-signal: #8e8cff;
+  --live: #e0352b;
+  --link: var(--signal);
+  --focus: var(--signal);
+  --lift: 0 18px 40px -24px rgba(17,17,19,0.45);
+}
+[data-theme="dark"] {
+  --paper: #0e0e10;
+  --paper-raised: #17171a;
+  --line: #2b2b30;
+  --lane: #1f1f23;
+  --ink: #f1f1ec;
+  --ink-muted: #a1a1a9;
+  --signal: #8e8cff;
+  --signal-soft: #1d1c46;
+  --on-signal: #0e0e10;
+  --stage: #050506;
+  --on-stage: #f1f1ec;
+  --on-stage-muted: #8e8e96;
+  --stage-signal: #8e8cff;
+  --live: #ff6a5e;
+  --link: var(--signal);
+  --focus: var(--signal);
+  --lift: 0 18px 40px -24px rgba(0,0,0,0.9);
+  color-scheme: dark;
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --radius-clip: 3px;
+  --radius-frame: 10px;
+  --radius-pill: 999px;
+  --font-sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+.display-xl { font-family: var(--font-sans); font-size: 96px; line-height: 88px; font-weight: 600; letter-spacing: -0.045em; }
+.display { font-family: var(--font-sans); font-size: 56px; line-height: 56px; font-weight: 600; letter-spacing: -0.035em; }
+.title { font-family: var(--font-sans); font-size: 28px; line-height: 32px; font-weight: 600; letter-spacing: -0.02em; }
+.lede { font-family: var(--font-sans); font-size: 21px; line-height: 30px; font-weight: 400; letter-spacing: -0.01em; }
+.body { font-family: var(--font-sans); font-size: 17px; line-height: 27px; font-weight: 400; }
+.ui { font-family: var(--font-sans); font-size: 15px; line-height: 20px; font-weight: 500; }
+.caption { font-family: var(--font-sans); font-size: 20px; line-height: 26px; font-weight: 600; letter-spacing: -0.01em; }
+.label { font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: 0.08em; }
+.timecode { font-family: var(--font-mono); font-size: 13px; line-height: 16px; font-weight: 400; }
+.accent { font-family: var(--font-serif); font-size: 96px; line-height: 88px; font-weight: 400; font-style: italic; }

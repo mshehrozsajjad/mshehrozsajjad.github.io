@@ -1,0 +1,76 @@
+/* Shehroz Sajjad — component styles. Every value comes from tokens.css. */
+body { margin: 0; font-family: var(--font-sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+.sz-pad { padding: var(--space-6); }
+.sz-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.sz-col { display: grid; gap: var(--space-4); }
+:where(.sz-btn, .sz-link, .sz-chip, .sz-field input):focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* Label + timecode */
+.sz-label { font: 500 12px/16px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-muted); }
+.sz-label b { font-weight: 500; color: var(--ink); }
+.sz-tc { font: 400 13px/16px var(--font-mono); font-variant-numeric: tabular-nums; color: var(--ink-muted); }
+.sz-live { display: inline-flex; align-items: center; gap: var(--space-2); font: 500 12px/16px var(--font-mono); letter-spacing: .08em; color: var(--ink); }
+.sz-live::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--live); }
+
+/* Button + link */
+.sz-btn { display: inline-flex; align-items: center; gap: var(--space-2); height: 44px; padding: 0 var(--space-6); border-radius: var(--radius-pill); border: 1px solid var(--ink); background: transparent; color: var(--ink); font: 500 15px/20px var(--font-sans); cursor: pointer; text-decoration: none; transition: background .16s ease-out, color .16s ease-out; }
+.sz-btn:hover { background: var(--ink); color: var(--paper); }
+.sz-btn-primary { background: var(--signal); border-color: var(--signal); color: var(--on-signal); }
+.sz-btn-primary:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.sz-link { color: var(--link); font: 500 15px/20px var(--font-sans); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.sz-link:hover { text-decoration-thickness: 2px; }
+
+/* Lane chip */
+.sz-chip { display: inline-flex; align-items: center; gap: var(--space-2); height: 28px; padding: 0 var(--space-2); border-radius: var(--radius-clip); border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink-muted); font: 500 12px/16px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+.sz-chip i { width: 10px; height: 4px; border-radius: 1px; background: currentColor; }
+.sz-chip-on { background: var(--signal-soft); border-color: var(--signal-soft); color: var(--signal); }
+
+/* Multitrack */
+.sz-mt { --cols: 5; display: grid; grid-template-columns: 96px repeat(var(--cols), minmax(0, 1fr)); row-gap: var(--space-3); position: relative; }
+.sz-mt-lane { display: contents; }
+.sz-mt-name { font: 500 12px/24px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-muted); }
+.sz-mt-cell { height: 24px; background: var(--lane); position: relative; }
+.sz-mt-cell:nth-child(2) { border-radius: var(--radius-clip) 0 0 var(--radius-clip); }
+.sz-mt-cell:last-child { border-radius: 0 var(--radius-clip) var(--radius-clip) 0; }
+.sz-mt-clip { position: absolute; inset: 3px 2px; border-radius: var(--radius-clip); background: var(--ink); }
+.sz-mt-clip.on { background: var(--signal); }
+.sz-mt-foot { display: contents; }
+.sz-mt-foot span { font: 500 12px/16px var(--font-mono); letter-spacing: .04em; color: var(--ink-muted); padding-top: var(--space-2); padding-right: var(--space-2); min-width: 0; overflow-wrap: anywhere; }
+.sz-mt-foot span b { display: block; font: 600 14px/18px var(--font-sans); letter-spacing: 0; color: var(--ink); margin-top: 2px; }
+.sz-mt-foot span.on b { color: var(--signal); }
+.sz-mt-head { position: absolute; top: -10px; bottom: 40px; width: 2px; background: var(--signal); pointer-events: none; }
+.sz-mt-head::before { content: ""; position: absolute; top: -2px; left: -5px; width: 12px; height: 8px; background: var(--signal); clip-path: polygon(0 0, 100% 0, 100% 60%, 50% 100%, 0 60%); }
+
+/* Stage (footage frame) */
+.sz-stage { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius-frame); background: var(--stage); color: var(--on-stage); overflow: hidden; }
+.sz-stage-v { aspect-ratio: 9 / 16; }
+.sz-stage-hud { position: absolute; left: var(--space-4); right: var(--space-4); top: var(--space-4); display: flex; justify-content: space-between; gap: var(--space-4); font: 500 12px/16px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--on-stage-muted); }
+.sz-stage-hud b { font-weight: 500; color: var(--on-stage); }
+.sz-stage-poster { position: absolute; inset: 0; display: grid; place-items: center; font: 400 13px/16px var(--font-mono); color: var(--on-stage-muted); }
+.sz-stage-cap { position: absolute; left: 50%; bottom: 44px; transform: translateX(-50%); width: min(80%, 560px); text-align: center; font: 600 20px/26px var(--font-sans); letter-spacing: -.01em; color: var(--on-stage); text-wrap: balance; }
+.sz-stage-bar { position: absolute; left: var(--space-4); right: var(--space-4); bottom: var(--space-4); height: 2px; }
+.sz-stage-bar::before { content: ""; position: absolute; inset: 0; background: var(--on-stage-muted); opacity: .35; }
+.sz-stage-bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--stage-signal); }
+.sz-stage-bar em { position: absolute; top: -7px; width: 2px; height: 16px; background: var(--stage-signal); }
+
+/* Project card */
+.sz-card { display: grid; gap: var(--space-4); padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius-frame); background: var(--paper-raised); text-decoration: none; color: inherit; transition: box-shadow .16s ease-out; }
+.sz-card:hover .sz-stage { box-shadow: var(--lift); }
+.sz-card h3 { margin: 0; font: 600 28px/32px var(--font-sans); letter-spacing: -.02em; color: var(--ink); }
+.sz-beats { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: var(--space-2) var(--space-4); margin: 0; }
+.sz-beats dt { font: 500 12px/24px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-muted); }
+.sz-beats dd { margin: 0; font: 400 15px/24px var(--font-sans); color: var(--ink); }
+.sz-beats dd.empty { color: var(--ink-muted); }
+
+/* Markup */
+.sz-mk { position: relative; display: inline-block; }
+.sz-mk svg { position: absolute; overflow: visible; pointer-events: none; }
+.sz-mk path, .sz-mk ellipse { fill: none; stroke: var(--signal); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.sz-mk-note { font: 500 12px/16px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--signal); }
+
+/* Signup field */
+.sz-field { display: flex; gap: var(--space-2); padding: 4px; border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--paper-raised); max-width: 480px; }
+.sz-field input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink); font: 500 15px/20px var(--font-sans); padding: 0 var(--space-4); border-radius: var(--radius-pill); }
+.sz-field input::placeholder { color: var(--ink-muted); }
+.sz-field .sz-btn { height: 40px; }
+.sz-note { font: 400 13px/18px var(--font-mono); color: var(--ink-muted); margin-top: var(--space-2); }
