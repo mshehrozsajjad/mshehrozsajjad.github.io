@@ -461,6 +461,81 @@ footer a{text-underline-offset:4px}
 :root[data-theme="dark"] .doodle{filter:brightness(2) saturate(.6)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .doodle{filter:brightness(2) saturate(.6)}}
 @media(max-width:760px){.doodle-idea{width:145px}.doodle-plane{width:160px;flex-basis:160px;margin-right:calc(100% - 160px)}}
+
+/* ===== Micro layer: marker doodles, margin notes and small reactions ===== */
+.dd{position:relative;display:inline-block;white-space:nowrap}
+.dd-svg{position:absolute;pointer-events:none;overflow:visible}
+.dd-svg path,.mnote path,.burst path{fill:none;stroke:var(--signal);stroke-linecap:round;stroke-linejoin:round}
+.dd-svg path{stroke-width:2.6px;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .75s cubic-bezier(.6,0,.2,1) var(--d,0s)}
+.dd.drawn .dd-svg path{stroke-dashoffset:0}
+.now .dd-svg path{stroke:var(--now-trail)}
+
+/* margin notes that appear as the trail reaches a milestone */
+.mnote{position:absolute;left:-6px;top:calc(100% + 8px);display:flex;align-items:flex-start;gap:4px;font:400 21px/1 var(--hand);color:var(--signal);white-space:nowrap;transform:rotate(-2.5deg);opacity:0;translate:0 6px;transition:opacity .45s ease-out,translate .45s ease-out}
+.mnote svg{width:22px;height:20px;flex:none;margin-top:-10px}
+.mnote path{stroke-width:1.8;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .5s ease-out .15s}
+.mile:has(.dot.hit) .mnote{opacity:1;translate:0 0}
+.mile:has(.dot.hit) .mnote path{stroke-dashoffset:0}
+
+/* sparkle bursts */
+.burst{position:absolute;width:34px;height:34px;pointer-events:none;transform:translate(-50%,-50%) rotate(var(--r,0deg));z-index:4}
+.burst path{stroke-width:2.4;stroke-dasharray:1;stroke-dashoffset:1;animation:burst .95s ease-out forwards}
+@keyframes burst{0%{stroke-dashoffset:1;opacity:1}40%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+
+/* robot eyes that follow the pointer */
+.bot-eyes{display:inline-flex;gap:4px;margin-left:8px;vertical-align:-2px}
+.bot-eyes i{position:relative;width:14px;height:16px;border:2px solid var(--ink);border-radius:5px;background:var(--raised);animation:blink 4.6s infinite}
+.bot-eyes i::after{content:"";position:absolute;width:5px;height:5px;border-radius:1.5px;background:var(--ink);left:50%;top:50%;transform:translate(calc(-50% + var(--px,0px)),calc(-50% + var(--py,0px)));transition:transform .12s ease-out}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.12)}}
+
+/* Figma-style selection frame on media placeholders */
+.sel{position:absolute;inset:4px;border:1.5px solid var(--signal);opacity:0;transition:opacity .15s ease-out;pointer-events:none;z-index:3}
+.sel b{position:absolute;width:7px;height:7px;background:var(--paper);border:1.5px solid var(--signal)}
+.sel b:nth-child(1){left:-4px;top:-4px}.sel b:nth-child(2){right:-4px;top:-4px}.sel b:nth-child(3){left:-4px;bottom:-4px}.sel b:nth-child(4){right:-4px;bottom:-4px}
+.sel em{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);background:var(--signal);color:var(--on-signal);font:500 10px/1 var(--mono);letter-spacing:.02em;font-style:normal;padding:4px 6px;border-radius:3px;white-space:nowrap}
+@media (hover:hover) and (pointer:fine){ .ph:hover .sel{opacity:1} }
+
+/* hero intro: a labelled cursor writes the headline */
+.intro-cursor{position:absolute;left:0;top:0;z-index:6;pointer-events:none;display:flex;align-items:flex-start;transition:transform .3s cubic-bezier(.3,.7,.2,1),opacity .35s ease-out}
+.intro-cursor svg{width:18px;height:20px;fill:var(--signal);stroke:var(--paper);stroke-width:1.5}
+.intro-cursor span{margin:14px 0 0 -4px;background:var(--signal);color:var(--on-signal);font:600 12px/1 var(--sans);padding:5px 8px;border-radius:4px;white-space:nowrap}
+.w{transition:color .35s ease-out}
+.intro-run #h1 .w{color:var(--numeral)}
+.intro-run #h1 .w.on{color:var(--ink)}
+
+/* snapshots at the crossroads lift when you look at them */
+@media (hover:hover) and (pointer:fine){
+  .snap{transition:opacity .6s var(--ease),transform .35s var(--ease),box-shadow .35s var(--ease)}
+  .snaps.hit .snap:hover{transform:rotate(0deg) translateY(-6px) scale(1.05);box-shadow:0 18px 30px -18px rgba(17,17,19,.55);z-index:2}
+}
+
+/* the thinking sprite thinks until a path is chosen */
+.think-dots{position:absolute;right:calc(100% + 30px);bottom:158px;display:flex;gap:5px;padding:8px 11px;border:1.5px solid var(--ink);border-radius:14px 14px 14px 3px;background:var(--raised);transition:opacity .3s ease-out}
+.think-dots i{width:6px;height:6px;border-radius:50%;background:var(--ink);animation:think 1.2s infinite}
+.think-dots i:nth-child(2){animation-delay:.15s}.think-dots i:nth-child(3){animation-delay:.3s}
+@keyframes think{0%,60%,100%{opacity:.25;transform:none}30%{opacity:1;transform:translateY(-2px)}}
+#experiments:has(#fields[data-chosen]) .think-dots{opacity:0}
+
+/* the pointing sprite nudges toward the next actions; the waving sprite says hi */
+.js .end .s-point{animation:nudge 1.6s steps(1) infinite}
+@keyframes nudge{50%{transform:translateX(4px)}}
+.say-hi{position:absolute;right:calc(var(--gr) + 92px);bottom:84px;max-width:240px;padding:10px 14px;border:1.5px solid var(--ink);border-radius:16px 16px 3px 16px;background:var(--raised);font:400 23px/1.05 var(--hand);color:var(--ink);opacity:0;transform:translateY(8px) rotate(-1.5deg);transition:opacity .4s ease-out .5s,transform .4s ease-out .5s;pointer-events:none}
+.s-wave.in + .say-hi,html:not(.js) .say-hi{opacity:1;transform:rotate(-1.5deg)}
+.say-hi .short{display:none}
+.copied-note{position:absolute;font:400 22px/1 var(--hand);color:var(--signal);transform:translate(-50%,-130%) rotate(-4deg);pointer-events:none;animation:copied 1.4s ease-out forwards}
+@keyframes copied{0%{opacity:0;translate:0 6px}20%{opacity:1;translate:0 0}75%{opacity:1}100%{opacity:0}}
+
+@media (max-width:760px){
+  .mnote{position:static;margin-top:6px;font-size:19px}
+  .think-dots{display:none}
+  .say-hi{right:calc(var(--gr) + 44px);bottom:30px;font-size:19px;padding:7px 11px}
+  .say-hi .long{display:none}
+  .say-hi .short{display:inline}
+}
+@media (prefers-reduced-motion:reduce){
+  .bot-eyes i,.think-dots i{animation:none}
+  .mnote,.dd-svg path,.mnote path{transition:none}
+}
 </style>
 </head>
 <body>
@@ -491,7 +566,7 @@ footer a{text-underline-offset:4px}
     <span class="way wd" data-o="3.5" style="left:12%;top:calc(100% + 58px)"></span>
     <div class="c">
       <p class="label">Applied AI &amp; product engineer</p>
-      <h1 id="h1" tabindex="-1">Started in <span class="it">design.</span><br>Kept following the idea.</h1>
+      <h1 id="h1" tabindex="-1">Started in <span class="it">design.</span><br>Kept following <span class="dd" data-doodle="underline2" data-manual>the idea.</span></h1>
       <p class="sub">Products, companies, stories—and the occasional robot.</p>
       <div class="hero-actions"><a class="pill pri" href="#experiments">Explore my work <span aria-hidden="true">↘</span></a><a class="text-link" href="#story">Follow the story <span aria-hidden="true">↓</span></a></div>
       <img class="doodle doodle-idea" src="assets/doodles/idea.png" alt="" aria-hidden="true" width="2172" height="724">
@@ -510,11 +585,11 @@ footer a{text-underline-offset:4px}
 <section class="ch ch1" id="story" aria-labelledby="h-ch1">
   <span class="numeral" aria-hidden="true">01</span>
   <div class="wrap">
-    <h2 id="h-ch1" class="c rise">Design became products.<br>Products became a company.</h2>
+    <h2 id="h-ch1" class="c rise">Design became products.<br>Products became <span class="dd" data-doodle="circle">a company.</span></h2>
     <div class="miles c">
-      <div class="mile"><span class="dot" data-o="4"></span><b>CodeJunkie /</b>Co-founder</div>
-      <div class="mile"><span class="dot" data-o="5"></span><b>Interfaces &amp; medical technology /</b>Porsche work · cureVision</div>
-      <div class="mile"><span class="dot" data-o="6"></span><b>Beyond Presence /</b>Founding Engineer</div>
+      <div class="mile"><span class="dot" data-o="4"></span><b>CodeJunkie /</b>Co-founder<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>my first company · 20+ products</span></div>
+      <div class="mile"><span class="dot" data-o="5"></span><b>Interfaces &amp; medical technology /</b>Porsche work · cureVision<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>where feel matters as much as function</span></div>
+      <div class="mile"><span class="dot" data-o="6"></span><b>Beyond Presence /</b>Founding Engineer<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>here since Sep 2024</span></div>
     </div>
     <div class="ch1-low c">
       <div class="ph rise">Personal archive /<br>Photography coming soon</div>
@@ -537,7 +612,7 @@ footer a{text-underline-offset:4px}
   <div class="wrap">
     <div class="c" id="nowText">
       <p class="label">Now / Beyond Presence</p>
-      <h2 id="h-now">Build the product. Then help it reach people.</h2>
+      <h2 id="h-now">Build the product. Then help it <span class="dd" data-doodle="underline">reach people.</span></h2>
       <p class="sub">Product design and engineering.<br>Real-time AI. Internal GTM experiments.</p>
     </div>
     <div class="c">
@@ -558,7 +633,7 @@ footer a{text-underline-offset:4px}
     <div class="wrap">
       <div class="cross-head">
         <div class="c">
-          <h2 id="h-ch3">And then there’s<br>everything I try.</h2>
+          <h2 id="h-ch3">And then there’s<br>everything I <span class="dd" data-doodle="underline2">try.</span></h2>
           <p>Three paths from here. Pick one and the rest of the page follows it.</p>
         </div>
         <div class="snaps c" id="snaps" aria-hidden="true">
@@ -646,21 +721,21 @@ if (!reduce) document.documentElement.classList.add('js');
 
 /* ================= CONTENT ================= */
 const FIELDS = {
-  build: { opt:['Building products &amp; tools','SaaS · automation · open source'], crumb:'Building', sprite:'laptop',
+  build: { opt:['Building products &amp; tools','SaaS · automation · open source'], crumb:'Building', sprite:'laptop', hl:'wish existed.',
     h:'I build the tools I wish existed.', intro:'Most of these started as a problem of my own. Some became products, some became automations, and some I gave away.',
     beats:[
       {k:'German calling agent', q:'I needed to make a phone call in German.', p:'So I built an agent that waits on hold, says it’s an AI, and books the table.'},
       {k:'RoomRush', q:'Finding a flat in Munich nearly broke me.', p:'So I built RoomRush.'},
       {k:'reels-in-code', q:'I was editing every reel by hand.', p:'So I wrote a Claude skill that takes an idea to a finished reel.'}],
     subs:{ saas:['SaaS','Vorsprech · Closr · RoomRush'], auto:['Automation','Calling agent · n8n node · concierge plugin'], oss:['Open source','reels-in-code · LiveKit JS plugin'] } },
-  make: { opt:['Things I make physical','Yolk · TARS / hardware experiments'], crumb:'Making', sprite:'solder',
+  make: { opt:['Things I make physical','Yolk · TARS / hardware experiments'], crumb:'Making', sprite:'solder', hl:'a body.',
     h:'Some ideas need a body.', intro:'Hardware, wiring and 3D models, mostly on my desk.',
     beats:[
       {k:'Yolk', q:'AI in a device you can hold.', p:'An e-ink screen, a rotary dial, voice to voice, and a ping when a task is done.'},
       {k:'TARS', q:'A robot on my desk with my face on it, which is a longer story.', p:'Face, voice and LLM run locally on a Mac. Only speech-to-text goes to the cloud.'},
       {k:'TARS', q:'Walking was the hardest part.', p:''}],
     subs:{ yolk:['Yolk','Pocket AI device'], tars:['TARS','Desk robot'], lab:['Experiments','Sketches, wiring, failures'] } },
-  tell: { opt:['Stories, frames &amp; motion','Photography · Video · AI-assisted creation'], crumb:'Telling', sprite:'camera',
+  tell: { opt:['Stories, frames &amp; motion','Photography · Video · AI-assisted creation'], crumb:'Telling', sprite:'camera', hl:'a story.',
     h:'Every build ships with a story.', intro:'A demo, a reel and a write-up for each one. Captions always on.',
     beats:[
       {k:'Reels', q:'Cold open on the strongest real moment.', p:'Then the reveal, the why, how it was built, and a close that loops.'},
@@ -741,7 +816,7 @@ function render(){
   let html = '';
   if (F){
     html += `<section class="fsec" id="field" aria-labelledby="fh"><div class="wrap">
-      <span class="way wd" data-o="19" style="left:max(8px,calc((100% - 1120px)/2 + 2px));top:28px"></span><div class="c ${reduce?'':'unfold'}"><p class="label">Path / ${F.crumb}</p><h2 id="fh">${F.h}</h2><p class="intro">${F.intro}</p></div><img class="sprite s-field c ${reduce?'':'unfold'}" src="assets/sprites/shehroz-${F.sprite}.webp" alt="" aria-hidden="true">
+      <span class="way wd" data-o="19" style="left:max(8px,calc((100% - 1120px)/2 + 2px));top:28px"></span><div class="c ${reduce?'':'unfold'}"><p class="label">Path / ${F.crumb}</p><h2 id="fh">${F.hl ? F.h.replace(F.hl, `<span class="dd" data-doodle="underline">${F.hl}</span>`) : F.h}</h2><p class="intro">${F.intro}</p></div><img class="sprite s-field c ${reduce?'':'unfold'}" src="assets/sprites/shehroz-${F.sprite}.webp" alt="" aria-hidden="true">
       <div class="beats c"><span class="way wd" data-o="19.5" style="left:calc(-1 * clamp(28px,5vw,60px) - 14px);top:-30px"></span>${F.beats.map((b,i) => `<div class="beat ${reduce?'':'rise'}"><span class="dot" data-o="${20+i}"></span><p class="k">${esc(b.k)}</p><q>${esc(b.q)}</q>${b.p?`<p>${esc(b.p)}</p>`:''}</div>`).join('')}</div>
       <div class="deeper c">
         <h3>Go deeper.</h3><p>Choose what to see finished.</p>
@@ -753,7 +828,7 @@ function render(){
   if (F && state.sub){
     const S = F.subs[state.sub], list = WORK[f+'/'+state.sub] || [];
     html += `<section class="wsec" id="work" aria-labelledby="wh"><div class="wrap">
-      <span class="way wd" data-o="39" style="left:max(8px,calc((100% - 1120px)/2 + 2px));top:28px"></span><div class="c ${reduce?'':'unfold'}"><p class="label">${F.crumb} / ${S[0]}</p><h2 id="wh">${S[0]}, finished.</h2></div>
+      <span class="way wd" data-o="39" style="left:max(8px,calc((100% - 1120px)/2 + 2px));top:28px"></span><div class="c ${reduce?'':'unfold'}"><p class="label">${F.crumb} / ${S[0]}</p><h2 id="wh">${S[0]}, <span class="dd" data-doodle="circle">finished.</span></h2></div>
       <div class="work c"><span class="way wd" data-o="39.5" style="left:calc(-1 * clamp(28px,5vw,60px) - 14px);top:-30px"></span>${list.map((w,i) => `<article class="card ${reduce?'':'rise'}"><span class="dot" data-o="${40+i}"></span><div class="ph">${w.n} /<br>media placeholder</div><p class="st">${w.st}</p><h3>${w.n}</h3><p>${w.p}</p>${w.note?`<span class="note">${w.note}</span>`:''}${w.a?`<a href="${w.a[1]}" target="_blank" rel="noopener">${w.a[0]} ↗</a>`:''}</article>`).join('')}</div>
       <div class="end c"><span class="dot" data-o="49"></span><img class="sprite s-point" src="assets/sprites/shehroz-point.webp" alt="" aria-hidden="true" width="257" height="473">
         <div class="end-body"><b>That’s the end of this path.</b><div class="end-actions">
@@ -1116,6 +1191,162 @@ $('#theme').addEventListener('click', () => { document.documentElement.dataset.t
 label();
 
 render();
+})();
+</script>
+<script>
+/* ===== Micro layer: marker doodles, margin notes and small reactions =====
+   Lives beside the main script and only watches the DOM, so the journey logic stays untouched. */
+(() => {
+"use strict";
+const $ = (s, r=document) => r.querySelector(s), $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+const NS = 'http://www.w3.org/2000/svg';
+const svgEl = (tag, attrs={}) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+
+/* ---------- marker doodles, drawn when they enter view ---------- */
+const SHAPES = {
+  underline:  {box:'left:-3%;width:106%;bottom:-.26em;height:.42em', vb:'0 0 100 20', d:['M2 13 C 18 8, 34 15, 52 11 S 84 8, 98 12']},
+  underline2: {box:'left:-4%;width:108%;bottom:-.34em;height:.5em', vb:'0 0 100 24', d:['M2 10 C 22 5, 48 14, 70 8 S 92 7, 98 9','M8 18 C 30 14, 62 20, 94 15']},
+  circle:     {box:'left:-9%;width:118%;top:-24%;height:150%', vb:'0 0 100 40', d:['M14 31 C 2 23, 7 6, 40 4 C 72 2, 98 8, 97 21 C 96 34, 64 38, 40 37 C 16 36, 4 28, 10 16 C 13 11, 20 8, 31 6']}
+};
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  setTimeout(() => e.target.classList.add('drawn'), 180); io.unobserve(e.target);
+}), {rootMargin:'0px 0px -20% 0px'});
+// shapes are authored in a normalised box, then redrawn at the doodle's real pixel size,
+// so the stroke keeps an even width and the draw-on dash stays continuous
+function fit(svg, s){
+  const r = svg.getBoundingClientRect(); if (!r.width || !r.height) return;
+  const [,, vw, vh] = s.vb.split(' ').map(Number), sx = r.width/vw, sy = r.height/vh;
+  svg.setAttribute('viewBox', `0 0 ${r.width.toFixed(1)} ${r.height.toFixed(1)}`);
+  $$('path', svg).forEach((p, i) => { let k = 0; p.setAttribute('d', s.d[i].replace(/-?\d*\.?\d+/g, n => (k++ % 2 ? +n*sy : +n*sx).toFixed(1))); });
+}
+const refit = new ResizeObserver(es => es.forEach(e => { const svg = $(':scope > .dd-svg', e.target); if (svg) fit(svg, SHAPES[e.target.dataset.doodle]); }));
+function doodle(el){
+  if (el.dataset.ddDone) return; el.dataset.ddDone = '1';
+  const s = SHAPES[el.dataset.doodle]; if (!s) return;
+  const svg = svgEl('svg', {class:'dd-svg', 'aria-hidden':'true'});
+  svg.style.cssText = s.box;
+  s.d.forEach((d, i) => { const p = svgEl('path', {d, pathLength:'1'}); p.style.setProperty('--d', (i*0.3)+'s'); svg.appendChild(p); });
+  el.appendChild(svg); fit(svg, s); refit.observe(el);
+  if (reduce) el.classList.add('drawn');
+  else if (!el.hasAttribute('data-manual')) io.observe(el);
+}
+const scan = () => $$('.dd[data-doodle]').forEach(doodle);
+
+/* ---------- sparkle bursts ---------- */
+function burst(host, x, y, rot=0){
+  if (reduce || !host) return;
+  const b = svgEl('svg', {class:'burst', viewBox:'0 0 34 34', 'aria-hidden':'true'});
+  b.style.left = x+'px'; b.style.top = y+'px'; b.style.setProperty('--r', rot+'deg');
+  ['M17 11 L17 2','M23 14 L30 8','M11 14 L4 8'].forEach((d, i) => { const p = svgEl('path', {d, pathLength:'1'}); p.style.animationDelay = (i*0.05)+'s'; b.appendChild(p); });
+  if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
+  host.appendChild(b); setTimeout(() => b.remove(), 1200);
+}
+
+/* milestones: a small burst the first time the trail reaches each one */
+$$('.mile .dot').forEach(dot => {
+  let done = false;
+  new MutationObserver(() => { if (!done && dot.classList.contains('hit')){ done = true; burst(dot.parentElement, -20, -2, -20); } })
+    .observe(dot, {attributes:true, attributeFilter:['class']});
+});
+
+/* crossroads and second fork: a burst when a path gets focus or is taken */
+const seen = new WeakMap();
+function watchOpts(root){
+  if (!root) return;
+  new MutationObserver(() => $$('.opt', root).forEach(o => {
+    const state = (o.classList.contains('focus') ? 'f' : '') + (o.classList.contains('on') ? 'o' : '');
+    if (state && seen.get(o) !== state){ const w = o.getBoundingClientRect().width; burst(o, Math.min(w - 8, 300), 6, 20); }
+    seen.set(o, state);
+  })).observe(root, {subtree:true, childList:true, attributes:true, attributeFilter:['class']});
+}
+watchOpts($('#fields'));
+
+/* work cards: a burst on the corner when you hover one */
+if (fine) document.addEventListener('mouseover', e => {
+  const c = e.target.closest('.card'); if (!c || c.contains(e.relatedTarget)) return;
+  const ph = $('.ph', c); if (ph) burst(c, ph.offsetWidth + 2, 4, 25);
+});
+
+/* the journey re-renders paths: doodle new headings and watch the new fork */
+new MutationObserver(() => { scan(); watchOpts($('#subs')); }).observe($('#journey'), {childList:true});
+
+/* ---------- robot eyes that follow the pointer ---------- */
+const sub = $('.hero .sub');
+if (sub){
+  const eyes = document.createElement('span'); eyes.className = 'bot-eyes'; eyes.setAttribute('aria-hidden', 'true'); eyes.innerHTML = '<i></i><i></i>';
+  sub.appendChild(eyes);
+  if (fine && !reduce) addEventListener('pointermove', e => {
+    $$('i', eyes).forEach(i => {
+      const r = i.getBoundingClientRect(), dx = e.clientX - (r.left + r.width/2), dy = e.clientY - (r.top + r.height/2), d = Math.hypot(dx, dy) || 1;
+      i.style.setProperty('--px', (dx/d*3).toFixed(1)+'px'); i.style.setProperty('--py', (dy/d*3.5).toFixed(1)+'px');
+    });
+  }, {passive:true});
+}
+
+/* ---------- Figma-style selection frame on placeholders ---------- */
+if (fine) document.addEventListener('mouseover', e => {
+  const ph = e.target.closest('.ph'); if (!ph || ph.classList.contains('snap')) return;
+  let sel = $(':scope > .sel', ph);
+  if (!sel){ sel = document.createElement('span'); sel.className = 'sel'; sel.setAttribute('aria-hidden', 'true'); sel.innerHTML = '<b></b><b></b><b></b><b></b><em></em>'; ph.appendChild(sel); }
+  $('em', sel).textContent = `${Math.round(ph.offsetWidth)} × ${Math.round(ph.offsetHeight)}`;
+});
+
+/* ---------- thinking dots, speech bubble, copy note ---------- */
+const think = $('.s-think');
+if (think) think.insertAdjacentHTML('afterend', '<span class="think-dots" aria-hidden="true"><i></i><i></i><i></i></span>');
+const wave = $('.s-wave');
+if (wave) wave.insertAdjacentHTML('afterend', '<span class="say-hi" aria-hidden="true"><span class="long">If any of this sparked an idea, say hi.</span><span class="short">say hi.</span></span>');
+const copy = $('#copy');
+if (copy) copy.addEventListener('click', () => {
+  const n = document.createElement('span'); n.className = 'copied-note'; n.textContent = 'copied!';
+  const host = copy.parentElement; if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
+  n.style.left = (copy.offsetLeft + copy.offsetWidth/2)+'px'; n.style.top = copy.offsetTop+'px';
+  host.appendChild(n); burst(host, copy.offsetLeft + copy.offsetWidth, copy.offsetTop, 30); setTimeout(() => n.remove(), 1500);
+});
+
+/* ---------- hero intro: a labelled cursor writes the headline, once per visit ---------- */
+const h1 = $('#h1'), heroCopy = h1 && h1.parentElement;
+let introSeen = false; try { introSeen = sessionStorage.getItem('intro-seen') === '1'; } catch(_) {}
+function splitWords(node){
+  [...node.childNodes].forEach(n => {
+    if (n.nodeType === 3){
+      const parts = n.textContent.split(/(\s+)/); const frag = document.createDocumentFragment();
+      parts.forEach(p => { if (!p) return; if (/^\s+$/.test(p)) frag.appendChild(document.createTextNode(p)); else { const s = document.createElement('span'); s.className = 'w'; s.textContent = p; frag.appendChild(s); } });
+      n.replaceWith(frag);
+    } else if (n.nodeType === 1 && n.tagName !== 'BR') splitWords(n);
+  });
+}
+if (h1 && !reduce && !introSeen){
+  splitWords(h1);
+  const words = $$('.w', h1), hero = $('.hero');
+  hero.classList.add('intro-run');
+  const cur = document.createElement('div'); cur.className = 'intro-cursor'; cur.setAttribute('aria-hidden', 'true');
+  cur.innerHTML = '<svg viewBox="0 0 18 20"><path d="M2 1 L16 10 L9.5 11.5 L6 18 Z"/></svg><span>Shehroz</span>';
+  heroCopy.appendChild(cur);
+  const timers = []; let done = false;
+  const place = w => { const r = w.getBoundingClientRect(), c = heroCopy.getBoundingClientRect(); cur.style.transform = `translate(${(r.right - c.left - 4).toFixed(0)}px, ${(r.bottom - c.top - 14).toFixed(0)}px)`; };
+  const finish = () => {
+    if (done) return; done = true; timers.forEach(clearTimeout);
+    words.forEach(w => w.classList.add('on')); $$('.hero .dd').forEach(d => d.classList.add('drawn'));
+    cur.style.opacity = '0'; setTimeout(() => { cur.remove(); hero.classList.remove('intro-run'); }, 400);
+    try { sessionStorage.setItem('intro-seen', '1'); } catch(_) {}
+    ['wheel','keydown','pointerdown','touchstart'].forEach(ev => removeEventListener(ev, finish));
+  };
+  place(words[0]); cur.style.opacity = '0';
+  timers.push(setTimeout(() => { cur.style.opacity = '1'; }, 250));
+  words.forEach((w, i) => timers.push(setTimeout(() => { w.classList.add('on'); place(w); }, 420 + i*140)));
+  const end = 420 + words.length*140;
+  timers.push(setTimeout(() => $$('.hero .dd').forEach(d => d.classList.add('drawn')), end + 120));
+  timers.push(setTimeout(() => { const a = $('.ask'); if (a){ const r = a.getBoundingClientRect(), c = heroCopy.getBoundingClientRect(); cur.style.transform = `translate(${(r.left - c.left).toFixed(0)}px, ${(r.top - c.top + 6).toFixed(0)}px)`; } }, end + 700));
+  timers.push(setTimeout(finish, end + 1700));
+  ['wheel','keydown','pointerdown','touchstart'].forEach(ev => addEventListener(ev, finish, {passive:true}));
+} else {
+  $$('.hero .dd').forEach(d => d.removeAttribute('data-manual'));
+}
+scan();
 })();
 </script>
 </body>
