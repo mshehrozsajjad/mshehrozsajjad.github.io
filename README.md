@@ -1,4 +1,4 @@
-# shehroz.ai
+# shehrozsajjad.com
 
 Personal site of Shehroz Sajjad, applied AI and product engineer in Munich.
 
