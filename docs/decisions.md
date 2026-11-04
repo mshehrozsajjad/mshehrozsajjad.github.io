@@ -13,7 +13,8 @@ A short record of how the direction got here, so later changes have context.
 ## What stands
 
 - **Positioning:** experimenter, problem solver, polymath. Started in design, kept following the idea.
-- **Brand foundations** (see `design-system/`): paper and ink with one ultramarine accent, Instrument Sans with Instrument Serif italic for one word, real footage and photos only, no drawn face.
+- **Brand foundations** (see `design-system/`): paper and ink with one ultramarine accent, Instrument Sans with Instrument Serif italic for one word, real footage and photos, no code-drawn face.
+- **Pixel sprites:** eight poses of Shehroz he supplied (Nov 2026). Each one acts out a section, and the hero sprite's pen sits on the trail so he is drawing it.
 - **Structure:** a shared life story in three chapters, then a crossroads where the visitor's choice rebuilds the rest of the page into one focused path.
 - **The trail** is the signature: one line drawn by scroll that records the visitor's route and branches at their choices.
 - **Motion reference:** the lamp clip. Pre-rendered or scroll-scrubbed footage carries the expressive motion; the interface stays calm.

@@ -76,7 +76,8 @@ The expressive motion is footage, not UI tricks. Pre-rendered sequences carry th
 
 - Real builds only: footage from the reels, photos of TARS and Yolk on the desk, screen recordings, sketches, CAD, wiring, failures. Desk-level, hands in frame, natural light or screen light.
 - Generated footage may be used for motion sequences of objects and scenes. It must never show a build that doesn't exist.
-- **No illustrated or code-drawn portrait, avatar or face of Shehroz.** Use a real photo, or real footage of his Beyond Presence avatar, when a face is needed.
+- **Pixel sprites** (`assets/sprites/shehroz-*.webp`) are the one illustrated version of Shehroz. They are his own artwork; use only these eight poses and never redraw, recolour or generate new ones. Each sprite acts out its section: drawing the trail with a pen in the hero, holding a board in the story, thinking at the crossroads, a laptop for building, soldering for making, a camera for telling, pointing at the end of a path, waving by the footer. One sprite per section at most, standing on a real line or baseline, never floating as decoration.
+- **No code-drawn portrait or face of Shehroz.** For a realistic face, use a real photo or real footage of his Beyond Presence avatar.
 - No product (Yolk included) defines the brand. Never use a device, dial or e-ink motif as the identity.
 
 ## Logo
