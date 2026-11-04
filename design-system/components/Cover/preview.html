@@ -1,0 +1,51 @@
+<!-- @dsCard height=320 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shehroz Sajjad</title>
+<style>
+  html, body { margin:0; height:100%; }
+  body { background:var(--paper); color:var(--ink); font-family:var(--font-sans); overflow:hidden; }
+  .cover { position:relative; width:960px; height:320px; overflow:hidden; }
+  .art { position:absolute; top:0; left:480px; width:480px; height:320px; overflow:hidden; }
+  .art svg { display:block; }
+  .stage { fill:var(--stage); }
+  [data-theme="dark"] .stage { fill:var(--paper-raised); }
+  [data-theme="dark"] .soft { fill:var(--lane); }
+  .frame { rx:var(--radius-frame); }
+  .clip { fill:var(--on-stage-muted); opacity:.55; rx:var(--radius-clip); }
+  .clip.on { fill:var(--stage-signal); opacity:1; }
+  .ph { fill:var(--stage-signal); }
+  .sig { fill:var(--signal); rx:var(--radius-clip); }
+  .soft { fill:var(--signal-soft); rx:var(--radius-clip); }
+  .words { position:absolute; left:var(--space-8); bottom:var(--space-8); max-width:440px; }
+  .name { margin:0; font-size:100px; line-height:.95; font-weight:600; letter-spacing:-.045em; color:var(--ink); }
+  .tag { margin:var(--space-3) 0 0 4px; font-size:14px; line-height:20px; color:var(--ink-muted); }
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 480 320" width="480" height="320">
+<!--
+  blocks      stage 472x272 slab bled off the top and right (the footage ground, the biggest identity colour) · signal 32x48 under the playhead, bled off the bottom · signal-soft 120x48 beside it — ≈45% of 960x320
+  arrangement one dark slab with two small satellites sitting on the bottom edge, gaps of space-4
+  pattern     a literal motif, the editing timeline: "every project is a clip on every lane he worked in" — 5 lanes of radius-clip clips on space-4 heights at a space-8+space-2 pitch, the clips under the playhead lit in stage-signal, plus one stage-signal playhead
+  scales      sides in space-2 multiples; lane pitch 40 (space-8 + space-2); clip corners radius-clip; slab corners radius-frame
+-->
+<rect class="stage frame" x="16" y="-16" width="472" height="272" rx="10"/>
+<rect class="clip" x="48" y="48" width="64" height="16" rx="3"/><rect class="clip" x="128" y="48" width="96" height="16" rx="3"/><rect class="clip on" x="248" y="48" width="56" height="16" rx="3"/><rect class="clip" x="328" y="48" width="120" height="16" rx="3"/><rect class="clip" x="64" y="88" width="120" height="16" rx="3"/><rect class="clip" x="200" y="88" width="40" height="16" rx="3"/><rect class="clip" x="256" y="88" width="152" height="16" rx="3"/><rect class="clip" x="96" y="128" width="56" height="16" rx="3"/><rect class="clip on" x="248" y="128" width="72" height="16" rx="3"/><rect class="clip" x="336" y="128" width="104" height="16" rx="3"/><rect class="clip" x="48" y="168" width="88" height="16" rx="3"/><rect class="clip" x="152" y="168" width="64" height="16" rx="3"/><rect class="clip on" x="248" y="168" width="32" height="16" rx="3"/><rect class="clip" x="296" y="168" width="96" height="16" rx="3"/><rect class="clip" x="408" y="168" width="72" height="16" rx="3"/><rect class="clip" x="80" y="208" width="40" height="16" rx="3"/><rect class="clip on" x="136" y="208" width="136" height="16" rx="3"/><rect class="clip" x="312" y="208" width="88" height="16" rx="3"/>
+<rect class="ph" x="248" y="24" width="2" height="216"/>
+<path class="ph" d="M243 16 h12 v6 l-6 6 l-6 -6 z"/>
+<rect class="sig" x="233" y="272" width="32" height="56" rx="3"/>
+<rect class="soft" x="281" y="272" width="120" height="56" rx="3"/>
+</svg>
+</div>
+<div class="words">
+<p class="name">Shehroz Sajjad</p>
+<p class="tag">Experimenter, problem solver, polymath. I give AI a presence.</p>
+</div>
+</div>
+</body>
+</html>
