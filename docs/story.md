@@ -1,4 +1,4 @@
-# Story draft v2
+# Story draft v3
 
 Status: draft for Shehroz to edit. Nothing here is on the site yet. Lines marked **[?]** need an answer before they ship.
 
@@ -6,7 +6,8 @@ Status: draft for Shehroz to edit. Nothing here is on the site yet. Lines marked
 
 - **Label:** Product engineer
 - **The line:** Design → engineering → go-to-market. I take products from the first sketch to the first customers.
-- **Written for:** hiring managers first, for founding-engineer roles and applied AI teams. Also open to consulting and talks.
+- **Written for:** hiring managers first, for founding-engineer roles and applied AI teams. The site never asks for a job directly.
+- **Calls to action:** stay connected through the newsletter, or book a consultation call.
 - **Spine:** one thing led to another, with a lab that shows the experiments, including what didn't work.
 - **Pacing:** story from the first screen.
 
@@ -47,7 +48,7 @@ The chapter now follows those three words in order.
 - founded in my first semester
 - designed every element myself
 - started in my final semester
-- awards from DesignRush and **[?] second review platform**
+- awarded by online review platforms like DesignRush
 
 **Proof to show:** around $1M revenue, 20+ products delivered, 99% client satisfaction **[?] confirm these from the brief are still right to publish**
 
@@ -57,11 +58,11 @@ The chapter now follows those three words in order.
 
 **Headline:** Then I went deeper into the build.
 
-**Body:** I left the studio to work inside products. With startups like Keyhole, with a Porsche subsidiary on the car's information system, and in Munich at cureVision from its foundational stage, building custom software on custom hardware that runs ML models on the device.
+**Body:** I left the studio to work inside products. With startups like Keyhole, with a Porsche subsidiary on a car information system, and in Munich at cureVision from its foundational stage, building custom software on custom hardware that runs ML models on the device.
 
 **Milestones:**
 - **Keyhole /** startup product work **[?] what you did there**
-- **[?] Porsche subsidiary name /** car information system, "where feel matters as much as function" **[?] can it be named, and what you built**
+- **A Porsche subsidiary /** a car information system, under NDA. One line only, no screens or details. Margin note: "under NDA, so no screens"
 - **cureVision /** edge ML on custom hardware, wound documentation about 90% faster
 
 ---
@@ -96,35 +97,50 @@ This closes the loop the whole site is about: design → engineering → go-to-m
 The crossroads becomes the lab. Three fields, each told as a chain:
 
 ### Software I ship
-1. **RoomRush** · *my first self-initiated product.* I built it to find my own flat in Munich, and it worked. People loved it, but the unit economics made it too expensive to sell, so I stopped. **(lab: what didn't work)**
-2. **myClosr** · A Mac and Windows app that coaches you live during sales calls, then lets you practise afterwards.
-3. **Slaptastic** · An AI ad maker that turns a product into videos and images. I ran ads for it and won customers.
-4. **Vorsprech** · I built it for my wife, who was preparing for the German medical language exam. It runs the spoken part against the exam rubric, on Beyond Presence tech. B1 pilot customers followed.
-5. **[?] Chrome extension name** · LinkedIn filled up with AI comments, someone in my comments suggested an extension, and my agent built it overnight. It checks thousands of posts and comments across LinkedIn, X and Reddit for about $3.
+1. **RoomRush** · [roomrush.de](https://roomrush.de) · *my first self-initiated product.* I built it to find my own flat in Munich, and it worked. People loved it, but the unit economics made it too expensive to sell, so I stopped. **(lab: what didn't work)**
+2. **myClosr** · [myclosr.com](https://myclosr.com) · A Mac and Windows app that coaches you live during sales calls, then lets you practise afterwards. Live.
+3. **Slaptastic** · [getslaptastic.com](https://getslaptastic.com) · An AI ad maker that turns a product photo into creator-style videos and images. I ran ads for it and won customers. Live.
+4. **Vorsprech** · [vorsprech.com](https://vorsprech.com) · I built it for my wife, who was preparing for the German medical language exam. It runs the spoken part against the exam rubric, on Beyond Presence tech. B1 pilot customers followed.
+5. **NPC Filter** · [npcfilter.com](https://npcfilter.com) · "Keep the weird. Skip the filler." LinkedIn filled up with AI comments, someone in my comments suggested an extension, and my agent built it overnight. It flags likely AI-written posts on LinkedIn, X and Reddit, and checks thousands of them for about $3. Free in the Chrome Web Store.
 
 ### Hardware I make
 1. **TARS** · Two years into building with AI, I wanted to push into hardware. I 3D-printed an open-source TARS, added a motion sensor (my first soldering) and let Claude learn to walk it. It kept falling until the walk was optimised. Then I gave it my face with a Beyond Presence avatar and ran the whole stack, LLM included, locally and for free. It showed our avatars can run on the edge.
-2. **Yolk** · I always wanted a Pokédex. When Meta open-sourced Muse Gadgets, I designed my own: custom hardware, an e-paper screen and a rotary encoder that drives an AI agent. A waitlist followed.
+2. **Yolk** · [getyolk.tech](https://getyolk.tech) · I always wanted a Pokédex. When Meta open-sourced Muse Gadgets, I designed my own: custom hardware, an e-paper screen and a rotary encoder that drives an AI agent. To make it more useful I gave it the ability to make phone calls: it calls on my behalf in German, using what I learned building real-time AI. I designed and built its website, brand and launch film, and a waitlist followed.
 
 ### Stories I tell
 - I shoot photo and video, fly a drone, and edit my own films. It's where most of my taste comes from.
-- I made the brand and an AI launch film for Yolk and the Chrome extension.
-- Reels: the German calling agent, Yolk, reels-in-code **[?] keep the German calling agent in the lab?**
+- I made the brands for my products, the getyolk.tech website, and AI launch films for Yolk and NPC Filter.
+- Reels: Yolk making German calls, Yolk itself, reels-in-code.
 
 ### The thread between them
-RoomRush (my own problem) → myClosr and Slaptastic (learning to sell) → Vorsprech (for my wife, on Beyond Presence tech) → TARS (into hardware, and proof our avatars run locally) → Yolk (hardware of my own) → the extension (an idea from my own comments section).
+RoomRush (my own problem) → myClosr and Slaptastic (learning to sell) → Vorsprech (for my wife, on Beyond Presence tech) → TARS (into hardware, and proof our avatars run locally) → Yolk (hardware of my own, which learned to make my German phone calls) → NPC Filter (an idea from my own comments section).
 
 ---
 
+## Showcases
+
+All products are live. Screenshots of each homepage are in `assets/shots/` (800 px wide, captured Nov 2026), ready for the lab cards:
+
+| Product | File | Note |
+| --- | --- | --- |
+| NPC Filter | `assets/shots/npcfilter.webp` | |
+| myClosr | `assets/shots/myclosr.webp` | cropped above the cookie banner |
+| Slaptastic | `assets/shots/slaptastic.webp` | cropped above the cookie banner |
+| Vorsprech | `assets/shots/vorsprech.webp` | hero is mostly its animation; a product view would be stronger |
+| RoomRush | `assets/shots/roomrush.webp` | |
+| Yolk | `assets/shots/yolk.webp` | |
+
+The products' own marketing pages carry claims such as user and video counts. The portfolio leaves those out unless Shehroz confirms them.
+
 ## The ask
 
-**[?]** Full-time: location (Munich, remote, relocation), seniority, kind of team. Consulting: kind of engagement. Talks: topics.
+No direct job ask. Two calls to action, everywhere they fit:
+- **Stay connected:** the newsletter, "one email when I ship something".
+- **Book a call:** a consultation or intro meeting. **[?] booking link (Cal.com, Calendly or similar)**
 
 ## Still to answer
 
-1. Porsche subsidiary: the name, whether it can be shown, and what you built.
-2. Keyhole: what you did.
-3. The second award platform, and whether the 2019 and 2020 awards from the brief are right.
-4. The Chrome extension's name and link; whether myClosr and Slaptastic are still live; any outcome you're happy to publish.
-5. Whether the German calling agent stays in the lab.
-6. The ask above.
+1. What you did at Keyhole.
+2. A booking link for consultation calls.
+3. Whether any product numbers can be published (customers, pilots, waitlist size).
+4. Optional: a better Vorsprech screenshot showing the product in use.
