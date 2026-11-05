@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="pg-code">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/src/styles/ending.css">
 <link rel="stylesheet" href="/src/styles/grain.css">
 <link rel="stylesheet" href="/src/styles/pages.css">
+<link rel="stylesheet" href="/src/styles/code.css">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -32,17 +33,24 @@
   </div>
 </header>
 
-<section class="hero p-hero sub" aria-labelledby="h1">
+<section class="hero p-hero sub code-hero" aria-labelledby="h1">
   <div class="wrap">
     <div class="c hero-copy">
       <p class="hi-line"><span class="hand">hi <span data-who>stranger</span>,</span> the engineering side<span data-if-co hidden>, for the team at <span data-co></span></span>.</p>
       <h1 id="h1" tabindex="-1">I build the platform, <span class="it">not just the demo.</span></h1>
       <p class="lead">Real-time AI in production at Beyond Presence, a 25-person studio before that, and open source along the way.</p>
-      <div class="hero-actions"><a class="btn" href="#work">See the work <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a><a class="act" href="#contact">Book a call <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></div>
     </div>
-    <div class="hero-side role-side">
-      <figure class="sprite-fig s-role c" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-think-anim.webp" alt="" aria-hidden="true" width="199" height="484"></figure>
-      
+    <div class="code-side c">
+      <div class="p3d" id="platform3d" role="img" aria-label="A wireframe globe of connected nodes, with pulses running along the edges"></div>
+      <span class="hand p3d-note" aria-hidden="true">drag me<svg viewBox="0 0 34 30"><path d="M30 4 C 22 4, 10 10, 6 24 M6 24 L 3 15 M6 24 L 13 20"/></svg></span>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="term c" id="term">
+      <div class="term-bar"><i></i><i></i><i></i><span>shehroz@munich: ~</span></div>
+      <div class="term-out" id="termOut" aria-live="polite"></div>
+      <form class="term-in" id="termForm" autocomplete="off"><label for="termIn"><span aria-hidden="true">$</span><span class="sr">Type a command</span></label><input id="termIn" spellcheck="false" autocapitalize="off" placeholder="type help"></form>
+      <div class="t-chips" aria-label="Try a command"><button type="button" class="t-chip" data-cmd="help">help</button><button type="button" class="t-chip" data-cmd="ls">ls</button><button type="button" class="t-chip" data-cmd="now">now</button><button type="button" class="t-chip" data-cmd="stats">stats</button><button type="button" class="t-chip" data-cmd="open npc-filter">open npc-filter</button></div>
     </div>
   </div>
   <span class="way wd" data-o="2" data-v style="left:var(--gut);top:calc(100% - 40px)"></span>
@@ -197,7 +205,7 @@
     </ul>
   </div>
 </footer>
-
+<script type="module" src="/src/code/terminal.js"></script>
 <script type="module" src="/src/pages.js"></script>
 </body>
 </html>
