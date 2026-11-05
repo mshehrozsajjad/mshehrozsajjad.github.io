@@ -96,11 +96,11 @@ function mediaHTML(w){
 const support = w => w.sub || (w.body && w.body[0].split(/(?<=[.!?])\s/)[0]);
 function itemHTML(w, i){
   const words = w.line.split(' '), sub = support(w), meta = [w.label, w.tip].filter(Boolean).join(' · ');
-  const links = (w.a || []).map(a => `<a href="${a[1]}" target="_blank" rel="noopener">${esc(a[0])} ${AR('ne')}</a>`).join('') + (w.shot && w.film ? `<button type="button" class="it-film" aria-pressed="false">${esc(w.filmBtn)} ${AR('right')}</button>` : '');
+  const links = (w.a || []).map(a => `<a class="act" href="${a[1]}" target="_blank" rel="noopener">${esc(a[0])} ${AR('ne')}</a>`).join('') + (w.shot && w.film ? `<button type="button" class="it-film act" aria-pressed="false">${esc(w.filmBtn)} ${AR('right')}</button>` : '');
   return `<article class="itm" data-i="${i}" data-id="${w.id}" aria-label="${esc(w.n)}" style="--nw:${words.length};--tilt:${TILTS[i % TILTS.length]}deg">
     <div class="it-card">${mediaHTML(w)}</div>
     <div class="it-text">
-      <p class="it-eyebrow">${esc(w.n)}</p>
+      <p class="kicker">${esc(w.n)}</p>
       <h3 class="it-line">${words.map((x, j) => `<span class="w" style="--w:${j}">${esc(x)}</span>`).join(' ')}</h3>
       <p class="it-meta">${esc(meta)}</p>
       ${sub ? `<p class="it-sub">${esc(sub)}</p>` : ''}
@@ -347,7 +347,7 @@ function phonePoints(pts){
   pts = pts.filter(p => !p.el.closest('.top'));
   // data-keep: the closer's loop keeps its own shape on phones too
   const norm = pts.map(p => p.el.hasAttribute('data-keep') ? {...p, keep:true} : (p.el.classList.contains('wm') || p.el.classList.contains('pen')) ? {...p, swing:true} : {x:x0, y:p.y, el:p.el, vert:p.vert, vn:p.vn, cut:p.cut, arc:p.arc});
-  norm.unshift({x:x0, y: pos($('.hero .label')).y - 6});
+  norm.unshift({x:x0, y: pos($('.hero .kicker')).y - 6});
   if (norm.length < 2) return norm;
   const out = [norm[0]]; let alt = 1;
   for (let i=1;i<norm.length;i++){
@@ -393,7 +393,7 @@ function pair(i){ while (PAIRS.length <= i){ const a = pMain.cloneNode(), b = pN
 let heroFloor = 0, heroLen = 0, heroT = reduce ? 1 : 0;
 // on arrival the hero line draws itself, at a hand's pace, until it reaches the pen
 (() => {
-  if (reduce){ const s = document.querySelector('.hero > .s-draw'); s && s.classList.add('arrived'); return; }
+  if (reduce){ const s = document.querySelector('.hero .s-draw'); s && s.classList.add('arrived'); return; }
   let seen = false; try { seen = sessionStorage.getItem('intro-seen') === '1'; } catch(_) {}
   const delay = seen ? 250 : 650, dur = seen ? 1700 : 2600;
   const ease2 = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3)/2;
@@ -401,7 +401,7 @@ let heroFloor = 0, heroLen = 0, heroT = reduce ? 1 : 0;
   // start once the page has settled, so the stroke is seen from its first mark
   const begin = () => { if (go) return; go = true; requestAnimationFrame(tick); };
   const tick = ts => { if (!t0) t0 = ts + delay; const k = Math.max(0, Math.min(1, (ts - t0)/dur)); heroT = ease2(k);
-    if (typeof req === 'function') req(); if (k < 1) requestAnimationFrame(tick); else { const s = document.querySelector('.hero > .s-draw'); s && s.classList.add('arrived'); } };
+    if (typeof req === 'function') req(); if (k < 1) requestAnimationFrame(tick); else { const s = document.querySelector('.hero .s-draw'); s && s.classList.add('arrived'); } };
   if (document.readyState === 'complete') begin(); else { addEventListener('load', begin, {once:true}); setTimeout(begin, 1800); }
 })();
 // 03: what the platform runs, one screen at a time. It plays through on its own;
@@ -530,7 +530,7 @@ function layoutPeak(){
     ns.forEach(n => { n.style.left = ''; n.style.top = ''; });
   } else {
     // desktop: in from the right margin, three soft swells right to left, out to the left gutter
-    const xS = Math.max(xb + 70, W*.06), xE = Math.min(W - 70, xa - 40), y0 = H*.5, A = Math.min(140, H*.3), N = 160;
+    const xS = Math.max(xb + 70, W*.06), xE = Math.min(W - 110, xa - 140), y0 = H*.5, A = Math.min(140, H*.3), N = 160;
     const Y = u => y0 - A*Math.cos(2*Math.PI*(u - .2)/.6);
     const sl = Math.abs(A*2*Math.PI/.6*Math.sin(2*Math.PI*(0 - .2)/.6)/(xE - xS)), kE = Math.min(60, (xa - xE)*.7);
     d = `M${f(xa)} 0 C${f(xa)} ${f(H*.45)} ${f(xE + kE)} ${f(Y(1) + kE*sl)} ${f(xE)} ${f(Y(1))}`;
@@ -550,7 +550,7 @@ function peakFrame(){
   if (!PK) return;
   const r = peak.getBoundingClientRect(), vh = innerHeight;
   // the line draws as the reading point passes, like the rest of the trail
-  const p = reduce ? 1 : cl((vh*.7 - r.top)/(r.height + vh*.15));
+  const p = reduce ? 1 : cl((vh*.64 - r.top)/r.height);
   waveLine.style.strokeDashoffset = (1 - p).toFixed(4);
   const ph = phone();
   $$('.peak-n', peak).forEach(n => n.classList.toggle('on', reduce || (ph ? n.getBoundingClientRect().top < vh*.85 : p > (1 - +n.dataset.u)*.8 + .08)));
@@ -661,7 +661,7 @@ function route(q){
 let gid = 0;
 function answer(q, key){
   const a = A[key], id = 'g'+(++gid);
-  $('#log').insertAdjacentHTML('beforeend', `<p class="me"></p><div class="ai"><p></p>${a.go ? `<button type="button" id="${id}">${a.go[0]} ${AR('right')}</button>` : ''}</div>`);
+  $('#log').insertAdjacentHTML('beforeend', `<p class="me"></p><div class="ai"><p></p>${a.go ? `<button type="button" class="act" id="${id}">${a.go[0]} ${AR('right')}</button>` : ''}</div>`);
   const ms = $$('#log .me'), as = $$('#log .ai p'); ms[ms.length-1].textContent = q; as[as.length-1].textContent = a.t;
   if (a.go) $('#'+id).addEventListener('click', () => { closeD(false); setTimeout(a.go[1], 250); });
   $('#log').scrollTop = 1e6;
@@ -688,7 +688,6 @@ build();
 "use strict";
 const $ = (s, r=document) => r.querySelector(s), $$ = (s, r=document) => [...r.querySelectorAll(s)];
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
 const NS = 'http://www.w3.org/2000/svg';
 const svgEl = (tag, attrs={}) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
 
@@ -733,46 +732,6 @@ function burst(host, x, y, rot=0){
   host.appendChild(b); setTimeout(() => b.remove(), 1200);
 }
 
-/* milestones: a small burst the first time the trail reaches each one */
-$$('.mile .dot').forEach(dot => {
-  let done = false;
-  new MutationObserver(() => { if (!done && dot.classList.contains('hit')){ done = true; burst(dot.parentElement, -20, -2, -20); } })
-    .observe(dot, {attributes:true, attributeFilter:['class']});
-});
-
-/* crossroads and second fork: a burst when a path gets focus or is taken */
-const seen = new WeakMap();
-function watchOpts(root){
-  if (!root) return;
-  new MutationObserver(() => $$('.opt', root).forEach(o => {
-    const state = (o.classList.contains('focus') ? 'f' : '') + (o.classList.contains('on') ? 'o' : '');
-    if (state && seen.get(o) !== state){ const w = o.getBoundingClientRect().width; burst(o, Math.min(w - 8, 300), 6, 20); }
-    seen.set(o, state);
-  })).observe(root, {subtree:true, childList:true, attributes:true, attributeFilter:['class']});
-}
-watchOpts($('#fields'));
-
-/* ---------- robot eyes that follow the pointer ---------- */
-const sub = $('.bot-host');
-if (sub){
-  const eyes = document.createElement('span'); eyes.className = 'bot-eyes'; eyes.setAttribute('aria-hidden', 'true'); eyes.innerHTML = '<i></i><i></i>';
-  sub.appendChild(eyes);
-  if (fine && !reduce) addEventListener('pointermove', e => {
-    $$('i', eyes).forEach(i => {
-      const r = i.getBoundingClientRect(), dx = e.clientX - (r.left + r.width/2), dy = e.clientY - (r.top + r.height/2), d = Math.hypot(dx, dy) || 1;
-      i.style.setProperty('--px', (dx/d*3).toFixed(1)+'px'); i.style.setProperty('--py', (dy/d*3.5).toFixed(1)+'px');
-    });
-  }, {passive:true});
-}
-
-/* ---------- Figma-style selection frame on placeholders ---------- */
-if (fine) document.addEventListener('mouseover', e => {
-  const ph = e.target.closest('.ph'); if (!ph || ph.classList.contains('snap')) return;
-  let sel = $(':scope > .sel', ph);
-  if (!sel){ sel = document.createElement('span'); sel.className = 'sel'; sel.setAttribute('aria-hidden', 'true'); sel.innerHTML = '<b></b><b></b><b></b><b></b><em></em>'; ph.appendChild(sel); }
-  $('em', sel).textContent = `${Math.round(ph.offsetWidth)} × ${Math.round(ph.offsetHeight)}`;
-});
-
 /* ---------- thinking dots, speech bubble, copy note ---------- */
 const think = $('.s-think');
 if (think) think.insertAdjacentHTML('afterend', '<span class="think-dots" aria-hidden="true"><i></i><i></i><i></i></span>');
@@ -810,7 +769,7 @@ if (h1 && !reduce && !introSeen){
   words.forEach((w, i) => timers.push(setTimeout(() => { w.classList.add('on'); place(w); }, 420 + i*140)));
   const end = 420 + words.length*140;
   timers.push(setTimeout(() => $$('.hero .dd').forEach(d => d.classList.add('drawn')), end + 120));
-  timers.push(setTimeout(() => { const a = $('.ask'); if (a){ const r = a.getBoundingClientRect(), c = heroCopy.getBoundingClientRect(); cur.style.transform = `translate(${(r.left - c.left).toFixed(0)}px, ${(r.top - c.top + 6).toFixed(0)}px)`; } }, end + 700));
+  timers.push(setTimeout(() => { const a = $('.call-btn'); if (a){ const r = a.getBoundingClientRect(), c = heroCopy.getBoundingClientRect(); cur.style.transform = `translate(${(r.left - c.left).toFixed(0)}px, ${(r.top - c.top + 6).toFixed(0)}px)`; } }, end + 700));
   timers.push(setTimeout(finish, end + 1700));
   ['wheel','keydown','pointerdown','touchstart'].forEach(ev => addEventListener(ev, finish, {passive:true}));
 } else {
