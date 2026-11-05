@@ -13,8 +13,8 @@ const go = sel => { const el = document.querySelector(sel); if (el) el.scrollInt
 const CMD = {
   help: () => ['whoami         who this is', 'ls             what is on this page', 'open <name>    go to it (try: open npc-filter)', 'now            what I do right now', 'stats          the platform, in public numbers', 'contact        how to reach me', 'clear          start over'],
   whoami: () => ['Shehroz Sajjad. Product engineer, Munich.', 'Design → engineering → go-to-market, usually on the same product.'],
-  ls: () => ['beyond-presence/   the platform I own', 'npc-filter/        built to stay cheap', 'open-source/       given away', 'before/            CTO, Keyhole, cureVision, a car company', 'contact'],
-  now: () => ['Beyond Presence. I own the creator platform and the call platform:', 'the layer behind our real-time avatars and Managed Agents.'],
+  ls: () => ['beyond-presence/   where I work now', 'npc-filter/        built to stay cheap', 'open-source/       given away', 'before/            CTO, Keyhole, cureVision, a car company', 'contact'],
+  now: () => ['Beyond Presence, founding engineer. The creator platform, our call', 'experiences on LiveKit, customer meetings, and fast turnarounds.'],
   stats: () => ['200,000+   avatar sessions served', '1,000+     running at the same time', '15,000+    startups, scaleups and enterprise teams', '(public figures, beyondpresence.ai)'],
   contact: () => ['mshehrozsajjad@gmail.com', 'or: open contact'],
   sudo: () => ['Nice try. Book a call instead: open contact'],

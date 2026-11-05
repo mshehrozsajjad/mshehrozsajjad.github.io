@@ -214,7 +214,7 @@ document.addEventListener('click', e => { const t = e.target.closest('button, a'
 if (scrim) scrim.addEventListener('click', () => closeD(true));
 addEventListener('keydown', e => { if (e.key === 'Escape' && $('.drawer.open')) closeD(true); });
 const A = {
-  now: {t: "I own the creator and call platforms at Beyond Presence, the layer behind our real-time avatars and Managed Agents. I built the integration that sends avatars into Zoom and Teams calls.", go: ['The engineering side', '/code']},
+  now: {t: "I'm a founding engineer at Beyond Presence. I work on the creator platform and the call experiences behind our real-time avatars and Managed Agents, sit in customer meetings, and ship what customers need on tight deadlines, like the integration that puts an avatar in a Zoom or Teams call.", go: ['The engineering side', '/code']},
   make: {t: "Yolk, my own AI device with an e-paper screen and a dial, which makes my German phone calls. And TARS, a 3D-printed desk robot running my avatar locally.", go: ['The hardware', '/hardware']},
   saas: {t: "myClosr, Slaptastic, Vorsprech and NPC Filter are live. RoomRush got 50 signups in its first 10 minutes, but the unit economics didn't hold, so I stopped it.", go: ['The AI products', '/ai']},
   design: {t: "Design is where I started: Photoshop in my first semester, then every brand, interface and launch film for my own products.", go: ['The design side', '/design']},
