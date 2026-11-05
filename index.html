@@ -1678,7 +1678,7 @@ function layoutLimbs(){
 document.addEventListener('toggle', e => {
   const l = e.target; if (!l.matches || !l.matches('details.limb')) return;
   l.classList.remove('drawn');
-  requestAnimationFrame(() => { layoutLimbs(); build(); if (l.open) requestAnimationFrame(() => l.classList.add('drawn')); });
+  requestAnimationFrame(() => { layoutLimbs(); if (!l._anim) build(); if (l.open) requestAnimationFrame(() => l.classList.add('drawn')); });
   $$('.l-shot video', l).forEach(v => { if (l.open && !reduce) v.play().catch(() => {}); else v.pause(); });
 }, true);
 
@@ -1814,10 +1814,38 @@ let heroFloor = 0;
   new IntersectionObserver((es, io) => es.forEach(e => { if (e.isIntersecting){ prints.forEach(p => p.classList.add('in')); io.disconnect(); } }), {threshold:.25, rootMargin:'0px 0px -10% 0px'}).observe($('.field-prints'));
 })();
 
+// every fold on the page opens and closes with a slide instead of a jump
+function slideDetails(d, open){
+  if (d._anim){ d._anim.cancel(); d._anim = null; }
+  if (reduce){ d.open = open; return; }
+  const sum = d.querySelector(':scope > summary'), cs = getComputedStyle(d);
+  const shut = () => sum.getBoundingClientRect().bottom - d.getBoundingClientRect().top + parseFloat(cs.paddingBottom) + parseFloat(cs.borderBottomWidth);
+  const from = d.offsetHeight;
+  if (open) d.open = true;
+  const to = open ? d.offsetHeight : shut();
+  if (Math.abs(to - from) < 2){ if (!open) d.open = false; return; }
+  d.style.overflowX = 'visible'; d.style.overflowY = 'clip';
+  if (!CSS.supports('overflow-y', 'clip')) d.style.overflow = 'hidden';
+  const dur = Math.min(620, Math.max(320, Math.abs(to - from)*.7));
+  d._dir = open;
+  const anim = d._anim = d.animate({height:[from + 'px', to + 'px']}, {duration:dur, easing:'cubic-bezier(.22,.7,.2,1)'});
+  if (open) [...d.children].filter(c => c !== sum && !c.matches('.way,svg')).forEach(c => c.animate({opacity:[0, 1], transform:['translateY(10px)', 'none']}, {duration:dur*.9, delay:dur*.12, easing:'ease-out', fill:'backwards'}));
+  anim.onfinish = anim.oncancel = () => {
+    d.style.overflow = d.style.overflowX = d.style.overflowY = '';
+    if (d._anim === anim){ d._anim = null; if (!open) d.open = false; }
+    requestAnimationFrame(() => { if (typeof layoutLimbs === 'function') layoutLimbs(); build(); });
+  };
+}
+document.addEventListener('click', e => {
+  const sum = e.target.closest && e.target.closest('summary'); if (!sum) return;
+  const d = sum.parentElement; if (!d || d.tagName !== 'DETAILS' || !d.matches('.role,.dig,.limb')) return;
+  e.preventDefault(); slideDetails(d, !(d._anim ? d._dir : d.open));
+});
+
 // CodeJunkie role: opens in place, the trail below moves with it
 $$('details.role').forEach(r => {
-  r.addEventListener('toggle', () => requestAnimationFrame(build));
-  $('.role-less', r).addEventListener('click', () => { r.open = false; $('summary', r).focus({preventScroll:true}); const t = (r.closest('.step') || r.parentElement).getBoundingClientRect().top; if (t < 0) scrollBy({top:t - 90, behavior: reduce ? 'auto' : 'smooth'}); });
+  r.addEventListener('toggle', () => { if (!r._anim) requestAnimationFrame(build); });
+  $('.role-less', r).addEventListener('click', () => { slideDetails(r, false); $('summary', r).focus({preventScroll:true}); const t = (r.closest('.step') || r.parentElement).getBoundingClientRect().top; if (t < 0) scrollBy({top:t - 90, behavior: reduce ? 'auto' : 'smooth'}); });
 });
 function build(){
   layoutLimbs(); layoutPeak();
@@ -1840,7 +1868,7 @@ function build(){
 function drawnLength(t, penY){ const a = t.maxY; if (!a.length || a[0] > penY) return 0; let lo=0, hi=a.length-1; while (lo<hi){ const mm=(lo+hi+1)>>1; if (a[mm] <= penY) lo=mm; else hi=mm-1; } return lo*t.step; }
 document.addEventListener('toggle', e => {
   const d = e.target; if (!d.matches || !d.matches('details.dig')) return;
-  requestAnimationFrame(() => { drawBranch(d, true); build(); });
+  requestAnimationFrame(() => { drawBranch(d, true); if (!d._anim) build(); });
 }, true);
 
 /* ================= THE PEAK: the line breathes through the numbers ================= */
