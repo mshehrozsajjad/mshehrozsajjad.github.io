@@ -1,4 +1,4 @@
-import {strand, lean} from './strands.js';
+import {strand, sharedHandle} from './strands.js';
 (() => {
 "use strict";
 const $ = (s, r=document) => r.querySelector(s), $$ = (s, r=document) => [...r.querySelectorAll(s)];
@@ -32,7 +32,7 @@ const LAB = [
    label:'Prototype', clips:[['/assets/media/tars-falling.mp4','/assets/media/tars-falling-poster.webp','Falling, then walking'],['/assets/media/tars-my-face.mp4','/assets/media/tars-my-face-poster.webp','With my avatar face']],
    body:['Two years into building with AI, I wanted to try hardware. I 3D-printed an open-source TARS and soldered in a motion sensor, my first time holding an iron.']},
   {id:'yolk', n:'Yolk', line:'I always wanted a Pokédex, so I designed my own AI device. It makes my phone calls in German.', tip:'Waitlist open',
-   label:'Launched', shot:'/assets/media/yolk-device.webp', shotAlt:'Yolk, the device', film:'/assets/media/yolk-film.mp4', poster:'/assets/media/yolk-film-poster.webp', filmLabel:'The Yolk launch film', filmBtn:'Watch the film', tall:true, a:[['Join the waitlist','https://getyolk.tech']],
+   label:'Launched', clips:[['/assets/media/yolk-in-hand.mp4','/assets/media/yolk-in-hand-poster.webp','In my hand'],['/assets/media/yolk-film.mp4','/assets/media/yolk-film-poster.webp','The launch film']], a:[['Join the waitlist','https://getyolk.tech']],
    body:['When Meta open-sourced Muse Gadgets, I designed my own device around it: custom hardware, an e-paper screen and a rotary encoder that drives an AI agent.']},
   {id:'reels', n:'reels-in-code', label:'Open source', line:'A Claude skill that takes an idea to a finished reel: hooks, shots, captions, zooms, sound effects.', body:['Built with Claude and Remotion.'], a:[['GitHub','https://github.com/mshehrozsajjad/reels-in-code']], code:['reels-in-code','Claude skill · Remotion','idea → hooks → shots → captions → reel']},
   {id:'livekit', n:'LiveKit JS plugin', label:'Open source', line:'Brings Beyond Presence avatars to LiveKit web apps.', body:['Ported from the Python plugin.'], code:['LiveKit JS plugin','JavaScript · ported from Python','LiveKit web app → Beyond Presence avatar']},
@@ -44,28 +44,33 @@ const LAB = [
   {id:'photos', n:'Photos', label:'Photography', line:'A bridge from above and a lit dome, both at night.', photos:[['/assets/media/photo-bridge.webp','A bridge at night, shot from above'],['/assets/media/photo-dome.webp','A lit dome at night']]}
 ];
 const BY = Object.fromEntries(LAB.map(w => [w.id, w]));
-// Hardware comes last so the preselected strand never crosses another on its way back to the line
+// Every strand leaves the one junction on the left and lands on the same row, so the four curves nest and cannot cross, whatever the order.
+// The order is for the reader: Software is the core, Hardware second so the preselected return sweep is the shortest.
+// Phones stack them vertically with Hardware last (CSS), so its way back to the line passes no other name.
 const COLS = [
   {id:'software', n:'Software', unit:'projects', items:['roomrush','myclosr','slaptastic','vorsprech','npcfilter']},
+  {id:'hardware', n:'Hardware', unit:'builds', items:['yolk','tars']},
   {id:'given', n:'Given away', unit:'tools', items:['reels','livekit','n8nflows','n8nnode']},
-  {id:'films', n:'Films', unit:'pieces', items:['f-yolk','f-npc','drone','photos']},
-  {id:'hardware', n:'Hardware', unit:'builds', items:['yolk','tars']}
+  {id:'films', n:'Films', unit:'pieces', items:['f-yolk','f-npc','drone','photos']}
 ];
 const COL = Object.fromEntries(COLS.map(c => [c.id, c]));
 const img = (src, alt) => `<img src="${src}" alt="${esc(alt)}" loading="lazy">`;
-// the one shared preview: each collection's best media, kept ready and developed when it is called up
-const PV = {
-  software: img('/assets/shots/npcfilter.webp', ''),
-  hardware: img('/assets/media/yolk-device.webp', ''),
-  given: `<div class="pf-term"><code><i>~/given-away</i>reels-in-code<br>livekit-js-plugin<br>n8n-workflows<br>n8n-node<span class="caret"></span></code></div>`,
-  films: img('/assets/media/drone-poster.webp', '')
+// each collection's sneak peek: three real cards, back to front. Given-away has no imagery, so it gets three matching repo cards
+const PEEK = {
+  software: ['/assets/shots/myclosr.webp', '/assets/shots/slaptastic.webp', '/assets/shots/npcfilter.webp'],
+  hardware: ['/assets/media/tars-falling-poster.webp', '/assets/media/yolk-device.webp', '/assets/media/yolk-in-hand-poster.webp'],
+  given: ['n8n-workflows', 'livekit-js-plugin', 'reels-in-code'],
+  films: ['/assets/media/yolk-film-poster.webp', '/assets/media/npc-film-poster.webp', '/assets/media/drone-poster.webp']
 };
-$('#cols').innerHTML = COLS.map(c => `<button class="fk" type="button" id="col-${c.id}" data-col="${c.id}" aria-pressed="false" aria-controls="stage" aria-label="${esc(c.n)}, ${c.items.length} ${c.unit}"><span class="fk-n">${esc(c.n)}</span><span class="fk-c" aria-hidden="true">${c.items.length}</span></button>`).join('');
+const peekCard = p => p.startsWith('/') ? `<span class="pk">${img(p, '')}</span>` : `<span class="pk repo"><b><s></s><s></s><s></s></b><code>${esc(p)}</code></span>`;
+const CHECK = '<svg class="fk-seen" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7"/><path d="M4.8 8.3 7 10.5l4.2-4.6"/></svg>';
+// the same column twice: on the fork, and again on the map at the end
+const colHTML = (c, cls, attrs, label, tail) => `<button class="fk${cls}" type="button" data-col="${c.id}" ${attrs} aria-label="${esc(label)}"><i class="fk-dot" aria-hidden="true"></i><span class="fk-stack" aria-hidden="true">${PEEK[c.id].map(peekCard).join('')}</span><span class="fk-t"><span class="fk-n">${esc(c.n)}</span><span class="fk-c" aria-hidden="true">${c.items.length}</span>${tail}</span></button>`;
+$('#cols').innerHTML = COLS.map(c => colHTML(c, '', `id="col-${c.id}" aria-pressed="false" aria-controls="stage"`, `${c.n}, ${c.items.length} ${c.unit}`, '')).join('');
 $('#rail').innerHTML = COLS.map(c => `<g class="st" data-c="${c.id}"><path class="st-out" pathLength="1"/><path class="st-back" pathLength="1"/></g>`).join('');
-$('#pf').innerHTML = COLS.map(c => `<div class="pf-l" data-c="${c.id}">${PV[c.id]}</div>`).join('');
-// the map at the end: the same four names, each with the strand that flows back into the line
-$('#mapNames').innerHTML = COLS.map(c => `<button class="mp" type="button" data-col="${c.id}"><span class="mp-n">${esc(c.n)}</span></button>`).join('');
-$('#mapSvg').innerHTML = COLS.map(c => `<g data-c="${c.id}"><path class="mp-solid" pathLength="1"/><path class="mp-dash"/></g>`).join('');
+$('#mapNames').innerHTML = COLS.map(c => colHTML(c, ' mp', '', c.n, CHECK)).join('');
+// the masks reveal the dashed strands with the same draw-on as the solid ones
+$('#mapSvg').innerHTML = `<path class="mp-trunk" pathLength="1"/>` + COLS.map(c => `<g data-c="${c.id}"><mask id="mk-${c.id}" maskUnits="userSpaceOnUse" x="-400" y="-100" width="4000" height="4000"><path class="mp-reveal" pathLength="1"/></mask><path class="mp-solid" pathLength="1"/><path class="mp-dash" mask="url(#mk-${c.id})"/></g>`).join('');
 const explored = new Set();
 
 const TILTS = [-2.5, 2, -1.8, 2.6, -2.2];
@@ -96,7 +101,7 @@ function itemHTML(w, i){
 }
 
 // the stage: on desktop it pins and scrolling steps through the open collection; on phones and for reduced motion the same items simply stack
-const stageW = $('#stageWrap'), stage = $('#stage'), deck = $('#deck'), stgLine = $('#stgLine'), stgDots = $('#stgDots'), stgCount = $('#stgCount'), railOut = $('.rail-out');
+const stageW = $('#stageWrap'), stageOut = $('.stage-out'), stage = $('#stage'), deck = $('#deck'), stgLine = $('#stgLine'), stgDots = $('#stgDots'), stgCount = $('#stgCount'), railOut = $('.rail-out');
 const pinnedMQ = matchMedia('(min-width: 761px) and (prefers-reduced-motion: no-preference)');
 let colNow = null, items = [], dots = [], active = -2, mode = null;
 const playIn = (box, on) => $$('video', box).forEach(v => { if (on && !reduce && !v.closest('[hidden]')) v.play().catch(() => {}); else v.pause(); });
@@ -117,7 +122,7 @@ function paintStage(cid){
 function layoutStage(){
   const m = pinnedMQ.matches ? 'pinned' : 'stacked';
   // stacked, the global trail runs on through the rows; pinned, the stage draws its own stretch of it
-  if (m === 'stacked') railOut.dataset.o = '20'; else delete railOut.dataset.o;
+  if (m === 'stacked'){ railOut.dataset.o = '20'; stageOut.dataset.o = '31'; } else { delete railOut.dataset.o; delete stageOut.dataset.o; }
   if (m === mode) return;
   mode = m; active = -2; stackIO.disconnect();
   stageW.classList.toggle('pinned', m === 'pinned');
@@ -147,9 +152,8 @@ function toStep(i, behavior = reduce ? 'auto' : 'smooth'){
 }
 // user: false for the preselection on load, which leaves all four strands out
 function selectCol(cid, user = true){
-  $$('.fk').forEach(b => { const on = b.dataset.col === cid; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+  $$('.fk', cols).forEach(b => { const on = b.dataset.col === cid; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
   $$('.st').forEach(g => { g.classList.toggle('on', g.dataset.c === cid); g.classList.toggle('gone', user && g.dataset.c !== cid); });
-  paintPv(cid);
   if (cid === colNow) return;
   playIn(deck, false); paintStage(cid); layoutStage();
   requestAnimationFrame(build);
@@ -170,52 +174,87 @@ deck.addEventListener('click', e => {
 // tabbing into an item that isn't showing brings its step into view
 deck.addEventListener('focusin', e => { const a = e.target.closest('.itm'); if (a && mode === 'pinned' && items.indexOf(a) !== active) toStep(items.indexOf(a), 'instant'); });
 
-// the fork: the line splits into four strands that each end at a name; the chosen one carries on to the stage.
+// the fork: the line splits at a junction into four strands that each land on a column; the chosen one carries on to the stage.
 // At the end the four rejoin as a map: strands you walked are solid, the rest dashed.
-const rail = $('#rail'), shelf = $('#shelf'), pf = $('#pf'), cols = $('#cols');
-const mapEl = $('#map'), mapSvg = $('#mapSvg'), mapK = $('#mapK');
+const rail = $('#rail'), shelf = $('#shelf'), cols = $('#cols');
+const mapEl = $('#map'), mapStage = $('#mapStage'), mapSvg = $('#mapSvg'), mapK = $('#mapK'), mapTrunk = $('.mp-trunk', mapSvg);
+const narrow = () => innerWidth <= 760;
 const centre = (el, box) => { const r = el.getBoundingClientRect(); return {x:r.left + r.width/2 - box.left, y:r.top + r.height/2 - box.top}; };
-// a strand ends just left of its name, where the name's dot sits
-const dotOf = (btn, box) => { const r = btn.getBoundingClientRect(); return {x:r.left - box.left - 14, y:r.top + r.height/2 - box.top}; };
-const FORK = COLS.map((c, i) => { const g = $(`.st[data-c=${c.id}]`); return {c, seed:i + 1, g, out:$('.st-out', g), back:$('.st-back', g), btn:$(`.fk[data-col=${c.id}]`)}; });
-const MAP = COLS.map((c, i) => { const g = $(`g[data-c=${c.id}]`, mapSvg); return {c, seed:i + 11, solid:$('.mp-solid', g), dash:$('.mp-dash', g), btn:$(`.mp[data-col=${c.id}]`)}; });
-let forkJ, forkG, mapJ;
+const FORK = COLS.map((c, i) => { const g = $(`.st[data-c=${c.id}]`); return {c, seed:i + 1, g, out:$('.st-out', g), back:$('.st-back', g), btn:$(`.fk[data-col=${c.id}]`, cols), o:0, b:0}; });
+const MAP = COLS.map((c, i) => { const g = $(`g[data-c=${c.id}]`, mapSvg); return {c, seed:i + 11, solid:$('.mp-solid', g), dash:$('.mp-dash', g), reveal:$('.mp-reveal', g), btn:$(`.fk[data-col=${c.id}]`, $('#mapNames')), p:0}; });
+let forkJ, forkG, forkTrail, mapJ, mapT = {p:0};
+// handle lengths (start, end) as a share of the drop; strand() lengthens them where a strand travels far sideways. Phones are nearly vertical
+const reach = (mirror = false) => narrow() ? (mirror ? [0.3, .55] : [.55, .3]) : [.4, .4];
+// a strand runs straight down the edge of its column, past the name, and only then curves away (phones: names are rows, so it just leaves the dot)
+// phones: strands come into a name at a slight angle, so each clears the name above it (the leg leaves at the same angle)
+const lean = () => narrow() ? .3 : 0;
+const legDrop = (btn, q, box) => narrow() ? 0 : btn.getBoundingClientRect().bottom - box.top + 12 - q.y;
 
 // the junction and the exit are the .rail-in / .rail-out waypoints, which the global trail passes through too, so the joins coincide
 function layoutFork(){
   const sr = shelf.getBoundingClientRect(), j = centre($('.rail-in', shelf), sr), g = centre($('.rail-out', shelf), sr);
+  FORK.forEach(s => s.q = centre($('.fk-dot', s.btn), sr));
+  const len = sharedHandle(FORK.map(s => [j, s.q]), reach()[0]);
   FORK.forEach(s => {
-    const q = s.q = dotOf(s.btn, sr), t = lean(s.seed);
-    s.out.setAttribute('d', strand(j, q, s.seed, 0, t));
-    s.back.setAttribute('d', strand(q, g, s.seed, t, 0));
+    s.out.setAttribute('d', strand(j, s.q, s.seed, ...reach(), 0, 0, lean(), 'a', len));
+    s.back.setAttribute('d', strand(s.q, g, s.seed, ...reach(), legDrop(s.btn, s.q, sr), lean()));
   });
   rail.setAttribute('viewBox', `0 0 ${shelf.clientWidth} ${shelf.clientHeight}`);
   forkJ = j; forkG = g;
 }
+// the map's trunk is its own stretch of the line down the gutter (it pins with the stage); the strands converge where the global trail picks up again
 function layoutMap(){
-  const mr = mapEl.getBoundingClientRect(), j = centre($('.map-j', mapEl), mr);
-  MAP.forEach(m => { const q = m.q = dotOf(m.btn, mr), d = strand(q, j, m.seed, lean(m.seed) - .22, 0, .3, .5); m.solid.setAttribute('d', d); m.dash.setAttribute('d', d); });
-  mapSvg.setAttribute('viewBox', `0 0 ${mapEl.clientWidth} ${mapEl.clientHeight}`);
+  mapEl.classList.toggle('pinned', pinnedMQ.matches);
+  const mr = mapStage.getBoundingClientRect(), j = centre($('.map-jl', mapStage), mr);
+  MAP.forEach(m => m.q = centre($('.fk-dot', m.btn), mr));
+  MAP.forEach(m => m.drop = legDrop(m.btn, m.q, mr));
+  const len = sharedHandle(MAP.map(m => [m.q, j, m.drop]), reach(true)[1]);
+  MAP.forEach(m => {
+    const d = strand(m.q, j, m.seed, ...reach(true), m.drop, narrow() ? -0.22 : 0, 0, 'b', len);
+    [m.solid, m.dash, m.reveal].forEach(p => p.setAttribute('d', d));
+  });
+  mapTrunk.setAttribute('d', `M${j.x.toFixed(1)} 0V${j.y.toFixed(1)}`);
+  mapSvg.setAttribute('viewBox', `0 0 ${mapStage.clientWidth} ${mapStage.clientHeight}`);
   mapJ = j;
 }
 // strands draw as the trail's reading line passes them; an undrawn stroke still shows its round cap, so it hides until it has length
 const reading = box => reduce ? 1e9 : innerHeight*.64 - box.getBoundingClientRect().top;
 const along = (read, a, b) => cl((read - a)/(b - a));
 const setDraw = (path, v) => { path.style.setProperty('--p', v.toFixed(3)); path.style.visibility = v > .002 ? '' : 'hidden'; };
+// ease a drawn share toward its target the way the trail does; true while still moving
+const chase = (o, k, to) => { o[k] = reduce || Math.abs(to - o[k]) < .002 ? to : o[k] + (to - o[k])*.2; return o[k] !== to; };
+// one continuous stroke: the strands start only once the line before them has arrived at the junction, and each leg starts where the last ended
 function forkFrame(){
-  const read = reading(shelf);
-  FORK.forEach(s => { setDraw(s.out, along(read, forkJ.y, s.q.y)); setDraw(s.back, along(read, s.q.y, forkG.y)); s.btn.classList.toggle('lit', read > s.q.y - 30); });
+  const read = reading(shelf), open = reduce || !forkTrail || forkTrail.len - forkTrail.shown < 1.5;
+  let moving = false;
+  FORK.forEach(s => {
+    moving = chase(s, 'o', open ? along(read, forkJ.y, s.q.y) : 0) || moving;
+    moving = chase(s, 'b', s.o > .985 ? along(read, s.q.y, forkG.y) : 0) || moving;
+    setDraw(s.out, s.o); setDraw(s.back, s.b); s.btn.classList.toggle('lit', s.o > .97);
+  });
+  return moving;
 }
+// the same, mirrored: the line comes down the gutter to the convergence, then the strands grow out of it to their columns
+// (a strand's path runs column to junction, so a negative offset reveals it from the junction end)
+const GROW = 180;
 function mapFrame(){
-  const read = reading(mapEl);
-  MAP.forEach(m => { const v = along(read, m.q.y, mapJ.y); setDraw(m.solid, v); m.dash.style.opacity = v.toFixed(3); m.btn.classList.toggle('lit', read > m.q.y - 30); });
+  const r = mapEl.getBoundingClientRect(), vh = innerHeight, hold = mapEl.offsetHeight - mapStage.offsetHeight;
+  let tip = reduce ? 1e9 : vh*.64 - r.top;
+  // pinned, the hold is spent drawing: the tip runs on through the convergence and the growth of the strands
+  if (!reduce && mapEl.classList.contains('pinned') && r.top < 0) tip = vh*.64 + (mapJ.y + GROW - vh*.64)*cl(-r.top/(hold*.6));
+  let moving = chase(mapT, 'p', along(tip, 0, mapJ.y));
+  setDraw(mapTrunk, mapT.p);
+  MAP.forEach(m => {
+    moving = chase(m, 'p', mapT.p > .985 ? along(tip, mapJ.y, mapJ.y + GROW) : 0) || moving;
+    [m.solid, m.reveal].forEach(p => setDraw(p, m.p));
+    m.btn.classList.toggle('lit', m.p > .97);
+  });
+  return moving;
 }
 
-// hover or focus: that strand thickens, the others recede, and the shared preview develops its collection
-function paintPv(cid){ $$('.pf-l', pf).forEach(l => l.classList.toggle('on', l.dataset.c === cid)); }
+// hover or focus: that strand thickens, the others recede, and the top card of its stack develops
 function hot(cid){
   FORK.forEach(s => [s.btn, s.g].forEach(el => { el.classList.toggle('hot', s.c.id === cid); el.classList.toggle('dim', !!cid && s.c.id !== cid); }));
-  paintPv(cid || colNow);
 }
 cols.addEventListener('pointerover', e => { const b = e.target.closest('.fk'); if (b) hot(b.dataset.col); });
 cols.addEventListener('pointerleave', () => hot(null));
@@ -427,6 +466,7 @@ function build(){
   pts.forEach(p => { cur.push(p); if (p.cut){ segs.push(cur); cur = []; } });
   if (cur.length) segs.push(cur);
   trails = segs.map((sg, i) => makeTrail(pair(i), sg));
+  forkTrail = trails[segs.findIndex(sg => sg[sg.length - 1].el === $('.rail-in'))];
   // how far along the first stroke the pen sits
   heroLen = 0;
   if (penPt && trails[0] && trails[0].len){ const t = trails[0], pth = t.paths[0]; let best = 1e9;
@@ -518,7 +558,8 @@ function frame(){
   const t = ease(seg(p, .18, .5)), tx = $('#nowText'); tx.style.opacity = (reduce?1:.0001+t).toString(); tx.style.transform = reduce ? 'none' : `translateY(${((1-t)*30).toFixed(1)}px)`;
   const cp = seg(p, .62, .9); $$('.n3-note').forEach(el => el.style.opacity = (reduce?1:.0001+cp).toString());
 
-  peakFrame(); forkFrame(); mapFrame(); stageFrame();
+  peakFrame(); stageFrame();
+  if (forkFrame() | mapFrame()) busy = true;
   $('#fab').classList.toggle('show', scrollY > vh*0.7);
   if (!reduce && busy) req();
 }

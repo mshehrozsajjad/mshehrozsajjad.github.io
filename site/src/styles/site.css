@@ -1224,22 +1224,23 @@ footer a{text-underline-offset:4px}
 .js .hero > .s-draw.arrived .spark{animation:sparkpop .7s var(--ease),twinkle 2.4s ease-in-out .7s infinite}
 @keyframes sparkpop{0%{opacity:0;transform:scale(.2) rotate(-40deg)}60%{opacity:1;transform:scale(1.35)}100%{opacity:1;transform:none}}
 
-/* ===== v9: the lab: a calm chooser on the line, then one pinned stage that steps through the open collection ===== */
+/* ===== v9: the lab: a fork of four collections on the line, then one pinned stage that steps through the open collection ===== */
 .lab{padding-block:120px 72px;--lift:0 2px 6px rgba(20,20,30,.06),0 46px 70px -40px rgba(20,20,30,.5)}
 .lab .chap .wrap{color:var(--signal)}
+/* heading: the chapter label above, then the headline as in the other chapters, then a quiet lead with air around it */
 .lab-head{margin-left:0}
-.lab-head h2{max-width:none;font-size:clamp(40px,4.6vw,64px);letter-spacing:-.045em}
-.lab-head .lead{margin-top:16px;font-size:clamp(18px,1.6vw,22px);max-width:none}
-/* the fork: the line splits into four strands, each ending at a big name; one shared preview develops beside them */
+.lab-head h2{max-width:none;margin:0;font-size:clamp(36px,4.2vw,56px);line-height:1.04;letter-spacing:-.04em}
+.lab-head h2 .it{font-weight:400}
+.lab-head .lead{margin-top:28px;max-width:50ch;font-size:clamp(17px,1.5vw,19px);line-height:1.6;color:var(--muted)}
+/* the fork: the line comes down the gutter, curves into a junction and fans out across the page to four columns */
 @property --r{syntax:'<number>';inherits:false;initial-value:0}
-.shelf{--ix:132px;--e:cubic-bezier(.65,0,.35,1);position:relative;margin-top:48px;padding-bottom:150px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:56px;align-items:start}
+.shelf{--e:cubic-bezier(.65,0,.35,1);--fh:230px;--nh:56px;--side:clamp(48px,6vw,72px);--gap:clamp(16px,2.4vw,32px);position:relative;margin-top:72px;padding-bottom:240px}
 .rail{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:0}
 .rail-in{left:-24px;top:0}
 .rail-out{left:-24px;top:100%}
 /* --p is the scroll draw-on, --r the retract; both end up in one dash offset */
-.st-out,.st-back,.mp-solid,.mp-dash{fill:none;stroke:var(--signal);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.st-out,.st-back,.mp-solid{stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--p,0)*(1 - var(--r,0)));transition:--r .7s var(--e),stroke-width .3s}
-.mp-dash{stroke:color-mix(in srgb,var(--signal) 55%,transparent);stroke-dasharray:2 7}
+.st-out,.st-back,.mp-solid,.mp-dash,.mp-trunk{fill:none;stroke:var(--signal);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.st-out,.st-back{stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--p,0)*(1 - var(--r,0)));transition:--r .7s var(--e),stroke-width .3s}
 .st{transition:opacity .35s}
 .st:not(.on){opacity:.6}
 .st.hot{opacity:1}
@@ -1248,36 +1249,66 @@ footer a{text-underline-offset:4px}
 .st.gone .st-out{--r:1;opacity:0;transition:--r .7s var(--e),stroke-width .3s,opacity 0s .7s}
 .st:not(.on) .st-back{--r:1}
 .st.on .st-back{transition:--r .7s var(--e) .55s,stroke-width .3s}
-.cols{position:relative;z-index:1;display:grid;justify-items:start;padding:150px 0 0 var(--ix)}
-.fk{position:relative;display:flex;align-items:flex-start;gap:12px;padding:2px 0;background:none;border:0;cursor:pointer;color:var(--ink);font:700 clamp(46px,6.4vw,92px)/1.02 var(--sans);letter-spacing:-.055em;text-align:left;opacity:.55;transition:opacity .3s}
-.fk.on,.fk.hot{opacity:1}
-.fk.dim{opacity:.3}
-.fk-c{margin-top:.3em;font:500 14px/1 var(--mono);letter-spacing:.04em;color:var(--signal)}
-.fk:focus-visible,.mp:focus-visible,.map-on:focus-visible{outline:2px solid var(--signal);outline-offset:6px;border-radius:12px}
-/* the dot where a strand meets its name; filled once chosen or explored */
-.fk::before,.mp::before{content:"";position:absolute;left:-14px;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;box-sizing:border-box;border-radius:50%;border:2px solid var(--signal);background:var(--paper);transform:scale(.4);opacity:0;transition:transform .5s var(--ease),opacity .4s,background .25s,box-shadow .4s var(--ease)}
-.fk.lit::before,.mp.lit::before{transform:none;opacity:1}
-.fk.on::before,.mp.done::before{background:var(--signal)}
-.fk.on::before{box-shadow:0 0 0 6px color-mix(in srgb,var(--signal) 16%,transparent)}
-/* one preview frame; a collection's media develops like a print: blurred, sepia and flat, then sharp and in colour */
-.pf{position:relative;align-self:center;margin:150px 0 0;aspect-ratio:16/10;border-radius:26px;overflow:hidden;background:#EDEBE4;box-shadow:var(--lift)}
-.pf-l{position:absolute;inset:0;opacity:0;transform:scale(1.05);filter:blur(8px) sepia(.9) contrast(.55) saturate(.4) brightness(1.1);transition:opacity .35s,transform .9s var(--ease),filter .6s var(--ease)}
-.pf-l.on{z-index:1;opacity:1;transform:none;filter:none}
-.pf-l img{display:block;width:100%;height:100%;object-fit:cover}
-.pf-term{display:flex;align-items:center;width:100%;height:100%;padding:0 12%;background:#15151A}
-.pf-term code{font:500 clamp(13px,1.35vw,18px)/1.9 var(--mono);color:#E9E8E2;white-space:nowrap}
-.pf-term i{display:block;margin-bottom:.5em;font-style:normal;color:#8D8C98}
-.pf-term .caret{display:inline-block;width:.5em;height:1.05em;margin-left:.4em;vertical-align:-.2em;background:#8E8CFF}
+.cols,.map-names{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 var(--gap)}
+.cols{padding:var(--fh) 0 0 var(--side)}
+/* a column: a fanned stack of three real cards, its name and a count */
+.fk{position:relative;display:block;min-width:0;padding:0;background:none;border:0;cursor:pointer;color:var(--ink);text-align:left;transition:opacity .3s}
+.fk.dim{opacity:.4}
+.fk:focus-visible{outline:2px solid var(--signal);outline-offset:10px;border-radius:18px}
+.fk-stack{position:relative;display:block;aspect-ratio:5/4;margin-bottom:14px}
+.pk{position:absolute;left:8%;bottom:0;width:80%;aspect-ratio:4/3;overflow:hidden;border-radius:14px;background:#EDEBE4;transform-origin:50% 100%;box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 9%,transparent),0 2px 4px rgba(20,20,30,.06),0 20px 32px -18px rgba(20,20,30,.5);transition:transform .7s var(--ease)}
+.pk img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.55) brightness(1.04);transition:filter .6s var(--ease)}
+.pk img[src*="in-hand"]{object-position:50% 58%}
+.pk:nth-child(1){transform:translateY(-11%) scale(.9) rotate(-1.5deg)}
+.pk:nth-child(2){transform:translateY(-5.5%) scale(.95) rotate(1.2deg)}
+/* the top card is an undeveloped print until its column is called up */
+.pk:last-child img{filter:sepia(.4) saturate(.6) contrast(.88) brightness(1.05)}
+.fk:is(.on,.hot,:focus-visible) .pk:last-child img,.mp:hover .pk:last-child img{filter:none}
+.fk:is(.hot,:focus-visible) .pk:nth-child(1),.mp:hover .pk:nth-child(1){transform:translate(-15%,-8%) scale(.96) rotate(-8deg)}
+.fk:is(.hot,:focus-visible) .pk:nth-child(2),.mp:hover .pk:nth-child(2){transform:translate(11%,-5%) scale(.97) rotate(7deg)}
+.fk:is(.hot,:focus-visible) .pk:nth-child(3),.mp:hover .pk:nth-child(3){transform:translateY(-10px)}
+/* given away has no imagery: three matching repo cards */
+.pk.repo{display:flex;flex-direction:column;justify-content:space-between;padding:12px 14px;background:#16161A;color:#E9E8E2}
+.pk.repo b{display:flex;gap:5px}
+.pk.repo s{display:block;width:7px;height:7px;border-radius:50%;background:#3A3A42}
+.pk.repo code{font:500 clamp(11px,1vw,13px)/1.2 var(--mono);letter-spacing:-.01em}
+.pk.repo code::before{content:"~/";color:#8D8C98}
+.fk-t{display:flex;align-items:flex-start;gap:8px;height:var(--nh);opacity:.62;transition:opacity .3s}
+.fk:is(.on,.hot,:focus-visible) .fk-t,.mp:not(.done) .fk-t,.mp:hover .fk-t{opacity:1}
+.fk-n{font:700 clamp(24px,2.7vw,38px)/1.05 var(--sans);letter-spacing:-.05em;white-space:nowrap}
+.fk-c{margin-top:.3em;font:500 13px/1 var(--mono);letter-spacing:.04em;color:var(--signal)}
+/* the dot where a strand lands on its column; filled once chosen or explored */
+.fk-dot{position:absolute;left:-16px;top:0;width:12px;height:12px;margin:-6px 0 0 -6px;box-sizing:border-box;border-radius:50%;border:2px solid var(--signal);background:var(--paper);transform:scale(.4);opacity:0;transition:transform .5s var(--ease),opacity .4s,background .25s,box-shadow .4s var(--ease)}
+.mp .fk-dot{top:auto;bottom:calc(var(--nh)/2);margin:0 0 -6px -6px}
+.fk.lit .fk-dot{transform:none;opacity:1}
+.fk.on .fk-dot,.mp.done .fk-dot{background:var(--signal)}
+.fk.on .fk-dot{box-shadow:0 0 0 6px color-mix(in srgb,var(--signal) 16%,transparent)}
 
-/* the map: the stage's line meets the four strands again and they flow back into one */
-.map{--ix:132px;position:relative;padding:40px 0 140px}
-.map-j{left:-24px;top:100%}
-.map-k{margin-left:var(--ix);font:500 13px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--signal)}
-.map-names{display:grid;justify-items:start;padding:28px 0 0 var(--ix)}
-.mp{position:relative;padding:4px 0;background:none;border:0;cursor:pointer;color:var(--muted);font:600 clamp(30px,3.6vw,48px)/1.1 var(--sans);letter-spacing:-.045em;text-align:left;transition:color .3s}
-.mp.done{color:var(--ink)}
-.map-on{display:flex;align-items:center;gap:8px;margin:36px 0 0 var(--ix);padding:0;background:none;border:0;cursor:pointer;color:var(--soft);font:500 17px/1.2 var(--sans)}
-@media (hover:hover) and (pointer:fine){.mp:hover,.map-on:hover{color:var(--ink)}}
+/* the map: a short pinned moment. The line comes down the gutter, the four strands grow out of it, and you choose where next */
+.map{--nh:56px;--side:clamp(48px,6vw,72px);--gap:clamp(16px,2.4vw,32px);position:relative}
+.map-stage{--mt:clamp(72px,12svh,130px);position:relative;min-height:min(100svh,780px);padding-top:var(--mt)}
+.map-jl,.map-j{left:-24px;bottom:72px}
+.map-head{padding-left:var(--side)}
+.map-q{font:700 clamp(36px,4.2vw,56px)/1.04 var(--sans);letter-spacing:-.045em}
+.map-k{margin-top:14px;font:500 13px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--signal)}
+.map-names{padding:56px 0 0 var(--side)}
+.mp-trunk{stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--p,0))}
+.mp-solid,.mp-reveal{stroke-dasharray:1;stroke-dashoffset:calc(var(--p,0) - 1)}
+.mp-reveal{fill:none;stroke:#fff;stroke-width:8;stroke-linecap:round}
+.mp-dash{stroke:color-mix(in srgb,var(--signal) 55%,transparent);stroke-dasharray:2 7}
+.map:not(.pinned) .mp-trunk{display:none}
+/* walked columns settle back: a quiet stack, a check beside the name */
+.mp.done .fk-stack{opacity:.4;filter:grayscale(.7)}
+.mp.done .fk-n{color:var(--muted)}
+.fk-seen{display:block;width:16px;height:16px;margin-top:.55em;fill:none;stroke:var(--signal);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;opacity:0;transform:scale(.6);transition:opacity .4s,transform .5s var(--ease)}
+.fk-c + .fk-seen{display:none}
+.mp.done .fk-c{display:none}
+.mp.done .fk-seen{display:block;opacity:1;transform:none}
+.map-on{position:absolute;right:0;top:calc(var(--mt) + 24px);display:flex;align-items:center;gap:8px;padding:0;background:none;border:0;cursor:pointer;color:var(--soft);font:500 17px/1.2 var(--sans)}
+.map-on:focus-visible{outline:2px solid var(--signal);outline-offset:6px;border-radius:12px}
+@media (hover:hover) and (pointer:fine){.map-on:hover{color:var(--ink)}}
+.map.pinned{height:170svh}
+.map.pinned .map-stage{position:sticky;top:0;height:100svh;min-height:0}
 
 /* the stage: rows when stacked (phones, reduced motion), a pinned scrubber on desktop */
 .stage-wrap{position:relative}
@@ -1360,14 +1391,19 @@ footer a{text-underline-offset:4px}
 @media (max-width:1100px){.itm{gap:48px}}
 @media (max-width:760px){
   .lab{padding-block:96px 56px}
-  .lab-head h2{font-size:34px}
-  .shelf,.map{--ix:44px}
-  .shelf{margin-top:40px;padding-bottom:110px;grid-template-columns:minmax(0,1fr)}
-  .cols{padding-top:104px}
-  .pf{display:none}
-  .fk{font-size:clamp(38px,11.5vw,52px)}
-  .mp{font-size:clamp(26px,8vw,34px)}
-  .map{padding-bottom:100px}
+  .lab-head h2{font-size:36px}
+  .lab-head .lead{margin-top:22px}
+  .shelf,.map{--side:44px;--nh:64px}
+  .shelf{margin-top:48px;padding-bottom:110px}
+  .cols,.map-names{grid-template-columns:minmax(0,1fr);gap:0}
+  .cols{padding:104px 0 0 var(--side)}
+  .fk-stack{display:none}
+  .fk-dot{top:auto;bottom:calc(var(--nh)/2);margin:0 0 -6px -6px}
+  .fk-n{font-size:clamp(38px,11.5vw,52px)}
+  .fk[data-col=hardware]{order:9}
+  .map-stage{padding:64px 0 150px}
+  .map-names{padding:28px 0 0 var(--side)}
+  .map-on{position:static;margin:32px 0 0 var(--side)}
   .deck{gap:84px;padding-top:32px}
   .itm,.itm:nth-child(even){grid-template-columns:minmax(0,1fr);gap:26px}
   .itm:nth-child(even) .it-card{order:0}
@@ -1376,4 +1412,4 @@ footer a{text-underline-offset:4px}
   .m-term{padding:16px 20px 28px}
   .m-duo figure + figure{margin-top:28px}
 }
-@media (prefers-reduced-motion:reduce){.st,.st-out,.st-back,.mp-solid,.fk,.fk::before,.mp::before,.pf-l{transition:none!important}}
+@media (prefers-reduced-motion:reduce){.st,.st-out,.st-back,.fk,.fk-dot,.pk,.pk img,.fk-seen{transition:none!important}}
