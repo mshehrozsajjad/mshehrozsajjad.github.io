@@ -1,0 +1,96 @@
+/* ===== /ai: the product lab, as a dashboard =====
+   Cooler paper and white cards, like the tools these products are. Status reads in colour (live green, stopped grey),
+   the accent word is highlighted rather than set in italic, and the pipeline from idea to customers is the one chart. */
+:root.pg-ai{--paper:#F3F4F7; --raised:#FFFFFF; --ink:#14151A; --muted:#5E6270; --line:#E1E3EA; --signal:#4F46E5; --signal-soft:#E8E7FD; --live:#0E9F6E; --live-soft:#DDF5EB; --stop:#8A8F9C; --card:#FFFFFF}
+@media (prefers-color-scheme:dark){:root.pg-ai:not([data-theme="light"]){--paper:#0D0E12; --raised:#16171D; --ink:#EEF0F5; --muted:#9BA0AE; --line:#262833; --signal:#8B85FF; --signal-soft:#221F4A; --live:#34D399; --live-soft:#0E2E23; --stop:#7C8190; --card:#15161C}}
+:root.pg-ai[data-theme="dark"]{--paper:#0D0E12; --raised:#16171D; --ink:#EEF0F5; --muted:#9BA0AE; --line:#262833; --signal:#8B85FF; --signal-soft:#221F4A; --live:#34D399; --live-soft:#0E2E23; --stop:#7C8190; --card:#15161C}
+.pg-ai body::after{opacity:.04}
+.pg-ai .it{font-family:var(--sans);font-style:normal;font-weight:600;background:linear-gradient(transparent 58%,var(--signal-soft) 58%,var(--signal-soft) 92%,transparent 92%);padding:0 .06em}
+
+/* ---------- hero: words on the left, the lab at a glance on the right ---------- */
+.ai-hero > .wrap{grid-template-columns:minmax(0,1fr) minmax(0,420px);align-items:center}
+.kpis{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;display:grid;gap:6px;box-shadow:0 1px 2px rgba(20,22,30,.04),0 18px 36px -28px rgba(20,22,30,.35)}
+.kpi b{font:600 clamp(34px,3.4vw,46px)/1 var(--sans);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.kpi span{font-size:var(--fs-xs);color:var(--muted);line-height:1.35}
+.kpi.hot{background:var(--signal);border-color:var(--signal);color:#fff}
+.kpi.hot span{color:rgba(255,255,255,.82)}
+.kpi-spr{position:absolute;right:-30px;bottom:-110px;--h:150px}
+
+/* ---------- the dashboard ---------- */
+.dash-bar{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);margin-bottom:var(--sp-3)}
+.filters{display:inline-flex;flex-wrap:wrap;gap:6px;padding:5px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+.filters button{border:0;background:none;border-radius:8px;padding:8px 14px;font:500 var(--fs-s)/1 var(--sans);color:var(--muted);cursor:pointer;display:inline-flex;gap:8px;align-items:center;transition:background .2s,color .2s}
+.filters button i{font-style:normal;font-size:12px;color:inherit;opacity:.7}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.dash-note{transform:rotate(-4deg)}
+.pcs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.pc{position:relative;display:grid;gap:12px;align-content:start;text-align:left;padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--card);color:var(--ink);font:inherit;cursor:pointer;box-shadow:0 1px 2px rgba(20,22,30,.04),0 22px 44px -34px rgba(20,22,30,.4);transition:transform .3s var(--ease),box-shadow .3s var(--ease),opacity .3s,filter .3s}
+.pc:hover{transform:translateY(-4px);box-shadow:0 1px 2px rgba(20,22,30,.05),0 30px 54px -30px rgba(20,22,30,.45)}
+.pc.off{opacity:.28;filter:grayscale(1);pointer-events:none}
+.pc-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.pc-top b{font:600 20px/1.2 var(--sans);letter-spacing:-.02em}
+.pill{display:inline-flex;align-items:center;gap:6px;font:600 12px/1 var(--sans);padding:6px 10px;border-radius:999px;background:var(--live-soft);color:var(--live)}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.pill.live::before{animation:pulse 1.8s ease-out infinite}
+.pill.stopped{background:color-mix(in srgb,var(--stop) 16%,transparent);color:var(--stop)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--live) 50%,transparent)}100%{box-shadow:0 0 0 7px transparent}}
+.pc-thumb{display:block;border-radius:10px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/9;background:var(--paper)}
+.pc-thumb img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.pc-line{font-size:var(--fs-s);line-height:1.45;color:var(--muted);min-height:3em}
+.pc-metric{font:600 var(--fs-s)/1.3 var(--sans)}
+.pc-open{font:600 var(--fs-xs)/1 var(--sans);color:var(--signal);display:inline-flex;align-items:center;gap:6px}
+/* the pipeline: five stages, filled as far as the idea got */
+.pipe{position:relative;list-style:none;margin:6px 0 4px;padding:0;display:flex;justify-content:space-between}
+.pipe::before,.pipe::after{content:"";position:absolute;left:5px;right:5px;top:5px;height:2px;border-radius:2px;background:var(--line)}
+.pipe::after{right:auto;width:calc((100% - 10px)*var(--to));background:var(--signal)}
+.pipe li{position:relative;z-index:1;width:12px;height:12px;border-radius:50%;background:var(--card);border:2px solid var(--line)}
+.pipe li.on{background:var(--signal);border-color:var(--signal)}
+.pipe li.tip{box-shadow:0 0 0 4px var(--signal-soft)}
+.pipe li.x{border-color:var(--stop);background:var(--card)}
+.pipe li.x::after{content:"×";position:absolute;inset:-6px 0 0;text-align:center;font:600 12px/1 var(--sans);color:var(--stop)}
+.pipe li span{position:absolute;top:18px;left:50%;transform:translateX(-50%);font:500 10.5px/1 var(--sans);color:var(--muted);white-space:nowrap}
+.pipe li:first-child span{left:0;transform:none}.pipe li:last-child span{left:auto;right:0;transform:none}
+.pc .pipe{margin-bottom:18px}
+
+/* the sheet: a product's whole story, over the dashboard */
+.sheet{width:min(1040px,calc(100% - 32px));max-height:calc(100svh - 48px);padding:0;border:1px solid var(--line);border-radius:22px;background:var(--card);color:var(--ink);box-shadow:0 40px 120px -30px rgba(10,12,20,.55)}
+.sheet::backdrop{background:rgba(12,14,22,.45);backdrop-filter:blur(3px)}
+.sheet[open]{animation:sheetIn .4s var(--ease)}
+@keyframes sheetIn{from{opacity:0;transform:translateY(24px) scale(.98)}}
+.sheet .x{position:absolute;right:14px;top:14px;z-index:2}
+.sh-in{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:var(--sp-4);padding:var(--sp-4)}
+.sh-media{position:relative}
+.sh-media img,.sh-media video{display:block;width:100%}
+.sh-media .m-shot,.sh-media .m-film{border-radius:14px}
+.sh-why{position:absolute;left:10px;bottom:-40px}
+.sh-body{display:grid;gap:12px;align-content:start}
+.sh-body h3{font-size:clamp(28px,3vw,40px)}
+.sh-line{font:500 var(--fs-lead)/1.4 var(--sans)}
+.sh-body > p:not(.kicker,.sh-line){color:var(--muted)}
+.sh-body .pipe{margin:8px 0 22px}
+
+/* ---------- the playbook ---------- */
+.play{list-style:none;padding:0;display:grid;gap:10px;max-width:760px}
+.play li{border:1px solid var(--line);border-radius:14px;background:var(--card);transition:border-color .2s}
+.play li.on{border-color:var(--signal)}
+.play button{width:100%;display:flex;align-items:center;gap:16px;padding:16px 20px;background:none;border:0;cursor:pointer;text-align:left;font:600 clamp(18px,1.6vw,22px)/1.2 var(--sans);color:var(--ink);letter-spacing:-.015em}
+.pl-n{font:500 12px/1 var(--mono);color:var(--signal)}
+.pl-b{padding:0 20px 18px 56px;color:var(--muted);display:grid;gap:6px}
+.pl-where{font-size:var(--fs-xs)}
+.pl-where b{color:var(--ink)}
+
+@media (max-width:1000px){.pcs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){
+  .ai-hero > .wrap{grid-template-columns:minmax(0,1fr)}
+  .kpi-spr{display:none}
+  .pcs{grid-template-columns:minmax(0,1fr)}
+  .dash-note{display:none}
+  .sh-in{grid-template-columns:minmax(0,1fr);padding:var(--sp-3);gap:var(--sp-4)}
+  .pl-b{padding-left:20px}
+}
+.pl-b[hidden]{display:none}
+/* on a card only the stage it reached is named */
+.pc .pipe li:not(.tip) span{display:none}
+.pc .pipe li.tip span{color:var(--signal);font-weight:600}
+.sh-body .proofs{display:flex;flex-wrap:wrap;gap:4px 18px}

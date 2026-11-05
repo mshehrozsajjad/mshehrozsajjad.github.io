@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/src/styles/ending.css">
 <link rel="stylesheet" href="/src/styles/grain.css">
 <link rel="stylesheet" href="/src/styles/pages.css">
+<link rel="stylesheet" href="/src/styles/ai.css">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -32,17 +33,20 @@
   </div>
 </header>
 
-<section class="hero p-hero sub" aria-labelledby="h1">
+<section class="hero p-hero sub ai-hero" aria-labelledby="h1">
   <div class="wrap">
     <div class="c hero-copy">
       <p class="hi-line"><span class="hand">hi <span data-who>stranger</span>,</span> the AI products<span data-if-co hidden>, for the team at <span data-co></span></span>.</p>
       <h1 id="h1" tabindex="-1">AI products, in front of <span class="it">real people.</span></h1>
-      <p class="lead">I build applied AI products on my own, then learn to sell them: ads, SEO and automated follow-ups. Four are live.</p>
-      <div class="hero-actions"><a class="btn" href="#work">See the work <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a><a class="act" href="#contact">Book a call <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></div>
+      <p class="lead">I build applied AI products on my own, then learn to sell them: ads, SEO and automated follow-ups.</p>
+      <div class="hero-actions"><a class="btn" href="#work">Open the lab <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a><a class="act" href="#playbook">How I sell them <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a></div>
     </div>
-    <div class="hero-side role-side">
-      <figure class="sprite-fig s-role c" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" aria-hidden="true" width="248" height="481"></figure>
-      
+    <div class="kpis c" aria-label="The lab at a glance">
+      <div class="kpi"><b data-count="5">5</b><span>products launched</span></div>
+      <div class="kpi"><b data-count="4">4</b><span>live now</span></div>
+      <div class="kpi"><b data-count="2">2</b><span>with customers</span></div>
+      <div class="kpi hot"><b>50</b><span>signups in RoomRush’s first 10 minutes</span></div>
+      <img class="sprite kpi-spr" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" aria-hidden="true" width="248" height="481">
     </div>
   </div>
   <span class="way wd" data-o="2" data-v style="left:var(--gut);top:calc(100% - 40px)"></span>
@@ -53,67 +57,153 @@
     <span class="way" data-o="3" data-v style="left:-24px;top:0"></span>
     <div class="sec-head c">
       <h2 id="h-work" data-reveal="words">From idea <span class="it">to customers.</span></h2>
-      <p class="lead" data-reveal>In the order I’d show them to you: the ones with customers first.</p>
+      <p class="lead" data-reveal>Each card shows how far the idea got. Open one for the whole story.</p>
     </div>
-    <article class="wk c">
-      <span class="dot" data-o="4" data-v></span>
-      <div class="wk-media" data-reveal="print" style="--r:-1.2deg"><div class="m-shot"><img src="/assets/shots/slaptastic.webp" alt="The Slaptastic homepage" loading="lazy"></div><span class="hand wk-note" aria-hidden="true">the same playbook</span></div>
-      <div class="wk-text">
-        <p class="kicker" data-reveal>Slaptastic</p>
-        <h3 data-reveal="words">Give it a product photo and it makes creator-style video ads.</h3>
-        <p class="wk-meta" data-reveal>Live · customers from my own ads</p>
-        <p data-reveal>I ran the ads for it myself and they brought in customers. Once people had bought, n8n flows sent them Stripe offers to come back or upgrade.</p>
-        <div class="wk-extra" data-reveal><a class="act" href="https://getslaptastic.com" target="_blank" rel="noopener">getslaptastic.com <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a><p class="wk-taught"><span>What it taught me</span>How to bring customers back with n8n flows that send Stripe offers.</p><ul class="proofs"><li>Generative video</li><li>n8n</li><li>Stripe</li></ul></div>
+    <div class="dash c">
+      <div class="dash-bar">
+        <div class="filters" role="group" aria-label="Show">
+          <button type="button" data-f="all" aria-pressed="true">All <i>5</i></button>
+          <button type="button" data-f="customers" aria-pressed="false">With customers <i>2</i></button>
+          <button type="button" data-f="live" aria-pressed="false">Live <i>4</i></button>
+          <button type="button" data-f="stopped" aria-pressed="false">Stopped <i>1</i></button>
+        </div>
+        <span class="hand dash-note" aria-hidden="true">open one</span>
       </div>
-    </article>
-    <article class="wk flip c">
-      <span class="dot" data-o="5" data-v></span>
-      <div class="wk-media" data-reveal="print" style="--r:1.2deg"><div class="m-film"><video src="/assets/media/vorsprech-film.mp4" poster="/assets/media/vorsprech-film-poster.webp" muted loop playsinline preload="none" aria-label="Vorsprech: a spoken exam task with the avatar examiner"></video></div><span class="hand wk-note" aria-hidden="true">for my wife</span></div>
-      <div class="wk-text">
-        <p class="kicker" data-reveal>Vorsprech</p>
-        <h3 data-reveal="words">Practice for the spoken German medical exam, on Beyond Presence avatars.</h3>
-        <p class="wk-meta" data-reveal>Live · B1 pilot customers</p>
-        <p data-reveal>My wife was preparing for the German medical language exam. Vorsprech runs the spoken part and scores it against the exam rubric. You practise with an examiner who has a face.</p>
-        <div class="wk-extra" data-reveal><a class="act" href="https://vorsprech.com" target="_blank" rel="noopener">vorsprech.com <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a><ul class="proofs"><li>Real-time avatars</li><li>Speech</li></ul></div>
+      <div class="pcs" id="pcs">
+      <button class="pc live" type="button" data-p="slaptastic" data-tags="customers live" aria-haspopup="dialog" data-reveal="print" style="--r:0deg">
+        <span class="pc-top"><b>Slaptastic</b><span class="pill live">Live</span></span>
+        <span class="pc-thumb"><img src="/assets/shots/slaptastic.webp" alt="" loading="lazy"></span>
+        <span class="pc-line">Give it a product photo and it makes creator-style video ads.</span>
+        <ol class="pipe" style="--to:1.0" aria-label="How far it got: Customers"><li class="on"><span>Idea</span></li><li class="on"><span>Brand</span></li><li class="on"><span>Built</span></li><li class="on"><span>Launched</span></li><li class="on tip"><span>Customers</span></li></ol>
+        <span class="pc-metric">Customers from my own ads</span>
+        <span class="pc-open" aria-hidden="true">Open <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span>
+      </button>
+      <button class="pc live" type="button" data-p="vorsprech" data-tags="customers live" aria-haspopup="dialog" data-reveal="print" style="--r:0deg">
+        <span class="pc-top"><b>Vorsprech</b><span class="pill live">Live</span></span>
+        <span class="pc-thumb"><img src="/assets/media/vorsprech-film-poster.webp" alt="" loading="lazy"></span>
+        <span class="pc-line">Practice for the spoken German medical exam, on Beyond Presence avatars.</span>
+        <ol class="pipe" style="--to:1.0" aria-label="How far it got: Customers"><li class="on"><span>Idea</span></li><li class="on"><span>Brand</span></li><li class="on"><span>Built</span></li><li class="on"><span>Launched</span></li><li class="on tip"><span>Customers</span></li></ol>
+        <span class="pc-metric">B1 pilot customers</span>
+        <span class="pc-open" aria-hidden="true">Open <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span>
+      </button>
+      <button class="pc live" type="button" data-p="myclosr" data-tags="live" aria-haspopup="dialog" data-reveal="print" style="--r:0deg">
+        <span class="pc-top"><b>myClosr</b><span class="pill live">Launched</span></span>
+        <span class="pc-thumb"><img src="/assets/shots/myclosr.webp" alt="" loading="lazy"></span>
+        <span class="pc-line">Live coaching during sales calls, then practice after them.</span>
+        <ol class="pipe" style="--to:0.75" aria-label="How far it got: Launched"><li class="on"><span>Idea</span></li><li class="on"><span>Brand</span></li><li class="on"><span>Built</span></li><li class="on tip"><span>Launched</span></li><li class=""><span>Customers</span></li></ol>
+        <span class="pc-metric">Live on Mac and Windows</span>
+        <span class="pc-open" aria-hidden="true">Open <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span>
+      </button>
+      <button class="pc live" type="button" data-p="npcfilter" data-tags="live" aria-haspopup="dialog" data-reveal="print" style="--r:0deg">
+        <span class="pc-top"><b>NPC Filter</b><span class="pill live">Launched</span></span>
+        <span class="pc-thumb"><img src="/assets/shots/npcfilter.webp" alt="" loading="lazy"></span>
+        <span class="pc-line">LinkedIn filled up with AI comments, so my agent built a filter overnight.</span>
+        <ol class="pipe" style="--to:0.75" aria-label="How far it got: Launched"><li class="on"><span>Idea</span></li><li class="on"><span>Brand</span></li><li class="on"><span>Built</span></li><li class="on tip"><span>Launched</span></li><li class=""><span>Customers</span></li></ol>
+        <span class="pc-metric">Free in the Chrome Web Store</span>
+        <span class="pc-open" aria-hidden="true">Open <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span>
+      </button>
+      <button class="pc stopped" type="button" data-p="roomrush" data-tags="stopped" aria-haspopup="dialog" data-reveal="print" style="--r:0deg">
+        <span class="pc-top"><b>RoomRush</b><span class="pill stopped">Stopped</span></span>
+        <span class="pc-thumb"><img src="/assets/shots/roomrush.webp" alt="" loading="lazy"></span>
+        <span class="pc-line">I needed a flat in Munich, so I built a tool to find one. It found me one.</span>
+        <ol class="pipe" style="--to:0.75" aria-label="How far it got: Launched, then stopped"><li class="on"><span>Idea</span></li><li class="on"><span>Brand</span></li><li class="on"><span>Built</span></li><li class="on tip"><span>Launched</span></li><li class="x"><span>Customers</span></li></ol>
+        <span class="pc-metric">50 signups in 10 minutes</span>
+        <span class="pc-open" aria-hidden="true">Open <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span>
+      </button>
       </div>
-    </article>
-    <article class="wk c">
-      <span class="dot" data-o="6" data-v></span>
-      <div class="wk-media" data-reveal="print" style="--r:-1.2deg"><div class="m-shot" id="clo-ai"><img src="/assets/shots/myclosr.webp" alt="The myClosr homepage" loading="lazy"><div class="m-film" hidden><video src="/assets/media/myclosr-film.mp4" poster="/assets/media/myclosr-film-poster.webp" muted loop playsinline preload="none" aria-label="myClosr coaching during a live sales call"></video></div></div><span class="hand wk-note" aria-hidden="true">learning to sell</span></div>
-      <div class="wk-text">
-        <p class="kicker" data-reveal>myClosr</p>
-        <h3 data-reveal="words">Live coaching during sales calls, then practice after them.</h3>
-        <p class="wk-meta" data-reveal>Launched · Mac and Windows</p>
-        <p data-reveal>A desktop app that coaches you while the call is happening and lets you practise afterwards.</p>
-        <div class="wk-extra" data-reveal><a class="act" href="https://myclosr.com" target="_blank" rel="noopener">myclosr.com <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a><button class="act" type="button" data-film="clo-ai" data-label="Watch the demo" aria-pressed="false"><span class="lbl">Watch the demo</span> <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button><p class="wk-taught"><span>What it taught me</span>Where I started learning to sell: ads, SEO and an automated blog.</p></div>
+    </div>
+    <template id="sheet-slaptastic">
+      <div class="sh-media"><div class="m-shot"><img src="/assets/shots/slaptastic.webp" alt="The Slaptastic homepage" loading="lazy"></div><span class="hand sh-why" aria-hidden="true">the same playbook</span></div>
+      <div class="sh-body">
+        <p class="kicker">Live · Customers from my own ads</p>
+        <h3>Slaptastic</h3>
+        <p class="sh-line">Give it a product photo and it makes creator-style video ads.</p>
+        <ol class="pipe" style="--to:1.0" aria-label="How far it got: Customers"><li class="on"><span>Idea</span></li><li class="on"><span>Brand</span></li><li class="on"><span>Built</span></li><li class="on"><span>Launched</span></li><li class="on tip"><span>Customers</span></li></ol>
+        <p>It makes creator-style video ads and images from one product photo. I ran the ads for it myself and they brought in customers.</p><p>Once people had bought, n8n flows sent them Stripe offers to come back or upgrade.</p>
+        <p class="wk-taught"><span>What it taught me</span>How to bring customers back with n8n flows that send Stripe offers.</p>
+        <ul class="proofs"><li>Generative video</li><li>n8n</li><li>Stripe</li></ul>
+        <div class="wk-extra"><a class="act" href="https://getslaptastic.com" target="_blank" rel="noopener">getslaptastic.com <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a></div>
       </div>
-    </article>
-    <article class="wk flip c">
-      <span class="dot" data-o="7" data-v></span>
-      <div class="wk-media" data-reveal="print" style="--r:1.2deg"><div class="m-shot" id="npc-ai"><img src="/assets/shots/npcfilter.webp" alt="The NPC Filter homepage" loading="lazy"><div class="m-film" hidden><video src="/assets/media/npc-film.mp4" poster="/assets/media/npc-film-poster.webp" muted loop playsinline preload="none" aria-label="The NPC Filter launch film"></video></div></div><span class="hand wk-note" aria-hidden="true">an idea from my comments</span></div>
-      <div class="wk-text">
-        <p class="kicker" data-reveal>NPC Filter</p>
-        <h3 data-reveal="words">“Keep the weird. Skip the filler.”</h3>
-        <p class="wk-meta" data-reveal>Launched · free in the Chrome Web Store</p>
-        <p data-reveal>Someone in my comments asked for a filter for AI-written posts on LinkedIn, X and Reddit, and my agent built it overnight.</p>
-        <div class="wk-extra" data-reveal><a class="act" href="https://npcfilter.com" target="_blank" rel="noopener">npcfilter.com <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a><button class="act" type="button" data-film="npc-ai" data-label="Watch the film" aria-pressed="false"><span class="lbl">Watch the film</span> <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button></div>
+    </template>
+    <template id="sheet-vorsprech">
+      <div class="sh-media"><div class="m-film"><video src="/assets/media/vorsprech-film.mp4" poster="/assets/media/vorsprech-film-poster.webp" muted loop playsinline preload="none" aria-label="Vorsprech: a spoken exam task with the avatar examiner"></video></div><span class="hand sh-why" aria-hidden="true">for my wife</span></div>
+      <div class="sh-body">
+        <p class="kicker">Live · B1 pilot customers</p>
+        <h3>Vorsprech</h3>
+        <p class="sh-line">Practice for the spoken German medical exam, on Beyond Presence avatars.</p>
+        <ol class="pipe" style="--to:1.0" aria-label="How far it got: Customers"><li class="on"><span>Idea</span></li><li class="on"><span>Brand</span></li><li class="on"><span>Built</span></li><li class="on"><span>Launched</span></li><li class="on tip"><span>Customers</span></li></ol>
+        <p>My wife was preparing for the German medical language exam. Vorsprech runs the spoken part and scores it against the exam rubric.</p><p>You practise with an examiner who has a face, because it runs on Beyond Presence avatars. B1 pilot customers signed up after her.</p>
+        
+        <ul class="proofs"><li>Real-time avatars</li><li>Speech</li></ul>
+        <div class="wk-extra"><a class="act" href="https://vorsprech.com" target="_blank" rel="noopener">vorsprech.com <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a></div>
       </div>
-    </article>
-    <article class="wk c">
-      <span class="dot" data-o="8" data-v></span>
-      <div class="wk-media" data-reveal="print" style="--r:-1.2deg"><div class="m-shot"><img src="/assets/shots/roomrush.webp" alt="The RoomRush homepage" loading="lazy"></div><span class="hand wk-note" aria-hidden="true">my own problem</span></div>
-      <div class="wk-text">
-        <p class="kicker" data-reveal>RoomRush</p>
-        <h3 data-reveal="words">I needed a flat in Munich, so I built a tool to find one. It found me one.</h3>
-        <p class="wk-meta" data-reveal>Launched, then stopped · 50 signups in 10 minutes</p>
-        <p data-reveal>My first self-initiated product, and people loved it. The unit economics made it too expensive to run as a business, so I stopped it.</p>
-        <div class="wk-extra" data-reveal><a class="act" href="https://roomrush.de" target="_blank" rel="noopener">roomrush.de <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a></div>
+    </template>
+    <template id="sheet-myclosr">
+      <div class="sh-media"><div class="m-film"><video src="/assets/media/myclosr-film.mp4" poster="/assets/media/myclosr-film-poster.webp" muted loop playsinline preload="none" aria-label="myClosr coaching during a live sales call"></video></div><span class="hand sh-why" aria-hidden="true">learning to sell</span></div>
+      <div class="sh-body">
+        <p class="kicker">Launched · Live on Mac and Windows</p>
+        <h3>myClosr</h3>
+        <p class="sh-line">Live coaching during sales calls, then practice after them.</p>
+        <ol class="pipe" style="--to:0.75" aria-label="How far it got: Launched"><li class="on"><span>Idea</span></li><li class="on"><span>Brand</span></li><li class="on"><span>Built</span></li><li class="on tip"><span>Launched</span></li><li class=""><span>Customers</span></li></ol>
+        <p>A Mac and Windows app that coaches you while the call is happening and lets you practise afterwards.</p>
+        <p class="wk-taught"><span>What it taught me</span>Where I started learning to sell: ads, SEO and an automated blog.</p>
+        <ul class="proofs"><li>Desktop app</li><li>Real-time AI</li></ul>
+        <div class="wk-extra"><a class="act" href="https://myclosr.com" target="_blank" rel="noopener">myclosr.com <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a></div>
       </div>
-    </article>
+    </template>
+    <template id="sheet-npcfilter">
+      <div class="sh-media"><div class="m-film"><video src="/assets/media/npc-film.mp4" poster="/assets/media/npc-film-poster.webp" muted loop playsinline preload="none" aria-label="The NPC Filter launch film"></video></div><span class="hand sh-why" aria-hidden="true">an idea from my comments</span></div>
+      <div class="sh-body">
+        <p class="kicker">Launched · Free in the Chrome Web Store</p>
+        <h3>NPC Filter</h3>
+        <p class="sh-line">LinkedIn filled up with AI comments, so my agent built a filter overnight.</p>
+        <ol class="pipe" style="--to:0.75" aria-label="How far it got: Launched"><li class="on"><span>Idea</span></li><li class="on"><span>Brand</span></li><li class="on"><span>Built</span></li><li class="on tip"><span>Launched</span></li><li class=""><span>Customers</span></li></ol>
+        <p>“Keep the weird. Skip the filler.” Someone in my comments asked for a filter for AI-written posts on LinkedIn, X and Reddit, and my agent built it overnight.</p><p>It runs on Cloudflare and uses Clef, Cloudflare’s typed decision model, so each check comes back as a structured verdict, fast and at low cost.</p>
+        
+        <ul class="proofs"><li>Chrome extension</li><li>Cloudflare</li><li>Clef</li></ul>
+        <div class="wk-extra"><a class="act" href="https://npcfilter.com" target="_blank" rel="noopener">npcfilter.com <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a></div>
+      </div>
+    </template>
+    <template id="sheet-roomrush">
+      <div class="sh-media"><div class="m-shot"><img src="/assets/shots/roomrush.webp" alt="The RoomRush homepage" loading="lazy"></div><span class="hand sh-why" aria-hidden="true">my own problem</span></div>
+      <div class="sh-body">
+        <p class="kicker">Stopped · 50 signups in 10 minutes</p>
+        <h3>RoomRush</h3>
+        <p class="sh-line">I needed a flat in Munich, so I built a tool to find one. It found me one.</p>
+        <ol class="pipe" style="--to:0.75" aria-label="How far it got: Launched, then stopped"><li class="on"><span>Idea</span></li><li class="on"><span>Brand</span></li><li class="on"><span>Built</span></li><li class="on tip"><span>Launched</span></li><li class="x"><span>Customers</span></li></ol>
+        <p>My first self-initiated product, built for my own flat hunt. People loved it.</p><p>The unit economics made it too expensive to run as a business, so I stopped it.</p>
+        <p class="wk-taught"><span>What it taught me</span>When to stop: a product people love still has to pay for itself.</p>
+        
+        <div class="wk-extra"><a class="act" href="https://roomrush.de" target="_blank" rel="noopener">roomrush.de <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a></div>
+      </div>
+    </template>
+    <dialog class="sheet" id="sheet" aria-labelledby="sheetTitle"><button class="x" type="button" data-sheet-close aria-label="Close">×</button><div class="sh-in" id="sheetIn"></div></dialog>
+  </div>
+</section>
+<section class="ch role-sec" id="playbook" aria-labelledby="h-playbook">
+  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">02 / The playbook</div></div>
+  <div class="wrap">
+    <span class="way" data-o="10" data-v style="left:-24px;top:0"></span>
+    <div class="sec-head c">
+      <h2 id="h-playbook" data-reveal="words">How they got <span class="it">to people.</span></h2>
+      <p class="lead" data-reveal>The same few moves, learned one product at a time.</p>
+    </div><ol class="play c" id="play">
+      <li data-reveal><button type="button" aria-expanded="true"><span class="pl-n">01</span><span class="pl-t">Name and brand</span></button>
+        <div class="pl-b"><p>Every idea gets a name and a brand before I build it.</p><p class="pl-where">seen in: <b>All five</b></p></div></li>
+      <li data-reveal><button type="button" aria-expanded="false"><span class="pl-n">02</span><span class="pl-t">Build</span></button>
+        <div class="pl-b" hidden><p>I build each one myself. NPC Filter, my agent built overnight.</p><p class="pl-where">seen in: <b>NPC Filter</b></p></div></li>
+      <li data-reveal><button type="button" aria-expanded="false"><span class="pl-n">03</span><span class="pl-t">Ads</span></button>
+        <div class="pl-b" hidden><p>I ran the ads myself, and they brought in customers.</p><p class="pl-where">seen in: <b>Slaptastic</b></p></div></li>
+      <li data-reveal><button type="button" aria-expanded="false"><span class="pl-n">04</span><span class="pl-t">SEO and a blog</span></button>
+        <div class="pl-b" hidden><p>Where I started learning to sell: ads, SEO and an automated blog.</p><p class="pl-where">seen in: <b>myClosr</b></p></div></li>
+      <li data-reveal><button type="button" aria-expanded="false"><span class="pl-n">05</span><span class="pl-t">Bring them back</span></button>
+        <div class="pl-b" hidden><p>n8n flows send Stripe offers to come back or upgrade.</p><p class="pl-where">seen in: <b>Slaptastic</b></p></div></li>
+      <li data-reveal><button type="button" aria-expanded="false"><span class="pl-n">06</span><span class="pl-t">Know when to stop</span></button>
+        <div class="pl-b" hidden><p>50 signups in 10 minutes, but the unit economics didn’t hold.</p><p class="pl-where">seen in: <b>RoomRush</b></p></div></li></ol>
   </div>
 </section>
 <section class="ch role-sec" id="at-work" aria-labelledby="h-at-work">
-  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">02 / At work, too</div></div>
+  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">03 / At work, too</div></div>
   <div class="wrap">
     <span class="way" data-o="20" data-v style="left:-24px;top:0"></span>
     <div class="sec-head c">
@@ -195,7 +285,7 @@
     </ul>
   </div>
 </footer>
-
+<script type="module" src="/src/ai/lab.js"></script>
 <script type="module" src="/src/pages.js"></script>
 </body>
 </html>
