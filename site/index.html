@@ -118,6 +118,10 @@
         <span class="way wd" data-o="6.3" data-free style="left:-78px;top:calc(100% + 40px)"></span>
       </div>
       <div class="c-team">
+        <figure class="snapcard team2" style="--r:-5deg">
+          <div class="snap-img"><img src="/assets/media/codejunkie-team-2.webp" alt="The CodeJunkie team together at a dinner" loading="lazy" width="1024" height="682"></div>
+          <figcaption><span>The whole team.</span></figcaption>
+        </figure>
         <figure class="snapcard team" style="--r:2deg">
           <div class="snap-img"><img src="/assets/media/codejunkie-team.webp" alt="The CodeJunkie team on a day out" loading="lazy" width="800" height="480"></div>
           <figcaption><span>A day away from our desks.</span></figcaption>
@@ -255,11 +259,23 @@
     <div class="shelf c" id="shelf">
       <span class="way rail-in" data-o="19.9" data-v data-cut></span>
       <svg class="rail" id="rail" aria-hidden="true"><path class="rail-line" id="railLine" pathLength="1"/></svg>
+      <span class="hand lab-note" aria-hidden="true">pick one, then scroll</span>
       <div class="cols" id="cols" role="group" aria-label="Collections"></div>
-      <span class="way rail-out" data-o="20" data-v></span>
+      <span class="way rail-out" data-v></span>
     </div>
 
-    <div class="panel c" id="labPanel" aria-live="polite"></div>
+    <div class="stage-wrap c" id="stageWrap">
+      <span class="way stage-out" data-o="31" data-v></span>
+      <div class="stage" id="stage">
+        <span class="stg-line" id="stgLine" aria-hidden="true"></span>
+        <div class="stg-head">
+          <p class="stg-col" id="stgCol"></p>
+          <div class="stg-dots" id="stgDots" role="group" aria-label="Jump to an item"></div>
+          <p class="stg-count" id="stgCount" aria-hidden="true"></p>
+        </div>
+        <div class="deck" id="deck"></div>
+      </div>
+    </div>
 
     <div class="close c" id="close">
       <span class="way wd" data-o="31.5" data-v style="left:calc(-1 * clamp(28px,5vw,60px) - 24px);top:-90px"></span>

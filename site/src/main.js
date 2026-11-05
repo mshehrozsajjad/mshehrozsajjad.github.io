@@ -9,50 +9,45 @@ if (!reduce) document.documentElement.classList.add('js');
 // the sprites are two-frame animations; people who asked for less motion get the still frame
 const calm = (root = document) => { if (reduce) $$('img.sprite', root).forEach(i => { const a = i.getAttribute('src'); if (a && a.includes('-anim.webp')) i.setAttribute('src', a.replace('/v2/', '/').replace('-anim.webp', '.webp')); }); };
 calm();
-/* ================= THE LAB: four collections on the line, one open at a time ================= */
-const STAGES = ['Idea','Brand','Built','Launched','Customers'];
+/* ================= THE LAB: four collections on the line; one is open, and scrolling steps through it ================= */
 const AR = d => `<svg class="ar" aria-hidden="true"><use href="#i-${d}"/></svg>`;
 const LAB = [
-  {id:'roomrush', n:'RoomRush', tags:'software', why:'my own problem', line:'I needed a flat in Munich, so I built a tool to find one. It found me one.', tip:'50 signups in 10 minutes',
-   steps:[1,1,1,1,'x'], label:'Launched, then stopped', shot:'/assets/shots/roomrush.webp', a:[['roomrush.de','https://roomrush.de']],
-   body:['My first self-initiated product, built for my own flat hunt. People loved it.','The unit economics made it too expensive to run as a business, so I stopped it.'], media:['The launch post','Brand']},
-  {id:'myclosr', n:'myClosr', tags:'software', why:'learning to sell', line:'Live coaching during sales calls, then practice after them.', tip:'Live on Mac and Windows',
-   steps:[1,1,1,1,0], label:'Launched', taught:'Where I started learning to sell: ads, SEO and an automated blog.', shot:'/assets/shots/myclosr.webp', a:[['myclosr.com','https://myclosr.com']], chips:['Desktop app','Real-time AI'],
-   body:['A Mac and Windows app that coaches you while the call is happening and lets you practise afterwards.'], film:'/assets/media/myclosr-film.mp4', poster:'/assets/media/myclosr-film-poster.webp', filmBtn:'Watch the demo', filmLabel:'myClosr coaching during a live sales call', media:['Brand']},
-  {id:'slaptastic', n:'Slaptastic', tags:'software', why:'the same playbook', line:'Give it a product photo and it makes creator-style video ads.', tip:'Customers from my own ads',
-   steps:[1,1,1,1,1], label:'Live, with customers', taught:'How to bring customers back with n8n flows that send Stripe offers.', shot:'/assets/shots/slaptastic.webp', a:[['getslaptastic.com','https://getslaptastic.com']], chips:['Generative video','n8n','Stripe'],
-   body:['It makes creator-style video ads and images from one product photo. I ran the ads for it myself and they brought in customers.','Once people had bought, n8n flows sent them Stripe offers to come back or upgrade.'], media:['Product photo to ad','The n8n flow','Brand']},
-  {id:'vorsprech', n:'Vorsprech', tags:'software', why:'for my wife', line:'Practice for the spoken German medical exam, on Beyond Presence avatars.', tip:'B1 pilot customers',
-   steps:[1,1,1,1,1], label:'Live, with pilot customers', film:'/assets/media/vorsprech-film.mp4', poster:'/assets/media/vorsprech-film-poster.webp', filmBtn:'Watch the demo', filmLabel:'Vorsprech: a spoken exam task with the avatar examiner', a:[['vorsprech.com','https://vorsprech.com']], chips:['Real-time avatars','Speech'],
-   body:['My wife was preparing for the German medical language exam. Vorsprech runs the spoken part and scores it against the exam rubric.','You practise with an examiner who has a face, because it runs on Beyond Presence avatars. B1 pilot customers signed up after her.'], media:['Brand']},
-  {id:'tars', n:'TARS', tags:'hardware', why:'into hardware', line:'My first robot, my first soldering, and a walk Claude learned.', tip:'Our avatars, running locally',
-   steps:[1,0,1,0,0], label:'Prototype', taught:'Our avatars can run on the edge.',  chips:['3D printing','Soldering','Local LLM'],
-   body:['Two years into building with AI, I wanted to try hardware. I 3D-printed an open-source TARS and soldered in a motion sensor, my first time holding an iron.','It kept falling over until Claude worked out a better walk. Then I gave it my face with a Beyond Presence avatar and ran the whole stack locally, LLM included, for free.'], media:['Falling, then walking','The soldering','With my avatar face']},
-  {id:'yolk', n:'Yolk', tags:'hardware films', why:'the calls I promised up top', line:'I always wanted a Pokédex, so I designed my own AI device. It makes my phone calls in German.', tip:'Waitlist open',
-   steps:[1,1,1,1,0], label:'Launched with a waitlist', shot:'/assets/media/yolk-device.webp', shotAlt:'Yolk, the device', film:'/assets/media/yolk-film.mp4', poster:'/assets/media/yolk-film-poster.webp', filmLabel:'The Yolk launch film', filmBtn:'Watch the film', tall:true, a:[['Join the waitlist','https://getyolk.tech']], chips:['Custom hardware','E-paper','Voice agents'],
-   body:['When Meta open-sourced Muse Gadgets, I designed my own device around it: custom hardware, an e-paper screen and a rotary encoder that drives an AI agent.','It calls on my behalf in German, using what I learned building real-time AI. It waits on hold, says it’s an AI and books the table. So far it has also filled in a refund form and booked water-heater maintenance.','I made its brand, its website and its launch film.'], media:['In hand','Making a call','The build']},
-  {id:'npcfilter', n:'NPC Filter', tags:'software films', why:'an idea from my comments', line:'LinkedIn filled up with AI comments, so my agent built a filter overnight.', tip:'Free in the Chrome Web Store',
-   steps:[1,1,1,1,0], label:'Launched', shot:'/assets/shots/npcfilter.webp', film:'/assets/media/npc-film.mp4', poster:'/assets/media/npc-film-poster.webp', filmLabel:'The NPC Filter launch film', filmBtn:'Watch the film', a:[['npcfilter.com','https://npcfilter.com']], chips:['Chrome extension','Cloudflare','Clef'],
-   body:['“Keep the weird. Skip the filler.” Someone in my comments asked for a filter for AI-written posts on LinkedIn, X and Reddit, and my agent built it overnight.','I designed the architecture to scale and stay cheap. It runs on Cloudflare and uses Clef, Cloudflare’s typed decision model, so each check comes back as a structured verdict, fast and at low cost.'], media:['In a LinkedIn feed']}
+  {id:'roomrush', n:'RoomRush', line:'I needed a flat in Munich, so I built a tool to find one. It found me one.', tip:'50 signups in 10 minutes',
+   label:'Launched, then stopped', shot:'/assets/shots/roomrush.webp', a:[['roomrush.de','https://roomrush.de']],
+   body:['My first self-initiated product, built for my own flat hunt. People loved it.','The unit economics made it too expensive to run as a business, so I stopped it.']},
+  {id:'myclosr', n:'myClosr', line:'Live coaching during sales calls, then practice after them.', tip:'Live on Mac and Windows',
+   label:'Launched', shot:'/assets/shots/myclosr.webp', a:[['myclosr.com','https://myclosr.com']],
+   body:['A Mac and Windows app that coaches you while the call is happening and lets you practise afterwards.'], film:'/assets/media/myclosr-film.mp4', poster:'/assets/media/myclosr-film-poster.webp', filmBtn:'Watch the demo', filmLabel:'myClosr coaching during a live sales call'},
+  {id:'slaptastic', n:'Slaptastic', line:'Give it a product photo and it makes creator-style video ads.', tip:'Customers from my own ads',
+   label:'Live', shot:'/assets/shots/slaptastic.webp', a:[['getslaptastic.com','https://getslaptastic.com']],
+   body:['It makes creator-style video ads and images from one product photo. I ran the ads for it myself and they brought in customers.']},
+  {id:'vorsprech', n:'Vorsprech', line:'Practice for the spoken German medical exam, on Beyond Presence avatars.', tip:'B1 pilot customers',
+   label:'Live', film:'/assets/media/vorsprech-film.mp4', poster:'/assets/media/vorsprech-film-poster.webp', filmLabel:'Vorsprech: a spoken exam task with the avatar examiner', a:[['vorsprech.com','https://vorsprech.com']],
+   body:['My wife was preparing for the German medical language exam. Vorsprech runs the spoken part and scores it against the exam rubric.']},
+  {id:'npcfilter', n:'NPC Filter', line:'LinkedIn filled up with AI comments, so my agent built a filter overnight.', tip:'Free in the Chrome Web Store',
+   label:'Launched', shot:'/assets/shots/npcfilter.webp', film:'/assets/media/npc-film.mp4', poster:'/assets/media/npc-film-poster.webp', filmLabel:'The NPC Filter launch film', filmBtn:'Watch the film', a:[['npcfilter.com','https://npcfilter.com']],
+   sub:'“Keep the weird. Skip the filler.”'},
+  {id:'tars', n:'TARS', line:'My first robot, my first soldering, and a walk Claude learned.', tip:'Our avatars, running locally',
+   label:'Prototype', clips:[['/assets/media/tars-falling.mp4','/assets/media/tars-falling-poster.webp','Falling, then walking'],['/assets/media/tars-my-face.mp4','/assets/media/tars-my-face-poster.webp','With my avatar face']],
+   body:['Two years into building with AI, I wanted to try hardware. I 3D-printed an open-source TARS and soldered in a motion sensor, my first time holding an iron.']},
+  {id:'yolk', n:'Yolk', line:'I always wanted a Pokédex, so I designed my own AI device. It makes my phone calls in German.', tip:'Waitlist open',
+   label:'Launched', shot:'/assets/media/yolk-device.webp', shotAlt:'Yolk, the device', film:'/assets/media/yolk-film.mp4', poster:'/assets/media/yolk-film-poster.webp', filmLabel:'The Yolk launch film', filmBtn:'Watch the film', tall:true, a:[['Join the waitlist','https://getyolk.tech']],
+   body:['When Meta open-sourced Muse Gadgets, I designed my own device around it: custom hardware, an e-paper screen and a rotary encoder that drives an AI agent.']},
+  {id:'reels', n:'reels-in-code', label:'Open source', line:'A Claude skill that takes an idea to a finished reel: hooks, shots, captions, zooms, sound effects.', body:['Built with Claude and Remotion.'], a:[['GitHub','https://github.com/mshehrozsajjad/reels-in-code']], code:['reels-in-code','Claude skill · Remotion','idea → hooks → shots → captions → reel']},
+  {id:'livekit', n:'LiveKit JS plugin', label:'Open source', line:'Brings Beyond Presence avatars to LiveKit web apps.', body:['Ported from the Python plugin.'], code:['LiveKit JS plugin','JavaScript · ported from Python','LiveKit web app → Beyond Presence avatar']},
+  {id:'n8nflows', n:'n8n workflows', label:'Free', line:'Ready-made workflows for using Beyond Presence avatars in n8n.', code:['n8n workflows','Free · ready to import','trigger → avatar → result']},
+  {id:'n8nnode', n:'Beyond Presence n8n node', label:'Published', line:'A custom node plus templates. The only verified n8n integration in the AI avatar category.', code:['Beyond Presence node','Verified on n8n','node + templates']},
+  {id:'f-yolk', n:'Yolk', label:'Launch film', line:'The launch film for Yolk, made alongside its brand and website.', film:'/assets/media/yolk-film.mp4', poster:'/assets/media/yolk-film-poster.webp', filmLabel:'The Yolk launch film', tall:true},
+  {id:'f-npc', n:'NPC Filter', label:'Launch film', line:'The launch film for NPC Filter.', film:'/assets/media/npc-film.mp4', poster:'/assets/media/npc-film-poster.webp', filmLabel:'The NPC Filter launch film'},
+  {id:'drone', n:'Drone', label:'Drone footage', line:'A beach town from above, flown and edited by me.', film:'/assets/media/drone.mp4', poster:'/assets/media/drone-poster.webp', filmLabel:'Drone shot over a beach town'},
+  {id:'photos', n:'Photos', label:'Photography', line:'A bridge from above and a lit dome, both at night.', photos:[['/assets/media/photo-bridge.webp','A bridge at night, shot from above'],['/assets/media/photo-dome.webp','A lit dome at night']]}
 ];
-
-// what I gave away, and what I filmed
-LAB.push(
-  {id:'reels', n:'reels-in-code', kind:'given', label:'Open source', line:'A Claude skill that takes an idea to a finished reel: hooks, shots, captions, zooms, sound effects.', body:['Built with Claude and Remotion.'], a:[['GitHub','https://github.com/mshehrozsajjad/reels-in-code']], code:['reels-in-code','Claude skill · Remotion','idea → hooks → shots → captions → reel']},
-  {id:'livekit', n:'LiveKit JS plugin', kind:'given', label:'Open source', line:'Brings Beyond Presence avatars to LiveKit web apps.', body:['Ported from the Python plugin.'], code:['LiveKit JS plugin','JavaScript · ported from Python','LiveKit web app → Beyond Presence avatar']},
-  {id:'n8nflows', n:'n8n workflows', kind:'given', label:'Free', line:'Ready-made workflows for using Beyond Presence avatars in n8n.', code:['n8n workflows','Free · ready to import','trigger → avatar → result']},
-  {id:'n8nnode', n:'Beyond Presence n8n node', kind:'given', label:'Published', line:'A custom node plus templates. The only verified n8n integration in the AI avatar category.', code:['Beyond Presence node','Verified on n8n','node + templates']},
-  {id:'f-yolk', n:'Yolk', kind:'film', label:'Launch film', line:'The launch film for Yolk, made alongside its brand and website.', film:'/assets/media/yolk-film.mp4', poster:'/assets/media/yolk-film-poster.webp', filmLabel:'The Yolk launch film', tall:true},
-  {id:'f-npc', n:'NPC Filter', kind:'film', label:'Launch film', line:'The launch film for NPC Filter.', film:'/assets/media/npc-film.mp4', poster:'/assets/media/npc-film-poster.webp', filmLabel:'The NPC Filter launch film'},
-  {id:'drone', n:'Drone', kind:'film', label:'Drone footage', line:'A beach town from above, flown and edited by me.', film:'/assets/media/drone.mp4', poster:'/assets/media/drone-poster.webp', filmLabel:'Drone shot over a beach town'},
-  {id:'photos', n:'Photos', kind:'film', label:'Photography', line:'A bridge from above and a lit dome, both at night.', photos:[['/assets/media/photo-bridge.webp','A bridge at night, shot from above'],['/assets/media/photo-dome.webp','A lit dome at night']]}
-);
 const BY = Object.fromEntries(LAB.map(w => [w.id, w]));
 const COLS = [
-  {id:'software', n:'Software', meta:'5 products · 4 live', items:['roomrush','myclosr','slaptastic','vorsprech','npcfilter'], sprite:'think'},
-  {id:'hardware', n:'Hardware', meta:'2 builds · 1 launched', items:['yolk','tars'], sprite:'solder'},
-  {id:'given', n:'Given away', meta:'4 tools · all free', items:['reels','livekit','n8nflows','n8nnode'], sprite:'point', blurb:'Open source and free tools, mostly for building with Beyond Presence.'},
-  {id:'films', n:'Films', meta:'2 launch films · drone · photos', items:['f-yolk','f-npc','drone','photos'], sprite:'camera', blurb:'I shoot photo and video, fly a drone and edit everything myself. That’s why Yolk and NPC Filter both launched with a film.'}
+  {id:'software', n:'Software', meta:'5 products · 4 live', items:['roomrush','myclosr','slaptastic','vorsprech','npcfilter']},
+  {id:'hardware', n:'Hardware', meta:'2 builds · 1 launched', items:['yolk','tars']},
+  {id:'given', n:'Given away', meta:'4 tools · all free', items:['reels','livekit','n8nflows','n8nnode']},
+  {id:'films', n:'Films', meta:'2 launch films · drone · photos', items:['f-yolk','f-npc','drone','photos']}
 ];
 const COL = Object.fromEntries(COLS.map(c => [c.id, c]));
 const img = (src, alt) => `<img src="${src}" alt="${esc(alt)}" loading="lazy">`;
@@ -63,110 +58,106 @@ const COVERS = {
   given: `<span class="cv cv3 blank"></span><span class="cv cv2 blank"></span><span class="cv cv1 term"><code><i>~/given-away</i>reels-in-code<br>livekit-js-plugin<br>n8n-workflows<br>n8n-node</code></span>`,
   films: `<span class="cv cv3">${img('/assets/media/photo-dome.webp','')}</span><span class="cv cv2">${img('/assets/media/npc-film-poster.webp','')}</span><span class="cv cv1">${img('/assets/media/drone-poster.webp','')}</span>`
 };
-$('#cols').innerHTML = COLS.map(c => `<button class="col" type="button" id="col-${c.id}" data-col="${c.id}" aria-expanded="false" aria-controls="labPanel">
+$('#cols').innerHTML = COLS.map(c => `<button class="col" type="button" id="col-${c.id}" data-col="${c.id}" aria-pressed="false" aria-controls="stage">
   <span class="covers" aria-hidden="true">${COVERS[c.id]}</span>
   <span class="knot-r" aria-hidden="true"></span>
-  <span class="col-n">${esc(c.n)}<span class="pm" aria-hidden="true"></span></span>
+  <span class="col-n">${esc(c.n)}</span>
   <span class="col-meta">${esc(c.meta)}</span>
 </button>`).join('');
 
-// how far an idea got, as a short stretch of the line
-function track(w){
-  if (!w.steps) return '';
-  const last = w.steps.lastIndexOf(1), stopped = w.steps.includes('x');
-  return `<div class="track${stopped ? ' stopped' : ''}" style="--to:${last/4}" role="img" aria-label="How far it got: ${esc(w.label)}">
-    <span class="tr-line" aria-hidden="true"><i></i></span>
-    <ol aria-hidden="true">${STAGES.map((st, j) => `<li class="${w.steps[j] === 1 ? 'on' : ''}${j === last ? ' tip' : ''}${w.steps[j] === 'x' ? ' x' : ''}" style="--j:${j}"><span>${st}</span></li>`).join('')}</ol>
-  </div>`;
-}
+const TILTS = [-2.5, 2, -1.8, 2.6, -2.2];
+const video = (src, poster, label) => `<video src="${src}" poster="${poster}" muted loop playsinline preload="none"${reduce ? ' controls' : ''} aria-label="${esc(label)}"></video>`;
 function mediaHTML(w){
   if (w.photos) return `<div class="m-photos">${w.photos.map(p => `<figure>${img(p[0], p[1])}</figure>`).join('')}</div>`;
   if (w.code) return `<div class="m-term" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span><code><b>${esc(w.code[0])}</b><i>${esc(w.code[1])}</i>${esc(w.code[2])}</code></div>`;
-  const vid = w.film ? `<video src="${w.film}" poster="${w.poster}" muted loop playsinline preload="none" aria-label="${esc(w.filmLabel || w.n)}"></video>` : '';
-  if (w.kind === 'film') return `<div class="m-film${w.tall ? ' tall' : ''}">${vid}</div>`;
-  if (w.shot) return `<div class="m-shot">${img(w.shot, w.shotAlt || (w.n + ' homepage'))}${w.film ? `<div class="m-film${w.tall ? ' tall' : ''}" hidden>${vid}</div>` : ''}</div>`;
-  if (w.film) return `<div class="m-film">${vid}</div>`;
-  return `<div class="m-ph"><div class="ph">${esc(w.n)} /<br>${esc(w.media[0])}</div><img class="sprite s-solder" src="/assets/sprites/v2/shehroz-solder-anim.webp" alt="" aria-hidden="true"></div>`;
+  if (w.clips) return `<div class="m-duo">${w.clips.map(c => `<figure>${video(...c)}<figcaption>${esc(c[2])}</figcaption></figure>`).join('')}</div>`;
+  const vid = w.film ? video(w.film, w.poster, w.filmLabel || w.n) : '';
+  if (w.shot) return `<div class="m-shot${w.tall ? ' tall' : ''}">${img(w.shot, w.shotAlt || (w.n + ' homepage'))}${w.film ? `<div class="m-film" hidden>${vid}</div>` : ''}</div>`;
+  return `<div class="m-film${w.tall ? ' tall' : ''}">${vid}</div>`;
 }
-function itemHTML(w){
-  const story = (w.body && w.kind !== 'given') || w.taught || w.chips;
-  return `<div class="itm">
-    <div class="it-media">${mediaHTML(w)}${w.why ? `<span class="hand it-why" aria-hidden="true">${esc(w.why)}</span>` : ''}</div>
-    <div class="it-body">
-      <h3>${esc(w.n)}</h3>
-      <p class="it-line">${esc(w.line)}</p>
-      <p class="it-status">${esc(w.label)}${w.tip ? `<span>${esc(w.tip)}</span>` : ''}</p>
-      ${track(w)}
-      ${w.kind === 'given' && w.body ? w.body.map(p => `<p class="it-note">${esc(p)}</p>`).join('') : ''}
-      <div class="it-links">${(w.a || []).map(a => `<a href="${a[1]}" target="_blank" rel="noopener">${esc(a[0])} ${AR('ne')}</a>`).join('')}${w.shot && w.film ? `<button type="button" class="it-film" aria-pressed="false">${esc(w.filmBtn || 'Watch the film')} ${AR('right')}</button>` : ''}</div>
-      ${story ? `<details class="role it-story"><summary><span class="role-more">The story</span><span class="role-pm" aria-hidden="true"></span></summary><div class="role-body">${(w.body || []).map(p => `<p>${esc(p)}</p>`).join('')}${w.taught ? `<p class="taught"><span>What it taught me</span>${esc(w.taught)}</p>` : ''}${w.chips ? `<ul class="chips">${w.chips.map(c => `<li>${esc(c)}</li>`).join('')}</ul>` : ''}</div></details>` : ''}
+// one supporting sentence: the first of the body, unless the item names a better one
+const support = w => w.sub || (w.body && w.body[0].split(/(?<=[.!?])\s/)[0]);
+function itemHTML(w, i){
+  const words = w.line.split(' '), sub = support(w), meta = [w.label, w.tip].filter(Boolean).join(' · ');
+  const links = (w.a || []).map(a => `<a href="${a[1]}" target="_blank" rel="noopener">${esc(a[0])} ${AR('ne')}</a>`).join('') + (w.shot && w.film ? `<button type="button" class="it-film" aria-pressed="false">${esc(w.filmBtn)} ${AR('right')}</button>` : '');
+  return `<article class="itm" data-i="${i}" data-id="${w.id}" aria-label="${esc(w.n)}" style="--nw:${words.length};--tilt:${TILTS[i % TILTS.length]}deg">
+    <div class="it-card">${mediaHTML(w)}</div>
+    <div class="it-text">
+      <p class="it-eyebrow">${esc(w.n)}</p>
+      <h3 class="it-line">${words.map((x, j) => `<span class="w" style="--w:${j}">${esc(x)}</span>`).join(' ')}</h3>
+      <p class="it-meta">${esc(meta)}</p>
+      ${sub ? `<p class="it-sub">${esc(sub)}</p>` : ''}
+      ${links ? `<div class="it-links">${links}</div>` : ''}
     </div>
-  </div>`;
+  </article>`;
 }
-const panel = $('#labPanel');
-let colNow = null, itemNow = null;
-const playIn = box => $$('video', box).forEach(v => { if (!v.closest('[hidden]') && !reduce) v.play().catch(() => {}); });
-function paintPanel(cid, iid){
-  const c = COL[cid];
-  panel.innerHTML = `<div class="pn-head">
-      <p class="pn-col">${esc(c.n)}</p>
-      <div class="pn-tabs" role="tablist" aria-label="${esc(c.n)}">${c.items.map(id => `<button type="button" role="tab" data-item="${id}" aria-selected="${id === iid}" tabindex="${id === iid ? 0 : -1}">${esc(BY[id].n)}</button>`).join('<span class="sl" aria-hidden="true">/</span>')}</div>
-      <button type="button" class="pn-close">Close <span aria-hidden="true">–</span></button>
-    </div>
-    ${c.blurb ? `<p class="pn-blurb">${esc(c.blurb)}</p>` : ''}
-    <div class="pn-item" role="tabpanel">${itemHTML(BY[iid])}</div>
-    <img class="sprite pn-sprite s-${c.sprite}" src="/assets/sprites/v2/shehroz-${c.sprite}-anim.webp" alt="" aria-hidden="true">`;
-  playIn(panel); calm(panel);
-}
-// the panel's height follows its content, so the page below slides instead of jumping
-function morph(fn){
-  const from = panel.offsetHeight; fn(); const to = panel.offsetHeight;
-  if (reduce || Math.abs(to - from) < 2){ requestAnimationFrame(build); return; }
-  if (panel._a) panel._a.cancel();
-  panel.style.overflowY = 'clip';
-  const a = panel._a = panel.animate({height:[from + 'px', to + 'px']}, {duration:Math.min(560, Math.max(300, Math.abs(to - from)*.6)), easing:'cubic-bezier(.22,.7,.2,1)'});
-  a.onfinish = a.oncancel = () => { panel.style.overflowY = ''; if (panel._a === a) panel._a = null; requestAnimationFrame(build); };
-}
-const settle = el => { if (!reduce && el) el.animate({opacity:[0,1], transform:['translateY(10px)','none']}, {duration:420, easing:'ease-out'}); };
-function openCol(cid, iid, opts = {}){
-  const c = COL[cid]; iid = iid || c.items[0];
-  colNow = cid; itemNow = iid;
-  $$('.col').forEach(b => { const on = b.dataset.col === cid; b.classList.toggle('on', on); b.setAttribute('aria-expanded', on); });
-  morph(() => { paintPanel(cid, iid); panel.classList.add('open'); if (!opts.quiet) settle($('.pn-item', panel)); });
-  if (opts.scroll) setTimeout(() => scrollTo({top: $('#shelf').getBoundingClientRect().top + scrollY - 90, behavior: reduce ? 'auto' : 'smooth'}), 60);
-}
-function closeCol(){
-  colNow = null; itemNow = null;
-  $$('.col').forEach(b => { b.classList.remove('on'); b.setAttribute('aria-expanded', 'false'); });
-  morph(() => { $$('video', panel).forEach(v => v.pause()); panel.innerHTML = ''; panel.classList.remove('open'); });
-}
-function showItem(iid, focus){
-  if (iid === itemNow) return; itemNow = iid;
-  morph(() => {
-    $$('.pn-tabs [role=tab]', panel).forEach(t => { const on = t.dataset.item === iid; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; if (on && focus) t.focus(); });
-    const box = $('.pn-item', panel); $$('video', box).forEach(v => v.pause()); box.innerHTML = itemHTML(BY[iid]); playIn(box);
-    if (!reduce) box.animate({opacity:[0,1], transform:['translateX(14px)','none']}, {duration:380, easing:'ease-out'});
-  });
-}
-window.labOpen = (cid, iid) => { closeD && closeD(false); openCol(cid, iid, {scroll:true}); };
-$('#cols').addEventListener('click', e => { const b = e.target.closest('.col'); if (!b) return; colNow === b.dataset.col ? closeCol() : openCol(b.dataset.col); });
-panel.addEventListener('click', e => {
-  const t = e.target.closest('[role=tab]'); if (t){ showItem(t.dataset.item); return; }
-  if (e.target.closest('.pn-close')){ const c = colNow; closeCol(); const b = $('#col-' + c); b && b.focus({preventScroll:true}); return; }
-  const f = e.target.closest('.it-film');
-  if (f){ const m = f.closest('.itm').querySelector('.m-shot'), box = $('.m-film', m), v = $('video', box), on = box.hidden;
-    morph(() => { box.hidden = !on; m.classList.toggle('playing', on); });
-    f.setAttribute('aria-pressed', on); f.innerHTML = `${on ? 'Back to the product' : esc(BY[itemNow].filmBtn || 'Watch the film')} ${AR('right')}`;
-    if (on){ v.currentTime = 0; if (!reduce) v.play().catch(() => {}); } else v.pause(); }
-});
-panel.addEventListener('keydown', e => {
-  const t = e.target.closest('[role=tab]'); if (!t) return;
-  const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!d) return;
-  e.preventDefault(); const ids = COL[colNow].items; showItem(ids[(ids.indexOf(itemNow) + d + ids.length) % ids.length], true);
-});
-openCol('hardware', 'yolk', {quiet:true});
 
-// the line arrives, runs through the four collections, turns at the edge, and comes back underneath them
+// the stage: on desktop it pins and scrolling steps through the open collection; on phones and for reduced motion the same items simply stack
+const stageW = $('#stageWrap'), stage = $('#stage'), deck = $('#deck'), stgLine = $('#stgLine'), stgDots = $('#stgDots'), stgCount = $('#stgCount'), railOut = $('.rail-out');
+const pinnedMQ = matchMedia('(min-width: 761px) and (prefers-reduced-motion: no-preference)');
+let colNow = null, items = [], dots = [], active = -2, mode = null;
+const playIn = (box, on) => $$('video', box).forEach(v => { if (on && !reduce && !v.closest('[hidden]')) v.play().catch(() => {}); else v.pause(); });
+// stacked rows reveal as they enter
+const stackIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); playIn(e.target, e.isIntersecting); }), {rootMargin:'0px 0px -12% 0px', threshold:.15});
+function paintStage(cid){
+  const c = COL[cid]; colNow = cid; mode = null;
+  stageW.style.setProperty('--n', c.items.length);
+  $('#stgCol').textContent = c.n;
+  stgDots.innerHTML = c.items.map((id, i) => `<button type="button" aria-label="${esc(BY[id].n)}"><span></span></button>`).join('');
+  deck.innerHTML = c.items.map((id, i) => itemHTML(BY[id], i)).join('');
+  items = $$('.itm', deck); dots = $$('button', stgDots);
+  dots.forEach((d, i) => d.addEventListener('click', () => toStep(i)));
+}
+function layoutStage(){
+  const m = pinnedMQ.matches ? 'pinned' : 'stacked';
+  // stacked, the global trail runs on through the rows; pinned, the stage draws its own stretch of it
+  if (m === 'stacked') railOut.dataset.o = '20'; else delete railOut.dataset.o;
+  if (m === mode) return;
+  mode = m; active = -2; stackIO.disconnect();
+  stageW.classList.toggle('pinned', m === 'pinned');
+  items.forEach(a => { a.classList.remove('on', 'past'); playIn(a, false); });
+  if (m === 'stacked' && !reduce) items.forEach(a => stackIO.observe(a));
+}
+function setActive(i){
+  active = i;
+  items.forEach((a, j) => { a.classList.toggle('on', j === i); a.classList.toggle('past', j < i); playIn(a, j === i); });
+  const k = cl(i, 0, items.length - 1);
+  dots.forEach((d, j) => { d.classList.toggle('on', j === k); if (j === k) d.setAttribute('aria-current', 'step'); else d.removeAttribute('aria-current'); });
+  stgCount.textContent = `${k + 1} / ${items.length}`;
+}
+// per frame, from frame(): the line fills as you pass through, and the item at that point arrives
+function stageFrame(){
+  if (mode !== 'pinned') return;
+  const r = stageW.getBoundingClientRect(), vh = innerHeight, n = items.length, p = cl(-r.top/(r.height - stage.offsetHeight));
+  stgLine.style.setProperty('--p', p.toFixed(4));
+  const i = r.top > vh*.62 ? -1 : r.bottom < vh*.3 ? n : Math.min(n - 1, Math.floor(p*n));
+  if (i !== active) setActive(i);
+}
+function toStep(i, behavior = reduce ? 'auto' : 'smooth'){
+  const r = stageW.getBoundingClientRect(), n = items.length;
+  const top = mode === 'pinned' ? r.top + scrollY + (i ? (i + .5)/n : 0)*(r.height - stage.offsetHeight) : items[i].getBoundingClientRect().top + scrollY - 90;
+  scrollTo({top, behavior});
+}
+function selectCol(cid){
+  $$('.col').forEach(b => { const on = b.dataset.col === cid; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+  if (cid === colNow) return;
+  playIn(deck, false); paintStage(cid); layoutStage();
+  requestAnimationFrame(build);
+}
+window.labOpen = (cid, iid) => { closeD && closeD(false); selectCol(cid); toStep(Math.max(0, COL[cid].items.indexOf(iid))); };
+$('#cols').addEventListener('click', e => { const b = e.target.closest('.col'); if (!b) return; selectCol(b.dataset.col); toStep(0); });
+deck.addEventListener('click', e => {
+  const f = e.target.closest('.it-film'); if (!f) return;
+  const a = f.closest('.itm'), card = $('.m-shot', a), box = $('.m-film', card), v = $('video', box), on = box.hidden;
+  box.hidden = !on; card.classList.toggle('playing', on);
+  f.setAttribute('aria-pressed', on); f.innerHTML = `${on ? 'Back to the product' : esc(BY[a.dataset.id].filmBtn)} ${AR('right')}`;
+  if (on){ v.currentTime = 0; if (!reduce) v.play().catch(() => {}); } else v.pause();
+});
+// tabbing into an item that isn't showing brings its step into view
+deck.addEventListener('focusin', e => { const a = e.target.closest('.itm'); if (a && mode === 'pinned' && items.indexOf(a) !== active) toStep(items.indexOf(a), 'instant'); });
+selectCol('hardware');
+
+// the line arrives, runs through the four collections, turns at the edge, and comes back underneath them to the stage
 const rail = $('#rail'), railLine = $('#railLine'), shelf = $('#shelf');
 function layoutLimbs(){
   if (!shelf) return;
@@ -180,11 +171,11 @@ function layoutLimbs(){
     // two rows: run through the top pair, pass back between the rows, run through the bottom pair, come back underneath
     const cs = $$('.col', shelf).map(el => el.getBoundingClientRect()), g = (Math.max(cs[0].bottom, cs[1].bottom) + Math.min(cs[2].top, cs[3].top))/2 - sr.top;
     pts = [F(x0, inn.y), F(x0 + 12, a.y - 24), a, F((a.x + b.x)/2, a.y + 8), b, F(b.x + 34, b.y - 4), F(W + 12, (b.y + g)/2), F(W*.55, g), F(x0 + 6, g + 30),
-           F(x0 + 4, c.y - 36), c, F((c.x + d.x)/2, c.y + 8), d, F(d.x + 34, d.y - 4), F(W + 12, (d.y + H)/2), F(W*.5, H), F(x0 + 30, H), F(x0, out.y)];
+           F(x0 + 4, c.y - 36), c, F((c.x + d.x)/2, c.y + 8), d, F(d.x + 34, d.y - 4), F(W + 12, (d.y + H)/2), F(W*.5, H - 14), F(x0 + 30, H - 12), F(x0, out.y), F(x0, out.y + 24)];
   } else {
     const ky = a.y;
     pts = [F(inn.x, inn.y), F(inn.x + 3, inn.y + 22), F(inn.x + 40, ky - 4), F(a.x - 80, ky + 4), a, F((a.x + b.x)/2, ky + 12), b, F((b.x + c.x)/2, ky - 10), c, F((c.x + d.x)/2, ky + 12), d,
-           F(W + 18, ky + (H - ky)*.5), F(W - 50, H), F(W*.5, H + 1), F(inn.x + 60, H), F(out.x, out.y)];
+           F(W + 18, ky + (H - ky)*.5), F(W - 50, H - 24), F(W*.5, H - 22), F(inn.x + 80, H - 22), F(out.x + 40, out.y - 12), F(out.x, out.y), F(out.x, out.y + 24)];
   }
   rail.setAttribute('viewBox', `0 0 ${W} ${H}`);
   railLine.setAttribute('d', smooth(pts));
@@ -377,7 +368,7 @@ $$('details.role').forEach(r => {
   const less = $('.role-less', r); if (less) less.addEventListener('click', () => { slideDetails(r, false); $('summary', r).focus({preventScroll:true}); const t = (r.closest('.step') || r.parentElement).getBoundingClientRect().top; if (t < 0) scrollBy({top:t - 90, behavior: reduce ? 'auto' : 'smooth'}); });
 });
 function build(){
-  layoutLimbs(); layoutPeak();
+  layoutStage(); layoutLimbs(); layoutPeak();
   const pen = $('.hero .pen'); heroFloor = pen && visible(pen) ? pos(pen).y + 2 : 0;
   const penPt = pen && visible(pen) ? pos(pen) : null;
   // collapse the trail first, or its own old height keeps main tall after content shrinks
@@ -481,7 +472,7 @@ function frame(){
   const t = ease(seg(p, .18, .5)), tx = $('#nowText'); tx.style.opacity = (reduce?1:.0001+t).toString(); tx.style.transform = reduce ? 'none' : `translateY(${((1-t)*30).toFixed(1)}px)`;
   const cp = seg(p, .62, .9); $$('.n3-note').forEach(el => el.style.opacity = (reduce?1:.0001+cp).toString());
 
-  peakFrame(); railFrame();
+  peakFrame(); railFrame(); stageFrame();
   $('#fab').classList.toggle('show', scrollY > vh*0.7);
   if (!reduce && busy) req();
 }
@@ -639,13 +630,6 @@ function watchOpts(root){
   })).observe(root, {subtree:true, childList:true, attributes:true, attributeFilter:['class']});
 }
 watchOpts($('#fields'));
-
-/* lab cards: a burst on the corner of the media when you hover one */
-if (fine) document.addEventListener('mouseover', e => {
-  const c = e.target.closest('.col'); if (!c || c.contains(e.relatedTarget)) return;
-  const k = $('.knot-r', c); if (k) burst(c, k.offsetLeft + k.offsetWidth/2, k.offsetTop, 18);
-});
-
 
 /* ---------- robot eyes that follow the pointer ---------- */
 const sub = $('.bot-host');
