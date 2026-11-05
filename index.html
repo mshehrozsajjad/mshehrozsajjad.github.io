@@ -1086,7 +1086,21 @@ footer a{text-underline-offset:4px}
 @media (max-width:760px){.hand.note-real{transform:rotate(-5deg)}.stat{margin-left:0}}
 .hand.note-real{transform:translateY(24px) rotate(-5deg)}
 .along{margin-left:clamp(28px,12vw,190px)}
-@media (max-width:760px){.hand.note-real{transform:rotate(-5deg)}.along{margin-left:0}}
+/* 02 prints: what each place left behind */
+.places{position:relative}
+.kh-print{position:absolute;left:calc(100% + 30px);top:-64px;width:170px;padding:9px 9px 0}
+.cv-print{position:absolute;right:-20px;bottom:-110px;width:150px;padding:8px 8px 0}
+.kh-print figcaption,.cv-print figcaption{font-size:19px;padding:7px 4px 9px;justify-content:center}
+/* 03 real media: a call and a phone */
+.media .ph.has{border:0;overflow:hidden}
+.media .a.has{aspect-ratio:1400/975;border-radius:10px}
+.media .a.has > img{object-position:50% 100%}
+.media .b.has{aspect-ratio:540/1100;border-radius:22px;box-shadow:0 0 0 6px color-mix(in srgb,var(--now-ink) 12%,var(--now-bg))}
+@media (max-width:760px){.hand.note-real{transform:rotate(-5deg)}.along{margin-left:0}
+  .places{grid-template-areas:"p1" "p2" "note" "p3" "stat" "cv"}
+  .kh-print{position:relative;left:auto;top:auto;width:56%;margin-top:22px}
+  .cv-print{position:relative;right:auto;bottom:auto;grid-area:cv;justify-self:end;width:44%;margin:-8px 6px 0 0}
+  .media .b.has{border-radius:16px;box-shadow:0 0 0 4px color-mix(in srgb,var(--now-ink) 12%,var(--now-bg))}}
 </style>
 </head>
 <body>
@@ -1229,6 +1243,10 @@ footer a{text-underline-offset:4px}
         <p class="place-k">Social media analytics</p><h3>Keyhole</h3><p>Rebuilt parts of their legacy platform in React.</p>
         <span class="way wd" data-o="7.24" data-free style="left:-62px;top:calc(100% + 30px)"></span>
         <span class="way wd" data-o="7.27" data-free style="left:190px;top:calc(100% + 82px)"></span>
+        <figure class="snapcard kh-print" style="--r:3deg">
+          <div class="snap-img"><img src="assets/media/keyhole-merch.webp" alt="Keyhole team merch: a shirt that says Talk data to me, a bottle and a sticker" loading="lazy" width="1100" height="1050"></div>
+          <figcaption><span>came with the job.</span></figcaption>
+        </figure>
       </div>
       <span class="hand note-real" aria-hidden="true">closer to the real thing</span>
       <div class="place p2">
@@ -1243,6 +1261,10 @@ footer a{text-underline-offset:4px}
         <span class="way wd" data-o="7.5" data-free style="left:-48px;top:calc(100% + 170px)"></span>
       </div>
       <p class="stat"><b>≈90%</b><span>faster wound documentation</span></p>
+      <figure class="snapcard cv-print" style="--r:-3deg">
+        <div class="snap-img"><img src="assets/media/curevision-device.webp" alt="The cureVision device: a tablet on a stand showing a body map" loading="lazy" width="619" height="1100"></div>
+        <figcaption><span class="sig">the device</span></figcaption>
+      </figure>
     </div>
     <p class="along c"><span class="hand">along the way</span>Munich · A master’s in entrepreneurship.</p>
   </div>
@@ -1264,8 +1286,8 @@ footer a{text-underline-offset:4px}
     </div>
     <div class="c">
       <div class="media">
-        <div class="ph a" id="mA">Avatar in a Zoom call /<br>15 s clip</div>
-        <div class="ph b" id="mB">Concierge widget /<br>screen recording</div>
+        <div class="ph a has" id="mA"><img src="assets/media/external-meeting.webp" alt="A Beyond Presence avatar talking to me in a video call" loading="lazy" width="1400" height="1087"></div>
+        <div class="ph b has" id="mB"><video src="assets/media/concierge.mp4" poster="assets/media/concierge-poster.webp" muted loop playsinline autoplay preload="metadata" aria-label="The concierge widget steering a website on a phone"></video></div>
       </div>
       <p class="cap" id="nowCap">Avatars that join Zoom and Teams calls, and a concierge widget that steers a website while you talk to it.</p>
       <span class="hand" id="nowHand" aria-hidden="true">the work doesn’t end at launch</span>
