@@ -30,8 +30,9 @@ export async function mountFalling(hero, {reduce = false} = {}){
   const ctx = cv.getContext('2d'), base = document.createElement('canvas'), bctx = base.getContext('2d');
   const tip = document.createElement('span'); tip.className = 'fall-tip'; tip.setAttribute('aria-hidden', 'true'); hero.appendChild(tip);
 
-  const css = getComputedStyle(document.documentElement);
-  const sig = css.getPropertyValue('--signal').trim() || '#5BC0FF';
+  let sig, ink;
+  const colours = () => { const c = getComputedStyle(document.documentElement); sig = c.getPropertyValue('--signal').trim() || '#2D2BE0'; ink = c.getPropertyValue('--ink').trim() || '#111113'; };
+  colours();
   const CW = 14, CH = 18;
   let W, H, cols, rows, dpr, streams = [];
   const day = (c, r) => (c*rows + r) % N;   // the year runs down the columns, left to right, and wraps
@@ -60,7 +61,7 @@ export async function mountFalling(hero, {reduce = false} = {}){
       for (let k = 0; k < s.len; k++){
         const r = head - k; if (r < 0 || r >= rows) continue;
         const d = day(s.c, r), fade = 1 - k/s.len, l = lvl[d];
-        if (k === 0){ ctx.fillStyle = '#E7F6FF'; ctx.globalAlpha = .55 + .45*l; }
+        if (k === 0){ ctx.fillStyle = ink; ctx.globalAlpha = .45 + .45*l; }
         else { ctx.fillStyle = sig; ctx.globalAlpha = fade*(l ? .2 + .8*l : .1); }
         ctx.fillText(glyph[d], s.c*CW + 2, r*CH + 2);
       }
@@ -73,6 +74,8 @@ export async function mountFalling(hero, {reduce = false} = {}){
   const loop = () => { frame(); raf = on ? requestAnimationFrame(loop) : 0; };
   const play = v => { on = v && !reduce && !document.hidden; if (on && !raf) raf = requestAnimationFrame(loop); };
   size(); frame();
+  new MutationObserver(() => { colours(); size(); frame(); }).observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
+  matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', () => { colours(); size(); frame(); });
   new ResizeObserver(() => { const w = hero.clientWidth, h = hero.clientHeight; if (w !== W || h !== H){ size(); frame(); } }).observe(hero);
   let seen = true;
   new IntersectionObserver(([e]) => { seen = e.isIntersecting; play(seen); }).observe(hero);

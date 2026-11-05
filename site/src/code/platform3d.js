@@ -13,8 +13,9 @@ export function mountPlatform(host, {reduce = false} = {}){
   camera.position.set(0, 0, 6.2);
 
   const css = getComputedStyle(document.documentElement);
-  const col = new THREE.Color(css.getPropertyValue('--signal').trim() || '#5BC0FF');
-  const dim = col.clone().multiplyScalar(.45);
+  const col = new THREE.Color(css.getPropertyValue('--signal').trim() || '#2D2BE0');
+  const dim = col.clone();   // on paper the edges are the same blue, just fainter
+  const ink = new THREE.Color(css.getPropertyValue('--ink').trim() || '#111113');
 
   // nodes spread evenly over a sphere (Fibonacci), then each joins its nearest neighbours
   const N = 140, R = 1.7, pts = [];
@@ -28,7 +29,7 @@ export function mountPlatform(host, {reduce = false} = {}){
   });
   const group = new THREE.Group(); scene.add(group);
   const lineGeo = new THREE.BufferGeometry().setFromPoints(edges.flatMap(([a, b]) => [pts[a], pts[b]]));
-  group.add(new THREE.LineSegments(lineGeo, new THREE.LineBasicMaterial({color: dim, transparent: true, opacity: .55})));
+  group.add(new THREE.LineSegments(lineGeo, new THREE.LineBasicMaterial({color: dim, transparent: true, opacity: .32})));
   const nodeGeo = new THREE.BufferGeometry().setFromPoints(pts);
   group.add(new THREE.Points(nodeGeo, new THREE.PointsMaterial({color: col, size: .045, sizeAttenuation: true})));
   // an inner ring: the core everything routes through
@@ -39,7 +40,7 @@ export function mountPlatform(host, {reduce = false} = {}){
   const P = reduce ? 0 : 36, pulsePos = new Float32Array(P*3), pulses = [];
   for (let k = 0; k < P; k++) pulses.push({e: (Math.random()*edges.length)|0, t: Math.random(), v: .4 + Math.random()*.8});
   const pulseGeo = new THREE.BufferGeometry(); pulseGeo.setAttribute('position', new THREE.BufferAttribute(pulsePos, 3));
-  group.add(new THREE.Points(pulseGeo, new THREE.PointsMaterial({color: 0xffffff, size: .07, transparent: true, opacity: .95})));
+  group.add(new THREE.Points(pulseGeo, new THREE.PointsMaterial({color: ink, size: .07, transparent: true, opacity: .9})));
 
   let rx = .35, ry = 0, vx = 0, vy = reduce ? 0 : .0025, drag = null, last = performance.now(), raf = 0, on = false;
   const tmp = new THREE.Vector3();
