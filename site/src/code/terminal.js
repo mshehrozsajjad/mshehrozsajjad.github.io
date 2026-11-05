@@ -12,7 +12,7 @@ const SECTIONS = {'beyond-presence': '#work', 'npc-filter': '#npc', 'open-source
 const go = sel => { const el = document.querySelector(sel); if (el) el.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'start'}); };
 const CMD = {
   help: () => ['whoami         who this is', 'ls             what is on this page', 'open <name>    go to it (try: open npc-filter)', 'now            what I do right now', 'stats          the platform, in public numbers', 'contact        how to reach me', 'clear          start over'],
-  whoami: () => ['Shehroz Sajjad. Product engineer, Munich.', 'Design → engineering → go-to-market, usually on the same product.'],
+  whoami: () => ['Shehroz Sajjad. Founding engineer, Munich.', 'I sit with the customer, own the platform, and ship what they need, fast.'],
   ls: () => ['beyond-presence/   the platform I own', 'npc-filter/        built to stay cheap', 'open-source/       given away', 'before/            CTO, Keyhole, cureVision, a car company', 'contact'],
   now: () => ['Beyond Presence, founding engineer. I own the creator and call platforms,', 'frontend and backend. Plus customer meetings and fast turnarounds.'],
   stats: () => ['200,000+   avatar sessions served', '1,000+     running at the same time', '15,000+    startups, scaleups and enterprise teams', '(public figures, beyondpresence.ai)'],
