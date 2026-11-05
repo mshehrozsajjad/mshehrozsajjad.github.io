@@ -1,6 +1,7 @@
 import {strand, sharedHandle} from './strands.js';
 import {createReveal, splitWords} from './reveal.js';
 import {smooth} from './spline.js';
+import {handDrawn} from './hand.js';
 (() => {
 "use strict";
 const $ = (s, r=document) => r.querySelector(s), $$ = (s, r=document) => [...r.querySelectorAll(s)];
@@ -211,8 +212,9 @@ function layoutFork(){
   FORK.forEach(s => { s.q = centre($('.fk-dot', s.btn), sr); planLeg(s, sr); });
   const len = sharedHandle(FORK.map(s => [j, s.q]), ka);
   FORK.forEach(s => {
-    s.out.setAttribute('d', strand(j, s.q, s.seed, {ka, kb, tb:lean(), share:'a', len}));
-    s.back.setAttribute('d', strand(s.q, g, s.seed, {ka, kb, drop:s.drop, ta:lean(), via:s.via}));
+    // every strand bows the same way, so neighbours fanning out of one junction never swap order
+    s.out.setAttribute('d', handDrawn(strand(j, s.q, s.seed, {ka, kb, tb:lean(), share:'a', len}), {seed: s.seed, k: .025, max: 10, side: () => 1}));
+    s.back.setAttribute('d', handDrawn(strand(s.q, g, s.seed, {ka, kb, drop:s.drop, ta:lean(), via:s.via}), {anchors: s.via ? [s.via] : [], seed: s.seed + 5, k: .025, max: 12}));
   });
   rail.setAttribute('viewBox', `0 0 ${shelf.clientWidth} ${shelf.clientHeight}`);
   forkJ = j; forkG = g;
@@ -224,7 +226,7 @@ function layoutMap(){
   MAP.forEach(m => { m.q = centre($('.fk-dot', m.btn), mr); planLeg(m, mr); });
   const len = sharedHandle(MAP.map(m => [m.via || m.q, j, m.drop]), kb);
   MAP.forEach(m => {
-    const d = strand(m.q, j, m.seed, {ka, kb, drop:m.drop, ta:narrow() ? -0.22 : 0, share:'b', len, via:m.via});
+    const d = handDrawn(strand(m.q, j, m.seed, {ka, kb, drop:m.drop, ta:narrow() ? -0.22 : 0, share:'b', len, via:m.via}), {anchors: m.via ? [m.via] : [], seed: m.seed, k: .025, max: 10, side: () => 1});
     [m.solid, m.dash, m.reveal].forEach(p => p.setAttribute('d', d));
   });
   mapTrunk.setAttribute('d', `M${j.x.toFixed(1)} 0V${j.y.toFixed(1)}`);
@@ -335,7 +337,9 @@ function phonePoints(pts){
   return out;
 }
 function makeTrail(paths, pts){
-  const d = pts.length > 1 ? smooth(pts) : '';
+  // drawn by hand: every stretch between waypoints bows a little; long gutter runs bow away from the text
+  const W = main.clientWidth, away = (m, n) => Math.abs(n.x) > .85 ? (m.x < W/2 ? (n.x > 0 ? -1 : 1) : (n.x > 0 ? 1 : -1)) : 0;
+  const d = pts.length > 1 ? handDrawn(smooth(pts), {anchors: pts, seed: pts.length, side: away}) : '';
   paths.forEach(p => p.setAttribute('d', d));
   const len = d ? (paths[0].getTotalLength() || 0) : 0;
   const N = Math.max(200, Math.round(len/6)), step = len ? len/N : 1, maxY = [];
@@ -343,7 +347,7 @@ function makeTrail(paths, pts){
   paths.forEach(p => p.style.strokeDasharray = `${len} ${len}`);
   const prev = trails.find(t => t.paths[0] === paths[0]);
   // data-arc on a segment's first point: it draws along its own length over that many px of scroll (a loop doubles back, so depth cannot pace it)
-  return {paths, len, maxY, step, arc: pts[0].arc, y0: pts[0].y, shown: prev ? Math.min(prev.shown, len) : 0};
+  return {paths, len, maxY, step, arc: pts[0].arc, y0: pts[0].y, first: pts[0].el, last: pts[pts.length - 1].el, shown: prev ? Math.min(prev.shown, len) : 0};
 }
 // the dig-in branch: leaves the knot, runs beside the open details, rejoins the trail at the end
 const NS = 'http://www.w3.org/2000/svg';
@@ -517,12 +521,17 @@ function layoutPeak(){
   waveLine.setAttribute('d', d);
   PK = {W, H};
 }
+// the wave is the same pen: it waits until the stroke coming down into it has arrived, then draws as the reading point passes
+let waveP = 0;
+const arrived = t => !t || reduce || t.len - t.shown < 1.5;
 function peakFrame(){
-  if (!PK) return;
-  const r = peak.getBoundingClientRect(), vh = innerHeight;
-  // the line draws as the reading point passes, like the rest of the trail
-  const p = reduce ? 1 : cl((vh*.64 - r.top)/r.height);
-  waveLine.style.strokeDashoffset = (1 - p).toFixed(4);
+  if (!PK) return false;
+  const r = peak.getBoundingClientRect(), vh = innerHeight, into = trails.find(t => t.last && t.last.classList.contains('peak-in'));
+  const target = reduce ? 1 : arrived(into) ? cl((vh*.64 - r.top)/r.height) : 0;
+  waveP = reduce || Math.abs(target - waveP) < .002 ? target : waveP + (target - waveP)*.2;
+  waveLine.style.strokeDashoffset = (1 - waveP).toFixed(4);
+  waveLine.style.visibility = waveP > .002 ? '' : 'hidden';
+  return waveP !== target;
 }
 /* ================= SCROLL ================= */
 const nowSec = $('#now'), nowBg = $('#nowBg');
@@ -542,6 +551,8 @@ function frame(){
     // until the pen is reached, the hero line leads; scrolling takes over at once
     const intro = heroT < 1 && heroLen && scrollY < 40, drawingIn = intro && j === 0;
     if (drawingIn) target = heroLen*heroT; else if (intro) target = 0;
+    // one pen: a stretch starts only once the one before it has arrived where it begins (after the wave, once the wave has)
+    if (!reduce && j && (!arrived(trails[j - 1]) || (t.first && t.first.classList.contains('peak-out') && waveP < .995))) target = 0;
     // arrived, still at the top: the stroke waits at the pen with its spark, and the first scroll carries it on into chapter 01
     else if (!reduce && heroLen && scrollY < 24) target = j === 0 ? Math.min(target, heroLen) : 0;
     t.shown = reduce || drawingIn ? target : t.shown + (target - t.shown)*0.2;
@@ -558,8 +569,8 @@ function frame(){
   const o = ease(seg(p, 0, .55));
   nowBg.style.clipPath = `inset(${((1-o)*3).toFixed(2)}% ${((1-o)*6).toFixed(2)}% 0 ${((1-o)*6).toFixed(2)}% round ${((1-o)*28).toFixed(1)}px)`;
 
-  peakFrame(); stageFrame();
-  if (forkFrame() | mapFrame()) busy = true;
+  stageFrame();
+  if (peakFrame() | forkFrame() | mapFrame()) busy = true;
   $('#fab').classList.toggle('show', scrollY > vh*0.7);
   if (!reduce && busy) req();
 }
