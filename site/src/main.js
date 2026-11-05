@@ -30,7 +30,7 @@ const LAB = [
    sub:'“Keep the weird. Skip the filler.”'},
   {id:'tars', n:'TARS', line:'My first robot, my first soldering, and a walk Claude learned.', tip:'Our avatars, running locally',
    label:'Prototype', clips:[['/assets/media/tars-falling.mp4','/assets/media/tars-falling-poster.webp','Falling, then walking'],['/assets/media/tars-my-face.mp4','/assets/media/tars-my-face-poster.webp','With my avatar face']],
-   body:['Two years into building with AI, I wanted to try hardware. I 3D-printed an open-source TARS and soldered in a motion sensor, my first time holding an iron.']},
+   body:['Two years into building with AI, I wanted to try hardware. I 3D-printed an open-source TARS and soldered in a motion sensor, my first time holding an iron.'], sprite:'solder'},
   {id:'yolk', n:'Yolk', line:'I always wanted a Pokédex, so I designed my own AI device. It makes my phone calls in German.', tip:'Waitlist open',
    label:'Launched', clips:[['/assets/media/yolk-in-hand.mp4','/assets/media/yolk-in-hand-poster.webp','In my hand'],['/assets/media/yolk-film.mp4','/assets/media/yolk-film-poster.webp','The launch film']], a:[['Join the waitlist','https://getyolk.tech']],
    body:['When Meta open-sourced Muse Gadgets, I designed my own device around it: custom hardware, an e-paper screen and a rotary encoder that drives an AI agent.']},
@@ -41,34 +41,41 @@ const LAB = [
   {id:'f-yolk', n:'Yolk', label:'Launch film', line:'The launch film for Yolk, made alongside its brand and website.', film:'/assets/media/yolk-film.mp4', poster:'/assets/media/yolk-film-poster.webp', filmLabel:'The Yolk launch film', tall:true},
   {id:'f-npc', n:'NPC Filter', label:'Launch film', line:'The launch film for NPC Filter.', film:'/assets/media/npc-film.mp4', poster:'/assets/media/npc-film-poster.webp', filmLabel:'The NPC Filter launch film'},
   {id:'drone', n:'Drone', label:'Drone footage', line:'A beach town from above, flown and edited by me.', film:'/assets/media/drone.mp4', poster:'/assets/media/drone-poster.webp', filmLabel:'Drone shot over a beach town'},
-  {id:'photos', n:'Photos', label:'Photography', line:'A bridge from above and a lit dome, both at night.', photos:[['/assets/media/photo-bridge.webp','A bridge at night, shot from above'],['/assets/media/photo-dome.webp','A lit dome at night']]}
+  {id:'photos', n:'Photos', label:'Photography', line:'A bridge from above and a lit dome, both at night.', photos:[['/assets/media/photo-bridge.webp','A bridge at night, shot from above'],['/assets/media/photo-dome.webp','A lit dome at night']], sprite:'camera'}
 ];
 const BY = Object.fromEntries(LAB.map(w => [w.id, w]));
 // Every strand leaves the one junction on the left and lands on the same row, so the four curves nest and cannot cross, whatever the order.
 // The order is for the reader: Software is the core, Hardware second so the preselected return sweep is the shortest.
 // Phones stack them vertically with Hardware last (CSS), so its way back to the line passes no other name.
 const COLS = [
-  {id:'software', n:'Software', unit:'projects', items:['roomrush','myclosr','slaptastic','vorsprech','npcfilter']},
-  {id:'hardware', n:'Hardware', unit:'builds', items:['yolk','tars']},
-  {id:'given', n:'Given away', unit:'tools', items:['reels','livekit','n8nflows','n8nnode']},
-  {id:'films', n:'Films', unit:'pieces', items:['f-yolk','f-npc','drone','photos']}
+  {id:'software', n:'Software', unit:'projects', tag:'products', items:['roomrush','myclosr','slaptastic','vorsprech','npcfilter']},
+  {id:'hardware', n:'Hardware', unit:'builds', tag:'builds', items:['yolk','tars']},
+  {id:'given', n:'Given away', unit:'tools', tag:'things, free', items:['reels','livekit','n8nflows','n8nnode']},
+  {id:'films', n:'Films', unit:'pieces', tag:'films & photos', items:['f-yolk','f-npc','drone','photos']}
 ];
 const COL = Object.fromEntries(COLS.map(c => [c.id, c]));
-const img = (src, alt) => `<img src="${src}" alt="${esc(alt)}" loading="lazy">`;
-// each collection's sneak peek: three real cards, back to front. Given-away has no imagery, so it gets three matching repo cards
+const img = (src, alt, pos = '') => `<img src="${src}" alt="${esc(alt)}" loading="lazy"${pos ? ` style="object-position:${pos}"` : ''}>`;
+// each collection is a small pile of the same cream prints as chapter 01, back to front; the top one carries the handwritten caption.
+// Given away has no imagery, so its prints are index cards: repo names on the back ones, a handwritten list on top
 const PEEK = {
-  software: ['/assets/shots/myclosr.webp', '/assets/shots/slaptastic.webp', '/assets/shots/npcfilter.webp'],
-  hardware: ['/assets/media/tars-falling-poster.webp', '/assets/media/yolk-device.webp', '/assets/media/yolk-in-hand-poster.webp'],
-  given: ['n8n-workflows', 'livekit-js-plugin', 'reels-in-code'],
-  films: ['/assets/media/yolk-film-poster.webp', '/assets/media/npc-film-poster.webp', '/assets/media/drone-poster.webp']
+  software: [['/assets/shots/roomrush.webp'], ['/assets/shots/myclosr.webp'], ['/assets/shots/npcfilter.webp', '30% 50%']],
+  hardware: [['/assets/media/tars-falling-poster.webp', '50% 40%'], ['/assets/media/yolk-in-hand-poster.webp', '50% 58%'], ['/assets/media/yolk-device.webp']],
+  given: [['n8n-workflows'], ['livekit-js-plugin'], ['reels-in-code', 'livekit js plugin', 'n8n workflows', 'n8n node']],
+  films: [['/assets/media/yolk-film-poster.webp', '50% 35%'], ['/assets/media/npc-film-poster.webp'], ['/assets/media/drone-poster.webp']]
 };
-const peekCard = p => p.startsWith('/') ? `<span class="pk">${img(p, '')}</span>` : `<span class="pk repo"><b><s></s><s></s><s></s></b><code>${esc(p)}</code></span>`;
-const CHECK = '<svg class="fk-seen" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7"/><path d="M4.8 8.3 7 10.5l4.2-4.6"/></svg>';
-// the same column twice: on the fork, and again on the map at the end
-const colHTML = (c, cls, attrs, label, tail) => `<button class="fk${cls}" type="button" data-col="${c.id}" ${attrs} aria-label="${esc(label)}"><i class="fk-dot" aria-hidden="true"></i><span class="fk-stack" aria-hidden="true">${PEEK[c.id].map(peekCard).join('')}</span><span class="fk-t"><span class="fk-n">${esc(c.n)}</span><span class="fk-c" aria-hidden="true">${c.items.length}</span>${tail}</span></button>`;
-$('#cols').innerHTML = COLS.map(c => colHTML(c, '', `id="col-${c.id}" aria-pressed="false" aria-controls="stage"`, `${c.n}, ${c.items.length} ${c.unit}`, '')).join('');
+const printHTML = ([src, ...rest], cap) => {
+  const face = src.startsWith('/') ? `<span class="snap-img">${img(src, '', rest[0])}</span>`
+    : `<span class="snap-img note">${rest.length ? `<ul>${[src, ...rest].map(t => `<li>${esc(t)}</li>`).join('')}</ul>` : `<code>${esc(src)}</code>`}</span>`;
+  return `<span class="pk">${face}${cap ? `<span class="pk-cap">${esc(cap)}</span>` : ''}</span>`;
+};
+// the same column twice: on the fork, and again on the map at the end. The name is what the hand-drawn mark goes under
+const colHTML = (c, cls, attrs, label) => {
+  const cap = `${c.items.length} ${c.tag}`;
+  return `<button class="fk${cls}" type="button" data-col="${c.id}" ${attrs} aria-label="${esc(label)}"><span class="fk-stack" aria-hidden="true">${PEEK[c.id].map((p, i, all) => printHTML(p, i === all.length - 1 && cap)).join('')}</span><i class="fk-dot" aria-hidden="true"></i><span class="fk-t"><span class="fk-n"><span class="dd" data-doodle="underline2" data-manual>${esc(c.n)}</span></span><span class="fk-c" aria-hidden="true">${esc(cap)}</span></span></button>`;
+};
+$('#cols').innerHTML = COLS.map(c => colHTML(c, '', `id="col-${c.id}" aria-pressed="false" aria-controls="stage"`, `${c.n}, ${c.items.length} ${c.unit}`)).join('');
 $('#rail').innerHTML = COLS.map(c => `<g class="st" data-c="${c.id}"><path class="st-out" pathLength="1"/><path class="st-back" pathLength="1"/></g>`).join('');
-$('#mapNames').innerHTML = COLS.map(c => colHTML(c, ' mp', '', c.n, CHECK)).join('');
+$('#mapNames').innerHTML = COLS.map(c => colHTML(c, ' mp', '', c.n)).join('');
 // the masks reveal the dashed strands with the same draw-on as the solid ones
 $('#mapSvg').innerHTML = `<path class="mp-trunk" pathLength="1"/>` + COLS.map(c => `<g data-c="${c.id}"><mask id="mk-${c.id}" maskUnits="userSpaceOnUse" x="-400" y="-100" width="4000" height="4000"><path class="mp-reveal" pathLength="1"/></mask><path class="mp-solid" pathLength="1"/><path class="mp-dash" mask="url(#mk-${c.id})"/></g>`).join('');
 const explored = new Set();
@@ -96,6 +103,7 @@ function itemHTML(w, i){
       <p class="it-meta">${esc(meta)}</p>
       ${sub ? `<p class="it-sub">${esc(sub)}</p>` : ''}
       ${links ? `<div class="it-links">${links}</div>` : ''}
+      ${w.sprite ? `<img class="sprite it-spr" src="/assets/sprites/v2/shehroz-${w.sprite}-anim.webp" alt="" aria-hidden="true" width="260" height="431">` : ''}
     </div>
   </article>`;
 }
@@ -116,6 +124,7 @@ function paintStage(cid){
   $('#stgCol').textContent = c.n;
   stgDots.innerHTML = c.items.map((id, i) => `<button type="button" aria-label="${esc(BY[id].n)}"><span></span></button>`).join('');
   deck.innerHTML = c.items.map((id, i) => itemHTML(BY[id], i)).join('');
+  calm(deck);
   items = $$('.itm', deck); dots = $$('button', stgDots);
   dots.forEach((d, i) => d.addEventListener('click', () => toStep(i)));
 }
@@ -150,17 +159,18 @@ function toStep(i, behavior = reduce ? 'auto' : 'smooth'){
   const top = mode === 'pinned' ? r.top + scrollY + (i ? (i + .5)/n : 0)*(r.height - stage.offsetHeight) : items[i].getBoundingClientRect().top + scrollY - 90;
   scrollTo({top, behavior});
 }
-// user: false for the preselection on load, which leaves all four strands out
+// user: false for the preselection on load, which is only where the stage starts: the hand-drawn mark and the end of Shehroz's thinking wait for a real choice
 function selectCol(cid, user = true){
-  $$('.fk', cols).forEach(b => { const on = b.dataset.col === cid; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
-  $$('.st').forEach(g => { g.classList.toggle('on', g.dataset.c === cid); g.classList.toggle('gone', user && g.dataset.c !== cid); });
+  $$('.fk', cols).forEach(b => { const on = b.dataset.col === cid; b.classList.toggle('on', on); b.classList.toggle('picked', on && user); b.setAttribute('aria-pressed', on); });
+  $$('.st').forEach(g => g.classList.toggle('on', g.dataset.c === cid));
+  if (user) shelf.dataset.chosen = '';
   if (cid === colNow) return;
   playIn(deck, false); paintStage(cid); layoutStage();
   requestAnimationFrame(build);
 }
 window.labOpen = (cid, iid) => { closeD && closeD(false); selectCol(cid); toStep(Math.max(0, COL[cid].items.indexOf(iid))); };
-// choosing lets the other strands retract before the page walks down the chosen one
-const choose = e => { const b = e.target.closest('[data-col]'); if (!b) return; selectCol(b.dataset.col); if (reduce) toStep(0); else setTimeout(() => toStep(0), 450); };
+// choosing gives the mark a moment to draw before the page walks down the chosen strand
+const choose = e => { const b = e.target.closest('[data-col]'); if (!b) return; selectCol(b.dataset.col); if (reduce) toStep(0); else setTimeout(() => toStep(0), 600); };
 $('#cols').addEventListener('click', choose);
 $('#mapNames').addEventListener('click', choose);
 $('.map-on').addEventListener('click', () => go('#close'));
@@ -185,19 +195,21 @@ const MAP = COLS.map((c, i) => { const g = $(`g[data-c=${c.id}]`, mapSvg); retur
 let forkJ, forkG, forkTrail, mapJ, mapT = {p:0};
 // handle lengths (start, end) as a share of the drop; strand() lengthens them where a strand travels far sideways. Phones are nearly vertical
 const reach = (mirror = false) => narrow() ? (mirror ? [0.3, .55] : [.55, .3]) : [.4, .4];
-// a strand runs straight down the edge of its column, past the name, and only then curves away (phones: names are rows, so it just leaves the dot)
-// phones: strands come into a name at a slight angle, so each clears the name above it (the leg leaves at the same angle)
+// a strand lands on its pile as a tack, slips behind the pile and out of its left edge, runs straight down the side of the column past the name,
+// and only then curves away (phones have no piles: names are rows, so it just leaves the dot, at a slight angle so it clears the name above)
 const lean = () => narrow() ? .3 : 0;
-const legDrop = (btn, q, box) => narrow() ? 0 : btn.getBoundingClientRect().bottom - box.top + 12 - q.y;
+const slipOut = (btn, box) => { if (narrow()) return null; const p = $('.fk-stack', btn).getBoundingClientRect(); return {x:btn.getBoundingClientRect().left - box.left - 14, y:p.top + p.height*.72 - box.top}; };
+const legDrop = (btn, from, box) => narrow() ? 0 : btn.getBoundingClientRect().bottom - box.top + 12 - from.y;
+const planLeg = (s, box) => { s.via = slipOut(s.btn, box); s.drop = legDrop(s.btn, s.via || s.q, box); };
 
 // the junction and the exit are the .rail-in / .rail-out waypoints, which the global trail passes through too, so the joins coincide
 function layoutFork(){
-  const sr = shelf.getBoundingClientRect(), j = centre($('.rail-in', shelf), sr), g = centre($('.rail-out', shelf), sr);
-  FORK.forEach(s => s.q = centre($('.fk-dot', s.btn), sr));
-  const len = sharedHandle(FORK.map(s => [j, s.q]), reach()[0]);
+  const sr = shelf.getBoundingClientRect(), j = centre($('.rail-in', shelf), sr), g = centre($('.rail-out', shelf), sr), [ka, kb] = reach();
+  FORK.forEach(s => { s.q = centre($('.fk-dot', s.btn), sr); planLeg(s, sr); });
+  const len = sharedHandle(FORK.map(s => [j, s.q]), ka);
   FORK.forEach(s => {
-    s.out.setAttribute('d', strand(j, s.q, s.seed, ...reach(), 0, 0, lean(), 'a', len));
-    s.back.setAttribute('d', strand(s.q, g, s.seed, ...reach(), legDrop(s.btn, s.q, sr), lean()));
+    s.out.setAttribute('d', strand(j, s.q, s.seed, {ka, kb, tb:lean(), share:'a', len}));
+    s.back.setAttribute('d', strand(s.q, g, s.seed, {ka, kb, drop:s.drop, ta:lean(), via:s.via}));
   });
   rail.setAttribute('viewBox', `0 0 ${shelf.clientWidth} ${shelf.clientHeight}`);
   forkJ = j; forkG = g;
@@ -205,12 +217,11 @@ function layoutFork(){
 // the map's trunk is its own stretch of the line down the gutter (it pins with the stage); the strands converge where the global trail picks up again
 function layoutMap(){
   mapEl.classList.toggle('pinned', pinnedMQ.matches);
-  const mr = mapStage.getBoundingClientRect(), j = centre($('.map-jl', mapStage), mr);
-  MAP.forEach(m => m.q = centre($('.fk-dot', m.btn), mr));
-  MAP.forEach(m => m.drop = legDrop(m.btn, m.q, mr));
-  const len = sharedHandle(MAP.map(m => [m.q, j, m.drop]), reach(true)[1]);
+  const mr = mapStage.getBoundingClientRect(), j = centre($('.map-jl', mapStage), mr), [ka, kb] = reach(true);
+  MAP.forEach(m => { m.q = centre($('.fk-dot', m.btn), mr); planLeg(m, mr); });
+  const len = sharedHandle(MAP.map(m => [m.via || m.q, j, m.drop]), kb);
   MAP.forEach(m => {
-    const d = strand(m.q, j, m.seed, ...reach(true), m.drop, narrow() ? -0.22 : 0, 0, 'b', len);
+    const d = strand(m.q, j, m.seed, {ka, kb, drop:m.drop, ta:narrow() ? -0.22 : 0, share:'b', len, via:m.via});
     [m.solid, m.dash, m.reveal].forEach(p => p.setAttribute('d', d));
   });
   mapTrunk.setAttribute('d', `M${j.x.toFixed(1)} 0V${j.y.toFixed(1)}`);
@@ -223,12 +234,13 @@ const along = (read, a, b) => cl((read - a)/(b - a));
 const setDraw = (path, v) => { path.style.setProperty('--p', v.toFixed(3)); path.style.visibility = v > .002 ? '' : 'hidden'; };
 // ease a drawn share toward its target the way the trail does; true while still moving
 const chase = (o, k, to) => { o[k] = reduce || Math.abs(to - o[k]) < .002 ? to : o[k] + (to - o[k])*.2; return o[k] !== to; };
-// one continuous stroke: the strands start only once the line before them has arrived at the junction, and each leg starts where the last ended
+// one continuous stroke: the four strands draw out together once the line before them has arrived at the junction (a short draw, finished with the fork still
+// in view, never scrubbed), and the chosen leg then follows the reading line down
 function forkFrame(){
   const read = reading(shelf), open = reduce || !forkTrail || forkTrail.len - forkTrail.shown < 1.5;
   let moving = false;
   FORK.forEach(s => {
-    moving = chase(s, 'o', open ? along(read, forkJ.y, s.q.y) : 0) || moving;
+    moving = chase(s, 'o', open ? 1 : 0) || moving;
     moving = chase(s, 'b', s.o > .985 ? along(read, s.q.y, forkG.y) : 0) || moving;
     setDraw(s.out, s.o); setDraw(s.back, s.b); s.btn.classList.toggle('lit', s.o > .97);
   });
@@ -537,7 +549,8 @@ function frame(){
   const readY = scrollY + innerHeight*0.64 - mTop, penY = Math.max(readY, heroT >= 1 ? heroFloor : 0);
   let busy = heroT < 1;
   trails.forEach((t, j) => {
-    let target = reduce ? t.len : drawnLength(t, penY);
+    // the stretch into the fork reads ahead, so the strands can finish drawing while the fork is still well in view
+    let target = reduce ? t.len : drawnLength(t, t === forkTrail ? penY + innerHeight*.2 : penY);
     // until the pen is reached, the hero line leads; scrolling takes over at once
     const intro = heroT < 1 && heroLen && scrollY < 40, drawingIn = intro && j === 0;
     if (drawingIn) target = heroLen*heroT; else if (intro) target = 0;

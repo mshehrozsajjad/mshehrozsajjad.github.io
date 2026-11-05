@@ -10,6 +10,8 @@
   --hand:'Caveat','Bradley Hand','Segoe Print',cursive;
   --gl:max(16px,env(safe-area-inset-left,0px)); --gr:max(16px,env(safe-area-inset-right,0px));
   --ease:cubic-bezier(.23,1,.32,1);
+  /* the cream photo print, shared by the story's snapcards and the lab's piles */
+  --print:linear-gradient(160deg,#FBF7EE,#F1EADC); --print-ink:#2B2620;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --paper:#0E0E10; --raised:#17171A; --ink:#F1F1EC; --muted:#A1A1A9; --line:#2B2B30;
@@ -36,7 +38,7 @@ button{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:3px}
 .wrap{max-width:1120px;margin-inline:auto;padding-left:var(--gl);padding-right:var(--gr)}
 .label{font:600 12px/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase}
-.hand{font:400 clamp(22px,2.2vw,27px)/1 var(--hand);letter-spacing:.02em;color:var(--ink);display:inline-block;transform:rotate(-7deg)}
+.hand{font:400 clamp(22px,2.2vw,27px)/1 var(--hand);letter-spacing:.02em;color:var(--ink);display:inline-block;transform:rotate(-7deg);pointer-events:none}
 .it{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em}
 .numeral{position:absolute;font:400 clamp(110px,15vw,190px)/.8 var(--serif);color:var(--numeral);letter-spacing:-.04em;pointer-events:none;user-select:none;z-index:0}
 .ph{display:grid;place-items:center;text-align:center;background:var(--ph);color:var(--ph-ink);font:500 12px/1.6 var(--sans);letter-spacing:.16em;text-transform:uppercase;padding:16px;position:relative;overflow:hidden}
@@ -84,7 +86,6 @@ main{position:relative;overflow-x:clip}
 .s-draw .sprite{--h:150px}
 .s-draw .pen{left:96.7%;top:85.1%}
 .ch1-low .s-sign{--h:176px;justify-self:center}
-.s-think{--h:150px;position:absolute;right:calc(100% + 26px);bottom:-6px}
 .s-field{--h:200px;position:absolute;right:max(16px,calc((100% - 1120px)/2 + 16px));top:76px}
 .end .s-point{--h:124px;flex:none;margin-right:6px}
 .end-body{display:grid;gap:14px}
@@ -207,7 +208,6 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
   .s-draw .pen{left:3.3%}
   .hero{padding-bottom:132px}
   .ch1-low .s-sign{--h:132px;justify-self:start}
-  .s-think{--h:96px;right:auto;left:calc(100vw - 74px);bottom:-2px}
   .s-field{--h:104px;top:70px;right:var(--gr)}
   .fsec h2,.fsec .intro{padding-right:84px}
   .end{align-items:flex-start}
@@ -296,7 +296,6 @@ footer a{text-underline-offset:4px}
   .ch1 h2{margin-top:36px}.ch h2,.fsec h2,.wsec h2{line-height:1.12}
   .ch1-low .ph{aspect-ratio:16/7}.ch1-low{gap:28px}
   .cross-stage{min-height:0;padding-block:72px}.snaps{display:none}
-  .s-think{left:30px;--h:110px;bottom:0}
   .fields{gap:24px;margin-top:44px}.opt-b{padding-bottom:20px;border-bottom:1px solid var(--line)}
   .fsec h2,.fsec .intro{padding-right:0}.s-field{position:static;margin:28px 0 0 auto;--h:110px}
   .beats{margin-top:40px}.deeper{margin-top:64px}.foot .big-link{font-size:27px}
@@ -387,11 +386,10 @@ footer a{text-underline-offset:4px}
 }
 
 /* the thinking sprite thinks until a path is chosen */
-.think-dots{position:absolute;right:calc(100% + 30px);bottom:158px;display:flex;gap:5px;padding:8px 11px;border:1.5px solid var(--ink);border-radius:14px 14px 14px 3px;background:var(--raised);transition:opacity .3s ease-out}
+.think-dots{position:absolute;display:flex;gap:5px;padding:8px 11px;border:1.5px solid var(--ink);border-radius:14px 14px 14px 3px;background:var(--raised);transition:opacity .3s ease-out}
 .think-dots i{width:6px;height:6px;border-radius:50%;background:var(--ink);animation:think 1.2s infinite}
 .think-dots i:nth-child(2){animation-delay:.15s}.think-dots i:nth-child(3){animation-delay:.3s}
 @keyframes think{0%,60%,100%{opacity:.25;transform:none}30%{opacity:1;transform:translateY(-2px)}}
-#experiments:has(#fields[data-chosen]) .think-dots{opacity:0}
 
 /* the pointing sprite nudges toward the next actions; the waving sprite says hi */
 @keyframes nudge{50%{transform:translateX(4px)}}
@@ -403,7 +401,6 @@ footer a{text-underline-offset:4px}
 
 @media (max-width:760px){
   .mnote{position:static;margin-top:6px;font-size:19px}
-  .think-dots{display:none}
   .say-hi{right:calc(var(--gr) + 44px);bottom:30px;font-size:19px;padding:7px 11px}
   .say-hi .long{display:none}
   .say-hi .short{display:inline}
@@ -483,10 +480,6 @@ footer a{text-underline-offset:4px}
 .chip-b{border:1px solid var(--line);background:none;border-radius:999px;padding:0 15px;min-height:40px;font:500 14px/1 var(--sans);cursor:pointer;transition:background-color .16s,color .16s,border-color .16s}
 .chip-b:hover{border-color:var(--signal);color:var(--signal)}
 .chip-b[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
-.think-wrap{position:absolute;right:0;bottom:0}
-.lab-head .s-think{position:static;--h:150px}
-.think-wrap .think-dots{right:auto;left:72%;bottom:auto;top:-30px}
-.lab:not([data-filter="all"]) .think-dots{opacity:0}
 .lab-list{position:relative;display:grid;gap:96px;margin:96px 0 0 clamp(28px,5vw,60px)}
 .lab-entry{left:-20px;top:-56px}
 [data-tags]{transition:opacity .35s var(--ease)}
@@ -567,7 +560,6 @@ footer a{text-underline-offset:4px}
   .dig-body{padding-left:26px}
   .stats{grid-template-columns:minmax(0,1fr);gap:20px}
   .hack-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-  .think-wrap{display:none}
   .lab{padding-block:72px 48px}
   .lab-list{gap:72px;margin-top:64px}
   .node-main{grid-template-columns:minmax(0,1fr);gap:18px}
@@ -659,9 +651,6 @@ footer a{text-underline-offset:4px}
 .lab-head{max-width:none}
 .lab-head h2{margin-top:0}
 .lab-head .lead{color:var(--soft)}
-.think-wrap{right:2%;bottom:-6px}
-.think-wrap .think-dots{display:none}
-.think-wrap .doodle-idea{position:absolute;width:150px;right:58%;top:-74px;margin:0;transform:rotate(-8deg)}
 .lab-index{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.86fr);gap:56px;align-items:start;margin:88px 0 0 clamp(28px,5vw,60px)}
 .rows{position:relative;border-bottom:1px solid var(--line)}
 .lab-entry{top:-48px}
@@ -991,10 +980,10 @@ footer a{text-underline-offset:4px}
 .hand.note-pixel svg{position:absolute;left:58%;top:20px;width:26px;height:30px}
 .ch1 .hand svg path{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 /* prints: cream paper, a slight tilt, a handwritten caption */
-.snapcard{position:relative;margin:0;padding:12px 12px 0;background:linear-gradient(160deg,#FBF7EE,#F1EADC);border-radius:6px;transform:rotate(var(--r,0deg));box-shadow:0 1px 2px rgba(40,30,10,.12),0 22px 44px -24px rgba(40,30,10,.5);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.snapcard{position:relative;margin:0;padding:12px 12px 0;background:var(--print);border-radius:6px;transform:rotate(var(--r,0deg));box-shadow:0 1px 2px rgba(40,30,10,.12),0 22px 44px -24px rgba(40,30,10,.5);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
 .snap-img{position:relative;overflow:hidden;border-radius:2px;background:#e8e2d4}
 .snap-img img{display:block;width:100%;height:auto}
-.snapcard figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 6px 12px;font:400 22px/1.1 var(--hand);color:#2B2620}
+.snapcard figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 6px 12px;font:400 22px/1.1 var(--hand);color:var(--print-ink)}
 .snapcard .sig{color:var(--signal);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;transform:rotate(-6deg)}
 .snapcard.poster{position:absolute;right:-56px;bottom:-34px;width:46%;padding:8px 8px 0}
 .snapcard.poster figcaption{font-size:19px;padding:6px 4px 8px;justify-content:center}
@@ -1232,80 +1221,82 @@ footer a{text-underline-offset:4px}
 .lab-head h2{max-width:none;margin:0;font-size:clamp(36px,4.2vw,56px);line-height:1.04;letter-spacing:-.04em}
 .lab-head h2 .it{font-weight:400}
 .lab-head .lead{margin-top:28px;max-width:50ch;font-size:clamp(17px,1.5vw,19px);line-height:1.6;color:var(--muted)}
-/* the fork: the line comes down the gutter, curves into a junction and fans out across the page to four columns */
+/* the fork: the line comes down the gutter to a junction beside Shehroz, and fans out to four piles of prints */
 @property --r{syntax:'<number>';inherits:false;initial-value:0}
-.shelf{--e:cubic-bezier(.65,0,.35,1);--fh:230px;--nh:56px;--side:clamp(48px,6vw,72px);--gap:clamp(16px,2.4vw,32px);position:relative;margin-top:72px;padding-bottom:240px}
+.shelf{--e:cubic-bezier(.65,0,.35,1);--th:128px;--fh:clamp(200px,19vw,270px);--nh:56px;--pw:236px;--side:clamp(48px,6vw,72px);--gap:clamp(16px,2.4vw,32px);position:relative;margin-top:24px;padding:var(--th) 0 210px}
 .rail{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:0}
-.rail-in{left:-24px;top:0}
+.rail-in{left:-24px;top:var(--th)}
 .rail-out{left:-24px;top:100%}
-/* --p is the scroll draw-on, --r the retract; both end up in one dash offset */
+/* Shehroz stands at the junction, deciding, until a collection is chosen */
+.shelf .s-think{--h:calc(var(--th) - 6px);position:absolute;left:14px;top:0}
+.shelf .think-dots{left:calc(28px + (var(--th) - 6px)*.41);top:6px}
+.shelf[data-chosen] .think-dots{opacity:0}
+/* --p is the scroll draw-on, --r the retract; both end up in one dash offset. The strands you did not pick stay: thin and light, but whole */
 .st-out,.st-back,.mp-solid,.mp-dash,.mp-trunk{fill:none;stroke:var(--signal);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .st-out,.st-back{stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--p,0)*(1 - var(--r,0)));transition:--r .7s var(--e),stroke-width .3s}
 .st{transition:opacity .35s}
-.st:not(.on){opacity:.6}
+.st:not(.on){opacity:.55}
+.st:not(.on) path{stroke-width:1.4}
+.st.dim{opacity:.35}
 .st.hot{opacity:1}
-.st.dim{opacity:.3}
-.st.hot path{stroke-width:3.4}
-.st.gone .st-out{--r:1;opacity:0;transition:--r .7s var(--e),stroke-width .3s,opacity 0s .7s}
+.st.hot path{stroke-width:2.8}
 .st:not(.on) .st-back{--r:1}
 .st.on .st-back{transition:--r .7s var(--e) .55s,stroke-width .3s}
 .cols,.map-names{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 var(--gap)}
 .cols{padding:var(--fh) 0 0 var(--side)}
-/* a column: a fanned stack of three real cards, its name and a count */
-.fk{position:relative;display:block;min-width:0;padding:0;background:none;border:0;cursor:pointer;color:var(--ink);text-align:left;transition:opacity .3s}
-.fk.dim{opacity:.4}
-.fk:focus-visible{outline:2px solid var(--signal);outline-offset:10px;border-radius:18px}
-.fk-stack{position:relative;display:block;aspect-ratio:5/4;margin-bottom:14px}
-.pk{position:absolute;left:8%;bottom:0;width:80%;aspect-ratio:4/3;overflow:hidden;border-radius:14px;background:#EDEBE4;transform-origin:50% 100%;box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 9%,transparent),0 2px 4px rgba(20,20,30,.06),0 20px 32px -18px rgba(20,20,30,.5);transition:transform .7s var(--ease)}
-.pk img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.55) brightness(1.04);transition:filter .6s var(--ease)}
-.pk img[src*="in-hand"]{object-position:50% 58%}
-.pk:nth-child(1){transform:translateY(-11%) scale(.9) rotate(-1.5deg)}
-.pk:nth-child(2){transform:translateY(-5.5%) scale(.95) rotate(1.2deg)}
-/* the top card is an undeveloped print until its column is called up */
-.pk:last-child img{filter:sepia(.4) saturate(.6) contrast(.88) brightness(1.05)}
-.fk:is(.on,.hot,:focus-visible) .pk:last-child img,.mp:hover .pk:last-child img{filter:none}
-.fk:is(.hot,:focus-visible) .pk:nth-child(1),.mp:hover .pk:nth-child(1){transform:translate(-15%,-8%) scale(.96) rotate(-8deg)}
-.fk:is(.hot,:focus-visible) .pk:nth-child(2),.mp:hover .pk:nth-child(2){transform:translate(11%,-5%) scale(.97) rotate(7deg)}
-.fk:is(.hot,:focus-visible) .pk:nth-child(3),.mp:hover .pk:nth-child(3){transform:translateY(-10px)}
-/* given away has no imagery: three matching repo cards */
-.pk.repo{display:flex;flex-direction:column;justify-content:space-between;padding:12px 14px;background:#16161A;color:#E9E8E2}
-.pk.repo b{display:flex;gap:5px}
-.pk.repo s{display:block;width:7px;height:7px;border-radius:50%;background:#3A3A42}
-.pk.repo code{font:500 clamp(11px,1vw,13px)/1.2 var(--mono);letter-spacing:-.01em}
-.pk.repo code::before{content:"~/";color:#8D8C98}
-.fk-t{display:flex;align-items:flex-start;gap:8px;height:var(--nh);opacity:.62;transition:opacity .3s}
-.fk:is(.on,.hot,:focus-visible) .fk-t,.mp:not(.done) .fk-t,.mp:hover .fk-t{opacity:1}
+/* a column: a pile of three prints with a tack where its strand lands, then the name */
+.fk{--ring:#FBF7EE;position:relative;display:block;min-width:0;padding:0;background:none;border:0;cursor:pointer;color:var(--ink);text-align:left}
+.fk.dim .fk-t{opacity:.72}
+.fk-t{transition:opacity .3s}
+/* keyboard focus is not a box: the pile fans, the front print gets a signal edge and the name is underlined by hand */
+.fk:focus-visible{outline:none}
+.fk:focus-visible .pk:last-child{box-shadow:0 0 0 2px var(--signal),0 14px 24px -14px rgba(40,30,10,.55)}
+.fk-stack{position:relative;display:block;width:min(100%,var(--pw));margin-bottom:40px}
+.pk{display:block;padding:8px 8px 34px;background:var(--print);border-radius:5px;box-shadow:0 0 0 1px rgba(40,30,10,.1),0 1px 2px rgba(40,30,10,.14),0 14px 24px -14px rgba(40,30,10,.55);transition:transform .7s var(--ease)}
+.pk:last-child{position:relative;margin:0 10px 10px;transform:rotate(-1.2deg)}
+.pk:not(:last-child){position:absolute;inset:0 10px 10px}
+.pk:nth-child(1){transform:translate(-11px,8px) rotate(-7deg)}
+.pk:nth-child(2){transform:translate(12px,5px) rotate(6deg)}
+.pk .snap-img{display:block;aspect-ratio:3/2}
+.pk .snap-img img{height:100%;object-fit:cover;filter:saturate(.8) contrast(.94) brightness(1.04);transition:filter .6s var(--ease)}
+.pk-cap{position:absolute;left:8px;right:8px;bottom:0;height:34px;display:grid;place-items:center;font:400 22px/1 var(--hand);color:var(--print-ink);white-space:nowrap}
+/* hover or focus: the pile fans open and the top print sharpens; the chosen pile is always sharp */
+.fk:is(:hover,:focus-visible,.hot) .pk:nth-child(1){transform:translate(-24px,-2px) rotate(-10deg)}
+.fk:is(:hover,:focus-visible,.hot) .pk:nth-child(2){transform:translate(26px,-3px) rotate(9deg)}
+.fk:is(:hover,:focus-visible,.hot) .pk:last-child{transform:none}
+.fk:is(.on,.done,:hover,:focus-visible,.hot) .pk img{filter:none}
+/* given away has no imagery: index cards, the repo names typed on the back ones and listed by hand on the top one */
+.snap-img.note{display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(to bottom,transparent 0 23px,rgba(45,43,224,.16) 23px 24px) 0 10px,#F7F1E1}
+.note code{font:500 12px/1.3 var(--mono);letter-spacing:-.01em;color:var(--print-ink)}
+.note code::before{content:"~/";opacity:.5}
+.note ul{list-style:none;margin:0;padding:0 14px;width:100%;font:400 20px/24px var(--hand);color:var(--print-ink);white-space:nowrap}
+.note li::before{content:"";display:inline-block;width:6px;height:6px;margin-right:9px;border-radius:50%;background:var(--signal);vertical-align:3px}
+.fk-t{display:flex;align-items:baseline;gap:12px;height:var(--nh)}
 .fk-n{font:700 clamp(24px,2.7vw,38px)/1.05 var(--sans);letter-spacing:-.05em;white-space:nowrap}
-.fk-c{margin-top:.3em;font:500 13px/1 var(--mono);letter-spacing:.04em;color:var(--signal)}
-/* the dot where a strand lands on its column; filled once chosen or explored */
-.fk-dot{position:absolute;left:-16px;top:0;width:12px;height:12px;margin:-6px 0 0 -6px;box-sizing:border-box;border-radius:50%;border:2px solid var(--signal);background:var(--paper);transform:scale(.4);opacity:0;transition:transform .5s var(--ease),opacity .4s,background .25s,box-shadow .4s var(--ease)}
-.mp .fk-dot{top:auto;bottom:calc(var(--nh)/2);margin:0 0 -6px -6px}
+.fk-c{display:none;font:400 24px/1 var(--hand);color:var(--signal)}
+/* the hand-drawn mark under the name: drawn when the collection is chosen (map: walked). It is always drawn for reduced motion by the doodle code, so this restates it */
+.fk .fk-n .dd .dd-svg path{stroke-dashoffset:1}
+.fk:is(.picked,.done,:focus-visible) .fk-n .dd .dd-svg path{stroke-dashoffset:0}
+/* the tack where a strand lands on the top print */
+.fk-dot{position:absolute;z-index:2;left:min(50%,calc(var(--pw)/2));top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 2.5px var(--ring),0 2px 4px rgba(40,30,10,.35);transform:scale(.4);opacity:0;transition:transform .5s var(--ease),opacity .4s,box-shadow .4s var(--ease)}
 .fk.lit .fk-dot{transform:none;opacity:1}
-.fk.on .fk-dot,.mp.done .fk-dot{background:var(--signal)}
-.fk.on .fk-dot{box-shadow:0 0 0 6px color-mix(in srgb,var(--signal) 16%,transparent)}
+.fk.on .fk-dot{box-shadow:0 0 0 2.5px var(--ring),0 0 0 9px color-mix(in srgb,var(--signal) 18%,transparent)}
 
 /* the map: a short pinned moment. The line comes down the gutter, the four strands grow out of it, and you choose where next */
-.map{--nh:56px;--side:clamp(48px,6vw,72px);--gap:clamp(16px,2.4vw,32px);position:relative}
-.map-stage{--mt:clamp(72px,12svh,130px);position:relative;min-height:min(100svh,780px);padding-top:var(--mt)}
+.map{--nh:56px;--pw:236px;--side:clamp(48px,6vw,72px);--gap:clamp(16px,2.4vw,32px);position:relative}
+.map-stage{--mt:clamp(56px,10svh,110px);position:relative;min-height:min(100svh,780px);padding-top:var(--mt)}
 .map-jl,.map-j{left:-24px;bottom:72px}
 .map-head{padding-left:var(--side)}
 .map-q{font:700 clamp(36px,4.2vw,56px)/1.04 var(--sans);letter-spacing:-.045em}
 .map-k{margin-top:14px;font:500 13px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--signal)}
-.map-names{padding:56px 0 0 var(--side)}
+.map-names{padding:40px 0 0 var(--side)}
 .mp-trunk{stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--p,0))}
 .mp-solid,.mp-reveal{stroke-dasharray:1;stroke-dashoffset:calc(var(--p,0) - 1)}
 .mp-reveal{fill:none;stroke:#fff;stroke-width:8;stroke-linecap:round}
 .mp-dash{stroke:color-mix(in srgb,var(--signal) 55%,transparent);stroke-dasharray:2 7}
 .map:not(.pinned) .mp-trunk{display:none}
-/* walked columns settle back: a quiet stack, a check beside the name */
-.mp.done .fk-stack{opacity:.4;filter:grayscale(.7)}
-.mp.done .fk-n{color:var(--muted)}
-.fk-seen{display:block;width:16px;height:16px;margin-top:.55em;fill:none;stroke:var(--signal);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;opacity:0;transform:scale(.6);transition:opacity .4s,transform .5s var(--ease)}
-.fk-c + .fk-seen{display:none}
-.mp.done .fk-c{display:none}
-.mp.done .fk-seen{display:block;opacity:1;transform:none}
 .map-on{position:absolute;right:0;top:calc(var(--mt) + 24px);display:flex;align-items:center;gap:8px;padding:0;background:none;border:0;cursor:pointer;color:var(--soft);font:500 17px/1.2 var(--sans)}
-.map-on:focus-visible{outline:2px solid var(--signal);outline-offset:6px;border-radius:12px}
+.map-on:focus-visible{outline:2px solid var(--signal);outline-offset:6px;border-radius:12px 4px 10px 5px/5px 10px 4px 12px}
 @media (hover:hover) and (pointer:fine){.map-on:hover{color:var(--ink)}}
 .map.pinned{height:170svh}
 .map.pinned .map-stage{position:sticky;top:0;height:100svh;min-height:0}
@@ -1361,13 +1352,14 @@ footer a{text-underline-offset:4px}
 .js .itm:not(.on) .it-card{opacity:0;transform:translateY(64px) rotate(var(--tilt)) scale(.95);transition:opacity .3s,transform .4s var(--ease)}
 .js .itm.past:not(.on) .it-card{transform:translateY(-56px) rotate(calc(var(--tilt)*-.4)) scale(.97)}
 .js .itm .w{display:inline-block;transition:opacity .75s var(--ease),filter .75s var(--ease),transform .75s var(--ease);transition-delay:calc(var(--w)*55ms + 220ms)}
-.js .itm :is(.it-eyebrow,.it-meta,.it-sub,.it-links){transition:opacity .7s var(--ease),filter .7s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
+.js .itm :is(.it-eyebrow,.it-meta,.it-sub,.it-links,.it-spr){transition:opacity .7s var(--ease),filter .7s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
 .it-eyebrow{--d:.1s}
 .it-meta{--d:calc(var(--nw)*55ms + 340ms)}
 .it-sub{--d:calc(var(--nw)*55ms + 440ms)}
 .it-links{--d:calc(var(--nw)*55ms + 540ms)}
+.it-spr{--h:116px;--d:calc(var(--nw)*55ms + 640ms);margin-top:8px}
 .js .itm:not(.on) .w{opacity:0;filter:blur(12px);transform:translateY(14px);transition-duration:.25s;transition-delay:0s}
-.js .itm:not(.on) :is(.it-eyebrow,.it-meta,.it-sub,.it-links){opacity:0;filter:blur(8px);transform:translateY(10px);transition-duration:.25s;transition-delay:0s}
+.js .itm:not(.on) :is(.it-eyebrow,.it-meta,.it-sub,.it-links,.it-spr){opacity:0;filter:blur(8px);transform:translateY(10px);transition-duration:.25s;transition-delay:0s}
 
 @media (min-width:761px) and (prefers-reduced-motion:no-preference){
   .stage-wrap{height:calc(100svh + var(--n)*95svh)}
@@ -1388,17 +1380,20 @@ footer a{text-underline-offset:4px}
   .itm{--ch:min(58svh,520px);grid-area:1/1;pointer-events:none}
   .itm.on{pointer-events:auto}
 }
-@media (max-width:1100px){.itm{gap:48px}}
+@media (max-width:1100px){.itm{gap:48px}.shelf{--th:112px}}
 @media (max-width:760px){
   .lab{padding-block:96px 56px}
   .lab-head h2{font-size:36px}
   .lab-head .lead{margin-top:22px}
-  .shelf,.map{--side:44px;--nh:64px}
-  .shelf{margin-top:48px;padding-bottom:110px}
+  .shelf,.map{--side:44px;--nh:88px}
+  .shelf{--th:92px;margin-top:20px;padding-bottom:110px}
   .cols,.map-names{grid-template-columns:minmax(0,1fr);gap:0}
-  .cols{padding:104px 0 0 var(--side)}
+  .cols{padding:72px 0 0 var(--side)}
+  .fk{--ring:var(--paper)}
   .fk-stack{display:none}
-  .fk-dot{top:auto;bottom:calc(var(--nh)/2);margin:0 0 -6px -6px}
+  .fk-dot{left:-16px;top:auto;bottom:56px;margin:0 0 -7px -7px}
+  .fk-t{flex-direction:column;align-items:flex-start;justify-content:center;gap:0}
+  .fk-c{display:block}
   .fk-n{font-size:clamp(38px,11.5vw,52px)}
   .fk[data-col=hardware]{order:9}
   .map-stage{padding:64px 0 150px}
@@ -1412,4 +1407,4 @@ footer a{text-underline-offset:4px}
   .m-term{padding:16px 20px 28px}
   .m-duo figure + figure{margin-top:28px}
 }
-@media (prefers-reduced-motion:reduce){.st,.st-out,.st-back,.fk,.fk-dot,.pk,.pk img,.fk-seen{transition:none!important}}
+@media (prefers-reduced-motion:reduce){.st,.st-out,.st-back,.fk,.fk-dot,.pk,.pk img{transition:none!important}}
