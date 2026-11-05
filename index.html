@@ -604,6 +604,169 @@ footer a{text-underline-offset:4px}
   .foot .say-hi{bottom:-64px;right:calc(var(--gr) + 104px)}
   .taste-grid .s-camera{display:none}
 }
+
+/* ===== Design pass v5: chaptered editorial, quieter surfaces, one accent role ===== */
+/* the accent belongs to Shehroz's hand: the trail, its marks, and links. Everything else is ink. */
+:root{--tint:color-mix(in srgb,var(--ink) 4.5%,var(--paper));--soft:color-mix(in srgb,var(--ink) 62%,var(--paper))}
+
+/* media slots: quiet frames that read as "a photo goes here", not as grey noise */
+.ph{display:flex;align-items:flex-end;justify-content:flex-start;text-align:left;background:var(--tint);border:1px solid var(--line);border-radius:4px;color:var(--soft);font:500 12px/1.45 var(--sans);letter-spacing:0;text-transform:none;padding:14px 16px}
+.ph::after{display:none}
+.ph::before{content:"";position:absolute;left:14px;top:14px;width:9px;height:9px;border-left:1px solid currentColor;border-top:1px solid currentColor;opacity:.55}
+.now .ph,.now .media .ph{background:color-mix(in srgb,var(--now-ink) 7%,var(--now-bg));border-color:color-mix(in srgb,var(--now-ink) 16%,var(--now-bg));color:color-mix(in srgb,var(--now-ink) 62%,var(--now-bg))}
+
+/* hero: four things and a hand note */
+.hero h1{margin-block:20px 22px}
+.hero .sub{color:var(--soft);max-width:34ch;font-size:clamp(18px,1.55vw,20px);line-height:1.55}
+.tease-note{margin-top:10px;font-size:22px}
+.hero-actions{margin-top:34px}
+.avatar{margin-top:30px;gap:12px}
+.avatar .portrait{aspect-ratio:4/5}
+.avatar .ask{font-size:15px}
+.avatar-caption{margin:0;font-size:13px;line-height:1.5;color:var(--muted)}
+
+/* labels and small text: sans, not a monospace costume */
+.proofs{font:500 14px/1.45 var(--sans);letter-spacing:0;color:var(--soft);gap:8px 28px}
+.proofs li::before{width:10px;height:1px;background:var(--soft);border-radius:0}
+.chips{gap:0;margin-top:18px}
+.chips li{border:0;border-radius:0;padding:0;font:500 13px/1.6 var(--sans);letter-spacing:0;color:var(--soft)}
+.chips li + li::before{content:"·";margin:0 8px;opacity:.6}
+.now .chips li{color:color-mix(in srgb,var(--now-ink) 66%,var(--now-bg))}
+.dig summary{font:600 14px/1 var(--sans);letter-spacing:-.005em;text-transform:none;gap:12px}
+.dig .plus{width:22px;height:22px;font-size:15px}
+
+/* 01: more air above headings than below, and a calmer strip */
+.ch1 .gist{color:var(--soft)}
+.strip{gap:16px;margin-top:72px}
+.strip .ph:nth-child(1){aspect-ratio:5/4}
+.mile b{font-size:18px}
+
+/* 02 is a ledger, not a second milestone row */
+.ch2 .wrap{position:relative}
+.ch2 .s-laptop{position:absolute;right:var(--gr);top:0;--h:150px}
+.ledger{list-style:none;margin:56px 0 0;padding:0;max-width:980px}
+.ch2 .ledger{margin-left:clamp(28px,5vw,60px)}
+.ledger li{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr) minmax(0,1.6fr);gap:6px 28px;padding:20px 0;border-top:1px solid var(--line);align-items:baseline}
+.ledger li:last-child{border-bottom:1px solid var(--line)}
+.ledger b{font:600 19px/1.3 var(--sans);letter-spacing:-.02em}
+.ledger span{color:var(--soft);font-size:16px;line-height:1.5}
+.ledger li.quiet b,.ledger li.quiet span{font-weight:400;color:var(--muted);font-size:15px}
+.ledger a{color:var(--signal);font-weight:600;text-underline-offset:4px;white-space:nowrap}
+.ledger .dot{top:27px}
+
+/* 03, the peak: the numbers as one sentence, not a stat-tile row */
+.now .now-low{margin-top:96px}
+.scale{max-width:30ch;font:500 clamp(30px,3.6vw,48px)/1.14 var(--sans);letter-spacing:-.035em;color:color-mix(in srgb,var(--now-ink) 52%,var(--now-bg));text-wrap:balance}
+.scale b{font-weight:600;color:var(--now-ink);font-variant-numeric:tabular-nums}
+.src{margin-top:18px;font:400 13px/1.5 var(--sans);opacity:.6}
+.now-low > .c + .c{margin-top:88px}
+.hack-row{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr);gap:14px}
+.hack-row figure{display:flex;flex-direction:column}
+.hack-row figure:nth-child(1){grid-row:span 2}
+.hack-row figure:nth-child(1) .ph{flex:1;aspect-ratio:auto;min-height:260px}
+.hack-row figure:nth-child(2) .ph,.hack-row figure:nth-child(3) .ph{aspect-ratio:4/3}
+.hack-row figure:nth-child(4){grid-column:2 / 4}
+.hack-row figure:nth-child(4) .ph{aspect-ratio:16/6}
+.hack-row figcaption{font:400 13px/1.4 var(--sans);opacity:.7;margin-top:8px}
+.hack-cap{font-size:18px;margin-top:24px}
+
+/* 04: an index with a preview that follows you, instead of seven identical cards */
+.lab-head{max-width:none}
+.lab-head h2{margin-top:0}
+.lab-head .lead{color:var(--soft)}
+.think-wrap{right:2%;bottom:-6px}
+.think-wrap .think-dots{display:none}
+.think-wrap .doodle-idea{position:absolute;width:150px;right:58%;top:-74px;margin:0;transform:rotate(-8deg)}
+.lab-index{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.86fr);gap:56px;align-items:start;margin:88px 0 0 clamp(28px,5vw,60px)}
+.rows{position:relative;border-bottom:1px solid var(--line)}
+.lab-entry{top:-48px}
+.row{position:relative}
+.dig.row > summary{position:relative;display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:0 16px;align-items:start;min-height:0;padding:24px 0;border-top:1px solid var(--line);font:inherit;letter-spacing:normal;text-transform:none;color:var(--ink);cursor:pointer}
+.dig.row > summary:hover{text-decoration:none}
+.row > summary .knot{top:31px}
+.r-n{font:500 13px/1 var(--sans);color:var(--muted);font-variant-numeric:tabular-nums;padding-top:9px}
+.r-main{display:grid;gap:6px;min-width:0}
+.r-main b{font:600 clamp(22px,2.1vw,26px)/1.15 var(--sans);letter-spacing:-.03em;transition:color .16s}
+.r-line{font-size:16px;line-height:1.5;color:var(--soft);max-width:44ch}
+.r-meta{font-size:14px;color:var(--muted)}
+.r-meta em{font-style:normal;color:var(--ink);font-weight:500}
+.r-hand{font-size:21px;color:var(--signal);margin-top:4px;transform:rotate(-2deg);transform-origin:left}
+.r-side{display:flex;align-items:center;gap:16px;padding-top:7px}
+.r-side .plus{width:24px;height:24px;border:1.5px solid var(--line);border-radius:50%;display:grid;place-items:center;font:500 15px/1 var(--sans);color:var(--ink);transition:transform .25s var(--ease),border-color .16s}
+.row[open] .r-side .plus{transform:rotate(45deg)}
+.row .meter{width:120px;margin:0;gap:3px}
+.row .meter li{height:0;padding:0;font-size:0;border-top-width:3px}
+.r-short{display:block;font-size:12px;color:var(--muted);margin-top:8px;text-align:right}
+.r-stack{display:grid}
+.js .row.rise:not(.in) .meter li.on{border-color:var(--line)}
+.row.active > summary .r-main b{color:var(--signal)}
+.row.active > summary .plus{border-color:var(--ink)}
+.row > .dig-body{padding:2px 0 34px 56px;max-width:none}
+.row .r-status{font-size:15px;color:var(--muted)}
+.row .r-shot{display:none}
+.row .taught{border-left:1px solid var(--signal);font-size:16px}
+.row .taught span{font:600 12px/1.4 var(--sans);letter-spacing:0;text-transform:none}
+.row .links{display:flex;flex-wrap:wrap;gap:18px}
+.row .links a{font:600 15px/1 var(--sans);color:var(--signal);text-underline-offset:4px}
+.preview{position:sticky;top:max(96px,calc(50vh - 220px))}
+.pv-stage{position:relative;aspect-ratio:16/10.5}
+.pv{position:absolute;inset:0;margin:0;opacity:0;transform:scale(.985);transition:opacity .35s var(--ease),transform .5s var(--ease)}
+.pv.on{opacity:1;transform:none}
+.pv > img:not(.sprite),.pv > .ph{display:block;width:100%;height:100%;object-fit:cover;object-position:top;border:1px solid var(--line);border-radius:4px;background:var(--raised);box-shadow:0 24px 50px -34px color-mix(in srgb,var(--ink) 55%,transparent)}
+.pv .s-solder{--h:120px;position:absolute;right:-14px;bottom:-30px}
+.pv-cap{margin-top:16px;font-size:14px;color:var(--muted);min-height:1.5em}
+.pv-cap b{color:var(--ink);font-weight:600}
+.lab:not([data-filter="all"]) .row:not(.match){opacity:.3}
+
+/* given away reads as a ledger too */
+.given .ledger{margin-top:28px}
+
+/* the close: a colophon, not two boxes */
+.cta{gap:0;max-width:960px;margin-top:44px;border-top:1px solid var(--line)}
+.cta-card{border:0;background:none;border-radius:0;padding:26px 32px 8px 0}
+.cta-card + .cta-card{padding-left:32px;border-left:1px solid var(--line)}
+.cta-card .label{font:600 14px/1.2 var(--sans);letter-spacing:0;text-transform:none;color:var(--ink)}
+.cta-card .t{color:var(--soft);font-size:18px}
+
+/* the dark chapter keeps its own accent stop, so marks stay legible */
+.now .dig summary,.now .src a{color:var(--now-trail)}
+.now .dot{background:var(--now-trail)}
+.foot .say-hi{right:calc(var(--gr) + 124px);bottom:-30px}
+.taste-grid{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr);gap:12px;align-items:end}
+.taste-grid .ph{grid-column:auto!important;aspect-ratio:auto!important;height:clamp(150px,17vw,230px)}
+.taste-grid .t3{height:clamp(120px,13vw,180px)}
+@media (max-width:760px){
+  .hero .sub{font-size:17px}
+  .taste-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .taste-grid .t1{grid-column:1 / 3!important}
+  .taste-grid .ph{height:150px}
+  .foot .say-hi{bottom:-64px;right:calc(var(--gr) + 104px)}
+  .avatar{grid-template-columns:96px minmax(0,1fr);align-items:end;max-width:none}
+  .avatar .portrait{grid-row:span 2}
+  .ch2 .s-laptop{display:none}
+  .ch2 .ledger{margin-left:0}
+  .ledger li{grid-template-columns:minmax(0,1fr);gap:2px;padding:16px 0}
+  .ledger .dot{top:23px}
+  .now .now-low{margin-top:64px}
+  .scale{font-size:28px}
+  .hack-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+  .hack-row figure:nth-child(1){grid-row:auto;grid-column:1 / 3}
+  .hack-row figure:nth-child(1) .ph{min-height:0;aspect-ratio:16/10}
+  .hack-row figure:nth-child(4){grid-column:1 / 3}
+  .lab-index{grid-template-columns:minmax(0,1fr);margin-left:0;margin-top:56px}
+  .preview{display:none}
+  .dig.row > summary{grid-template-columns:minmax(0,1fr) auto;padding:20px 0}
+  .r-n{display:none}
+  .row > summary .knot{top:28px}
+  .row > .dig-body{padding-left:26px}
+  .row .r-shot{display:block}
+  .row .r-shot img,.row .r-shot .ph{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;border:1px solid var(--line);border-radius:4px}
+  .row .meter{width:72px}
+  .r-side{flex-direction:column;align-items:flex-end;gap:10px}
+  .cta{border-top:0}
+  .cta-card{padding:22px 0;border-top:1px solid var(--line)}
+  .cta-card + .cta-card{padding-left:0;border-left:0}
+}
 </style>
 </head>
 <body>
@@ -632,17 +795,16 @@ footer a{text-underline-offset:4px}
     <div class="c">
       <p class="label">Product engineer · Munich</p>
       <h1 id="h1" tabindex="-1">Started in <span class="it">design.</span><br>Kept following <span class="dd" data-doodle="underline2" data-manual>the idea.</span></h1>
-      <p class="sub">It led to a 25-person studio, a platform behind 200,000+ avatar sessions, a pocket device that <span class="dd" data-doodle="underline" data-manual>makes my German phone calls</span>, and the occasional robot.</p>
-      <span class="tease-note" aria-hidden="true">more on that call later ↓</span>
+      <p class="sub">It led to a 25-person studio, a platform behind 200,000+ avatar sessions, and a device that <span class="dd" data-doodle="underline" data-manual>makes my phone calls in German.</span></p>
+      <span class="tease-note" aria-hidden="true">more on that one later ↓</span>
       <div class="hero-actions"><a class="pill pri" href="#lab">Explore my work <span aria-hidden="true">↘</span></a><a class="text-link" href="#story">Follow the story <span aria-hidden="true">↓</span></a></div>
-      <img class="doodle doodle-idea" src="assets/doodles/idea.png" alt="" aria-hidden="true" width="2172" height="724">
-      <p class="disc">Design <i>·</i> Engineering <i>·</i> Go-to-market <i>·</i> AI</p>
     </div>
     <span class="hand c" aria-hidden="true">one thing led to another</span>
     <figure class="sprite-fig s-draw c" aria-hidden="true"><img class="sprite" src="assets/sprites/shehroz-draw.webp" alt="" width="302" height="436"><span class="way pen" data-o="2.8"></span></figure>
     <div class="avatar c">
-      <div class="avatar-note"><span class="label">A different introduction</span><p>A few things<br>about <span class="it">me.</span></p><span class="avatar-caption">My work, my story, and what I’m building next.</span></div>
+      <div class="ph portrait">Portrait /<br>real photo</div>
       <button class="ask" type="button" data-open="agent">Ask my AI self ↗</button>
+      <p class="avatar-caption">Preset answers from my own notes.</p>
     </div>
   </div>
   <span class="way wm" data-o="3.6" style="left:82%;top:calc(100% - 34px)"></span>
@@ -689,20 +851,16 @@ footer a{text-underline-offset:4px}
 <section class="ch ch1 ch2" id="inside" aria-labelledby="h-ch2">
   <span class="numeral" aria-hidden="true">02</span>
   <div class="wrap">
+    <img class="sprite s-laptop rise" src="assets/sprites/shehroz-laptop.webp" alt="" aria-hidden="true" width="258" height="438">
     <h2 id="h-ch2" class="c rise">Then I went inside <span class="dd" data-doodle="underline">the product.</span></h2>
     <p class="gist c rise">A React rebuild at Keyhole, an in-car system for a top German car company, and edge ML at cureVision.</p>
-    <div class="miles c">
-      <div class="mile"><span class="dot" data-o="7.2"></span><b>Keyhole /</b>Social media analytics. Rebuilt legacy platform components in React</div>
-      <div class="mile"><span class="dot" data-o="7.3"></span><b>A top German car company /</b>A car information system</div>
-      <div class="mile"><span class="dot" data-o="7.4"></span><b>cureVision /</b>Custom software on custom hardware, ML on the device<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>joined at the foundational stage</span></div>
-    </div>
-    <div class="ch2-low c">
-      <div class="ph rise">cureVision /<br>public product photo</div>
-      <img class="sprite s-laptop rise" src="assets/sprites/shehroz-laptop.webp" alt="" width="258" height="438">
-      <p class="rise">Along the way: a master’s in entrepreneurship in Munich.</p>
-    </div>
+    <ol class="ledger c">
+      <li><span class="dot" data-o="7.2" data-v data-vn></span><b>Keyhole</b><span>Social media analytics</span><span>Rebuilt components of their legacy platform in React.</span></li>
+      <li><span class="dot" data-o="7.3" data-v data-vn></span><b>A top German car company</b><span>Automotive</span><span>Worked on a car information system.</span></li>
+      <li><span class="dot" data-o="7.4" data-v data-vn></span><b>cureVision</b><span>Medical technology, Munich</span><span>Custom software on custom hardware, with ML running on the device. Joined at the foundational stage.</span></li>
+      <li class="quiet"><b>Along the way</b><span>Munich</span><span>A master’s in entrepreneurship.</span></li>
+    </ol>
     <div class="digwrap c">
-      <span class="way wd" data-o="7.5" style="left:calc(100% + 36px);top:-24px"></span>
       <span class="way dig-in" data-o="7.55" data-v data-vn></span>
       <details class="dig">
         <summary><span class="dot knot" data-o="7.6" data-v data-vn></span><span class="plus" aria-hidden="true">+</span>Dig in: the product years</summary>
@@ -711,6 +869,7 @@ footer a{text-underline-offset:4px}
           <p>For one of Germany’s top car companies, I worked on a car information system.</p>
           <p>In Munich I joined cureVision at its foundational stage. I built custom software on custom hardware that runs ML models on the device, which made wound documentation about 90% faster.</p>
           <ul class="chips"><li>React</li><li>Edge ML</li><li>Custom hardware</li><li>Medical technology</li><li>Automotive</li></ul>
+          <div class="dig-media"><div class="ph">cureVision /<br>public product photo</div></div>
         </div>
         <span class="way dig-end" data-o="7.65" data-v data-vn></span>
       </details>
@@ -742,20 +901,15 @@ footer a{text-underline-offset:4px}
   </div>
   <div class="wrap now-low">
     <div class="c">
-      <dl class="stats">
-        <div><dt>200,000+</dt><dd>avatar sessions served</dd></div>
-        <div><dt>1,000+</dt><dd>sessions in parallel</dd></div>
-        <div><dt>15,000+</dt><dd>startups, scaleups and enterprise teams</dd></div>
-      </dl>
+      <p class="scale"><span><b>200,000+</b> avatar sessions served.</span> <span><b>1,000+</b> running at once.</span> <span><b>15,000+</b> startups, scaleups and enterprise teams.</span></p>
       <p class="src">Public figures from <a href="https://www.beyondpresence.ai/" target="_blank" rel="noopener">beyondpresence.ai</a></p>
     </div>
     <div class="hack c">
-      <p class="label">On the road for Beyond Presence</p>
       <div class="hack-row">
-        <figure><div class="ph">Hackathon /<br>on stage</div><figcaption>Speaker · event to come</figcaption></figure>
-        <figure><div class="ph">Hackathon /<br>judging panel</div><figcaption>Judge · event to come</figcaption></figure>
-        <figure><div class="ph">Hackathon /<br>mentoring a team</div><figcaption>Mentor · event to come</figcaption></figure>
-        <figure><div class="ph">Hackathon /<br>with partners</div><figcaption>Partnerships · event to come</figcaption></figure>
+        <figure><div class="ph">Hackathon /<br>on stage</div><figcaption>Speaking · event to come</figcaption></figure>
+        <figure><div class="ph">Judging panel</div><figcaption>Judging · event to come</figcaption></figure>
+        <figure><div class="ph">Mentoring a team</div><figcaption>Mentoring · event to come</figcaption></figure>
+        <figure><div class="ph">With partner companies</div><figcaption>Partnerships · event to come</figcaption></figure>
       </div>
       <span class="way wd" data-o="9" style="left:calc(100% + 40px);top:100%"></span>
       <p class="hack-cap">I represent us at hackathons: speaking, judging ideas, mentoring teams, and meeting companies we could partner with.</p>
@@ -781,7 +935,6 @@ footer a{text-underline-offset:4px}
   <span class="numeral" aria-hidden="true">04</span>
   <div class="wrap">
     <div class="lab-head c">
-      <p class="label">The lab</p>
       <h2 id="h-lab">My lab: from idea to <span class="dd" data-doodle="underline2">customers.</span></h2>
       <p class="lead">Outside work, I run my own lab. Every idea gets the full treatment: a name, a brand, a build, a launch, and real people using it. I pay for it mostly with what my side hustles earn. It’s where I learned to sell.</p>
       <div class="filters" role="group" aria-label="Highlight projects">
@@ -791,19 +944,26 @@ footer a{text-underline-offset:4px}
         <button class="chip-b" type="button" data-f="given" aria-pressed="false">Given away</button>
         <button class="chip-b" type="button" data-f="films" aria-pressed="false">Films</button>
       </div>
-      <span class="think-wrap" aria-hidden="true"><img class="sprite s-think" src="assets/sprites/shehroz-think.webp" alt="" width="199" height="484"></span>
+      <span class="think-wrap" aria-hidden="true"><img class="doodle doodle-idea" src="assets/doodles/idea.png" alt="" width="2172" height="724"><img class="sprite s-think" src="assets/sprites/shehroz-think.webp" alt="" width="199" height="484"></span>
     </div>
-    <div class="lab-list c" id="labList"><span class="way lab-entry" data-o="19.9" data-v data-vn></span></div>
+
+    <div class="lab-index c">
+      <div class="rows" id="labList"><span class="way lab-entry" data-o="19.9" data-v data-vn></span></div>
+      <aside class="preview" aria-hidden="true">
+        <div class="pv-stage" id="pvStage"></div>
+        <p class="pv-cap" id="pvCap"></p>
+      </aside>
+    </div>
 
     <div class="given c" id="given" data-tags="given software">
       <h3><span class="dot" data-o="30" data-v data-vn></span>Given away.</h3>
       <p class="sub2">Open source and free tools, mostly for building with Beyond Presence.</p>
-      <div class="given-list">
-        <div><p class="st">Open source</p><b>reels-in-code</b><p>A Claude skill that takes an idea to a finished reel: hooks, shots, captions, zooms, sound effects. Built with Claude and Remotion.</p><a href="https://github.com/mshehrozsajjad/reels-in-code" target="_blank" rel="noopener">GitHub ↗</a></div>
-        <div><p class="st">Open source</p><b>LiveKit JS plugin</b><p>Brings Beyond Presence avatars to LiveKit web apps. Ported from Python.</p></div>
-        <div><p class="st">Free</p><b>n8n workflows</b><p>Ready-made workflows for using Beyond Presence avatars in n8n.</p></div>
-        <div><p class="st">Published</p><b>Beyond Presence n8n node</b><p>A custom node plus templates. The only verified n8n integration in the AI avatar category.</p></div>
-      </div>
+      <ul class="ledger">
+        <li><b>reels-in-code</b><span>Open source</span><span>A Claude skill that takes an idea to a finished reel: hooks, shots, captions, zooms, sound effects. Built with Claude and Remotion. <a href="https://github.com/mshehrozsajjad/reels-in-code" target="_blank" rel="noopener">GitHub ↗</a></span></li>
+        <li><b>LiveKit JS plugin</b><span>Open source</span><span>Brings Beyond Presence avatars to LiveKit web apps. Ported from Python.</span></li>
+        <li><b>n8n workflows</b><span>Free</span><span>Ready-made workflows for using Beyond Presence avatars in n8n.</span></li>
+        <li><b>Beyond Presence n8n node</b><span>Published</span><span>A custom node plus templates. The only verified n8n integration in the AI avatar category.</span></li>
+      </ul>
     </div>
 
     <div class="taste c" id="taste" data-tags="films">
@@ -901,7 +1061,7 @@ const LAB = [
   {id:'roomrush', n:'RoomRush', kind:'Software', tags:'software', line:'I needed a flat in Munich, so I built a tool to find one. It found me one.', proof:'50 signups in the first 10 minutes',
    steps:[1,1,1,1,'x'], label:'Launched, then stopped: the unit economics didn’t hold', taught:'Demand is easy to see. Unit economics aren’t.', shot:'roomrush', a:[['roomrush.de','https://roomrush.de']],
    body:['My first self-initiated product. I built it to find my own flat in Munich, and it worked.','People loved it. But the unit economics made it too expensive to run as a business, so I stopped.'], media:['The launch post','Brand']},
-  {id:'myclosr', n:'myClosr', kind:'Software', tags:'software', line:'Live coaching during sales calls, on Mac and Windows.', proof:'Live',
+  {id:'myclosr', n:'myClosr', kind:'Software', tags:'software', line:'Live coaching during sales calls, on Mac and Windows.', proof:'Where I learned ads and SEO',
    steps:[1,1,1,1,0], label:'Live', taught:'Where I started learning to sell: ads, SEO and an automated blog.', shot:'myclosr', a:[['myclosr.com','https://myclosr.com']], chips:['Desktop app','Real-time AI'],
    body:['A Mac and Windows app that coaches you live during sales calls, then lets you practise afterwards.','It’s where I started learning go-to-market on my own money: running ads, doing SEO and automating the blog.'], media:['In-call coaching / screen recording','Brand']},
   {id:'slaptastic', n:'Slaptastic', kind:'Software', tags:'software', line:'A product photo in, creator-style video ads and images out.', proof:'Customers won through my own ads',
@@ -920,39 +1080,54 @@ const LAB = [
    steps:[1,1,1,1,0], label:'Launched', shot:'npcfilter', a:[['npcfilter.com','https://npcfilter.com']], chips:['Chrome extension','Cloudflare','Clef'],
    body:['“Keep the weird. Skip the filler.” Someone in my comments suggested a filter for AI-written posts, and my agent built it overnight.','I designed the architecture to scale and stay cheap. It runs on Cloudflare’s infrastructure and uses Clef, Cloudflare’s typed decision model, so each check returns a structured verdict quickly and at low cost. It flags likely AI-written posts on LinkedIn, X and Reddit.'], media:['In a LinkedIn feed','Launch film']}
 ];
-function nodeHTML(w, i){
+const SHORT = {roomrush:'Stopped', myclosr:'Live', slaptastic:'Customers', vorsprech:'Pilot customers', tars:'Prototype', yolk:'Waitlist', npcfilter:'Live'};
+const mediaOf = w => w.shot ? `<img src="assets/shots/${w.shot}.webp" alt="${esc(w.n)} homepage" loading="lazy" width="800" height="500">` : `<div class="ph">${esc(w.n)} /<br>${esc(w.media[0])}</div>`;
+function rowHTML(w, i){
   const o = 20 + i;
-  const reach = w.steps.filter(s => s === 1).length;
-  const meter = STAGES.map((s, j) => `<li class="${w.steps[j] === 1 ? 'on' : (w.steps[j] === 'x' ? 'stop' : '')}" style="--i:${j}">${s}</li>`).join('');
-  const media = w.shot ? `<img src="assets/shots/${w.shot}.webp" alt="${esc(w.n)} homepage" loading="lazy" width="800" height="500">` : `<div class="ph">${esc(w.n)} /<br>${esc(w.media[0])}</div>`;
-  return `<article class="node ${reduce?'':'rise'}" id="n-${w.id}" data-tags="${w.tags}">
-    <span class="dot" data-o="${o}" data-v data-vn></span>
-    <div class="node-main">
-      <div>
-        <p class="k">${String(i+1).padStart(2,'0')} · ${w.kind}</p>
-        <h3>${esc(w.n)}</h3>
-        <p class="line">${esc(w.line)}</p>
-        <p class="proof">${esc(w.proof)}</p>
-        <ol class="meter" aria-label="How far it got: ${esc(w.label)}">${meter}</ol>
-        <span class="meter-l">${esc(w.label)}</span>
-        ${w.taught ? `<p class="taught"><span>What it taught me</span>${esc(w.taught)}</p>` : ''}
-        ${w.hand ? `<span class="hand" aria-hidden="true">${esc(w.hand)}</span>` : ''}
-        ${w.a ? `<div class="links">${w.a.map(a => `<a href="${a[1]}" target="_blank" rel="noopener">${esc(a[0])} ↗</a>`).join('')}</div>` : ''}
-      </div>
-      <div class="shot">${media}${w.sprite ? `<img class="sprite s-${w.sprite}" src="assets/sprites/shehroz-${w.sprite}.webp" alt="" aria-hidden="true">` : ''}</div>
+  const meter = STAGES.map((s, j) => `<li class="${w.steps[j] === 1 ? 'on' : (w.steps[j] === 'x' ? 'stop' : '')}" style="--i:${j}" title="${s}">${s}</li>`).join('');
+  return `<details class="row dig ${reduce?'':'rise'}" id="n-${w.id}" data-tags="${w.tags}" data-id="${w.id}">
+    <summary>
+      <span class="dot knot" data-o="${o}" data-v data-vn></span>
+      <span class="r-n">${String(i+1).padStart(2,'0')}</span>
+      <span class="r-main"><b>${esc(w.n)}</b><span class="r-line${w.id === 'tars' ? ' bot-host' : ''}">${esc(w.line)}</span><span class="r-meta"><em>${esc(w.proof)}</em></span>${w.hand ? `<span class="hand r-hand" aria-hidden="true">${esc(w.hand)}</span>` : ''}</span>
+      <span class="r-side"><span class="r-stack"><ol class="meter" aria-label="How far it got: ${esc(w.label)}">${meter}</ol><span class="r-short">${esc(SHORT[w.id])}</span></span><span class="plus" aria-hidden="true">+</span></span>
+    </summary>
+    <div class="dig-body">
+      <div class="r-shot">${mediaOf(w)}</div>
+      <p class="r-status">${esc(w.label)}</p>
+      ${w.body.map(p => `<p>${esc(p)}</p>`).join('')}
+      ${w.taught ? `<p class="taught"><span>What it taught me</span>${esc(w.taught)}</p>` : ''}
+      ${w.chips ? `<ul class="chips">${w.chips.map(c => `<li>${esc(c)}</li>`).join('')}</ul>` : ''}
+      ${w.a ? `<div class="links">${w.a.map(a => `<a href="${a[1]}" target="_blank" rel="noopener">${esc(a[0])} ↗</a>`).join('')}</div>` : ''}
+      <div class="dig-media">${w.media.map(m => `<div class="ph">${esc(w.n)} /<br>${esc(m)}</div>`).join('')}</div>
     </div>
-    <details class="dig">
-      <summary><span class="dot knot" data-o="${o + .5}" data-v data-vn></span><span class="plus" aria-hidden="true">+</span>Dig in: the story</summary>
-      <div class="dig-body">
-        ${w.body.map(p => `<p>${esc(p)}</p>`).join('')}
-        ${w.chips ? `<ul class="chips">${w.chips.map(c => `<li>${esc(c)}</li>`).join('')}</ul>` : ''}
-        <div class="dig-media">${w.media.map(m => `<div class="ph">${esc(w.n)} /<br>${esc(m)}</div>`).join('')}</div>
-      </div>
-      <span class="way dig-end" data-o="${o + .55}" data-v data-vn></span>
-    </details>
-  </article>`;
+    <span class="way dig-end" data-o="${o + .55}" data-v data-vn></span>
+  </details>`;
 }
-$('#labList').insertAdjacentHTML('beforeend', LAB.map(nodeHTML).join(''));
+$('#labList').insertAdjacentHTML('beforeend', LAB.map(rowHTML).join(''));
+// the preview beside the index: one frame per project, the active one shown
+$('#pvStage').innerHTML = LAB.map(w => `<figure class="pv" data-for="${w.id}">${mediaOf(w)}${w.sprite ? `<img class="sprite s-${w.sprite}" src="assets/sprites/shehroz-${w.sprite}.webp" alt="">` : ''}</figure>`).join('');
+const ROWS = $$('.row'), BY = Object.fromEntries(LAB.map(w => [w.id, w]));
+let activeId = null, hoverId = null;
+function setActive(id){
+  if (!id || id === activeId) return;
+  activeId = id;
+  ROWS.forEach(r => r.classList.toggle('active', r.dataset.id === id));
+  $$('.pv').forEach(p => p.classList.toggle('on', p.dataset.for === id));
+  const w = BY[id]; $('#pvCap').innerHTML = `<b>${esc(w.n)}</b> · ${esc(w.label)}`;
+}
+setActive(LAB[0].id);
+if (matchMedia('(hover: hover) and (pointer: fine)').matches){
+  ROWS.forEach(r => r.addEventListener('pointerenter', () => { hoverId = r.dataset.id; setActive(hoverId); }));
+  $('#labList').addEventListener('pointerleave', () => { hoverId = null; });
+}
+ROWS.forEach(r => r.addEventListener('focusin', () => setActive(r.dataset.id)));
+function followRows(){
+  if (hoverId || phone()) return;
+  const line = innerHeight * 0.5; let id = ROWS[0].dataset.id;
+  for (const r of ROWS){ if (r.firstElementChild.getBoundingClientRect().top < line) id = r.dataset.id; else break; }
+  setActive(id);
+}
 
 const ARCH = [
  ['Beyond Presence','Creator and call platforms, owned end to end. Joined at pre-seed.','Now'],
@@ -1082,6 +1257,7 @@ function frame(){
   const t = ease(seg(p, .18, .5)), tx = $('#nowText'); tx.style.opacity = (reduce?1:.0001+t).toString(); tx.style.transform = reduce ? 'none' : `translateY(${((1-t)*30).toFixed(1)}px)`;
   const cp = seg(p, .62, .9); ['#nowCap','#nowHand'].forEach(s => $(s).style.opacity = (reduce?1:.0001+cp).toString());
 
+  followRows();
   $('#fab').classList.toggle('show', scrollY > vh*0.7);
   if (!reduce && busy) req();
 }
@@ -1251,13 +1427,13 @@ watchOpts($('#fields'));
 
 /* lab cards: a burst on the corner of the media when you hover one */
 if (fine) document.addEventListener('mouseover', e => {
-  const c = e.target.closest('.node-main'); if (!c || c.contains(e.relatedTarget)) return;
-  const m = $('.shot', c); if (m) burst(c, m.offsetLeft + m.offsetWidth + 2, m.offsetTop + 4, 25);
+  const c = e.target.closest('.row > summary'); if (!c || c.contains(e.relatedTarget)) return;
+  const p = $('.plus', c); if (p) burst(c, p.offsetLeft + p.offsetWidth, p.offsetTop, 25);
 });
 
 
 /* ---------- robot eyes that follow the pointer ---------- */
-const sub = $('.hero .sub');
+const sub = $('.bot-host');
 if (sub){
   const eyes = document.createElement('span'); eyes.className = 'bot-eyes'; eyes.setAttribute('aria-hidden', 'true'); eyes.innerHTML = '<i></i><i></i>';
   sub.appendChild(eyes);
