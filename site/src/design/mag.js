@@ -16,3 +16,23 @@ if (!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
     el.addEventListener('pointerleave', () => { el.style.removeProperty('--rx'); el.style.removeProperty('--ry'); el.classList.remove('tilt'); });
   });
 }
+
+// long pages scroll themselves while on screen, slowly, and wait at the bottom before going back up.
+// Hover, touch, focus or a wheel hands the page to the visitor until they leave it.
+document.querySelectorAll('[data-ss] .ss-view').forEach(v => {
+  if (reduce) return;
+  let on = false, hold = false, pause = 0, raf = 0, y = 0;
+  const step = () => {
+    raf = 0; if (!on || hold) return;
+    const max = v.scrollHeight - v.clientHeight;
+    if (pause > 0) pause--;
+    else if (v.scrollTop >= max - 1){ pause = 120; y = 0; setTimeout(() => { if (!hold) v.scrollTo({top: 0, behavior: 'smooth'}); }, 1500); }
+    else { y = Math.max(y, v.scrollTop) + .7; v.scrollTop = y; }
+    raf = requestAnimationFrame(step);
+  };
+  const go = () => { if (!raf) raf = requestAnimationFrame(step); };
+  const stop = () => { hold = true; }, resume = () => { hold = false; y = v.scrollTop; go(); };
+  ['pointerenter', 'touchstart', 'focus', 'wheel'].forEach(ev => v.addEventListener(ev, stop, {passive: true}));
+  ['pointerleave', 'blur'].forEach(ev => v.addEventListener(ev, resume));
+  new IntersectionObserver(es => { on = es[0].isIntersecting; if (on) go(); }, {threshold: .4}).observe(v);
+});

@@ -100,3 +100,32 @@
   .poster:nth-child(even){margin-top:0}
   .f-tall{grid-row:auto}
 }
+
+/* ---------- the real work ---------- */
+.poster img{display:block;width:100%;box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+/* a long page in a browser frame: it scrolls itself while on screen; hover or touch hands it to you */
+.ss{border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -40px rgba(0,0,0,.45);border:1px solid var(--line)}
+.ss-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:#F1EFE9;border-bottom:1px solid var(--line);font:500 11px/1 var(--mono);color:var(--muted)}
+.ss-bar i{width:9px;height:9px;border-radius:50%;background:#D8D4CA}
+.ss-bar span{margin-left:10px;padding:4px 10px;border-radius:6px;background:#fff;flex:1;max-width:280px}
+.ss-view{height:min(560px,64vh);overflow:auto;scrollbar-width:thin;outline-offset:-3px}
+.ss-view img{display:block;width:100%;height:auto}
+.case-media .dev{display:block;width:100%;filter:drop-shadow(0 30px 40px rgba(0,0,0,.18))}
+.case-text .hint{margin-top:4px}
+.case{align-items:center}
+/* photography: a wide piece, a square, two halves */
+.lens{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:var(--sp-3);margin-bottom:var(--sp-5)}
+.lens figure{margin:0}
+.lens img{display:block;width:100%;height:100%;object-fit:cover}
+.l-wide{grid-column:1 / -1}
+.l-wide img{aspect-ratio:1800/684}
+.l-sq{grid-row:span 2}
+.l-sq img{aspect-ratio:1}
+.l-half img{aspect-ratio:3/2}
+.lens figcaption{margin-top:8px;font-size:var(--fs-xs);color:#B9B6AD}
+.lens .l-sq{order:3}
+.lens{grid-template-areas:"w w" "a s" "m s"}
+.l-wide{grid-area:w}.l-sq{grid-area:s}.lens .l-half:nth-of-type(3){grid-area:a}.lens .l-half:nth-of-type(4){grid-area:m}
+.l-half img{height:auto}
+.l-sq img{height:100%;aspect-ratio:auto}
+@media (max-width:760px){.lens{grid-template-columns:minmax(0,1fr);grid-template-areas:"w" "s" "a" "m"}.l-sq img{aspect-ratio:1}.ss-view{height:420px}}
