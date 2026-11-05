@@ -901,6 +901,82 @@ footer a{text-underline-offset:4px}
 .l-shot > video{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border:1px solid var(--line);border-radius:4px;background:#000}
 #n-yolk .l-shot > video{aspect-ratio:4/5;max-height:520px;object-fit:cover}
 .hack-row figure:nth-child(4) .ph{aspect-ratio:16/7}
+
+/* ===== Hero, polished to the mockup ===== */
+.mark{font-size:22px;font-weight:600;letter-spacing:-.035em}
+.nav{font-size:17px;gap:18px}
+.nav i{font-size:17px;opacity:1;color:var(--ink)}
+.theme{border:1.5px solid var(--ink);font:500 16px/1 var(--sans);letter-spacing:0;text-transform:none;padding:0 16px;min-height:36px}
+.hero{min-height:max(660px,calc(100vh - 180px));min-height:max(660px,calc(100svh - 180px));padding-block:40px 64px}
+.hero .wrap{grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:72px;align-items:center}
+.hero .label{font:500 14px/1.3 var(--mono);letter-spacing:.2em}
+.hero h1{font-size:clamp(48px,5.6vw,78px);line-height:1.04;letter-spacing:-.05em;margin:26px 0 26px}
+.sub-wrap{position:relative;max-width:36ch}
+.hero .sub{font-size:clamp(18px,1.55vw,21px);line-height:1.62;color:var(--soft);max-width:none}
+.hand.yes{position:absolute;left:calc(100% - 4.5em);bottom:-30px;display:inline-flex;align-items:center;gap:4px;font-size:24px;color:var(--signal);transform:rotate(-8deg);white-space:nowrap}
+.hand.yes svg{width:30px;height:18px;flex:none}
+.hand svg path{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.hero-actions{margin-top:44px;gap:34px}
+.hero-actions .pill.pri{border-radius:10px;padding:18px 30px;font:500 19px/1 var(--sans);letter-spacing:-.01em;gap:10px}
+.hero-actions .text-link{font-size:19px;display:inline-flex;align-items:center;gap:8px}
+.hero-actions .pill .ar{width:16px;height:16px}
+.avatar{margin-top:0;gap:0;position:relative;align-self:center;padding-top:72px}
+.hand.hi{position:absolute;top:0;left:10%;display:inline-flex;align-items:flex-start;gap:4px;font-size:27px;color:var(--signal);transform:rotate(-8deg);white-space:nowrap}
+.hand.hi svg{width:30px;height:40px;margin-top:6px;transform:rotate(8deg)}
+.twin-card{position:relative;aspect-ratio:1/1;border-radius:18px;overflow:hidden;background:var(--tint);box-shadow:0 30px 60px -40px color-mix(in srgb,var(--ink) 70%,transparent)}
+.twin-card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 35%}
+.twin-card::after{content:"";position:absolute;inset:auto 0 0;height:30%;background:linear-gradient(transparent,rgba(10,10,12,.45));pointer-events:none}
+.twin-tag{position:absolute;left:18px;bottom:16px;z-index:1;font:500 15px/1 var(--sans);color:#fff}
+.twin-sound{position:absolute;right:12px;bottom:8px;z-index:1;width:44px;height:44px;display:grid;place-items:center;border:0;border-radius:50%;background:none;color:#fff;cursor:pointer}
+.twin-sound:hover{background:rgba(255,255,255,.14)}
+.twin-sound svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.twin-sound .spk{fill:currentColor}
+.twin-sound .on{display:none}
+.twin-sound[aria-pressed="true"] .on{display:inline}
+.twin-sound[aria-pressed="true"] .off{display:none}
+.hero .ask{margin-top:26px;font:600 23px/1.2 var(--sans);letter-spacing:-.02em;color:var(--ink);display:inline-flex;align-items:center;gap:10px;padding-left:8px}
+.hero .ask .ar{width:18px;height:18px}
+.hero .ask:hover{color:var(--signal);text-decoration:none}
+.hero .avatar-caption{margin-top:8px;font-size:16px;padding-left:8px;color:var(--muted)}
+.hero > .s-draw{position:absolute;left:min(calc(50% + 525px),calc(100% - 175px));right:auto;bottom:36px}
+.hero > .s-draw .sprite{--h:150px}
+.spark{position:absolute;right:-14px;top:-2px;width:22px;height:22px;fill:none;stroke:var(--signal);stroke-width:1.5;stroke-linejoin:round}
+.js .spark{animation:twinkle 2.4s ease-in-out infinite}
+@keyframes twinkle{0%,100%{transform:scale(1) rotate(0deg);opacity:1}50%{transform:scale(.7) rotate(20deg);opacity:.6}}
+.ch1{padding-top:110px}
+.chap{position:absolute;left:0;right:0;top:26px}
+.chap .wrap{font:500 15px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase}
+@media (max-width:760px){
+  .hero{min-height:0;padding-block:40px 120px}
+  .hero .wrap{grid-template-columns:minmax(0,1fr);gap:56px}
+  .hero h1{font-size:clamp(42px,11vw,58px)}
+  .hand.yes{position:static;margin-top:6px;font-size:21px}
+  .hero-actions{margin-top:34px;gap:22px}
+  .hero-actions .pill.pri{padding:15px 22px;font-size:17px}
+  .hero-actions .text-link{font-size:17px}
+  .avatar{padding-top:56px;max-width:420px}
+  .hand.hi{left:4%;font-size:24px}
+  .hero > .s-draw{left:auto;right:var(--gr);bottom:18px}
+  .hero > .s-draw .sprite{--h:104px;transform:none}
+  .ch1{padding-top:88px}
+  .chap .wrap{font-size:13px}
+}
+.hero .hand.yes,.hero .hand.hi{right:auto;max-width:none}
+@media (max-width:760px){.hero > .s-draw .pen{left:96.7%}}
+.top .wrap{max-width:1360px}
+.sub-wrap{max-width:560px}
+.hero h1{letter-spacing:-.04em;font-weight:600}
+.yes-at{position:relative;display:inline-block;width:0;height:1em;vertical-align:baseline}
+.hero .hand.yes{position:absolute;left:10px;top:6px;bottom:auto}
+@media (max-width:760px){.hero .hand.yes{position:absolute;left:-150px;top:30px}.sub-wrap{margin-bottom:30px}}
+@media (max-width:1400px) and (min-width:761px){
+  .hero > .s-draw{left:min(calc(50% + 525px),calc(100% - 160px));bottom:0}
+  .hero > .s-draw .sprite{--h:128px}
+}
+@media (max-width:760px){
+  .hero .avatar{display:block}
+  .hero .twin-card{max-width:420px}
+}
 </style>
 </head>
 <body>
@@ -927,31 +1003,46 @@ footer a{text-underline-offset:4px}
 </header>
 
 <section class="hero" aria-labelledby="h1">
+  <!-- the trail leaves the name, loops once, crosses the page and ends at the sprite's pen -->
+  <span class="way wd" data-o="0.1" data-free style="left:calc(50% - 210px);top:-2px"></span>
+  <span class="way wd" data-o="0.2" data-free style="left:calc(50% - 80px);top:8px"></span>
+  <span class="way wd" data-o="0.3" data-free style="left:calc(50% + 22px);top:-30px"></span>
+  <span class="way wd" data-o="0.4" data-free style="left:calc(50% + 2px);top:-50px"></span>
+  <span class="way wd" data-o="0.5" data-free style="left:calc(50% - 32px);top:-28px"></span>
+  <span class="way wd" data-o="0.6" data-free style="left:calc(50% - 6px);top:22px"></span>
+  <span class="way wd" data-o="0.7" data-free style="left:calc(50% + 130px);top:40px"></span>
+  <span class="way wd" data-o="0.8" data-free style="left:min(calc(50% + 380px),calc(100% - 120px));top:30px"></span>
+  <span class="way wd" data-o="1" data-free style="left:min(calc(50% + 560px),calc(100% - 40px));top:12%"></span>
+  <span class="way wd" data-o="1.5" data-free style="left:min(calc(50% + 630px),calc(100% - 26px));top:40%"></span>
+  <span class="way wd" data-o="2" data-free style="left:min(calc(50% + 605px),calc(100% - 34px));top:66%"></span>
+  <span class="way wd" data-o="2.5" data-free style="left:min(calc(50% + 690px),calc(100% - 18px));top:calc(100% - 150px)"></span>
   <div class="wrap">
-    <span class="way wd" data-o="1" style="left:68%;top:4%"></span>
-    <span class="way wd" data-o="2" style="left:70%;top:56%"></span>
-    <span class="way wd" data-o="3" style="left:62%;top:calc(100% + 36px)"></span>
     <span class="way wd" data-o="3.5" style="left:12%;top:calc(100% + 58px)"></span>
-    <div class="c">
+    <div class="c hero-copy">
       <p class="label">Product engineer · Munich</p>
-      <h1 id="h1" tabindex="-1">Started in <span class="it">design.</span><br>Kept following <span class="dd" data-doodle="underline2" data-manual>the idea.</span></h1>
-      <p class="sub">It led to a 25-person studio and a platform behind 200,000+ avatar sessions. Also to a small device that <span class="dd" data-doodle="underline" data-manual>makes my phone calls in German.</span></p>
-      <span class="tease-note" aria-hidden="true">more on that one later ↓</span>
+      <h1 id="h1" tabindex="-1">Started in <span class="it">design.</span><br>Kept following<br>the idea.</h1>
+      <div class="sub-wrap">
+        <p class="sub">It led to a 25-person studio and a platform behind 200,000+ avatar sessions. Also to a small device that makes my <span class="dd" data-doodle="underline" data-manual>phone calls in German</span>.<span class="yes-at"><span class="hand yes" aria-hidden="true"><svg viewBox="0 0 40 22"><path d="M37 6 C 30 16, 18 19, 4 14 M4 14 L 11 9 M4 14 L 10 20"/></svg>yes, really.</span></span></p>
+      </div>
       <div class="hero-actions"><a class="pill pri" href="#lab">Explore my work <span aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-se"/></svg></span></a><a class="text-link" href="#story">Follow the story <span aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></span></a></div>
     </div>
-    <span class="hand c" aria-hidden="true">one thing led to another</span>
-    <figure class="sprite-fig s-draw c" aria-hidden="true"><img class="sprite" src="assets/sprites/shehroz-draw.webp" alt="" width="302" height="436"><span class="way pen" data-o="2.8"></span></figure>
     <div class="avatar c">
-      <div class="ph portrait has"><video class="twin" src="assets/media/avatar-loop.mp4" poster="assets/media/avatar-poster.webp" autoplay muted loop playsinline aria-label="My AI twin, looping"></video></div>
+      <span class="hand hi" aria-hidden="true">hi, I’m Shehroz<svg viewBox="0 0 44 56"><path d="M2 8 C 26 2, 40 18, 34 50 M34 50 L 27 42 M34 50 L 41 43"/></svg></span>
+      <div class="twin-card">
+        <video class="twin" id="heroTwin" src="assets/media/avatar.mp4" poster="assets/media/avatar-poster.webp" autoplay muted loop playsinline aria-label="My AI twin"></video>
+        <span class="twin-tag">AI twin</span>
+        <button class="twin-sound" type="button" id="heroSound" aria-pressed="false" aria-label="Turn sound on"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path class="off" d="M16 9.5l5 5M21 9.5l-5 5"/><path class="on" d="M16 9a4.5 4.5 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></svg></button>
+      </div>
       <button class="ask" type="button" data-open="agent">Ask my AI self <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button>
-      <p class="avatar-caption">My AI twin. For now it answers from my own notes.</p>
+      <p class="avatar-caption">Answers from my own notes.</p>
     </div>
   </div>
-  <span class="way wm" data-o="3.6" style="left:82%;top:calc(100% - 34px)"></span>
+  <figure class="sprite-fig s-draw c" aria-hidden="true"><img class="sprite" src="assets/sprites/shehroz-draw.webp" alt="" width="302" height="436"><span class="way pen" data-o="2.8"></span><svg class="spark" viewBox="0 0 24 24"><path d="M12 2 C 12.6 8.5, 15.5 11.4, 22 12 C 15.5 12.6, 12.6 15.5, 12 22 C 11.4 15.5, 8.5 12.6, 2 12 C 8.5 11.4, 11.4 8.5, 12 2 Z"/></svg></figure>
+  <span class="way wd" data-o="2.9" data-v style="left:min(calc(50% + 628px),calc(100% - 58px));top:calc(100% + 34px)"></span>
 </section>
 
 <section class="ch ch1" id="story" aria-labelledby="h-ch1">
-  <span class="numeral" aria-hidden="true">01</span>
+  <div class="chap" aria-hidden="true"><div class="wrap">01 / The story</div></div>
   <div class="wrap">
     <h2 id="h-ch1" class="c rise">Design became products.<br>Products became <span class="dd" data-doodle="circle">a company.</span></h2>
     <p class="gist c rise">It began with a student trip company I co-founded at NUST. We had no money for a designer, so I opened Photoshop.</p>
@@ -1313,7 +1404,7 @@ function smooth(pts){
     const p0 = pts[i-1]||pts[i], p1 = pts[i], p2 = pts[i+1], p3 = pts[i+2]||p2, k = 0.2, dy = p2.y - p1.y;
     if (p1.vn && p2.vert && Math.abs(p1.x - p2.x) < 2){ d += ` L${f1(p2.x)} ${f1(p2.y)}`; continue; }
     // keep every control point between the segment's ends, so a far neighbour never makes the line overshoot and loop
-    const lo = Math.min(p1.y, p2.y), hi = Math.max(p1.y, p2.y), cy = y => Math.max(lo, Math.min(hi, y));
+    const lo = Math.min(p1.y, p2.y), hi = Math.max(p1.y, p2.y), cy = y => (p1.free || p2.free) ? y : Math.max(lo, Math.min(hi, y));
     const c1 = p1.vert ? {x:p1.x, y:p1.y + dy*0.45} : {x:p1.x+(p2.x-p0.x)*k, y:cy(p1.y+(p2.y-p0.y)*k)};
     const c2 = p2.vert ? {x:p2.x, y:p2.y - dy*0.45} : {x:p2.x-(p3.x-p1.x)*k, y:cy(p2.y-(p3.y-p1.y)*k)};
     d += ` C${f1(c1.x)} ${f1(c1.y)} ${f1(c2.x)} ${f1(c2.y)} ${f1(p2.x)} ${f1(p2.y)}`;
@@ -1368,11 +1459,13 @@ function drawBranch(d, animate){
 // the trail can pause (data-cut) while it becomes something else, then pick up again
 const PAIRS = [[pMain, pNow]];
 function pair(i){ while (PAIRS.length <= i){ const a = pMain.cloneNode(), b = pNow.cloneNode(); a.removeAttribute('id'); b.removeAttribute('id'); svg.appendChild(a); svg.appendChild(b); PAIRS.push([a, b]); } return PAIRS[i]; }
+let heroFloor = 0;
 function build(){
   layoutLimbs(); layoutPeak();
+  const pen = $('.hero .pen'); heroFloor = pen && visible(pen) ? pos(pen).y + 2 : 0;
   const H = main.scrollHeight, W = main.clientWidth;
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.style.height = H+'px';
-  let pts = $$('[data-o]').filter(visible).map(el => ({...pos(el), el, o:+el.dataset.o, vert: el.hasAttribute('data-v'), vn: el.hasAttribute('data-vn'), cut: el.hasAttribute('data-cut')})).sort((a,b) => a.o - b.o);
+  let pts = $$('[data-o]').filter(visible).map(el => ({...pos(el), el, o:+el.dataset.o, vert: el.hasAttribute('data-v'), vn: el.hasAttribute('data-vn'), cut: el.hasAttribute('data-cut'), free: el.hasAttribute('data-free')})).sort((a,b) => a.o - b.o);
   if (phone()) pts = phonePoints(pts);
   const segs = []; let cur = [];
   pts.forEach(p => { cur.push(p); if (p.cut){ segs.push(cur); cur = []; } });
@@ -1459,7 +1552,7 @@ let ticking = false;
 function frame(){
   ticking = false;
   const mTop = main.getBoundingClientRect().top + scrollY;
-  const penY = scrollY + innerHeight*0.64 - mTop;
+  const penY = Math.max(scrollY + innerHeight*0.64 - mTop, heroFloor);
   let busy = false;
   trails.forEach(t => {
     const target = reduce ? t.len : drawnLength(t, penY);
@@ -1567,6 +1660,7 @@ $$('.q').forEach(b => b.addEventListener('click', () => answer(b.textContent, b.
 $('#askForm').addEventListener('submit', e => { e.preventDefault(); const i = $('#askInput'), v = i.value.trim(); if (!v) return; answer(v, route(v)); i.value = ''; });
 
 $('#twinSound').addEventListener('click', e => { const v = $('#twinVideo'), on = v.muted; v.muted = !on; if (on){ v.currentTime = 0; v.play().catch(() => {}); } e.currentTarget.setAttribute('aria-pressed', String(on)); e.currentTarget.textContent = on ? 'Sound off' : 'Sound on'; });
+$('#heroSound').addEventListener('click', e => { const v = $('#heroTwin'), b = e.currentTarget, on = v.muted; v.muted = !on; if (on){ v.currentTime = 0; v.play().catch(() => {}); } b.setAttribute('aria-pressed', String(on)); b.setAttribute('aria-label', on ? 'Turn sound off' : 'Turn sound on'); });
 if (reduce) $$('video[autoplay]').forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
 
 /* theme */
