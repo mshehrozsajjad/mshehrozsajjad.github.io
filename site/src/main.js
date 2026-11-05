@@ -1,3 +1,4 @@
+import {strand, lean} from './strands.js';
 (() => {
 "use strict";
 const $ = (s, r=document) => r.querySelector(s), $$ = (s, r=document) => [...r.querySelectorAll(s)];
@@ -43,27 +44,29 @@ const LAB = [
   {id:'photos', n:'Photos', label:'Photography', line:'A bridge from above and a lit dome, both at night.', photos:[['/assets/media/photo-bridge.webp','A bridge at night, shot from above'],['/assets/media/photo-dome.webp','A lit dome at night']]}
 ];
 const BY = Object.fromEntries(LAB.map(w => [w.id, w]));
+// Hardware comes last so the preselected strand never crosses another on its way back to the line
 const COLS = [
-  {id:'software', n:'Software', meta:'5 products · 4 live', items:['roomrush','myclosr','slaptastic','vorsprech','npcfilter']},
-  {id:'hardware', n:'Hardware', meta:'2 builds · 1 launched', items:['yolk','tars']},
-  {id:'given', n:'Given away', meta:'4 tools · all free', items:['reels','livekit','n8nflows','n8nnode']},
-  {id:'films', n:'Films', meta:'2 launch films · drone · photos', items:['f-yolk','f-npc','drone','photos']}
+  {id:'software', n:'Software', unit:'projects', items:['roomrush','myclosr','slaptastic','vorsprech','npcfilter']},
+  {id:'given', n:'Given away', unit:'tools', items:['reels','livekit','n8nflows','n8nnode']},
+  {id:'films', n:'Films', unit:'pieces', items:['f-yolk','f-npc','drone','photos']},
+  {id:'hardware', n:'Hardware', unit:'builds', items:['yolk','tars']}
 ];
 const COL = Object.fromEntries(COLS.map(c => [c.id, c]));
 const img = (src, alt) => `<img src="${src}" alt="${esc(alt)}" loading="lazy">`;
-// the covers: a small stack of what's inside each collection
-const COVERS = {
-  software: `<span class="cv cv3">${img('/assets/shots/roomrush.webp','')}</span><span class="cv cv2">${img('/assets/shots/myclosr.webp','')}</span><span class="cv cv1">${img('/assets/shots/npcfilter.webp','')}</span>`,
-  hardware: `<span class="cv cv3 blank"></span><span class="cv cv2 blank"></span><span class="cv cv1">${img('/assets/media/yolk-device.webp','')}</span>`,
-  given: `<span class="cv cv3 blank"></span><span class="cv cv2 blank"></span><span class="cv cv1 term"><code><i>~/given-away</i>reels-in-code<br>livekit-js-plugin<br>n8n-workflows<br>n8n-node</code></span>`,
-  films: `<span class="cv cv3">${img('/assets/media/photo-dome.webp','')}</span><span class="cv cv2">${img('/assets/media/npc-film-poster.webp','')}</span><span class="cv cv1">${img('/assets/media/drone-poster.webp','')}</span>`
+// the one shared preview: each collection's best media, kept ready and developed when it is called up
+const PV = {
+  software: img('/assets/shots/npcfilter.webp', ''),
+  hardware: img('/assets/media/yolk-device.webp', ''),
+  given: `<div class="pf-term"><code><i>~/given-away</i>reels-in-code<br>livekit-js-plugin<br>n8n-workflows<br>n8n-node<span class="caret"></span></code></div>`,
+  films: img('/assets/media/drone-poster.webp', '')
 };
-$('#cols').innerHTML = COLS.map(c => `<button class="col" type="button" id="col-${c.id}" data-col="${c.id}" aria-pressed="false" aria-controls="stage">
-  <span class="covers" aria-hidden="true">${COVERS[c.id]}</span>
-  <span class="knot-r" aria-hidden="true"></span>
-  <span class="col-n">${esc(c.n)}</span>
-  <span class="col-meta">${esc(c.meta)}</span>
-</button>`).join('');
+$('#cols').innerHTML = COLS.map(c => `<button class="fk" type="button" id="col-${c.id}" data-col="${c.id}" aria-pressed="false" aria-controls="stage" aria-label="${esc(c.n)}, ${c.items.length} ${c.unit}"><span class="fk-n">${esc(c.n)}</span><span class="fk-c" aria-hidden="true">${c.items.length}</span></button>`).join('');
+$('#rail').innerHTML = COLS.map(c => `<g class="st" data-c="${c.id}"><path class="st-out" pathLength="1"/><path class="st-back" pathLength="1"/></g>`).join('');
+$('#pf').innerHTML = COLS.map(c => `<div class="pf-l" data-c="${c.id}">${PV[c.id]}</div>`).join('');
+// the map at the end: the same four names, each with the strand that flows back into the line
+$('#mapNames').innerHTML = COLS.map(c => `<button class="mp" type="button" data-col="${c.id}"><span class="mp-n">${esc(c.n)}</span></button>`).join('');
+$('#mapSvg').innerHTML = COLS.map(c => `<g data-c="${c.id}"><path class="mp-solid" pathLength="1"/><path class="mp-dash"/></g>`).join('');
+const explored = new Set();
 
 const TILTS = [-2.5, 2, -1.8, 2.6, -2.2];
 const video = (src, poster, label) => `<video src="${src}" poster="${poster}" muted loop playsinline preload="none"${reduce ? ' controls' : ''} aria-label="${esc(label)}"></video>`;
@@ -98,7 +101,10 @@ const pinnedMQ = matchMedia('(min-width: 761px) and (prefers-reduced-motion: no-
 let colNow = null, items = [], dots = [], active = -2, mode = null;
 const playIn = (box, on) => $$('video', box).forEach(v => { if (on && !reduce && !v.closest('[hidden]')) v.play().catch(() => {}); else v.pause(); });
 // stacked rows reveal as they enter
-const stackIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); playIn(e.target, e.isIntersecting); }), {rootMargin:'0px 0px -12% 0px', threshold:.15});
+const stackIO = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting){ if (!reduce) e.target.classList.add('on'); if (e.target === items[items.length - 1]) markExplored(colNow); }
+  playIn(e.target, e.isIntersecting);
+}), {rootMargin:'0px 0px -12% 0px', threshold:.15});
 function paintStage(cid){
   const c = COL[cid]; colNow = cid; mode = null;
   stageW.style.setProperty('--n', c.items.length);
@@ -116,7 +122,7 @@ function layoutStage(){
   mode = m; active = -2; stackIO.disconnect();
   stageW.classList.toggle('pinned', m === 'pinned');
   items.forEach(a => { a.classList.remove('on', 'past'); playIn(a, false); });
-  if (m === 'stacked' && !reduce) items.forEach(a => stackIO.observe(a));
+  if (m === 'stacked') items.forEach(a => stackIO.observe(a));
 }
 function setActive(i){
   active = i;
@@ -124,6 +130,7 @@ function setActive(i){
   const k = cl(i, 0, items.length - 1);
   dots.forEach((d, j) => { d.classList.toggle('on', j === k); if (j === k) d.setAttribute('aria-current', 'step'); else d.removeAttribute('aria-current'); });
   stgCount.textContent = `${k + 1} / ${items.length}`;
+  if (i >= items.length - 1) markExplored(colNow);
 }
 // per frame, from frame(): the line fills as you pass through, and the item at that point arrives
 function stageFrame(){
@@ -138,14 +145,21 @@ function toStep(i, behavior = reduce ? 'auto' : 'smooth'){
   const top = mode === 'pinned' ? r.top + scrollY + (i ? (i + .5)/n : 0)*(r.height - stage.offsetHeight) : items[i].getBoundingClientRect().top + scrollY - 90;
   scrollTo({top, behavior});
 }
-function selectCol(cid){
-  $$('.col').forEach(b => { const on = b.dataset.col === cid; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+// user: false for the preselection on load, which leaves all four strands out
+function selectCol(cid, user = true){
+  $$('.fk').forEach(b => { const on = b.dataset.col === cid; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+  $$('.st').forEach(g => { g.classList.toggle('on', g.dataset.c === cid); g.classList.toggle('gone', user && g.dataset.c !== cid); });
+  paintPv(cid);
   if (cid === colNow) return;
   playIn(deck, false); paintStage(cid); layoutStage();
   requestAnimationFrame(build);
 }
 window.labOpen = (cid, iid) => { closeD && closeD(false); selectCol(cid); toStep(Math.max(0, COL[cid].items.indexOf(iid))); };
-$('#cols').addEventListener('click', e => { const b = e.target.closest('.col'); if (!b) return; selectCol(b.dataset.col); toStep(0); });
+// choosing lets the other strands retract before the page walks down the chosen one
+const choose = e => { const b = e.target.closest('[data-col]'); if (!b) return; selectCol(b.dataset.col); if (reduce) toStep(0); else setTimeout(() => toStep(0), 450); };
+$('#cols').addEventListener('click', choose);
+$('#mapNames').addEventListener('click', choose);
+$('.map-on').addEventListener('click', () => go('#close'));
 deck.addEventListener('click', e => {
   const f = e.target.closest('.it-film'); if (!f) return;
   const a = f.closest('.itm'), card = $('.m-shot', a), box = $('.m-film', card), v = $('video', box), on = box.hidden;
@@ -155,39 +169,71 @@ deck.addEventListener('click', e => {
 });
 // tabbing into an item that isn't showing brings its step into view
 deck.addEventListener('focusin', e => { const a = e.target.closest('.itm'); if (a && mode === 'pinned' && items.indexOf(a) !== active) toStep(items.indexOf(a), 'instant'); });
-selectCol('hardware');
 
-// the line arrives, runs through the four collections, turns at the edge, and comes back underneath them to the stage
-const rail = $('#rail'), railLine = $('#railLine'), shelf = $('#shelf');
-function layoutLimbs(){
-  if (!shelf) return;
-  const sr = shelf.getBoundingClientRect(), W = shelf.clientWidth, H = shelf.clientHeight, mr = main.getBoundingClientRect();
-  const P = el => { const r = el.getBoundingClientRect(); return {x: r.left + r.width/2 - sr.left, y: r.top + r.height/2 - sr.top, free:true}; };
-  const ks = $$('.knot-r', shelf).map(P), inn = P($('.rail-in', shelf)), out = P($('.rail-out', shelf));
-  const [a, b, c, d] = ks, F = (x, y) => ({x, y, free:true});
-  let pts;
-  if (phone()){
-    const x0 = parseFloat(getComputedStyle($('main .wrap')).paddingLeft) - 24 - (sr.left - mr.left);
-    // two rows: run through the top pair, pass back between the rows, run through the bottom pair, come back underneath
-    const cs = $$('.col', shelf).map(el => el.getBoundingClientRect()), g = (Math.max(cs[0].bottom, cs[1].bottom) + Math.min(cs[2].top, cs[3].top))/2 - sr.top;
-    pts = [F(x0, inn.y), F(x0 + 12, a.y - 24), a, F((a.x + b.x)/2, a.y + 8), b, F(b.x + 34, b.y - 4), F(W + 12, (b.y + g)/2), F(W*.55, g), F(x0 + 6, g + 30),
-           F(x0 + 4, c.y - 36), c, F((c.x + d.x)/2, c.y + 8), d, F(d.x + 34, d.y - 4), F(W + 12, (d.y + H)/2), F(W*.5, H - 14), F(x0 + 30, H - 12), F(x0, out.y), F(x0, out.y + 24)];
-  } else {
-    const ky = a.y;
-    pts = [F(inn.x, inn.y), F(inn.x + 3, inn.y + 22), F(inn.x + 40, ky - 4), F(a.x - 80, ky + 4), a, F((a.x + b.x)/2, ky + 12), b, F((b.x + c.x)/2, ky - 10), c, F((c.x + d.x)/2, ky + 12), d,
-           F(W + 18, ky + (H - ky)*.5), F(W - 50, H - 24), F(W*.5, H - 22), F(inn.x + 80, H - 22), F(out.x + 40, out.y - 12), F(out.x, out.y), F(out.x, out.y + 24)];
-  }
-  rail.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  railLine.setAttribute('d', smooth(pts));
+// the fork: the line splits into four strands that each end at a name; the chosen one carries on to the stage.
+// At the end the four rejoin as a map: strands you walked are solid, the rest dashed.
+const rail = $('#rail'), shelf = $('#shelf'), pf = $('#pf'), cols = $('#cols');
+const mapEl = $('#map'), mapSvg = $('#mapSvg'), mapK = $('#mapK');
+const centre = (el, box) => { const r = el.getBoundingClientRect(); return {x:r.left + r.width/2 - box.left, y:r.top + r.height/2 - box.top}; };
+// a strand ends just left of its name, where the name's dot sits
+const dotOf = (btn, box) => { const r = btn.getBoundingClientRect(); return {x:r.left - box.left - 14, y:r.top + r.height/2 - box.top}; };
+const FORK = COLS.map((c, i) => { const g = $(`.st[data-c=${c.id}]`); return {c, seed:i + 1, g, out:$('.st-out', g), back:$('.st-back', g), btn:$(`.fk[data-col=${c.id}]`)}; });
+const MAP = COLS.map((c, i) => { const g = $(`g[data-c=${c.id}]`, mapSvg); return {c, seed:i + 11, solid:$('.mp-solid', g), dash:$('.mp-dash', g), btn:$(`.mp[data-col=${c.id}]`)}; });
+let forkJ, forkG, mapJ;
+
+// the junction and the exit are the .rail-in / .rail-out waypoints, which the global trail passes through too, so the joins coincide
+function layoutFork(){
+  const sr = shelf.getBoundingClientRect(), j = centre($('.rail-in', shelf), sr), g = centre($('.rail-out', shelf), sr);
+  FORK.forEach(s => {
+    const q = s.q = dotOf(s.btn, sr), t = lean(s.seed);
+    s.out.setAttribute('d', strand(j, q, s.seed, 0, t));
+    s.back.setAttribute('d', strand(q, g, s.seed, t, 0));
+  });
+  rail.setAttribute('viewBox', `0 0 ${shelf.clientWidth} ${shelf.clientHeight}`);
+  forkJ = j; forkG = g;
 }
-function railFrame(){
-  if (!shelf) return;
-  const r = shelf.getBoundingClientRect(), vh = innerHeight;
-  const p = reduce ? 1 : cl((vh*.75 - r.top)/(r.height + vh*.1));
-  railLine.style.strokeDashoffset = (1 - p).toFixed(4);
-  railLine.style.visibility = p > .002 ? '' : 'hidden';
-  $$('.col', shelf).forEach((c, j) => c.classList.toggle('lit', reduce || p > .1 + j*.17));
+function layoutMap(){
+  const mr = mapEl.getBoundingClientRect(), j = centre($('.map-j', mapEl), mr);
+  MAP.forEach(m => { const q = m.q = dotOf(m.btn, mr), d = strand(q, j, m.seed, lean(m.seed) - .22, 0, .3, .5); m.solid.setAttribute('d', d); m.dash.setAttribute('d', d); });
+  mapSvg.setAttribute('viewBox', `0 0 ${mapEl.clientWidth} ${mapEl.clientHeight}`);
+  mapJ = j;
 }
+// strands draw as the trail's reading line passes them; an undrawn stroke still shows its round cap, so it hides until it has length
+const reading = box => reduce ? 1e9 : innerHeight*.64 - box.getBoundingClientRect().top;
+const along = (read, a, b) => cl((read - a)/(b - a));
+const setDraw = (path, v) => { path.style.setProperty('--p', v.toFixed(3)); path.style.visibility = v > .002 ? '' : 'hidden'; };
+function forkFrame(){
+  const read = reading(shelf);
+  FORK.forEach(s => { setDraw(s.out, along(read, forkJ.y, s.q.y)); setDraw(s.back, along(read, s.q.y, forkG.y)); s.btn.classList.toggle('lit', read > s.q.y - 30); });
+}
+function mapFrame(){
+  const read = reading(mapEl);
+  MAP.forEach(m => { const v = along(read, m.q.y, mapJ.y); setDraw(m.solid, v); m.dash.style.opacity = v.toFixed(3); m.btn.classList.toggle('lit', read > m.q.y - 30); });
+}
+
+// hover or focus: that strand thickens, the others recede, and the shared preview develops its collection
+function paintPv(cid){ $$('.pf-l', pf).forEach(l => l.classList.toggle('on', l.dataset.c === cid)); }
+function hot(cid){
+  FORK.forEach(s => [s.btn, s.g].forEach(el => { el.classList.toggle('hot', s.c.id === cid); el.classList.toggle('dim', !!cid && s.c.id !== cid); }));
+  paintPv(cid || colNow);
+}
+cols.addEventListener('pointerover', e => { const b = e.target.closest('.fk'); if (b) hot(b.dataset.col); });
+cols.addEventListener('pointerleave', () => hot(null));
+cols.addEventListener('focusin', e => hot(e.target.closest('.fk').dataset.col));
+cols.addEventListener('focusout', () => hot(null));
+
+function paintMap(){
+  MAP.forEach(m => {
+    const on = explored.has(m.c.id);
+    m.btn.classList.toggle('done', on); m.solid.style.display = on ? '' : 'none'; m.dash.style.display = on ? 'none' : '';
+    m.btn.setAttribute('aria-label', `${m.c.n}, ${m.c.items.length} ${m.c.unit}, ${on ? 'explored' : 'not explored yet'}`);
+  });
+  mapK.textContent = `${explored.size} of ${COLS.length} explored`;
+}
+// a collection counts once its last item has been shown
+function markExplored(cid){ if (!explored.has(cid)){ explored.add(cid); paintMap(); } }
+paintMap();
+selectCol('hardware', false);
 
 const ARCH = [
  ['Beyond Presence','Creator and call platforms, owned end to end. Joined at pre-seed.','Now'],
@@ -353,7 +399,7 @@ function slideDetails(d, open){
   anim.onfinish = anim.oncancel = () => {
     d.style.overflow = d.style.overflowX = d.style.overflowY = '';
     if (d._anim === anim){ d._anim = null; if (!open) d.open = false; }
-    requestAnimationFrame(() => { if (typeof layoutLimbs === 'function') layoutLimbs(); build(); });
+    requestAnimationFrame(build);
   };
 }
 document.addEventListener('click', e => {
@@ -368,7 +414,7 @@ $$('details.role').forEach(r => {
   const less = $('.role-less', r); if (less) less.addEventListener('click', () => { slideDetails(r, false); $('summary', r).focus({preventScroll:true}); const t = (r.closest('.step') || r.parentElement).getBoundingClientRect().top; if (t < 0) scrollBy({top:t - 90, behavior: reduce ? 'auto' : 'smooth'}); });
 });
 function build(){
-  layoutStage(); layoutLimbs(); layoutPeak();
+  layoutStage(); layoutFork(); layoutMap(); layoutPeak();
   const pen = $('.hero .pen'); heroFloor = pen && visible(pen) ? pos(pen).y + 2 : 0;
   const penPt = pen && visible(pen) ? pos(pen) : null;
   // collapse the trail first, or its own old height keeps main tall after content shrinks
@@ -472,7 +518,7 @@ function frame(){
   const t = ease(seg(p, .18, .5)), tx = $('#nowText'); tx.style.opacity = (reduce?1:.0001+t).toString(); tx.style.transform = reduce ? 'none' : `translateY(${((1-t)*30).toFixed(1)}px)`;
   const cp = seg(p, .62, .9); $$('.n3-note').forEach(el => el.style.opacity = (reduce?1:.0001+cp).toString());
 
-  peakFrame(); railFrame(); stageFrame();
+  peakFrame(); forkFrame(); mapFrame(); stageFrame();
   $('#fab').classList.toggle('show', scrollY > vh*0.7);
   if (!reduce && busy) req();
 }

@@ -258,9 +258,9 @@
 
     <div class="shelf c" id="shelf">
       <span class="way rail-in" data-o="19.9" data-v data-cut></span>
-      <svg class="rail" id="rail" aria-hidden="true"><path class="rail-line" id="railLine" pathLength="1"/></svg>
-      <span class="hand lab-note" aria-hidden="true">pick one, then scroll</span>
+      <svg class="rail" id="rail" aria-hidden="true"></svg>
       <div class="cols" id="cols" role="group" aria-label="Collections"></div>
+      <figure class="pf" id="pf" aria-hidden="true"></figure>
       <span class="way rail-out" data-v></span>
     </div>
 
@@ -275,6 +275,15 @@
         </div>
         <div class="deck" id="deck"></div>
       </div>
+    </div>
+
+    <div class="map c" id="map">
+      <svg class="rail" id="mapSvg" aria-hidden="true"></svg>
+      <p class="map-k" id="mapK" role="status"></p>
+      <div class="map-names" id="mapNames" role="group" aria-label="The four collections"></div>
+      <button class="map-on" type="button">or keep going <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></button>
+      <span class="way" data-o="31.1" data-free style="left:-17px;top:55%"></span>
+      <span class="way map-j" data-o="31.2" data-v></span>
     </div>
 
     <div class="close c" id="close">
