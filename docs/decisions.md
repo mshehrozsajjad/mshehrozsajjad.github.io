@@ -37,3 +37,21 @@ A short record of how the direction got here, so later changes have context.
 
 - Restore Caveat handwriting for the personal annotations, as requested.
 - Add restrained navigation underlines, directional link movement, pressed button feedback, card lift, and path previews on hover or keyboard focus. Respect reduced motion and keep touch actions explicit.
+
+## Design pass v5 (scroll-craft review)
+
+Checked against the scroll-craft taste floor after v4 read as low quality.
+
+- **Grammar:** chaptered editorial. A founder story told in chapters, with media in its own column and a colophon close.
+- **Signature move:** the trail forks when you dig in, runs beside the details, and rejoins.
+- **Peak:** the dark Beyond Presence chapter. The numbers arrive as one sentence, not stat tiles.
+- **Feeling curve:** curiosity (three open loops) → scrappy warmth (Photoshop, no budget) → quiet substance (02 ledger) → awe (03) → play (lab index with a preview that follows you) → resolve (stay close).
+- **Fixed:** grey noise placeholders became quiet captioned frames; monospace kept for the one label it serves; 02 became a ledger instead of a second milestone row; seven identical lab cards became an index with a sticky preview; the hero went from nine elements to four plus a hand note; the accent belongs to the trail, its marks and links.
+
+## v6: the line changes medium (first two moments)
+
+Feedback on v5: the page opened creatively, then turned into a template, and the trail flattened into a timeline.
+
+- **Concept:** the line is the main character and becomes the tool of each chapter. Built so far: the 03 peak, where it turns into a speaking voice that carries the three public numbers, and the lab, a trunk that grows one branch per idea as far as the idea got (RoomRush ends in a cut mark). Opening a branch drops the line into a card and draws its frame.
+- **Still to roll out:** 01 as a pen-tool path, 02 as a circuit trace, camera crop marks for taste, a signature at the close.
+- **Writing:** each fact appears once (the details only add), fewer lists of three, no mirrored aphorisms, and drawn SVG arrows instead of ↗ and ↘, which phones render as emoji.
