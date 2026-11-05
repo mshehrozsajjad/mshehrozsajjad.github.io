@@ -1043,9 +1043,23 @@ footer a{text-underline-offset:4px}
   .ch1 .longer .m-only{display:block;position:absolute;right:0;top:-112px;--h:96px}
   .snapcard figcaption{font-size:18px}
 }
-.ch1 .longer{margin-top:124px}
+/* CodeJunkie: the role opens in place */
+.c-team{align-self:start}
+.role{margin-top:26px}
+.role > summary{display:inline-flex;align-items:baseline;gap:10px;list-style:none;cursor:pointer;font:500 19px/1.3 var(--sans);color:var(--signal);position:relative}
+.role > summary::-webkit-details-marker{display:none}
+.role-pm::before{content:"+";font-weight:400}
+.role[open] .role-pm::before{content:"–"}
+.role-note{position:absolute;left:calc(100% + 14px);top:-2px;display:flex;align-items:center;gap:8px;font-size:21px;white-space:nowrap;transform:rotate(-4deg);opacity:0;transition:opacity .3s ease-out}
+.role-note svg{width:40px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.role[open] .role-note{opacity:1}
+@media (hover:hover) and (pointer:fine){.role > summary:hover .role-more{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}.role > summary:hover .role-note{opacity:1}}
+.role-body{margin:22px 0 0;padding-left:28px;border-left:2px solid var(--signal);display:grid;gap:16px;font-size:18px;line-height:1.5;max-width:44ch}
+.role-less{margin-top:26px;display:inline-flex;align-items:center;gap:8px;font:500 17px/1 var(--sans);color:var(--signal);background:none;border:0;padding:0;cursor:pointer}
+.role-less .ar{transform:rotate(180deg)}
+@media (max-width:760px){.role-note{display:none}.role > summary{font-size:17px}.role-body{padding-left:24px;font-size:16.5px}.role-less{font-size:16px}}
 .snapcard.poster{right:-84px;bottom:-52px;width:44%}
-@media (max-width:760px){.snapcard.poster{right:-30px;bottom:-46px}.ch1 .longer .m-only{top:-100px}.ch1 .longer{margin-top:96px}}
+@media (max-width:760px){.snapcard.poster{right:-30px;bottom:-46px}}
 .step .dot{left:-46px}
 @media (max-width:760px){.step .dot{left:-30px}}
 
@@ -1200,8 +1214,16 @@ footer a{text-underline-offset:4px}
         <h3>A company. And 25 people.</h3>
         <p>Co-founded in my final semester. I ran tech as CTO, building products for startups and corporate teams.</p>
         <ul class="proofs"><li>From idea to MVP, worldwide</li><li>Recognised by DesignRush</li></ul>
+        <details class="role">
+          <summary><span class="role-more">More about my role</span><span class="role-pm" aria-hidden="true"></span><span class="hand role-note" aria-hidden="true"><svg viewBox="0 0 48 16"><path d="M46 7 C 34 4, 20 5, 4 10 M4 10 L 11 4 M4 10 L 12 14"/></svg>the hands-on part</span></summary>
+          <div class="role-body">
+            <p>I led the technical side, trained our designers and developers, and delivered work for startups and corporate clients, including banks in the UAE and Oman.</p>
+            <p>My computer science background let me take projects from interface design into full web apps.</p>
+          </div>
+          <button class="role-less" type="button">Show less <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></button>
+        </details>
         <img class="sprite s-sign" src="assets/sprites/shehroz-sign.webp" alt="" aria-hidden="true" width="280" height="473">
-        <span class="way wd" data-o="6.3" data-free style="left:-40px;top:calc(100% + 30px)"></span>
+        <span class="way wd" data-o="6.3" data-free style="left:-78px;top:calc(100% + 40px)"></span>
       </div>
       <div class="c-team">
         <figure class="snapcard team" style="--r:2deg">
@@ -1213,20 +1235,6 @@ footer a{text-underline-offset:4px}
           <figcaption><span>We were growing.</span></figcaption>
         </figure>
       </div>
-    </div>
-    <div class="digwrap c longer">
-      <span class="way wd" data-o="6.4" data-free style="left:-24px;top:-34px"></span>
-      <span class="longer-path" aria-hidden="true">Design → Build → Lead</span>
-      <img class="sprite s-sign m-only" src="assets/sprites/shehroz-sign.webp" alt="" aria-hidden="true" width="280" height="473">
-      <details class="dig">
-        <summary><span class="dot knot" data-o="6.5" data-free data-vn></span><span class="plus" aria-hidden="true">+</span>The longer story</summary>
-        <div class="dig-body">
-          <p>I studied computer science, so building what I designed came naturally. After the game I designed the UI and UX for all my own projects and freelanced building full web apps.</p>
-          <p>At CodeJunkie I ran the technical side. Besides startups we built for corporate clients, including banks in the UAE and Oman, and I trained our designers and developers as the team grew.</p>
-          <ul class="chips"><li>Brand design</li><li>UI/UX</li><li>Web apps</li><li>MVPs</li><li>Team of 25</li></ul>
-        </div>
-        <span class="way dig-end" data-o="6.55" data-v data-vn></span>
-      </details>
     </div>
   </div>
   <span class="way wm" data-o="6.95" style="left:76%;top:calc(100% - 44px)"></span>
@@ -1655,6 +1663,11 @@ function drawBranch(d, animate){
 const PAIRS = [[pMain, pNow]];
 function pair(i){ while (PAIRS.length <= i){ const a = pMain.cloneNode(), b = pNow.cloneNode(); a.removeAttribute('id'); b.removeAttribute('id'); svg.appendChild(a); svg.appendChild(b); PAIRS.push([a, b]); } return PAIRS[i]; }
 let heroFloor = 0;
+// CodeJunkie role: opens in place, the trail below moves with it
+$$('details.role').forEach(r => {
+  r.addEventListener('toggle', () => requestAnimationFrame(build));
+  $('.role-less', r).addEventListener('click', () => { r.open = false; $('summary', r).focus({preventScroll:true}); const t = r.closest('.step').getBoundingClientRect().top; if (t < 0) scrollBy({top:t - 90, behavior: reduce ? 'auto' : 'smooth'}); });
+});
 function build(){
   layoutLimbs(); layoutPeak();
   const pen = $('.hero .pen'); heroFloor = pen && visible(pen) ? pos(pen).y + 2 : 0;
