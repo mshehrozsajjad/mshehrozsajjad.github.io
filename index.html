@@ -1118,6 +1118,84 @@ footer a{text-underline-offset:4px}
   .kh-print{position:relative;left:auto;top:auto;width:56%;margin-top:22px}
   .cv-print{position:relative;right:auto;bottom:auto;grid-area:cv;justify-self:end;width:44%;margin:-8px 6px 0 0}
   .media .b.has{border-radius:16px;box-shadow:0 0 0 4px color-mix(in srgb,var(--now-ink) 12%,var(--now-bg))}}
+
+/* ===== v7: chapter 03, the product on screen, the scale as a voice, the field in prints ===== */
+.now{padding-block:112px 96px}
+.now .chap{z-index:1}
+.now .chap .wrap{color:var(--now-trail)}
+.now .now-top{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);gap:56px;align-items:center}
+.now h2{font-size:clamp(40px,4.6vw,62px);line-height:1.02;letter-spacing:-.04em;margin:0 0 26px}
+.now h2 .it{font-size:1.06em;letter-spacing:-.01em}
+.now .sub{max-width:34ch}
+.now .role{margin-top:30px}
+.now .role > summary,.now .role-less{color:var(--now-trail)}
+.now .role-body{border-left-color:var(--now-trail);color:var(--now-ink);max-width:40ch;font-size:17px}
+.n3-stage{position:relative;padding:64px 70px 0 0}
+.n3-stage .hand.n3-note{position:absolute;margin:0;color:var(--now-ink);opacity:.9;z-index:3;line-height:1.05}
+.n3-note svg{position:absolute;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.n3-life{left:20%;top:-6px;transform:rotate(-6deg)}
+.n3-life svg{left:-40px;top:14px;width:30px;height:44px}
+.n3-work{right:-40px;top:24%;transform:rotate(-8deg);text-align:right}
+.n3-work svg{right:26px;top:calc(100% + 6px);width:26px;height:38px}
+.n3-site{right:30px;bottom:-58px;transform:rotate(-5deg);font-size:22px}
+.win{position:relative;border-radius:12px;background:color-mix(in srgb,var(--now-ink) 6%,var(--now-bg));border:1px solid color-mix(in srgb,var(--now-ink) 16%,var(--now-bg));box-shadow:0 40px 80px -40px rgba(0,0,0,.8),0 0 0 1px rgba(0,0,0,.2);overflow:hidden}
+.win-bar{display:flex;gap:7px;padding:11px 14px}
+.win-bar i{width:9px;height:9px;border-radius:50%;background:color-mix(in srgb,var(--now-ink) 22%,var(--now-bg))}
+.win-screen{position:relative;aspect-ratio:1434/1020;background:#0e0e10}
+.pane{position:absolute;inset:0;opacity:0;transition:opacity .45s ease-out}
+.pane.on{opacity:1}
+.pane[hidden]{display:block;visibility:hidden}
+.pane.on[hidden]{visibility:visible}
+.pane video,.pane img{display:block;width:100%;height:100%;object-fit:cover}
+.pane img{object-position:50% 100%}
+.pane.kiosk video{object-position:50% 38%}
+.phone{position:absolute;right:0;bottom:-28px;width:25%;z-index:2}
+.phone-in{transform:rotate(3deg);border-radius:26px;padding:6px;background:color-mix(in srgb,var(--now-ink) 14%,var(--now-bg));box-shadow:0 30px 60px -24px rgba(0,0,0,.85)}
+.phone-in video{display:block;width:100%;aspect-ratio:540/1100;object-fit:cover;border-radius:20px}
+.n3-tabs{display:flex;align-items:baseline;gap:6px 0;margin-top:22px;padding-left:4px;font:500 16px/1 var(--sans)}
+.n3-tabs button{background:none;border:0;padding:8px 0 10px;cursor:pointer;color:color-mix(in srgb,var(--now-ink) 55%,var(--now-bg));border-bottom:2px solid transparent;transition:color .2s,border-color .2s;font:inherit}
+.n3-tabs .sl{margin:0 16px;color:color-mix(in srgb,var(--now-ink) 30%,var(--now-bg));font-weight:400}
+.n3-tabs button[aria-selected="true"]{color:var(--now-ink);border-bottom-color:var(--now-trail)}
+@media (hover:hover) and (pointer:fine){.n3-tabs button:hover{color:var(--now-ink)}}
+.peak{margin-top:120px}
+.peak-k.hand{font:400 clamp(24px,2.4vw,30px)/1 var(--hand);letter-spacing:.02em;color:var(--now-trail);transform:rotate(-5deg);left:auto;right:calc(max(0px,(100% - 1120px)/2) + var(--gr) + 40px);top:16vh}
+.now .now-low{margin-top:40px}
+.field{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:48px;align-items:center}
+.field-txt{position:relative}
+.field h3{font:700 clamp(32px,3.4vw,46px)/1.05 var(--sans);letter-spacing:-.04em;color:var(--now-ink)}
+.field h3 .it{font-weight:400}
+.field-txt p{margin-top:20px;font-size:18px;line-height:1.5;max-width:34ch;color:color-mix(in srgb,var(--now-ink) 86%,var(--now-bg))}
+.field-prints{position:relative;display:grid;grid-template-columns:1fr 1fr 1.25fr;align-items:start;padding:20px 0 40px}
+.field-prints .snapcard{padding:10px 10px 0}
+.field-prints .snapcard figcaption{justify-content:center;font-size:21px;padding:8px 4px 10px}
+.field-prints .snap-img img{aspect-ratio:4/5;object-fit:cover}
+.fp1{z-index:1}
+.fp2{margin:56px 0 0 -18px;z-index:2}
+.fp3{margin:8px 0 0 -18px;align-self:center;z-index:1}
+.fp3 .snap-img img{aspect-ratio:4/3}
+.now .snapcard:hover{z-index:4}
+@media (max-width:760px){
+  .now{padding-block:96px 72px}
+  .now .now-top{grid-template-columns:minmax(0,1fr);gap:0}
+  .now h2{margin-top:24px}
+  .n3-stage{padding:72px 0 0;margin-top:28px}
+  .n3-life{left:auto;right:6px;top:4px;font-size:20px}
+  .n3-life svg{left:-30px;top:10px;width:22px;height:34px}
+  .n3-work,.n3-site{display:none}
+  .phone{width:27%;right:-8px;bottom:56px}
+  .now .numeral{display:none}
+  .phone-in{border-radius:18px;padding:4px}.phone-in video{border-radius:14px}
+  .n3-tabs{margin-top:18px;font-size:14.5px;white-space:nowrap}
+  .n3-tabs .sl{margin:0 9px}
+  .peak{margin-top:72px}
+  .peak-k.hand{right:auto;left:calc(var(--gl) + 52px);top:calc(11vh - 34px);font-size:22px}
+  .field{grid-template-columns:minmax(0,1fr);gap:28px}
+  .field-prints{grid-template-columns:1fr 1fr;padding-bottom:16px}
+  .fp2{margin:40px 0 0 -14px}
+  .fp3{grid-column:1 / -1;width:78%;justify-self:end;margin:-24px 0 0}
+  .field-prints .snapcard figcaption{font-size:18px}
+}
+@media (prefers-reduced-motion:reduce){.pane{transition:none}}
 </style>
 </head>
 <body>
@@ -1285,29 +1363,47 @@ footer a{text-underline-offset:4px}
 
 <section class="now" id="now" aria-labelledby="h-now">
   <div class="now-bg" id="nowBg"></div>
+  <div class="chap" aria-hidden="true"><div class="wrap">03 / Now · Beyond Presence</div></div>
   <span class="numeral" aria-hidden="true">03</span>
   <span class="way wd" data-o="8" style="left:94%;top:4%"></span>
   <span class="way wm" data-o="8.5" style="left:58%;top:30px"></span>
-  <div class="wrap">
+  <div class="wrap now-top">
     <div class="c" id="nowText">
-      <p class="label">Now / Beyond Presence</p>
-      <h2 id="h-now">Build the product. Then help it <span class="dd" data-doodle="underline">reach people.</span></h2>
+      <h2 id="h-now">Build the product.<br>Then help it <span class="it dd" data-doodle="underline">reach people.</span></h2>
       <p class="sub">I joined at pre-seed, before there was a product. Now I own the platform that serves our real-time avatars.</p>
-      <ul class="chips"><li>Real-time AI</li><li>Video avatars</li><li>Managed agents</li><li>Meeting integrations</li><li>Embeds</li></ul>
+      <details class="role own">
+        <summary><span class="role-more">What I own</span><span class="role-pm" aria-hidden="true"></span></summary>
+        <div class="role-body">
+          <p>Two parts, end to end. The creator platform is where an avatar gets made and embedded on a website. The call platform serves our real-time avatars and the Managed Agents product built on top of them.</p>
+          <p>I also built the meetings integration that sends an avatar into a Zoom or Teams call, and worked on our kiosk.</p>
+        </div>
+        <button class="role-less" type="button">Show less <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></button>
+      </details>
     </div>
-    <div class="c">
-      <div class="media">
-        <div class="ph a has" id="mA"><img src="assets/media/external-meeting.webp" alt="A Beyond Presence avatar talking to me in a video call" loading="lazy" width="1400" height="1087"></div>
-        <div class="ph b has" id="mB"><video src="assets/media/concierge.mp4" poster="assets/media/concierge-poster.webp" muted loop playsinline autoplay preload="metadata" aria-label="The concierge widget steering a website on a phone"></video></div>
+    <div class="c n3-stage">
+      <span class="hand n3-note n3-life" aria-hidden="true">where an avatar<br>comes to life<svg viewBox="0 0 34 44"><path d="M30 3 C 14 6, 6 18, 8 40 M8 40 L 2 32 M8 40 L 15 34"/></svg></span>
+      <div class="win" id="mA">
+        <div class="win-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="win-screen" id="nowPanes">
+          <div class="pane on" id="pane-creator" role="tabpanel" aria-labelledby="tab-creator"><video src="assets/media/creator-platform.mp4" poster="assets/media/creator-platform-poster.webp" muted loop playsinline autoplay preload="metadata" aria-label="The creator platform: picking an avatar and setting up an agent"></video></div>
+          <div class="pane" id="pane-meet" role="tabpanel" aria-labelledby="tab-meet" hidden><img src="assets/media/external-meeting.webp" alt="A Beyond Presence avatar talking to me in a video call" loading="lazy" width="1400" height="1087"></div>
+          <div class="pane kiosk" id="pane-kiosk" role="tabpanel" aria-labelledby="tab-kiosk" hidden><video src="assets/media/kiosk.mp4" poster="assets/media/kiosk-poster.webp" muted loop playsinline preload="none" aria-label="Our kiosk: an avatar on a standing screen, speaking German"></video></div>
+        </div>
       </div>
-      <p class="cap" id="nowCap">Avatars that join Zoom and Teams calls, and a concierge widget that steers a website while you talk to it.</p>
-      <span class="hand" id="nowHand" aria-hidden="true">the work doesn’t end at launch</span>
+      <div class="phone" id="mB"><div class="phone-in"><video src="assets/media/concierge.mp4" poster="assets/media/concierge-poster.webp" muted loop playsinline autoplay preload="metadata" aria-label="The website concierge steering a site on a phone"></video></div></div>
+      <span class="hand n3-note n3-work" aria-hidden="true">and gets<br>to work<svg viewBox="0 0 30 40"><path d="M20 2 C 28 14, 24 28, 6 36 M6 36 L 10 27 M6 36 L 15 38"/></svg></span>
+      <div class="n3-tabs" role="tablist" aria-label="What the platform runs">
+        <button type="button" role="tab" id="tab-creator" aria-controls="pane-creator" aria-selected="true">Creator platform</button><span class="sl" aria-hidden="true">/</span>
+        <button type="button" role="tab" id="tab-meet" aria-controls="pane-meet" aria-selected="false" tabindex="-1">Meetings</button><span class="sl" aria-hidden="true">/</span>
+        <button type="button" role="tab" id="tab-kiosk" aria-controls="pane-kiosk" aria-selected="false" tabindex="-1">Kiosk</button>
+      </div>
+      <span class="hand n3-note n3-site" aria-hidden="true">the website concierge</span>
     </div>
   </div>
   <div class="peak c" id="peak">
     <span class="way peak-in" data-o="8.9" data-cut></span>
     <div class="peak-stage">
-      <p class="peak-k">The platform I own, measured.</p>
+      <p class="peak-k hand">built to scale</p>
       <svg class="wave" id="wave" aria-hidden="true"><defs><clipPath id="waveClip"><rect id="waveRect" x="0" y="0" width="0" height="0"/></clipPath></defs><path class="wave-link" id="waveIn" pathLength="1"/><path class="wave-echo" id="waveEcho" clip-path="url(#waveClip)"/><path class="wave-line" id="waveLine" clip-path="url(#waveClip)"/><path class="wave-link" id="waveOut" pathLength="1"/></svg>
       <div class="peak-n" data-u=".2"><b>200,000+</b><span>avatar sessions served</span></div>
       <div class="peak-n low" data-u=".5"><b>1,000+</b><span>running at the same time</span></div>
@@ -1317,26 +1413,17 @@ footer a{text-underline-offset:4px}
     <span class="way peak-out" data-o="9"></span>
   </div>
   <div class="wrap now-low">
-    <div class="hack c">
-      <div class="hack-row">
-        <figure><div class="ph has"><img src="assets/media/stage-paris.webp" alt="Speaking on stage at a hackathon in Paris" loading="lazy"></div><figcaption>Speaking · hackathon in Paris</figcaption></figure>
-        <figure><div class="ph has"><img src="assets/media/cx-summit.webp" alt="The Conversational AI and Customer Experience Summit" loading="lazy"></div><figcaption>Partnerships · Conversational AI &amp; CX Summit</figcaption></figure>
-        <figure><div class="ph has"><img src="assets/media/mentoring.webp" alt="Mentoring a team at a hackathon" loading="lazy"></div><figcaption>Mentoring a team</figcaption></figure>
-        <figure><div class="ph has"><img src="assets/media/stage-tum.webp" alt="On stage at the TUM hackathon, in front of a Beyond Presence slide" loading="lazy"></div><figcaption>Speaking · TUM hackathon, Munich</figcaption></figure>
+    <div class="field c">
+      <div class="field-txt">
+        <span class="way wd" data-o="9.4" data-v style="left:calc(-1 * clamp(28px,5vw,60px) + 20px);top:50%"></span>
+        <h3>The work doesn’t end <span class="it">at launch.</span></h3>
+        <p>I represent us on stage and on judging panels, mentor teams at hackathons, and meet the people building with us.</p>
       </div>
-      <p class="hack-cap">I represent us at hackathons, on stage and on judging panels. In between I mentor teams and meet companies we might partner with.</p>
-    </div>
-    <div class="digwrap c">
-      <span class="way dig-in" data-o="9.45" data-v data-vn></span>
-      <details class="dig">
-        <summary><span class="dot knot" data-o="9.5" data-v data-vn></span><span class="plus" aria-hidden="true">+</span>Dig in: what I own</summary>
-        <div class="dig-body">
-          <p>I own two parts of it end to end. The creator platform is where an avatar gets made and embedded on a website. The call platform serves our real-time avatars and the Managed Agents product built on top of them.</p>
-          <p>I also built the meetings integration that sends an avatar into a Zoom or Teams call, and worked on our kiosk.</p>
-          <div class="dig-media own-media"><div class="ph has cr"><video src="assets/media/creator-platform.mp4" poster="assets/media/creator-platform-poster.webp" autoplay muted loop playsinline preload="metadata" aria-label="The creator platform: picking an avatar and setting up an agent"></video></div><div class="ph has ks"><video src="assets/media/kiosk.mp4" poster="assets/media/kiosk-poster.webp" autoplay muted loop playsinline preload="metadata" aria-label="Our kiosk: an avatar on a standing screen, speaking German"></video></div></div>
-        </div>
-        <span class="way dig-end" data-o="9.55" data-v data-vn></span>
-      </details>
+      <div class="field-prints">
+        <figure class="snapcard fp1" style="--r:-3deg"><div class="snap-img"><img src="assets/media/stage-paris.webp" alt="Speaking on stage at a hackathon in Paris" loading="lazy" width="825" height="1100"></div><figcaption><span>Paris, on stage</span></figcaption></figure>
+        <figure class="snapcard fp2" style="--r:2.5deg"><div class="snap-img"><img src="assets/media/mentoring.webp" alt="Mentoring a team at a hackathon" loading="lazy" width="800" height="1200"></div><figcaption><span>Building together</span></figcaption></figure>
+        <figure class="snapcard fp3" style="--r:-1.5deg"><div class="snap-img"><img src="assets/media/stage-tum.webp" alt="On stage at the TUM hackathon, in front of a Beyond Presence slide" loading="lazy" width="1400" height="1050"></div><figcaption><span>Munich, at TUM</span></figcaption></figure>
+      </div>
     </div>
   </div>
   <span class="way wm" data-o="10.5" style="left:88%;top:calc(100% - 28px)"></span>
@@ -1663,10 +1750,28 @@ function drawBranch(d, animate){
 const PAIRS = [[pMain, pNow]];
 function pair(i){ while (PAIRS.length <= i){ const a = pMain.cloneNode(), b = pNow.cloneNode(); a.removeAttribute('id'); b.removeAttribute('id'); svg.appendChild(a); svg.appendChild(b); PAIRS.push([a, b]); } return PAIRS[i]; }
 let heroFloor = 0;
+// 03: what the platform runs, one screen at a time
+(() => {
+  const tabs = $$('.n3-tabs [role=tab]'); if (!tabs.length) return;
+  let i = 0, auto = !reduce, timer = 0;
+  const show = (k, focus) => {
+    i = (k + tabs.length) % tabs.length;
+    tabs.forEach((t, j) => { const on = j === i, pane = $('#' + t.getAttribute('aria-controls'));
+      t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; pane.hidden = !on; pane.classList.toggle('on', on);
+      const v = $('video', pane); if (v){ if (on && !reduce){ v.currentTime = 0; v.play().catch(() => {}); } else v.pause(); } });
+    if (focus) tabs[i].focus();
+  };
+  const stop = () => { auto = false; clearInterval(timer); };
+  tabs.forEach((t, j) => { t.addEventListener('click', () => { stop(); show(j); });
+    t.addEventListener('keydown', e => { const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (d){ e.preventDefault(); stop(); show(i + d, true); } }); });
+  // cycle while the screen is in view, until someone picks a tab
+  const io = new IntersectionObserver(es => es.forEach(e => { clearInterval(timer); if (e.isIntersecting && auto) timer = setInterval(() => show(i + 1), 6500); }), {threshold:.5});
+  io.observe($('#mA'));
+})();
 // CodeJunkie role: opens in place, the trail below moves with it
 $$('details.role').forEach(r => {
   r.addEventListener('toggle', () => requestAnimationFrame(build));
-  $('.role-less', r).addEventListener('click', () => { r.open = false; $('summary', r).focus({preventScroll:true}); const t = r.closest('.step').getBoundingClientRect().top; if (t < 0) scrollBy({top:t - 90, behavior: reduce ? 'auto' : 'smooth'}); });
+  $('.role-less', r).addEventListener('click', () => { r.open = false; $('summary', r).focus({preventScroll:true}); const t = (r.closest('.step') || r.parentElement).getBoundingClientRect().top; if (t < 0) scrollBy({top:t - 90, behavior: reduce ? 'auto' : 'smooth'}); });
 });
 function build(){
   layoutLimbs(); layoutPeak();
@@ -1778,7 +1883,7 @@ function frame(){
   const mm = ease(seg(p, .32, .78));
   [['#mA',60],['#mB',90]].forEach(([s,dd]) => { const el = $(s); el.style.opacity = (reduce?1:.0001+mm).toString(); el.style.transform = reduce ? 'none' : `translateY(${((1-mm)*dd).toFixed(1)}px) scale(${(.94+.06*mm).toFixed(3)})`; });
   const t = ease(seg(p, .18, .5)), tx = $('#nowText'); tx.style.opacity = (reduce?1:.0001+t).toString(); tx.style.transform = reduce ? 'none' : `translateY(${((1-t)*30).toFixed(1)}px)`;
-  const cp = seg(p, .62, .9); ['#nowCap','#nowHand'].forEach(s => $(s).style.opacity = (reduce?1:.0001+cp).toString());
+  const cp = seg(p, .62, .9); $$('.n3-note').forEach(el => el.style.opacity = (reduce?1:.0001+cp).toString());
 
   peakFrame();
   $('#fab').classList.toggle('show', scrollY > vh*0.7);
