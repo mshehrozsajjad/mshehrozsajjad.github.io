@@ -1,4 +1,5 @@
 import {strand, sharedHandle} from './strands.js';
+import {createReveal, splitWords} from './reveal.js';
 (() => {
 "use strict";
 const $ = (s, r=document) => r.querySelector(s), $$ = (s, r=document) => [...r.querySelectorAll(s)];
@@ -6,6 +7,7 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>'
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const main = $('#main'), svg = $('#trail'), pMain = $('#pMain'), pNow = $('#pMainNow');
 if (!reduce) document.documentElement.classList.add('js');
+const reveal = createReveal(reduce);
 
 // the sprites are two-frame animations; people who asked for less motion get the still frame
 const calm = (root = document) => { if (reduce) $$('img.sprite', root).forEach(i => { const a = i.getAttribute('src'); if (a && a.includes('-anim.webp')) i.setAttribute('src', a.replace('/v2/', '/').replace('-anim.webp', '.webp')); }); };
@@ -343,12 +345,14 @@ function phonePoints(pts){
   // a living line: it swings across the page in the empty bands between sections, and sways in the gutter between nodes
   const x0 = parseFloat(getComputedStyle($('main .wrap')).paddingLeft) - 24;
   pts = pts.filter(p => !p.el.closest('.top'));
-  const norm = pts.map(p => (p.el.classList.contains('wm') || p.el.classList.contains('pen')) ? {...p, swing:true} : {x:x0, y:p.y, el:p.el, vert:p.vert, vn:p.vn, cut:p.cut});
+  // data-keep: the closer's loop keeps its own shape on phones too
+  const norm = pts.map(p => p.el.hasAttribute('data-keep') ? {...p, keep:true} : (p.el.classList.contains('wm') || p.el.classList.contains('pen')) ? {...p, swing:true} : {x:x0, y:p.y, el:p.el, vert:p.vert, vn:p.vn, cut:p.cut, arc:p.arc});
   norm.unshift({x:x0, y: pos($('.hero .label')).y - 6});
   if (norm.length < 2) return norm;
   const out = [norm[0]]; let alt = 1;
   for (let i=1;i<norm.length;i++){
     const a = norm[i-1], b = norm[i], gap = b.y - a.y;
+    if (a.keep || b.keep){ out.push(b); continue; }
     if (b.swing){ if (gap > 90) out.push({x:x0, y:b.y - Math.min(70, gap*.45)}); out.push(b); continue; }
     if (a.swing){ if (gap > 90) out.push({x:x0, y:a.y + Math.min(70, gap*.45)}); out.push(b); continue; }
     if (gap > 110 && !(a.vn && b.vert) && !a.cut){ out.push({x: x0 + alt*11, y: a.y + gap*.5}); alt = -alt; }
@@ -364,7 +368,8 @@ function makeTrail(paths, pts){
   let mx = -1e9; if (len) for (let i=0;i<=N;i++){ mx = Math.max(mx, paths[0].getPointAtLength(i*step).y); maxY.push(mx); }
   paths.forEach(p => p.style.strokeDasharray = `${len} ${len}`);
   const prev = trails.find(t => t.paths[0] === paths[0]);
-  return {paths, len, maxY, step, shown: prev ? Math.min(prev.shown, len) : 0};
+  // data-arc on a segment's first point: it draws along its own length over that many px of scroll (a loop doubles back, so depth cannot pace it)
+  return {paths, len, maxY, step, arc: pts[0].arc, y0: pts[0].y, shown: prev ? Math.min(prev.shown, len) : 0};
 }
 // the dig-in branch: leaves the knot, runs beside the open details, rejoins the trail at the end
 const NS = 'http://www.w3.org/2000/svg';
@@ -472,7 +477,7 @@ function build(){
   svg.style.height = '0';
   const H = main.scrollHeight, W = main.clientWidth;
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.style.height = H+'px';
-  let pts = $$('[data-o]').filter(visible).map(el => ({...pos(el), el, o:+el.dataset.o, vert: el.hasAttribute('data-v'), vn: el.hasAttribute('data-vn'), cut: el.hasAttribute('data-cut'), free: el.hasAttribute('data-free')})).sort((a,b) => a.o - b.o);
+  let pts = $$('[data-o]').filter(visible).map(el => ({...pos(el), el, o:+el.dataset.o, arc:+el.dataset.arc || 0, vert: el.hasAttribute('data-v'), vn: el.hasAttribute('data-vn'), cut: el.hasAttribute('data-cut'), free: el.hasAttribute('data-free')})).sort((a,b) => a.o - b.o);
   if (phone()) pts = phonePoints(pts);
   const segs = []; let cur = [];
   pts.forEach(p => { cur.push(p); if (p.cut){ segs.push(cur); cur = []; } });
@@ -484,11 +489,23 @@ function build(){
   if (penPt && trails[0] && trails[0].len){ const t = trails[0], pth = t.paths[0]; let best = 1e9;
     for (let L = 0; L <= t.len; L += t.step){ const q = pth.getPointAtLength(L), dd = (q.x - penPt.x)**2 + (q.y - penPt.y)**2; if (dd < best){ best = dd; heroLen = L; } } }
   PAIRS.slice(segs.length).forEach(pp => pp.forEach(p => p.setAttribute('d', '')));
-  nodes = $$('.dot[data-o]').filter(visible).map(el => ({el, y: pos(el).y}));
+  // a knot on an arc trail lights when the pen arrives along the line; any other when the pen passes its depth
+  nodes = $$('.dot[data-o]').filter(visible).map(el => {
+    const p = pos(el), t = trails[segs.findIndex(sg => sg.some(q => q.el === el))], arc = t && t.arc;
+    return {el, y: p.y, t: arc ? t : null, L: arc ? lengthAt(t, p) : 0};
+  });
+  const mr = main.getBoundingClientRect();
+  reveal.measure(el => el.getBoundingClientRect().top - mr.top);
   $$('details.dig').forEach(d => drawBranch(d, false));
   const nb = $('#nowBg'), r = nb.getBoundingClientRect(), c = pos(nb);
   const rect = $('#nowRect'); rect.setAttribute('y', c.y - r.height/2); rect.setAttribute('width', W); rect.setAttribute('height', r.height);
   frame();
+}
+// how far along the trail the point nearest to pt lies
+function lengthAt(t, pt){
+  let best = 1e9, at = 0;
+  for (let L = 0; L <= t.len; L += t.step){ const q = t.paths[0].getPointAtLength(L), d = (q.x - pt.x)**2 + (q.y - pt.y)**2; if (d < best){ best = d; at = L; } }
+  return at;
 }
 function drawnLength(t, penY){ const a = t.maxY; if (!a.length || a[0] > penY) return 0; let lo=0, hi=a.length-1; while (lo<hi){ const mm=(lo+hi+1)>>1; if (a[mm] <= penY) lo=mm; else hi=mm-1; } return lo*t.step; }
 document.addEventListener('toggle', e => {
@@ -546,11 +563,14 @@ let ticking = false;
 function frame(){
   ticking = false;
   const mTop = main.getBoundingClientRect().top + scrollY;
-  const readY = scrollY + innerHeight*0.64 - mTop, penY = Math.max(readY, heroT >= 1 ? heroFloor : 0);
+  const readY = scrollY + innerHeight*0.64 - mTop;
+  // at the very bottom the line has reached everything, however short the page ends
+  const atEnd = scrollY + innerHeight >= document.documentElement.scrollHeight - 4;
+  const penY = atEnd ? 1e9 : Math.max(readY, heroT >= 1 ? heroFloor : 0);
   let busy = heroT < 1;
   trails.forEach((t, j) => {
     // the stretch into the fork reads ahead, so the strands can finish drawing while the fork is still well in view
-    let target = reduce ? t.len : drawnLength(t, t === forkTrail ? penY + innerHeight*.2 : penY);
+    let target = reduce ? t.len : t.arc ? t.len*cl((penY - t.y0)/t.arc) : drawnLength(t, t === forkTrail ? penY + innerHeight*.2 : penY);
     // until the pen is reached, the hero line leads; scrolling takes over at once
     const intro = heroT < 1 && heroLen && scrollY < 40, drawingIn = intro && j === 0;
     if (drawingIn) target = heroLen*heroT; else if (intro) target = 0;
@@ -559,7 +579,8 @@ function frame(){
     // an undrawn stroke still shows its round cap as a dot, so hide it until it has length
     t.paths.forEach(p => { p.style.strokeDashoffset = (t.len - t.shown).toFixed(1); p.style.visibility = t.shown > 1 ? '' : 'hidden'; });
   });
-  nodes.forEach(n => n.el.classList.toggle('hit', reduce || n.y <= penY));
+  nodes.forEach(n => n.el.classList.toggle('hit', reduce || (n.t ? n.t.shown >= n.L - 2 : n.y <= penY)));
+  reveal.check(penY);
 
   // present-day chapter opens out; product and marketing enter together
   const vh = innerHeight, r = nowSec.getBoundingClientRect();
@@ -768,15 +789,6 @@ if (copy) copy.addEventListener('click', () => {
 /* ---------- hero intro: a labelled cursor writes the headline, once per visit ---------- */
 const h1 = $('#h1'), heroCopy = h1 && h1.parentElement;
 let introSeen = false; try { introSeen = sessionStorage.getItem('intro-seen') === '1'; } catch(_) {}
-function splitWords(node){
-  [...node.childNodes].forEach(n => {
-    if (n.nodeType === 3){
-      const parts = n.textContent.split(/(\s+)/); const frag = document.createDocumentFragment();
-      parts.forEach(p => { if (!p) return; if (/^\s+$/.test(p)) frag.appendChild(document.createTextNode(p)); else { const s = document.createElement('span'); s.className = 'w'; s.textContent = p; frag.appendChild(s); } });
-      n.replaceWith(frag);
-    } else if (n.nodeType === 1 && n.tagName !== 'BR') splitWords(n);
-  });
-}
 if (h1 && !reduce && !introSeen){
   splitWords(h1);
   const words = $$('.w', h1), hero = $('.hero');

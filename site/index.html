@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=JetBrains+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap">
 <link rel="stylesheet" href="/src/styles/site.css">
+<link rel="stylesheet" href="/src/styles/ending.css">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -291,52 +292,100 @@
       <span class="way map-j" data-o="31.2" data-v></span>
     </div>
 
-    <div class="close c" id="close">
-      <span class="way wd" data-o="31.5" data-v style="left:calc(-1 * clamp(28px,5vw,60px) - 24px);top:-90px"></span>
-      <span class="dot" data-o="32" data-v></span>
-      <img class="sprite s-point" src="/assets/sprites/v2/shehroz-point-anim.webp" alt="" aria-hidden="true" width="257" height="473">
+    <div class="close c" id="close" aria-labelledby="h-close">
+      <!-- the line leaves the gutter, loops once like the flourish of a signature, crosses its own path and comes back to the gutter. The chain sits along the loop -->
+      <span class="way wd" data-o="31.3" data-v style="left:-24px;top:0"></span>
+      <span class="way wd" data-o="31.4" data-v data-cut style="left:-24px;top:150px"></span>
+      <span class="way wd" data-o="31.5" data-v data-arc="300" style="left:-24px;top:150px"></span>
+      <span class="way wd" data-o="31.51" style="left:10px;top:262px"></span>
+      <span class="way wd" data-o="31.52" style="left:112px;top:372px"></span>
+      <span class="way wd" data-o="31.81" style="left:86.7%;top:420px"></span>
+      <span class="way wd" data-o="31.82" style="left:88.4%;top:312px"></span>
+      <span class="way wd" data-o="31.83" style="left:72.8%;top:226px"></span>
+      <span class="way wd" data-o="31.91" style="left:28%;top:250px"></span>
+      <span class="way wd" data-o="31.92" style="left:150px;top:312px"></span>
+      <span class="way wd" data-o="31.93" style="left:40px;top:392px"></span>
+      <span class="way wd" data-o="32" data-v data-cut style="left:-24px;top:500px"></span>
+      <span class="way wd" data-o="32.1" data-v style="left:-24px;top:500px"></span>
+      <span class="way wm" data-keep data-o="31.3" data-v style="left:-24px;top:calc(100% - var(--loop))"></span>
+      <span class="way wm" data-keep data-o="31.4" data-v data-cut style="left:-24px;top:calc(100% - var(--loop) + 20px)"></span>
+      <span class="way wm" data-keep data-o="31.5" data-v data-arc="260" style="left:-24px;top:calc(100% - var(--loop) + 20px)"></span>
+      <span class="way wm" data-keep data-o="31.51" style="left:-4px;top:calc(100% - var(--loop) + 95px)"></span>
+      <span class="way wm" data-keep data-o="31.52" style="left:44px;top:calc(100% - var(--loop) + 170px)"></span>
+      <span class="way wm" data-keep data-o="31.81" style="left:300px;top:calc(100% - var(--loop) + 225px)"></span>
+      <span class="way wm" data-keep data-o="31.82" style="left:296px;top:calc(100% - var(--loop) + 140px)"></span>
+      <span class="way wm" data-keep data-o="31.83" style="left:236px;top:calc(100% - var(--loop) + 80px)"></span>
+      <span class="way wm" data-keep data-o="31.91" style="left:90px;top:calc(100% - var(--loop) + 95px)"></span>
+      <span class="way wm" data-keep data-o="31.92" style="left:32px;top:calc(100% - var(--loop) + 150px)"></span>
+      <span class="way wm" data-keep data-o="32" data-v data-cut style="left:-24px;top:calc(100% - var(--loop) + 250px)"></span>
+      <span class="way wm" data-keep data-o="32.1" data-v style="left:-24px;top:calc(100% - var(--loop) + 250px)"></span>
       <div class="close-body">
-        <h3>Then it all comes back <span class="dd" data-doodle="underline">to work.</span></h3>
-        <p>What the lab taught me about selling, I bring to Beyond Presence. I’m automating our go-to-market with n8n and AI agents wired into Slack.</p>
-        <span class="hand" aria-hidden="true">design → engineering → go-to-market → back into the product</span>
+        <h2 id="h-close" data-reveal="words">Then it all comes back <span class="it dd" data-doodle="underline" data-manual>to work.</span></h2>
+        <p class="close-p" data-reveal>What the lab taught me about selling, I bring to Beyond Presence. I’m automating our go-to-market with n8n and AI agents wired into Slack.</p>
       </div>
+      <ol class="chain" aria-label="How it comes back around">
+        <li class="k1"><span class="dot" data-keep data-o="31.6"></span><span class="hand">design</span></li>
+        <li class="k2"><span class="dot" data-keep data-o="31.7"></span><span class="hand">engineering</span></li>
+        <li class="k3"><span class="dot" data-keep data-o="31.8"></span><span class="hand">go-to-market</span></li>
+        <li class="k4"><span class="dot" data-keep data-o="31.9"></span><span class="hand">back into the product</span></li>
+      </ol>
+      <img class="sprite s-point" src="/assets/sprites/v2/shehroz-point-anim.webp" alt="" aria-hidden="true" width="257" height="473">
     </div>
   </div>
 </section>
 
-<section class="foot c" id="contact" aria-labelledby="h-foot">
+<section class="contact" id="contact" aria-labelledby="h-foot">
   <div class="wrap">
-    <img class="doodle doodle-plane" src="/assets/doodles/paper-plane.png" alt="" aria-hidden="true" width="2172" height="724" loading="lazy">
-    <h2 id="h-foot" class="foot-h">Stay <span class="dd" data-doodle="circle">close.</span></h2>
-    <div class="cta">
-      <div class="cta-card">
-        <p class="label">Newsletter</p>
-        <p class="t">One email when I ship something.</p>
-        <form id="nl" novalidate>
-          <label for="nl-email" class="sr">Email address</label>
-          <input id="nl-email" type="email" placeholder="you@domain.com" autocomplete="email">
-          <button class="btn" type="submit">Follow along</button>
-        </form>
-        <p class="msg" id="nl-msg" role="status"></p>
-      </div>
-      <div class="cta-card">
-        <p class="label">Book a call</p>
-        <p class="t">Building something and stuck? Book 30 minutes.</p>
-        <div><button class="pill pri" type="button" id="book">Book on Cal.com <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button></div>
-        <p class="msg" id="book-msg" role="status"></p>
-      </div>
+    <div class="post-stage c">
+      <!-- the trail ends by sweeping over the card and drawing a paper plane -->
+      <span class="way wd" data-o="32.2" data-v data-cut style="left:-24px;top:0"></span>
+      <span class="way wd" data-o="32.3" data-v data-arc="380" style="left:-24px;top:0"></span>
+      <span class="way wd" data-o="32.4" style="left:8px;top:54px"></span>
+      <span class="way wd" data-o="32.5" style="left:170px;top:72px"></span>
+      <span class="way wd" data-o="32.6" style="left:420px;top:50px"></span>
+      <span class="way wm" data-keep data-o="32.2" data-v data-cut style="left:-24px;top:0"></span>
+      <span class="way wm" data-keep data-o="32.3" data-v data-arc="300" style="left:-24px;top:0"></span>
+      <span class="way wm" data-keep data-o="32.4" style="left:-2px;top:58px"></span>
+      <span class="way wm" data-keep data-o="32.5" style="left:90px;top:72px"></span>
+      <span class="way wm" data-keep data-o="32.6" style="left:170px;top:50px"></span>
+      <span class="dot tail" data-keep data-o="32.7"><svg class="plane" viewBox="0 0 96 64" aria-hidden="true"><path pathLength="1" d="M4 32 L92 6 L48 58 L34 40 Z"/><path pathLength="1" d="M34 40 L92 6"/><path pathLength="1" d="M34 40 L36 56 L48 58"/></svg></span>
+      <article class="postcard" data-reveal="print" style="--tilt:-1.2deg">
+        <span class="stamp" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 C 12.6 8.5, 15.5 11.4, 22 12 C 15.5 12.6, 12.6 15.5, 12 22 C 11.4 15.5, 8.5 12.6, 2 12 C 8.5 11.4, 11.4 8.5, 12 2 Z"/></svg></span>
+        <div class="pc-msg">
+          <h2 id="h-foot" data-reveal="words">Stay <span class="it dd" data-doodle="circle" data-manual>close.</span></h2>
+          <p class="pc-lead" data-reveal>Building something and stuck? Book 30 minutes.</p>
+          <button class="pc-book" type="button" id="book" data-reveal><span class="dd" data-doodle="underline2" data-manual>Book a call</span> <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button>
+          <p class="msg" id="book-msg" role="status"></p>
+        </div>
+        <div class="pc-addr">
+          <p class="pc-hand hand" data-reveal>One email when I ship something.</p>
+          <form id="nl" novalidate data-reveal>
+            <label for="nl-email" class="sr">Email address</label>
+            <span class="pc-line"><input id="nl-email" type="email" placeholder="you@domain.com" autocomplete="email"><svg viewBox="0 0 400 10" preserveAspectRatio="none" aria-hidden="true"><path d="M2 6 C 70 3, 130 8, 210 5 S 340 7, 398 4"/></svg></span>
+            <button class="btn" type="submit">Follow along <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button>
+          </form>
+          <p class="msg" id="nl-msg" role="status"></p>
+          <span class="pc-rule" aria-hidden="true" data-reveal></span><span class="pc-rule" aria-hidden="true" data-reveal></span>
+        </div>
+        <button class="pc-ps" type="button" data-open="archive" data-reveal><span>P.S.</span> Explore the full archive <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button>
+      </article>
+      <div class="wave-fig" data-reveal><img class="sprite s-wave" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" width="248" height="481"></div>
     </div>
-    <button class="big-link" type="button" data-open="archive">Explore the full archive <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button>
-    <img class="sprite s-wave rise" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" width="248" height="481">
   </div>
 </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <span>mshehrozsajjad@gmail.com <button class="copy" type="button" id="copy">Copy</button></span>
-    <span><a href="https://github.com/mshehrozsajjad" target="_blank" rel="noopener">GitHub</a> · LinkedIn · Cal.com · Impressum · Datenschutz</span>
-    <span>Prototype · placeholders mark where real media goes</span>
+    <p class="f-legal" data-reveal>© 2026 Shehroz Sajjad<a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a></p>
+    <ul class="f-social" aria-label="Elsewhere" data-reveal>
+      <li><a href="https://www.linkedin.com/in/mshehrozsajjad/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><i aria-hidden="true"></i></a></li>
+      <li><a href="https://www.instagram.com/mshehroz.sajjad/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg><i aria-hidden="true"></i></a></li>
+      <li><a href="https://github.com/mshehrozsajjad" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><i aria-hidden="true"></i></a></li>
+      <li><a href="https://www.tiktok.com/@mshehrozsajjad" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg><i aria-hidden="true"></i></a></li>
+    </ul>
+    <p class="f-mail" data-reveal>mshehrozsajjad@gmail.com <button class="copy" type="button" id="copy">Copy</button></p>
+    <p class="f-sign hand" data-reveal><span class="dd" data-doodle="underline2" data-manual>— Shehroz</span></p>
   </div>
 </footer>
 <button class="fab" id="fab" type="button" data-open="agent">Ask my AI self</button>
