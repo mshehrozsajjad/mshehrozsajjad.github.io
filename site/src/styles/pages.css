@@ -175,3 +175,12 @@
   .nav .ns{display:inline}
   .wk-note{position:static;display:block;margin:14px 0 0 8px;justify-self:start}
 }
+
+/* awards, under a timeline: year, what, from whom */
+.awards{list-style:none;padding:0;margin:var(--sp-5) 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line)}
+.awards li{display:grid;gap:4px;padding:var(--sp-2) var(--sp-2) 0 0}
+.awards li + li{padding-left:var(--sp-2);border-left:1px solid var(--line)}
+.awards span{font:500 var(--fs-xs)/1 var(--mono);color:var(--signal)}
+.awards b{font:600 var(--fs-s)/1.3 var(--sans)}
+.awards i{font-style:normal;font-size:var(--fs-xs);color:var(--muted);line-height:1.35}
+@media (max-width:760px){.awards{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:var(--sp-3)}.awards li:nth-child(3){padding-left:0;border-left:0}}

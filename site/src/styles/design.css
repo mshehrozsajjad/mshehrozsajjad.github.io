@@ -221,3 +221,27 @@
 .poster:nth-child(even){margin-top:0}
 .poster img{box-shadow:none;border:1px solid var(--ink)}
 .lens figure,.films2 figure{transform:none !important}
+
+/* ---------- identity: one brand sheet per product ---------- */
+.bsheets{display:grid;gap:var(--sp-5)}
+.bsheet{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:0 var(--sp-4);padding-top:12px;border-top:3px double var(--ink)}
+.bs-head{grid-column:1 / -1;display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-2);margin-bottom:var(--sp-3)}
+.bs-head h3{font:400 clamp(40px,4.4vw,64px)/1 var(--cond);text-transform:uppercase}
+.bs-head p{font:italic 400 17px/1.4 var(--news);color:var(--muted)}
+.bs-marks{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;align-content:start}
+.bs-marks figure{margin:0;display:grid;place-items:center;aspect-ratio:1;border:1px solid var(--ink);background:var(--raised);padding:14%}
+.bs-marks img{display:block;max-width:100%;max-height:100%;object-fit:contain}
+.bs-logo{grid-column:1 / -1;aspect-ratio:2/1 !important}
+.bs-sw{list-style:none;padding:0;margin:12px 0 0;display:flex;border:1px solid var(--ink)}
+.bs-sw li{flex:1;background:var(--c);min-height:90px;display:flex;align-items:flex-end;padding:8px}
+.bs-sw li + li{border-left:1px solid var(--ink)}
+.bs-sw span{font:500 11px/1 var(--mono);background:var(--paper);padding:3px 5px}
+.bs-type{margin-top:12px;font:400 15px/1.4 var(--news)}
+.bs-type b{font:400 16px/1 var(--cond);text-transform:uppercase;margin-right:6px}
+.bsheet > :is(.bs-sw,.bs-type){grid-column:1}
+.bs-pages{grid-column:2;grid-row:2 / span 3;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-content:start}
+.bs-pages figure{margin:0;border:1px solid var(--ink)}
+.bs-pages img{display:block;width:100%}
+.bsheet:not(:has(.bs-pages)){grid-template-columns:minmax(0,1fr)}
+.bsheet:not(:has(.bs-pages)) .bs-marks{grid-template-columns:repeat(auto-fit,minmax(200px,280px))}
+@media (max-width:760px){.bsheet{grid-template-columns:minmax(0,1fr)}.bs-pages{grid-column:1;grid-row:auto;margin-top:var(--sp-3)}.bs-head{flex-direction:column}}
