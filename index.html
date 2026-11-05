@@ -898,6 +898,9 @@ footer a{text-underline-offset:4px}
 .sound[aria-pressed="true"]{background:var(--signal);color:var(--on-signal)}
 .strip .ph.has:nth-child(2){aspect-ratio:5/3}.strip .ph.has:nth-child(3){aspect-ratio:3/2}
 @media (max-width:760px){.strip .ph.has:nth-child(1){aspect-ratio:5/4}}
+.l-shot > video{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border:1px solid var(--line);border-radius:4px;background:#000}
+#n-yolk .l-shot > video{aspect-ratio:4/5;max-height:520px;object-fit:cover}
+.hack-row figure:nth-child(4) .ph{aspect-ratio:16/7}
 </style>
 </head>
 <body>
@@ -1036,9 +1039,9 @@ footer a{text-underline-offset:4px}
     <div class="hack c">
       <div class="hack-row">
         <figure><div class="ph has"><img src="assets/media/stage-paris.webp" alt="Speaking on stage at a hackathon in Paris" loading="lazy"></div><figcaption>Speaking · hackathon in Paris</figcaption></figure>
-        <figure><div class="ph">Judging panel</div><figcaption>Judging · event to come</figcaption></figure>
-        <figure><div class="ph">Mentoring a team</div><figcaption>Mentoring · event to come</figcaption></figure>
         <figure><div class="ph has"><img src="assets/media/cx-summit.webp" alt="The Conversational AI and Customer Experience Summit" loading="lazy"></div><figcaption>Partnerships · Conversational AI &amp; CX Summit</figcaption></figure>
+        <figure><div class="ph has"><img src="assets/media/mentoring.webp" alt="Mentoring a team at a hackathon" loading="lazy"></div><figcaption>Mentoring a team</figcaption></figure>
+        <figure><div class="ph has"><img src="assets/media/stage-tum.webp" alt="On stage at the TUM hackathon, in front of a Beyond Presence slide" loading="lazy"></div><figcaption>Speaking · TUM hackathon, Munich</figcaption></figure>
       </div>
       <p class="hack-cap">I represent us at hackathons, on stage and on judging panels. In between I mentor teams and meet companies we might partner with.</p>
     </div>
@@ -1094,7 +1097,7 @@ footer a{text-underline-offset:4px}
       <h3><span class="dot" data-o="31" data-v data-vn></span>Where the taste comes from.</h3>
       <p class="sub2">I shoot photo and video and fly a drone, and I edit everything myself. That’s why Yolk and NPC Filter both launched with a film.</p>
       <div class="taste-grid">
-        <div class="ph t1 has"><img src="assets/media/photo-bridge.webp" alt="A bridge at night, shot from above" loading="lazy"></div><div class="ph t2">Drone /<br>10 s clip</div><div class="ph t3 has"><img src="assets/media/photo-dome.webp" alt="A lit dome at night" loading="lazy"></div><div class="ph t4">Launch film /<br>Yolk</div><div class="ph t5">Launch film /<br>NPC Filter</div>
+        <div class="ph t1 has"><img src="assets/media/photo-bridge.webp" alt="A bridge at night, shot from above" loading="lazy"></div><div class="ph t2 has"><video src="assets/media/drone.mp4" poster="assets/media/drone-poster.webp" autoplay muted loop playsinline preload="metadata" aria-label="Drone shot over a beach town"></video></div><div class="ph t3 has"><img src="assets/media/photo-dome.webp" alt="A lit dome at night" loading="lazy"></div><div class="ph t4 has"><video src="assets/media/yolk-film.mp4" poster="assets/media/yolk-film-poster.webp" autoplay muted loop playsinline preload="metadata" aria-label="From the Yolk launch film"></video></div><div class="ph t5 has"><video src="assets/media/npc-film.mp4" poster="assets/media/npc-film-poster.webp" autoplay muted loop playsinline preload="metadata" aria-label="From the NPC Filter launch film"></video></div>
         <img class="sprite s-camera" src="assets/sprites/shehroz-camera.webp" alt="" aria-hidden="true" width="194" height="479">
       </div>
     </div>
@@ -1199,11 +1202,11 @@ const LAB = [
    steps:[1,0,1,0,0], label:'Prototype', taught:'Our avatars can run on the edge.', sprite:'solder', chips:['3D printing','Soldering','Local LLM'],
    body:['Two years into building with AI, I wanted to try hardware. I 3D-printed an open-source TARS and soldered in a motion sensor, my first time holding an iron.','It kept falling over until Claude worked out a better walk. Then I gave it my face with a Beyond Presence avatar and ran the whole stack locally, LLM included, for free.'], media:['Falling, then walking','The soldering','With my avatar face']},
   {id:'yolk', n:'Yolk', tags:'hardware films', why:'the calls I promised ↑', line:'I always wanted a Pokédex, so I designed my own AI device. It makes my phone calls in German.', tip:'Waitlist open',
-   steps:[1,1,1,1,0], label:'Launched with a waitlist', shot:'yolk', a:[['Join the waitlist','https://getyolk.tech']], chips:['Custom hardware','E-paper','Voice agents'],
-   body:['When Meta open-sourced Muse Gadgets, I designed my own device around it: custom hardware, an e-paper screen and a rotary encoder that drives an AI agent.','It calls on my behalf in German, using what I learned building real-time AI. It waits on hold, says it’s an AI and books the table. So far it has also filled in a refund form and booked water-heater maintenance.','I made its brand, its website and its launch film.'], media:['Launch film','In hand','Making a call','The build']},
+   steps:[1,1,1,1,0], label:'Launched with a waitlist', shot:'yolk', film:'yolk-film', a:[['Join the waitlist','https://getyolk.tech']], chips:['Custom hardware','E-paper','Voice agents'],
+   body:['When Meta open-sourced Muse Gadgets, I designed my own device around it: custom hardware, an e-paper screen and a rotary encoder that drives an AI agent.','It calls on my behalf in German, using what I learned building real-time AI. It waits on hold, says it’s an AI and books the table. So far it has also filled in a refund form and booked water-heater maintenance.','I made its brand, its website and its launch film.'], media:['In hand','Making a call','The build']},
   {id:'npcfilter', n:'NPC Filter', tags:'software films', why:'an idea from my comments', line:'LinkedIn filled up with AI comments, so my agent built a filter overnight.', tip:'Free in the Chrome Web Store',
-   steps:[1,1,1,1,0], label:'Launched', shot:'npcfilter', a:[['npcfilter.com','https://npcfilter.com']], chips:['Chrome extension','Cloudflare','Clef'],
-   body:['“Keep the weird. Skip the filler.” Someone in my comments asked for a filter for AI-written posts on LinkedIn, X and Reddit, and my agent built it overnight.','I designed the architecture to scale and stay cheap. It runs on Cloudflare and uses Clef, Cloudflare’s typed decision model, so each check comes back as a structured verdict, fast and at low cost.'], media:['In a LinkedIn feed','Launch film']}
+   steps:[1,1,1,1,0], label:'Launched', shot:'npcfilter', film:'npc-film', a:[['npcfilter.com','https://npcfilter.com']], chips:['Chrome extension','Cloudflare','Clef'],
+   body:['“Keep the weird. Skip the filler.” Someone in my comments asked for a filter for AI-written posts on LinkedIn, X and Reddit, and my agent built it overnight.','I designed the architecture to scale and stay cheap. It runs on Cloudflare and uses Clef, Cloudflare’s typed decision model, so each check comes back as a structured verdict, fast and at low cost.'], media:['In a LinkedIn feed']}
 ];
 const mediaOf = w => w.shot ? `<img src="assets/shots/${w.shot}.webp" alt="${esc(w.n)} homepage" loading="lazy" width="800" height="500">` : `<div class="ph">${esc(w.n)} /<br>${esc(w.media[0])}</div>`;
 function limbHTML(w, i){
@@ -1220,7 +1223,7 @@ function limbHTML(w, i){
     </summary>
     <div class="l-card">
       <svg class="l-frame" aria-hidden="true"><path pathLength="1"/></svg>
-      <div class="l-shot">${mediaOf(w)}${w.sprite ? `<img class="sprite s-${w.sprite}" src="assets/sprites/shehroz-${w.sprite}.webp" alt="" aria-hidden="true">` : ''}</div>
+      <div class="l-shot${w.film ? ' film' : ''}">${w.film ? `<video src="assets/media/${w.film}.mp4" poster="assets/media/${w.film}-poster.webp" muted loop playsinline preload="none" aria-label="${esc(w.n)} launch film"></video>` : mediaOf(w)}${w.sprite ? `<img class="sprite s-${w.sprite}" src="assets/sprites/shehroz-${w.sprite}.webp" alt="" aria-hidden="true">` : ''}</div>
       <div class="l-body">
         <p class="l-status">${esc(w.label)}</p>
         ${w.body.map(p => `<p>${esc(p)}</p>`).join('')}
@@ -1276,6 +1279,7 @@ document.addEventListener('toggle', e => {
   const l = e.target; if (!l.matches || !l.matches('details.limb')) return;
   l.classList.remove('drawn');
   requestAnimationFrame(() => { layoutLimbs(); build(); if (l.open) requestAnimationFrame(() => l.classList.add('drawn')); });
+  $$('.l-shot video', l).forEach(v => { if (l.open && !reduce) v.play().catch(() => {}); else v.pause(); });
 }, true);
 
 const ARCH = [
