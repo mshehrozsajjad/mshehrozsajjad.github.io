@@ -1,0 +1,177 @@
+/* ===== The pitch and the four role pages =====
+   Same paper, type, line and prints as the long story (site.css, ending.css). This file only lays out what is new:
+   the hello, the proof list, the four doors, the questions, and a row of work (media one side, words the other). */
+
+/* header: the page you are on keeps its underline */
+.nav a[aria-current="page"]::after{transform:none}
+.nav a[aria-current="page"]{color:var(--ink)}
+
+/* ---------- hero ---------- */
+.p-hero{min-height:max(600px,calc(100svh - 120px))}
+.p-hero h1{margin-top:var(--sp-3)}
+.p-hero .hello .it{font-weight:400}
+.pitch{margin-top:var(--sp-3);max-width:24ch;font:500 clamp(24px,2.4vw,34px)/1.2 var(--sans);letter-spacing:-.025em;color:var(--ink)}
+.p-hero .lead{margin-top:var(--sp-3);max-width:42ch}
+.hi-line{font:500 var(--fs-s)/1.4 var(--sans);color:var(--muted)}
+.hi-line .hand{transform:rotate(-4deg);margin-right:4px;font-size:var(--fs-hand)}
+.p-hero.sub h1{max-width:15ch}
+.role-side{justify-content:center;align-items:center}
+.s-role{position:relative;left:auto;top:auto}
+.s-role .sprite{--h:clamp(200px,24vw,300px)}
+.s-role .pen{left:30%;top:6%}
+
+/* ---------- sections ---------- */
+.pitch-sec h2,.doors-head h2,.faq h2,.sec-head h2,.others h2{max-width:20ch}
+.sec-head{margin-bottom:var(--sp-5)}
+.sec-head .lead{max-width:52ch}
+
+/* the proof: four lines on the line */
+.proof{list-style:none;padding:0;margin-top:var(--sp-5);display:grid;gap:var(--sp-4) var(--sp-5);grid-template-columns:repeat(2,minmax(0,1fr))}
+.pf{position:relative;display:grid;gap:6px}
+.pf .dot{left:-30px;top:7px}
+.pf-k{font:600 var(--fs-h3)/1.1 var(--sans);letter-spacing:var(--ls-h3)}
+.pf-v{color:var(--muted);max-width:40ch}
+.proof .pf:nth-child(odd) .dot{left:-30px}
+.proof .pf:nth-child(even) .dot{display:none}
+
+/* ---------- the four doors ---------- */
+.doors-head{position:relative;margin-bottom:var(--sp-5)}
+.hand.pick{position:absolute;right:6%;bottom:-36px;display:flex;align-items:flex-start;gap:4px}
+.hand.pick svg{width:30px;height:40px;margin-top:14px}
+.doors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-4)}
+.door{--rv-more:transform .35s var(--ease),box-shadow .35s var(--ease);position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:1fr auto;gap:var(--sp-2) var(--sp-3);padding:var(--sp-4) var(--sp-4) var(--sp-3);background:var(--print);color:var(--print-ink);border-radius:10px;text-decoration:none;transform:rotate(var(--r,0deg));box-shadow:0 1px 2px rgba(40,30,10,.12),0 26px 50px -28px rgba(40,30,10,.5);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.door-spr{grid-row:1 / span 2;align-self:end;line-height:0}
+.door-spr .sprite{--h:150px}
+.door-t{display:grid;gap:10px;align-content:start}
+.door-t .kicker{color:color-mix(in srgb,var(--print-ink) 60%,transparent)}
+.door-t b{font:600 clamp(20px,1.8vw,25px)/1.2 var(--sans);letter-spacing:-.02em;color:var(--print-ink)}
+.door-t ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:4px;font-size:var(--fs-s);color:color-mix(in srgb,var(--print-ink) 72%,transparent)}
+.door-t li::before{content:"– "}
+.door-go{align-self:end}
+.door .act{color:var(--print-signal)}
+.door:focus-visible{outline-offset:6px}
+@media (hover:hover) and (pointer:fine){.door:hover{transform:rotate(0deg) translateY(-6px);box-shadow:0 1px 2px rgba(40,30,10,.12),0 34px 60px -28px rgba(40,30,10,.55)}.door:hover .act .ar{transform:translateX(3px)}}
+/* the smaller doors at the foot of a role page */
+.doors.three{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-3);margin-top:var(--sp-4)}
+.door.sm{grid-template-columns:auto minmax(0,1fr) auto;grid-template-rows:auto;align-items:center;padding:var(--sp-3);gap:var(--sp-2);transform:none}
+.door.sm .door-spr{grid-row:auto}
+.door.sm .door-spr .sprite{--h:84px}
+.door.sm .door-t{gap:4px}
+.door.sm .door-t b{font-size:20px}
+.door.sm .door-t > span{font-size:var(--fs-xs);line-height:1.4;color:color-mix(in srgb,var(--print-ink) 65%,transparent)}
+.door.sm .door-go{align-self:center;color:var(--print-signal)}
+.long{margin-top:var(--sp-4);color:var(--muted)}
+
+/* ---------- before you ask ---------- */
+.qa-list{list-style:none;padding:0;margin-top:var(--sp-5);display:grid;gap:0}
+.qa-list li{display:grid;grid-template-columns:64px minmax(0,.9fr) minmax(0,1.1fr);gap:var(--sp-3);padding:var(--sp-3) 0;border-top:1px solid var(--line);align-items:baseline}
+.qa-list li:last-child{border-bottom:1px solid var(--line)}
+.qa-n{font:500 var(--fs-xs)/1 var(--mono);color:var(--signal);letter-spacing:.1em}
+.qa-list h3{font-size:clamp(20px,1.7vw,24px)}
+.qa-list p{color:var(--muted)}
+
+/* ---------- a piece of work ---------- */
+.wk{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:var(--sp-5);align-items:center;margin-top:var(--sp-6)}
+.sec-head + .wk{margin-top:0}
+.wk > .dot{left:-30px;top:12px}
+.wk.flip .wk-media{order:2}
+.wk-media{--ch:min(440px,62vh);position:relative;display:grid;justify-items:center;align-content:center;min-width:0}
+.wk-media img,.wk-media video,.duo img{display:block;width:100%}
+.wk-media > .snapcard{max-width:420px;width:100%}
+.wk-media .m-film.tall{width:calc(var(--ch)*9/16)}
+.wk-note{position:absolute;left:8%;bottom:-46px;transform:rotate(-4deg);white-space:nowrap}
+.wk.flip .wk-note{left:auto;right:8%}
+.wk-text{display:grid;gap:12px;align-content:center}
+.wk-text h3{max-width:22ch}
+.wk-text > p:not(.kicker){max-width:46ch;color:var(--muted)}
+.wk-meta{font:600 var(--fs-s)/1.4 var(--sans);color:var(--ink) !important}
+.wk-extra{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);margin-top:6px}
+.wk-extra .proofs{flex-basis:100%;display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:4px}
+.wk-taught{flex-basis:100%;border-left:2px solid var(--signal);padding-left:14px;color:var(--ink);max-width:44ch;font-size:var(--fs-s)}
+.wk-taught span{display:block;font:600 var(--fs-xs)/1.4 var(--sans);color:var(--muted)}
+.big{font:600 clamp(40px,4.4vw,60px)/1 var(--sans);letter-spacing:-.04em;color:var(--signal);display:block;margin-bottom:4px}
+
+/* ---------- engineering: the platform ---------- */
+.bp{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:var(--sp-5);align-items:start}
+.bp-text{display:grid;gap:var(--sp-2);color:var(--muted)}
+.nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-2);margin:var(--sp-3) 0 0}
+.nums div{border-top:2px solid var(--signal);padding-top:12px}
+.nums dt{font:600 clamp(24px,2.3vw,32px)/1 var(--sans);letter-spacing:-.04em;color:var(--ink)}
+.nums dd{margin:6px 0 0;font-size:var(--fs-xs);line-height:1.4;color:var(--muted)}
+.src{font-size:var(--fs-xs);font-style:italic}
+.src a{color:inherit}
+.bp-stage{padding:0 60px 0 0}
+.bp-note{position:absolute;right:0;bottom:-70px;transform:rotate(-5deg)}
+/* open source: four index cards */
+.oss{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-5) var(--sp-4)}
+.oss-card{display:grid;gap:10px;align-content:start;transform:rotate(var(--r,0deg))}
+.oss-card .m-term{border-radius:18px;margin-bottom:10px;padding:18px 24px 26px}
+.oss-card h3{font-size:clamp(22px,2vw,28px)}
+.oss-card p:not(.kicker){color:var(--muted)}
+/* before: a short timeline down the line */
+.tl{list-style:none;padding:0;display:grid;gap:var(--sp-4)}
+.tl li{position:relative;display:grid;gap:6px;max-width:60ch}
+.tl .dot{left:-30px;top:4px}
+.tl h3{font-size:clamp(22px,2vw,28px)}
+.tl p:not(.kicker){color:var(--muted)}
+
+/* ---------- design: brands and films ---------- */
+.brands{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-5) var(--sp-4)}
+.snapcard.br{display:block;text-decoration:none;color:var(--print-ink)}
+.br .snap-img img{aspect-ratio:16/10;object-fit:cover;object-position:top}
+.br-cap{display:flex;justify-content:space-between;align-items:center;padding:10px 6px 12px;font:400 var(--fs-hand)/1.1 var(--hand)}
+.br-cap .ar{color:var(--print-signal)}
+.films{position:relative;display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto;gap:var(--sp-4)}
+.fl{margin:0;padding:10px 10px 0;background:var(--print);border-radius:6px;transform:rotate(var(--r,0deg));box-shadow:0 1px 2px rgba(40,30,10,.12),0 22px 44px -24px rgba(40,30,10,.5)}
+.fl video,.fl img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:2px;background:#000}
+.fl.tall{grid-row:span 2}
+.fl.tall video{aspect-ratio:9/16;height:100%}
+.fl.ph img{aspect-ratio:4/3}
+.fl figcaption{padding:8px 4px 10px;font:400 var(--fs-hand-s)/1.1 var(--hand);color:var(--print-ink)}
+.fl-spr{position:absolute;right:-40px;bottom:-60px;--h:130px}
+
+/* ---------- AI: back at work ---------- */
+.duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--sp-5);align-items:center}
+.duo-text{display:grid;gap:var(--sp-2);color:var(--muted)}
+
+/* ---------- phones ---------- */
+@media (max-width:1000px){
+  .doors.three{grid-template-columns:minmax(0,1fr)}
+  .films{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .fl.tall{grid-row:auto}
+  .fl-spr{display:none}
+}
+@media (max-width:760px){
+  .p-hero{min-height:0}
+  .pitch{font-size:24px}
+  .s-role .sprite{--h:180px}
+  .role-side{display:none}
+  .proof{grid-template-columns:minmax(0,1fr)}
+  .proof .pf .dot{display:block !important;left:-30px}
+  .doors{grid-template-columns:minmax(0,1fr);gap:var(--sp-3)}
+  .door{padding:var(--sp-3);grid-template-columns:minmax(0,1fr) auto;gap:var(--sp-2)}
+  .door-spr{grid-column:2;grid-row:1}
+  .door-spr .sprite{--h:96px}
+  .door-t{grid-column:1;grid-row:1}
+  .door-go{grid-column:1 / -1}
+  .hand.pick{display:none}
+  .qa-list li{grid-template-columns:40px minmax(0,1fr);gap:6px var(--sp-2)}
+  .qa-list li p{grid-column:2}
+  .wk{grid-template-columns:minmax(0,1fr);gap:var(--sp-4);margin-top:var(--sp-5)}
+  .wk.flip .wk-media{order:0}
+  .wk-media{--ch:min(380px,58vh)}
+  .wk-note{bottom:-38px}
+  .bp,.duo{grid-template-columns:minmax(0,1fr)}
+  .bp-stage{padding:0;margin-top:var(--sp-3)}
+  .nums{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:10px}
+  .oss,.brands{grid-template-columns:minmax(0,1fr)}
+  .films{grid-template-columns:minmax(0,1fr)}
+}
+.p-hero:not(.sub) .s-draw{top:-2%}
+/* the nav keeps its four names on one line: short ones on phones */
+.nav .ns{display:none}
+@media (max-width:760px){
+  .nav .nl{display:none}
+  .nav .ns{display:inline}
+  .wk-note{position:static;display:block;margin:14px 0 0 8px;justify-self:start}
+}
