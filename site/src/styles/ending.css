@@ -1,0 +1,126 @@
+/* ===== The ending: the closer (a loop that comes back around), a postcard, and a footer. One continuous line, one reveal system ===== */
+:root{--rv-fast:.45s;--rv-slow:.7s}
+
+/* ---------- follow the pen ----------
+   An element with data-reveal waits until the trail's pen has passed it (reveal.js adds .shown once). The same easing and
+   two durations as the lab stage. Only under .js, so reduced motion and no-JS see everything. */
+.js [data-reveal=""]{transition:opacity var(--rv-fast) var(--ease) calc(var(--rd,0s) + var(--hd,0s)),translate var(--rv-fast) var(--ease) calc(var(--rd,0s) + var(--hd,0s))}
+.js [data-reveal=""]:not(.shown){opacity:0;translate:0 10px}
+/* a print rises and settles at its own tilt. It moves with the individual transform properties, so a card's own tilt and hover stay as they are.
+   --rv-more carries what else the card transitions (its hover) */
+.js [data-reveal=print]{transition:opacity var(--rv-fast) var(--ease) var(--rd,0s),translate var(--rv-slow) var(--ease) var(--rd,0s),rotate var(--rv-slow) var(--ease) var(--rd,0s),scale var(--rv-slow) var(--ease) var(--rd,0s),var(--rv-more,transform 0s)}
+.js [data-reveal=print]:not(.shown){opacity:0;translate:0 64px;rotate:calc(var(--r,var(--tilt,0deg))*1.4);scale:.95}
+/* a headline sharpens word by word: each word .3s, the last one no later than .15s after the first */
+.js [data-reveal=words] .w{display:inline-block;opacity:0;filter:blur(12px);transform:translateY(14px)}
+.js [data-reveal=words].shown .w{opacity:1;filter:none;transform:none;transition:opacity .3s var(--ease),filter .3s var(--ease),transform .3s var(--ease);transition-delay:calc(min(var(--w)*20ms,150ms) + var(--rd,0s))}
+/* hand notes and doodles come just after their block */
+.hand[data-reveal]{--hd:.3s}
+.js [data-reveal] .hand:not(.role-note){transition:opacity var(--rv-fast) var(--ease) .3s}
+.js [data-reveal]:not(.shown) .hand{opacity:0}
+[data-reveal=words].shown .dd .dd-svg path{stroke-dashoffset:0;transition-delay:calc(.45s + var(--d,0s))}
+
+/* ---------- the closer: a loop that comes back around ---------- */
+.close{--loop:470px;position:relative;height:590px}
+.close h2 .it,.pc-msg h2 .it{font-weight:400}
+/* the sentence sits inside the loop */
+.close-p{position:absolute;left:42%;top:336px;width:40%;max-width:440px;margin:0}
+/* the chain: a knot on the line and a hand-written word beside it, lit as the pen passes */
+.chain{list-style:none;margin:0;padding:0}
+.chain li{position:absolute;left:var(--kx);top:var(--ky)}
+.chain .dot{left:-6px;top:-6px}
+.chain .hand{position:absolute;left:var(--lx);top:var(--ly);transform:rotate(var(--lr,-4deg));white-space:nowrap;transition:opacity var(--rv-fast) var(--ease),translate var(--rv-fast) var(--ease)}
+.js .chain li:not(:has(.dot.hit)) .hand{opacity:0;translate:0 8px}
+.k1{--kx:232px;--ky:470px;--lx:-96px;--ly:12px;--lr:-6deg}
+.k2{--kx:43.8%;--ky:562px;--lx:-62px;--ly:16px;--lr:-2deg}
+.k3{--kx:71.8%;--ky:526px;--lx:2px;--ly:20px;--lr:-5deg}
+.k4{--kx:48.5%;--ky:212px;--lx:-98px;--ly:-60px;--lr:-3deg}
+
+/* ---------- the contact: the back of a postcard, and the line's last flight ---------- */
+.contact{position:relative}
+/* the stage: a shallow band for the flight, the card, and the rule the sprite stands on */
+.post-stage{position:relative;padding:140px 0 var(--sp-4);border-bottom:1px solid var(--line)}
+.dot.tail{width:0;height:0;border-radius:0;background:none;opacity:1;transform:none;left:calc(100% - 70px);top:34px}
+/* the plane is drawn with its tail at the origin and its nose along +x; build() sets --ang to the line's own heading, so it flies where the line was going */
+.plane{position:absolute;left:-20px;top:-24px;width:68px;height:48px;overflow:visible;transform-origin:20px 24px;rotate:var(--ang,-28deg)}
+.plane path{fill:var(--paper);fill-opacity:0;stroke:var(--signal);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .8s var(--ease),fill-opacity .4s ease-out .6s}
+.plane path + path{fill:none;transition-delay:.3s}
+.tail.hit .plane path{stroke-dashoffset:0;fill-opacity:1}
+
+/* the card is a physical object: cream in both themes, so everything inside it uses fixed ink */
+.postcard{--ink:var(--print-ink);--paper:#FBF7EE;--signal:var(--print-signal);--muted:color-mix(in srgb,var(--print-ink) 68%,transparent);--warm:color-mix(in srgb,var(--print-ink) 16%,transparent);--tilt:-1.6deg;position:relative;display:grid;grid-template-columns:1fr 1fr;width:min(640px,100%);min-height:380px;padding:var(--sp-4);background:var(--print);color:var(--print-ink);border:1px solid rgba(60,45,20,.18);border-radius:6px;box-shadow:0 1px 2px rgba(40,30,10,.12),0 22px 44px -24px rgba(40,30,10,.5);transform:rotate(var(--tilt))}
+.pc-msg{padding-right:var(--sp-3)}
+.pc-lead{margin-top:var(--sp-2);color:var(--muted)}
+.pc-book{margin-top:var(--sp-3)}
+.postcard .msg{margin:0;min-height:0}
+.postcard .msg:not(:empty){margin-top:10px}
+/* the address side: stamp on top, the two address lines at the foot */
+.pc-addr{display:flex;flex-direction:column;justify-content:space-between;gap:var(--sp-3);padding-left:var(--sp-3);border-left:1px solid var(--warm)}
+/* the stamp. The frame is the slot for Shehroz's photo, for when the card becomes a flip card */
+.pc-stamp{position:relative;align-self:flex-end;width:72px;height:88px}
+.pc-stamp svg{display:block;width:100%;height:100%;filter:drop-shadow(0 1px 1.5px rgba(40,30,10,.3))}
+.pc-stamp .field{fill:var(--print-signal)}
+.pc-stamp .cream{fill:none;stroke:#FBF7EE;stroke-linecap:round;stroke-linejoin:round}
+.pc-stamp .val{fill:#FBF7EE;font:600 9px/1 var(--sans);letter-spacing:.06em}
+.pc-mark{position:absolute;right:calc(100% - 10px);top:10px;display:grid;place-items:center;width:70px;height:70px;padding-right:6px;border:1px solid var(--signal);border-radius:50%;color:var(--signal);font:600 10px/1 var(--sans);letter-spacing:.1em;opacity:.6;transform:rotate(-10deg);pointer-events:none}
+.pc-rows{display:grid;gap:var(--sp-3)}
+.pc-row{position:relative;display:flex;align-items:center;gap:var(--sp-1);min-height:44px;border-bottom:1px solid var(--warm);transition:border-color .25s,box-shadow .25s}
+.pc-row:focus-within{border-bottom-color:var(--signal);box-shadow:0 1px 0 var(--signal)}
+.pc-k{flex:none;font:600 var(--fs-xs)/1 var(--sans);letter-spacing:.08em;color:var(--muted)}
+.pc-mail,.pc-send{min-height:44px;padding:0;background:none;border:0;cursor:pointer;font:500 var(--fs-s)/1 var(--sans);color:var(--ink);text-align:left;transition:color .2s}
+.pc-mail:hover,.pc-send:hover{color:var(--signal)}
+.pc-send{margin-left:auto;font-weight:600}
+.pc-hint{margin-top:2px;text-align:right}
+.pc-hint .hand{font-size:var(--fs-hand-s);transform:rotate(-2deg)}
+.pc-note{margin:0 0 2px;font-size:var(--fs-xs);color:var(--muted)}
+.pc-row input{flex:1;min-width:0;height:44px;padding:0;border:0;outline:0;background:none;font:500 var(--fs-s)/1 var(--sans);color:var(--ink)}
+.pc-row input::placeholder{color:color-mix(in srgb,var(--print-ink) 42%,transparent)}
+
+/* Shehroz stands on the rule, facing the card, with one small thing to say */
+.wave-fig{position:absolute;left:calc(640px + 100px);bottom:-1px;margin:0}
+.wave-fig .s-wave{--h:210px;transform:scaleX(-1)}
+.say-hi{position:absolute;right:calc(100% - 22px);bottom:calc(100% - 40px);padding:6px 14px 8px;border:1.5px solid var(--ink);border-radius:16px 16px 3px 16px;background:var(--raised);font:400 var(--fs-hand)/1 var(--hand);color:var(--ink);white-space:nowrap;transform:rotate(-3deg);transition:opacity var(--rv-fast) var(--ease) .5s,translate var(--rv-fast) var(--ease) .5s,scale var(--rv-fast) var(--ease) .5s;pointer-events:none}
+.js .wave-fig:not(.shown) .say-hi{opacity:0;translate:0 8px;scale:.85}
+
+/* ---------- the bottom bar: one quiet row ---------- */
+footer{color:var(--muted);font-size:var(--fs-s)}
+footer .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 var(--sp-4);padding-block:var(--sp-1) 72px}
+footer p{margin:0}
+.f-legal{display:flex;flex-wrap:wrap;align-items:center;gap:0 var(--sp-3)}
+.f-legal a,.f-legal button{padding:13px 0;border:0;background:none;color:inherit;font:inherit;cursor:pointer;text-decoration:none;text-underline-offset:4px}
+.f-legal a:hover,.f-legal a:focus-visible,.f-legal button:hover,.f-legal button:focus-visible{color:var(--ink);text-decoration:underline}
+.f-social{display:flex;gap:4px;margin:0;padding:0;list-style:none}
+.f-social a{position:relative;display:grid;place-items:center;width:44px;height:44px;color:var(--ink);transition:color .2s,translate .3s var(--ease)}
+.f-social svg{width:20px;height:20px;fill:currentColor}
+/* a small hand-drawn underline that draws in under the icon */
+.f-social i{position:absolute;left:12px;right:12px;bottom:6px;height:6px;background:currentColor;-webkit-mask:var(--ul) center/100% 100% no-repeat;mask:var(--ul) center/100% 100% no-repeat;transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.f-social a:hover,.f-social a:focus-visible{color:var(--signal);translate:0 -2px}
+.f-social a:hover i,.f-social a:focus-visible i{transform:none}
+
+/* ---------- tablet and phone ---------- */
+@media (max-width:900px){
+  /* no room beside the card: he stands on the rule below it, at the right */
+  .post-stage{padding-bottom:152px}
+  .wave-fig{left:auto;right:0}
+  .wave-fig .s-wave{--h:120px}
+  .say-hi{font-size:var(--fs-hand-s)}
+}
+@media (max-width:760px){
+  /* the negative margin trims the empty tail below the loop to one beat before the flight */
+  .close{--loop:400px;height:auto;padding-bottom:var(--loop);margin-bottom:-76px}
+  .close-p{position:static;width:auto;max-width:36ch;margin-top:20px}
+  .k1{--kx:92px;--ky:calc(100% - var(--loop) + 240px);--lx:-62px;--ly:12px}
+  .k2{--kx:170px;--ky:calc(100% - var(--loop) + 298px);--lx:-92px;--ly:16px}
+  .k3{--kx:250px;--ky:calc(100% - var(--loop) + 292px);--lx:-30px;--ly:16px}
+  .k4{--kx:160px;--ky:calc(100% - var(--loop) + 62px);--lx:-84px;--ly:-52px}
+  .post-stage{padding-top:124px}
+  .dot.tail{left:calc(100% - 44px);top:26px}
+  .plane{scale:.75}
+  .postcard{grid-template-columns:minmax(0,1fr);min-height:0;padding:var(--sp-3);--tilt:-.5deg}
+  .pc-msg{padding:0 0 var(--sp-3)}
+  .pc-addr{padding:var(--sp-3) 0 0;border-left:0;border-top:1px solid var(--warm)}
+  footer .wrap{flex-direction:column;align-items:flex-start;gap:0;padding-left:calc(var(--gl) + 30px);padding-bottom:80px}
+  /* the legal row is one line: the name drops, the gaps tighten */
+  .f-name{display:none}
+  .f-legal{flex-wrap:nowrap;white-space:nowrap;gap:0 12px}
+  .f-social{margin-left:-11px}
+}
