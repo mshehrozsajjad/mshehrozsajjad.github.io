@@ -103,7 +103,6 @@ main{position:relative;overflow-x:clip}
 .end-body{display:grid;gap:14px}
 .end-actions{display:flex;flex-wrap:wrap;gap:12px}
 .s-wave{--h:118px;position:absolute;right:var(--gr);bottom:-64px}
-.js .s-wave.in{animation:wave 1.4s steps(1) infinite}
 @keyframes wave{50%{transform:translateY(-3px)}}
 .avatar{display:grid;gap:14px;margin-top:-6px}
 .avatar .ph{aspect-ratio:9/10;align-content:end;padding-bottom:22px;font-size:11px}
@@ -408,7 +407,6 @@ footer a{text-underline-offset:4px}
 #experiments:has(#fields[data-chosen]) .think-dots{opacity:0}
 
 /* the pointing sprite nudges toward the next actions; the waving sprite says hi */
-.js .end .s-point{animation:nudge 1.6s steps(1) infinite}
 @keyframes nudge{50%{transform:translateX(4px)}}
 .say-hi{position:absolute;right:calc(var(--gr) + 92px);bottom:84px;max-width:240px;padding:10px 14px;border:1.5px solid var(--ink);border-radius:16px 16px 3px 16px;background:var(--raised);font:400 23px/1.05 var(--hand);color:var(--ink);opacity:0;transform:translateY(8px) rotate(-1.5deg);transition:opacity .4s ease-out .5s,transform .4s ease-out .5s;pointer-events:none}
 .s-wave.in + .say-hi,html:not(.js) .say-hi{opacity:1;transform:rotate(-1.5deg)}
@@ -1419,7 +1417,7 @@ footer a{text-underline-offset:4px}
       <p class="avatar-caption">Answers from my own notes.</p>
     </div>
   </div>
-  <figure class="sprite-fig s-draw c" aria-hidden="true"><img class="sprite" src="assets/sprites/shehroz-draw.webp" alt="" width="302" height="436"><span class="way pen" data-o="2.8"></span><svg class="spark" viewBox="0 0 24 24"><path d="M12 2 C 12.6 8.5, 15.5 11.4, 22 12 C 15.5 12.6, 12.6 15.5, 12 22 C 11.4 15.5, 8.5 12.6, 2 12 C 8.5 11.4, 11.4 8.5, 12 2 Z"/></svg></figure>
+  <figure class="sprite-fig s-draw c" aria-hidden="true"><img class="sprite" src="assets/sprites/v2/shehroz-draw-anim.webp" alt="" width="302" height="436"><span class="way pen" data-o="2.8"></span><svg class="spark" viewBox="0 0 24 24"><path d="M12 2 C 12.6 8.5, 15.5 11.4, 22 12 C 15.5 12.6, 12.6 15.5, 12 22 C 11.4 15.5, 8.5 12.6, 2 12 C 8.5 11.4, 11.4 8.5, 12 2 Z"/></svg></figure>
   <span class="way wd" data-o="2.9" data-cut data-free style="left:calc(100% + 60px);top:calc(100% + 30px)"></span>
 </section>
 
@@ -1464,7 +1462,7 @@ footer a{text-underline-offset:4px}
           </div>
           <button class="role-less" type="button">Show less <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></button>
         </details>
-        <img class="sprite s-sign" src="assets/sprites/shehroz-sign.webp" alt="" aria-hidden="true" width="280" height="473">
+        <img class="sprite s-sign" src="assets/sprites/v2/shehroz-sign-anim.webp" alt="" aria-hidden="true" width="280" height="473">
         <span class="way wd" data-o="6.3" data-free style="left:-78px;top:calc(100% + 40px)"></span>
       </div>
       <div class="c-team">
@@ -1488,7 +1486,7 @@ footer a{text-underline-offset:4px}
   <div class="wrap">
     <div class="ch2-head c">
       <h2 id="h-ch2" class="rise">Then I went inside<br>the <span class="it dd" data-doodle="underline">product.</span></h2>
-      <figure class="laptop" aria-hidden="true"><img class="sprite" src="assets/sprites/shehroz-laptop.webp" alt="" width="258" height="438"><span class="ground"></span></figure>
+      <figure class="laptop" aria-hidden="true"><img class="sprite" src="assets/sprites/v2/shehroz-laptop-anim.webp" alt="" width="258" height="438"><span class="ground"></span></figure>
     </div>
     <div class="places c">
       <div class="place p1">
@@ -1614,7 +1612,7 @@ footer a{text-underline-offset:4px}
     <div class="close c" id="close">
       <span class="way wd" data-o="31.5" data-v style="left:calc(-1 * clamp(28px,5vw,60px) - 24px);top:-90px"></span>
       <span class="dot" data-o="32" data-v></span>
-      <img class="sprite s-point" src="assets/sprites/shehroz-point.webp" alt="" aria-hidden="true" width="257" height="473">
+      <img class="sprite s-point" src="assets/sprites/v2/shehroz-point-anim.webp" alt="" aria-hidden="true" width="257" height="473">
       <div class="close-body">
         <h3>Then it all comes back <span class="dd" data-doodle="underline">to work.</span></h3>
         <p>What the lab taught me about selling, I bring to Beyond Presence. I’m automating our go-to-market with n8n and AI agents wired into Slack.</p>
@@ -1647,7 +1645,7 @@ footer a{text-underline-offset:4px}
       </div>
     </div>
     <button class="big-link" type="button" data-open="archive">Explore the full archive <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button>
-    <img class="sprite s-wave rise" src="assets/sprites/shehroz-wave.webp" alt="" width="248" height="481">
+    <img class="sprite s-wave rise" src="assets/sprites/v2/shehroz-wave-anim.webp" alt="" width="248" height="481">
   </div>
 </section>
 </main>
@@ -1692,6 +1690,9 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const main = $('#main'), svg = $('#trail'), pMain = $('#pMain'), pNow = $('#pMainNow');
 if (!reduce) document.documentElement.classList.add('js');
 
+// the sprites are two-frame animations; people who asked for less motion get the still frame
+const calm = (root = document) => { if (reduce) $$('img.sprite', root).forEach(i => { const a = i.getAttribute('src'); if (a && a.includes('-anim.webp')) i.setAttribute('src', a.replace('/v2/', '/').replace('-anim.webp', '.webp')); }); };
+calm();
 /* ================= THE LAB: four collections on the line, one open at a time ================= */
 const STAGES = ['Idea','Brand','Built','Launched','Customers'];
 const AR = d => `<svg class="ar" aria-hidden="true"><use href="#i-${d}"/></svg>`;
@@ -1769,7 +1770,7 @@ function mediaHTML(w){
   if (w.kind === 'film') return `<div class="m-film${w.tall ? ' tall' : ''}">${vid}</div>`;
   if (w.shot) return `<div class="m-shot">${img(w.shot, w.shotAlt || (w.n + ' homepage'))}${w.film ? `<div class="m-film${w.tall ? ' tall' : ''}" hidden>${vid}</div>` : ''}</div>`;
   if (w.film) return `<div class="m-film">${vid}</div>`;
-  return `<div class="m-ph"><div class="ph">${esc(w.n)} /<br>${esc(w.media[0])}</div><img class="sprite s-solder" src="assets/sprites/shehroz-solder.webp" alt="" aria-hidden="true"></div>`;
+  return `<div class="m-ph"><div class="ph">${esc(w.n)} /<br>${esc(w.media[0])}</div><img class="sprite s-solder" src="assets/sprites/v2/shehroz-solder-anim.webp" alt="" aria-hidden="true"></div>`;
 }
 function itemHTML(w){
   const story = (w.body && w.kind !== 'given') || w.taught || w.chips;
@@ -1798,8 +1799,8 @@ function paintPanel(cid, iid){
     </div>
     ${c.blurb ? `<p class="pn-blurb">${esc(c.blurb)}</p>` : ''}
     <div class="pn-item" role="tabpanel">${itemHTML(BY[iid])}</div>
-    <img class="sprite pn-sprite s-${c.sprite}" src="assets/sprites/shehroz-${c.sprite}.webp" alt="" aria-hidden="true">`;
-  playIn(panel);
+    <img class="sprite pn-sprite s-${c.sprite}" src="assets/sprites/v2/shehroz-${c.sprite}-anim.webp" alt="" aria-hidden="true">`;
+  playIn(panel); calm(panel);
 }
 // the panel's height follows its content, so the page below slides instead of jumping
 function morph(fn){
