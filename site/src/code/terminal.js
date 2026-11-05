@@ -2,6 +2,7 @@
 // Commands answer from the same confirmed facts as the page, and `open` walks to the matching section.
 // Output is only ever set with textContent.
 import {mountPlatform} from './platform3d.js';
+import {mountFalling} from './falling.js';
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const term = document.getElementById('term'), out = document.getElementById('termOut'), form = document.getElementById('termForm'), input = document.getElementById('termIn');
@@ -51,3 +52,5 @@ async function type(cmd){
 
 const stage = document.getElementById('platform3d');
 if (stage) mountPlatform(stage, {reduce});
+const codeHero = document.querySelector('.code-hero');
+if (codeHero) mountFalling(codeHero, {reduce});
