@@ -615,7 +615,7 @@ addEventListener('keydown', e => {
 
 /* the AI self answers from confirmed notes and takes the visitor to the right place */
 const A = {
-  now:{t:"I'm a founding engineer at Beyond Presence. I work on the creator platform and the call experiences behind our real-time avatars and Managed Agents, sit in customer meetings, and ship what customers need on tight deadlines, like the integration that puts an avatar in a Zoom or Teams call. Lately I'm also automating our go-to-market with n8n and AI agents in Slack.", go:['Show me', () => go('#now')]},
+  now:{t:"I'm a founding engineer at Beyond Presence. I own the creator and call platforms behind our real-time avatars and Managed Agents, frontend and backend (the real-time models and their scaling are my teammates'). I sit in customer meetings and ship what customers need on tight deadlines, like the integration that puts an avatar in a Zoom or Teams call. Lately I'm also automating our go-to-market with n8n and AI agents in Slack.", go:['Show me', () => go('#now')]},
   make:{t:"Yolk, my own AI device with an e-paper screen and a dial, which makes my German phone calls. And TARS, a 3D-printed desk robot running my avatar locally.", go:['Show me', () => labOpen('hardware','yolk')]},
   saas:{t:"myClosr, Slaptastic, Vorsprech and NPC Filter are live. RoomRush got 50 signups in its first 10 minutes, but the unit economics didn't hold, so I stopped it.", go:['Open the lab', () => labOpen('software','roomrush')]},
   oss:{t:"reels-in-code, the LiveKit JS plugin for Beyond Presence avatars, and free n8n workflows for using Beyond Presence.", go:['Show me', () => labOpen('opensource','reels')]},
