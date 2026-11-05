@@ -7,7 +7,7 @@
    Colour roles: --ink is the voice, --signal is Shehroz's hand (the line, its dots, doodles, notes, text links), --muted is everything quieter.
    Buttons are ink pills (.btn); every other action is a hand-underlined link (.act). */
 :root{
-  --paper:#F5F5F2; --raised:#FBFBF9; --ink:#111113; --muted:#5C5C64; --line:#DCDCD5;
+  --paper:#F8F5EC; --raised:#FCFAF5; --ink:#111113; --muted:#5C5C64; --line:#DDD8CC;
   --signal:#2D2BE0; --signal-soft:#E3E3FB; --on-signal:#FFFFFF;
   --now-bg:#1B1B1D; --now-ink:#F3F3EF; --now-trail:#8E8CFF;
   /* the cream photo print, shared by the story's snapcards, the lab's piles and the postcard */

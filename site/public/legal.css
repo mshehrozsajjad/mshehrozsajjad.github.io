@@ -1,5 +1,5 @@
 /* the legal pages share the site's fonts and colours; the theme is read from the same saved choice */
-:root{--paper:#F5F5F2;--ink:#111113;--muted:#5C5C64;--line:#DCDCD5;--signal:#2D2BE0;--sans:'Instrument Sans','Helvetica Neue',Arial,sans-serif;--hand:'Caveat','Bradley Hand',cursive}
+:root{--paper:#F8F5EC;--ink:#111113;--muted:#5C5C64;--line:#DDD8CC;--signal:#2D2BE0;--sans:'Instrument Sans','Helvetica Neue',Arial,sans-serif;--hand:'Caveat','Bradley Hand',cursive}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#0E0E10;--ink:#F1F1EC;--muted:#A1A1A9;--line:#2B2B30;--signal:#8E8CFF;color-scheme:dark}}
 :root[data-theme="dark"]{--paper:#0E0E10;--ink:#F1F1EC;--muted:#A1A1A9;--line:#2B2B30;--signal:#8E8CFF;color-scheme:dark}
 *{box-sizing:border-box}
