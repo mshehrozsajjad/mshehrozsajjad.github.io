@@ -13,8 +13,26 @@
 <link rel="stylesheet" href="/src/styles/site.css">
 <link rel="stylesheet" href="/src/styles/ending.css">
 <link rel="stylesheet" href="/src/styles/grain.css">
+<link rel="stylesheet" href="/src/styles/loader.css">
+<script>
+  // decide before first paint whether this visit gets the loader; the intros wait on window.loaderDone
+  (function () {
+    var d = document.documentElement, skip = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    try { skip = skip || sessionStorage.getItem('loaded') === '1'; } catch (e) {}
+    window.loaderDone = new Promise(function (r) { window.__loaderResolve = r; });
+    if (skip) window.__loaderResolve(); else d.classList.add('booting');
+  })();
+</script>
+<script type="module" src="/src/loader.js"></script>
 </head>
 <body>
+<div class="loader" id="loader" aria-hidden="true">
+  <figure class="loader-fig">
+    <img class="sprite" src="/assets/sprites/v2/shehroz-waiting-anim.webp" width="199" height="484" alt="">
+    <svg class="loader-line" viewBox="0 0 280 14" preserveAspectRatio="none"><path d="M2 8 C 70 3, 150 12, 278 6" pathLength="1"/></svg>
+  </figure>
+  <p class="loader-note">one sec, thinking<i>.</i><i>.</i><i>.</i></p>
+</div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-ne" viewBox="0 0 16 16"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6"/></symbol>
   <symbol id="i-se" viewBox="0 0 16 16"><path d="M4.5 4.5 11.5 11.5M11.5 5.5v6h-6"/></symbol>
@@ -39,7 +57,6 @@
 
 <section class="hero" aria-labelledby="h1">
   <!-- the trail leaves the name, curls once below the header and draws itself to the pen of the drawing sprite; scrolling carries the same stroke on into chapter 01 -->
-  <span class="way wd" data-o="0.1" data-free style="left:calc(50% - 330px);top:2px"></span>
   <span class="way wd" data-o="0.2" data-free style="left:calc(50% - 40px);top:14px"></span>
   <span class="way wd" data-o="0.3" data-free style="left:calc(50% + 150px);top:46px"></span>
   <span class="way wd" data-o="0.4" data-free style="left:calc(50% + 232px);top:92px"></span>
@@ -47,11 +64,11 @@
   <span class="way wd" data-o="0.6" data-free style="left:calc(50% + 130px);top:100px"></span>
   <span class="way wd" data-o="0.7" data-free style="left:calc(50% + 214px);top:50px"></span>
   <span class="way wd" data-o="0.8" data-free style="left:calc(50% + 380px);top:70px"></span>
-  <span class="way wd" data-o="1" data-free style="left:min(calc(50% + 620px),calc(100% - 40px));top:20%"></span>
-  <span class="way wd" data-o="2" data-free style="left:min(calc(50% + 560px),calc(100% - 70px));top:42%"></span>
-  <span class="way wd" data-o="2.85" data-free style="left:calc(50% + 255px);top:365px"></span>
-  <span class="way wd" data-o="2.9" data-free style="left:calc(50% + 80px);top:473px"></span>
-  <span class="way wd" data-o="3.1" data-free style="left:calc(50% - 240px);top:723px"></span>
+  <span class="way wd" data-o="1" data-free style="left:min(calc(50% + 560px),calc(100% - 100px));top:82px"></span>
+  <span class="way wd" data-o="2" data-free style="left:min(calc(50% + 635px),calc(100% - 40px));top:192px"></span>
+  <span class="way wd" data-o="2.5" data-free style="left:min(calc(50% + 560px),calc(100% - 100px));top:282px"></span>
+  <span class="way wd" data-o="2.9" data-free style="left:min(calc(50% + 295px),calc(100% - 340px));top:384px"></span>
+  <span class="way wd" data-o="3.1" data-free style="left:calc(50% - 160px);top:677px"></span>
   <div class="wrap">
     <div class="c hero-copy">
       <p class="kicker">Product engineer · Munich</p>
@@ -90,7 +107,6 @@
         <h3 data-reveal="words">No budget. So I opened Photoshop.</h3>
         <p data-reveal>A student trip company at NUST led to freelance gigs, then a design agency contract.</p>
         <span class="way wd" data-o="4.2" data-v style="left:-24px;top:205px"></span>
-        <span class="way wd" data-o="4.5" data-free style="left:240px;top:calc(100% - 40px)"></span>
       </div>
       <figure class="snapcard c-flappy" data-reveal="print" style="--r:-2.5deg">
         <span class="hand note-pixel" aria-hidden="true">every pixel, mine.<svg viewBox="0 0 30 34"><path d="M24 3 C 22 16, 16 24, 6 30 M6 30 L 8 21 M6 30 L 15 29"/></svg></span>
@@ -148,7 +164,7 @@
     <div class="places c">
       <div class="place p1">
         <span class="dot" data-o="7.2" data-v></span>
-        <span class="way wd" data-o="7.25" data-v style="left:-24px;top:calc(100% + 28px)"></span>
+        <span class="way wd" data-o="7.25" data-v style="left:-24px;top:calc(100% - 28px)"></span>
         <p class="kicker" data-reveal>Social media analytics</p><h3 data-reveal="words">Keyhole</h3><p data-reveal>Rebuilt parts of their legacy platform in React.</p>
         <figure class="snapcard kh-print" data-reveal="print" style="--r:3deg">
           <div class="snap-img"><img src="/assets/media/keyhole-merch.webp" alt="Keyhole team merch: a shirt that says Talk data to me, a bottle and a sticker" loading="lazy" width="1100" height="1050"></div>
@@ -332,11 +348,9 @@
       <!-- the line comes down the gutter, flies one gentle wave above the card and ends at the tail of a paper plane -->
       <span class="way wd" data-o="32.2" data-v data-cut style="left:-24px;top:0"></span>
       <span class="way wd" data-o="32.3" data-v data-arc="360" style="left:-24px;top:0"></span>
-      <span class="way wd" data-o="32.4" data-v style="left:-24px;top:40px"></span>
       <span class="way wd" data-o="32.5" style="left:150px;top:104px"></span>
       <span class="way wd" data-o="32.6" style="left:40%;top:62px"></span>
       <span class="way wd" data-o="32.65" style="left:62%;top:94px"></span>
-      <span class="way wd" data-o="32.68" style="left:calc(100% - 190px);top:84px"></span>
       <span class="way wm" data-keep data-o="32.2" data-v data-cut style="left:-24px;top:0"></span>
       <span class="way wm" data-keep data-o="32.3" data-v data-arc="280" style="left:-24px;top:0"></span>
       <span class="way wm" data-keep data-o="32.4" data-v style="left:-24px;top:24px"></span>

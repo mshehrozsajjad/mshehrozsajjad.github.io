@@ -1,18 +1,19 @@
 /* ===== The ending: the closer (a loop that comes back around), a postcard, and a footer. One continuous line, one reveal system ===== */
-:root{--rv-fast:.45s;--rv-slow:.7s}
+:root{--rv-fast:.45s;--rv-slow:.6s}
 
 /* ---------- follow the pen ----------
-   An element with data-reveal waits until the trail's pen has passed it (reveal.js adds .shown once). The same easing and
+   An element with data-reveal waits until it is a fifth of the way into view (reveal.js adds .shown once). The same easing and
    two durations as the lab stage. Only under .js, so reduced motion and no-JS see everything. */
 .js [data-reveal=""]{transition:opacity var(--rv-fast) var(--ease) calc(var(--rd,0s) + var(--hd,0s)),translate var(--rv-fast) var(--ease) calc(var(--rd,0s) + var(--hd,0s))}
 .js [data-reveal=""]:not(.shown){opacity:0;translate:0 10px}
 /* a print rises and settles at its own tilt. It moves with the individual transform properties, so a card's own tilt and hover stay as they are.
    --rv-more carries what else the card transitions (its hover) */
-.js [data-reveal=print]{transition:opacity var(--rv-fast) var(--ease) var(--rd,0s),translate var(--rv-slow) var(--ease) var(--rd,0s),rotate var(--rv-slow) var(--ease) var(--rd,0s),scale var(--rv-slow) var(--ease) var(--rd,0s),var(--rv-more,transform 0s)}
+.js [data-reveal=print]{transition:opacity var(--rv-slow) var(--ease) var(--rd,0s),translate var(--rv-slow) var(--ease) var(--rd,0s),rotate var(--rv-slow) var(--ease) var(--rd,0s),scale var(--rv-slow) var(--ease) var(--rd,0s),var(--rv-more,transform 0s)}
 .js [data-reveal=print]:not(.shown){opacity:0;translate:0 64px;rotate:calc(var(--r,var(--tilt,0deg))*1.4);scale:.95}
-/* a headline sharpens word by word: each word .3s, the last one no later than .15s after the first */
+/* a headline sharpens word by word: each word .6s, the last one no later than .2s after the first. .snap: already settled on screen, so no motion */
 .js [data-reveal=words] .w{display:inline-block;opacity:0;filter:blur(12px);transform:translateY(14px)}
-.js [data-reveal=words].shown .w{opacity:1;filter:none;transform:none;transition:opacity .3s var(--ease),filter .3s var(--ease),transform .3s var(--ease);transition-delay:calc(min(var(--w)*20ms,150ms) + var(--rd,0s))}
+.js [data-reveal=words].shown .w{opacity:1;filter:none;transform:none;transition:opacity .6s var(--ease),filter .6s var(--ease),transform .6s var(--ease);transition-delay:calc(min(var(--w)*30ms,200ms) + var(--rd,0s))}
+.js [data-reveal].snap,.js [data-reveal].snap *{transition:none!important}
 /* hand notes and doodles come just after their block */
 .hand[data-reveal]{--hd:.3s}
 .js [data-reveal] .hand:not(.role-note){transition:opacity var(--rv-fast) var(--ease) .3s}

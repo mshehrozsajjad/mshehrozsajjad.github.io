@@ -319,7 +319,7 @@ function phonePoints(pts){
   pts = pts.filter(p => !p.el.closest('.top'));
   // data-keep: the closer's loop keeps its own shape on phones too
   const norm = pts.map(p => p.el.hasAttribute('data-keep') ? {...p, keep:true} : (p.el.classList.contains('wm') || p.el.classList.contains('pen')) ? {...p, x:x0 + Math.min(p.x - x0, 70), swing:true} : {x:x0, y:p.y, el:p.el, vert:p.vert, vn:p.vn, cut:p.cut, arc:p.arc});
-  norm.unshift({x:x0, y: pos($('.hero .kicker')).y - 6});
+  norm.unshift({x:x0, y: pos($('.hero .kicker')).y - 6, vert:true});
   if (norm.length < 2) return norm;
   // a swing is a lobe, not a spike: it leaves and returns to the gutter over a long run, through a halfway point
   const lobe = (p, side, gap) => { const A = p.x - x0, d = Math.min(80, gap*.5); return side < 0 ? [{x:x0, y:p.y - d}, {x:x0 + A*.75, y:p.y - d/2}] : [{x:x0 + A*.75, y:p.y + d/2}, {x:x0, y:p.y + d}]; };
@@ -376,7 +376,10 @@ let heroFloor = 0, heroLen = 0, heroT = reduce ? 1 : 0;
   const begin = () => { if (go) return; go = true; requestAnimationFrame(tick); };
   const tick = ts => { if (!t0) t0 = ts + delay; const k = Math.max(0, Math.min(1, (ts - t0)/dur)); heroT = ease2(k);
     if (typeof req === 'function') req(); if (k < 1) requestAnimationFrame(tick); else { const s = document.querySelector('.hero .s-draw'); s && s.classList.add('arrived'); } };
-  if (document.readyState === 'complete') begin(); else { addEventListener('load', begin, {once:true}); setTimeout(begin, 1800); }
+  // the first-visit loader holds the stage; the line starts once it lifts
+  (window.loaderDone || Promise.resolve()).then(() => {
+    if (document.readyState === 'complete') begin(); else { addEventListener('load', begin, {once:true}); setTimeout(begin, 1800); }
+  });
 })();
 // 03: what the platform runs, one screen at a time. It plays through on its own;
 // a click takes over, and it picks up again after a while
@@ -539,14 +542,15 @@ function frame(){
     // until the pen is reached, the hero line leads; scrolling takes over at once
     const intro = heroT < 1 && heroLen && scrollY < 40, drawingIn = intro && j === 0;
     if (drawingIn) target = heroLen*heroT; else if (intro) target = 0;
+    // arrived, still at the top: the stroke waits at the pen with its spark, and the first scroll carries it on into chapter 01
+    else if (!reduce && heroLen && scrollY < 24) target = j === 0 ? Math.min(target, heroLen) : 0;
     t.shown = reduce || drawingIn ? target : t.shown + (target - t.shown)*0.2;
     if (Math.abs(target - t.shown) > 0.5) busy = true;
     // an undrawn stroke still shows its round cap as a dot, so hide it until it has length
     t.paths.forEach(p => { p.style.strokeDashoffset = (t.len - t.shown).toFixed(1); p.style.visibility = t.shown > 1 ? '' : 'hidden'; });
   });
   nodes.forEach(n => n.el.classList.toggle('hit', reduce || (n.t ? n.t.shown >= n.L - 2 : n.y <= penY)));
-  // reveals run ahead of the reader: when the pen passes, or when the element enters the lower 15% of the screen, whichever is first
-  reveal.check(penY + mTop - scrollY);
+  reveal.check(atEnd);
 
   // present-day chapter opens out
   const vh = innerHeight, r = nowSec.getBoundingClientRect();
@@ -722,13 +726,17 @@ if (h1 && !reduce && !introSeen){
     ['wheel','keydown','pointerdown','touchstart'].forEach(ev => removeEventListener(ev, finish));
   };
   place(words[0]); cur.style.opacity = '0';
-  timers.push(setTimeout(() => { cur.style.opacity = '1'; }, 250));
-  words.forEach((w, i) => timers.push(setTimeout(() => { w.classList.add('on'); place(w); }, 420 + i*140)));
   const end = 420 + words.length*140;
-  timers.push(setTimeout(() => $$('.hero .dd').forEach(d => d.classList.add('drawn')), end + 120));
-  timers.push(setTimeout(() => { const a = $('.call-btn'); if (a){ const r = a.getBoundingClientRect(), c = heroCopy.getBoundingClientRect(); cur.style.transform = `translate(${(r.left - c.left).toFixed(0)}px, ${(r.top - c.top + 6).toFixed(0)}px)`; } }, end + 700));
-  timers.push(setTimeout(finish, end + 1700));
-  ['wheel','keydown','pointerdown','touchstart'].forEach(ev => addEventListener(ev, finish, {passive:true}));
+  // wait for the first-visit loader to lift, so the headline is written in front of the visitor
+  (window.loaderDone || Promise.resolve()).then(() => {
+    if (done) return;
+    timers.push(setTimeout(() => { cur.style.opacity = '1'; }, 250));
+    words.forEach((w, i) => timers.push(setTimeout(() => { w.classList.add('on'); place(w); }, 420 + i*140)));
+    timers.push(setTimeout(() => $$('.hero .dd').forEach(d => d.classList.add('drawn')), end + 120));
+    timers.push(setTimeout(() => { const a = $('.call-btn'); if (a){ const r = a.getBoundingClientRect(), c = heroCopy.getBoundingClientRect(); cur.style.transform = `translate(${(r.left - c.left).toFixed(0)}px, ${(r.top - c.top + 6).toFixed(0)}px)`; } }, end + 700));
+    timers.push(setTimeout(finish, end + 1700));
+    ['wheel','keydown','pointerdown','touchstart'].forEach(ev => addEventListener(ev, finish, {passive:true}));
+  });
 } else {
   $$('.hero .dd').forEach(d => d.removeAttribute('data-manual'));
 }
