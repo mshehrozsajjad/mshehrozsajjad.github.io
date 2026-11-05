@@ -1045,6 +1045,48 @@ footer a{text-underline-offset:4px}
 @media (max-width:760px){.snapcard.poster{right:-30px;bottom:-46px}.ch1 .longer .m-only{top:-100px}.ch1 .longer{margin-top:96px}}
 .step .dot{left:-46px}
 @media (max-width:760px){.step .dot{left:-30px}}
+
+/* ===== 02: three places on a zigzag ===== */
+.ch2 h2{margin-left:0}
+.ch2-head{position:relative}
+.ch2 h2 .it.dd{font-weight:400}
+.laptop{position:absolute;right:4%;top:-30px;margin:0}
+.laptop .sprite{--h:170px}
+.laptop .ground{display:block;height:2px;width:190px;margin:-2px 0 0 -30px;background:var(--signal);border-radius:2px}
+.places{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"p1 ." "note p2" "p3 stat";row-gap:36px;margin-top:72px}
+.place{position:relative;max-width:480px}
+.place .dot{left:-42px;top:62px}
+.place-k{font:600 13px/1.2 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.place h3{font:700 clamp(28px,2.6vw,36px)/1.1 var(--sans);letter-spacing:-.035em;margin-top:8px}
+.place > p:last-of-type{margin-top:8px;font-size:19px;line-height:1.45;color:var(--soft)}
+.p1{grid-area:p1;margin-left:clamp(28px,12vw,190px)}
+.p2{grid-area:p2;margin-left:clamp(0px,6vw,90px);margin-top:20px}
+.p3{grid-area:p3;margin-left:clamp(28px,12vw,190px);margin-top:40px}
+.hand.note-real{grid-area:note;justify-self:end;align-self:center;margin-right:-40px;font-size:27px;color:var(--signal);transform:rotate(-5deg);white-space:nowrap}
+.stat{grid-area:stat;align-self:end;margin:0 0 4px -30px}
+.stat b{display:block;font:italic 400 clamp(64px,7vw,104px)/.9 var(--serif);letter-spacing:-.02em;color:var(--signal)}
+.stat span{display:block;margin-top:8px;font-size:clamp(18px,1.6vw,22px);color:var(--soft)}
+.along{margin-top:96px;display:flex;align-items:baseline;gap:22px;font-size:20px;color:var(--soft)}
+.along .hand{font-size:26px;color:var(--signal);transform:rotate(-4deg)}
+@media (max-width:760px){
+  .laptop{right:0;top:-6px}
+  .laptop .sprite{--h:104px}
+  .laptop .ground{width:120px;margin-left:-14px}
+  .ch2 h2{padding-right:96px}
+  .places{grid-template-columns:minmax(0,1fr);grid-template-areas:"p1" "p2" "note" "p3" "stat";row-gap:40px;margin-top:56px}
+  .p1,.p2,.p3{margin:0}
+  .place .dot{left:-30px;top:58px}
+  .hand.note-real{justify-self:start;margin:0;font-size:23px}
+  .stat{margin:0}
+  .along{flex-wrap:wrap;gap:6px 14px;margin-top:64px;font-size:17px}
+}
+.hand.note-real{transform:translateY(52px) rotate(-5deg);margin-right:20px}
+.p3{max-width:430px}
+.stat{margin-left:56px}
+@media (max-width:760px){.hand.note-real{transform:rotate(-5deg)}.stat{margin-left:0}}
+.hand.note-real{transform:translateY(24px) rotate(-5deg)}
+.along{margin-left:clamp(28px,12vw,190px)}
+@media (max-width:760px){.hand.note-real{transform:rotate(-5deg)}.along{margin-left:0}}
 </style>
 </head>
 <body>
@@ -1174,17 +1216,37 @@ footer a{text-underline-offset:4px}
 </section>
 
 <section class="ch ch1 ch2" id="inside" aria-labelledby="h-ch2">
-  <span class="numeral" aria-hidden="true">02</span>
+  <div class="chap" aria-hidden="true"><div class="wrap">02 / Inside the product</div></div>
+  <span class="way wd" data-o="7.1" data-free style="left:-24px;top:250px"></span>
   <div class="wrap">
-    <img class="sprite s-laptop rise" src="assets/sprites/shehroz-laptop.webp" alt="" aria-hidden="true" width="258" height="438">
-    <h2 id="h-ch2" class="c rise">Then I went inside <span class="dd" data-doodle="underline">the product.</span></h2>
-    <ol class="ledger c">
-      <li><span class="dot" data-o="7.2" data-v data-vn></span><b>Keyhole</b><span>Social media analytics</span><span>Rebuilt parts of their legacy platform in React.</span></li>
-      <li><span class="dot" data-o="7.3" data-v data-vn></span><b>A top German car company</b><span>Automotive</span><span>A car information system.</span></li>
-      <li><span class="dot" data-o="7.4" data-v data-vn></span><b>cureVision</b><span>Medical technology, Munich</span><span>Joined at the foundational stage. Software for our own hardware, with ML on the device, made wound documentation about 90% faster.</span></li>
-      <li class="quiet"><b>Along the way</b><span>Munich</span><span>A master’s in entrepreneurship.</span></li>
-    </ol>
+    <div class="ch2-head c">
+      <h2 id="h-ch2" class="rise">Then I went inside<br>the <span class="it dd" data-doodle="underline">product.</span></h2>
+      <figure class="laptop" aria-hidden="true"><img class="sprite" src="assets/sprites/shehroz-laptop.webp" alt="" width="258" height="438"><span class="ground"></span></figure>
+    </div>
+    <div class="places c">
+      <div class="place p1">
+        <span class="dot" data-o="7.2" data-free></span>
+        <p class="place-k">Social media analytics</p><h3>Keyhole</h3><p>Rebuilt parts of their legacy platform in React.</p>
+        <span class="way wd" data-o="7.24" data-free style="left:-62px;top:calc(100% + 30px)"></span>
+        <span class="way wd" data-o="7.27" data-free style="left:190px;top:calc(100% + 82px)"></span>
+      </div>
+      <span class="hand note-real" aria-hidden="true">closer to the real thing</span>
+      <div class="place p2">
+        <span class="dot" data-o="7.3" data-free></span>
+        <p class="place-k">Automotive</p><h3>A top German car company</h3><p>A car information system.</p>
+        <span class="way wd" data-o="7.34" data-free style="left:-30px;top:calc(100% + 34px)"></span>
+      </div>
+      <div class="place p3">
+        <span class="way wd" data-o="7.37" data-free style="left:-46px;top:-64px"></span>
+        <span class="dot" data-o="7.4" data-free></span>
+        <p class="place-k">Medical technology · Munich</p><h3>cureVision</h3><p>Joined at the foundational stage. Software for our own hardware, with ML on the device.</p>
+        <span class="way wd" data-o="7.5" data-free style="left:-48px;top:calc(100% + 170px)"></span>
+      </div>
+      <p class="stat"><b>≈90%</b><span>faster wound documentation</span></p>
+    </div>
+    <p class="along c"><span class="hand">along the way</span>Munich · A master’s in entrepreneurship.</p>
   </div>
+  <span class="way wd" data-o="7.8" data-free style="left:60%;top:calc(100% - 16px)"></span>
   <span class="way wm" data-o="7.95" style="left:72%;top:calc(100% - 40px)"></span>
 </section>
 
@@ -1501,8 +1563,8 @@ function smooth(pts){
     // keep every control point between the segment's ends, so a far neighbour never makes the line overshoot and loop
     const lo = Math.min(p1.y, p2.y), hi = Math.max(p1.y, p2.y), cy = y => (p1.free || p2.free) ? y : Math.max(lo, Math.min(hi, y));
     let c1, c2;
-    if (p1.free || p2.free){
-      // hand-drawn stretches: centripetal Catmull-Rom, smooth through every point without loops or overshoot
+    if (true){
+      // every stretch: centripetal Catmull-Rom, smooth through every point without loops or overshoot
       const dist = (a, b) => Math.max(1e-3, Math.pow(Math.hypot(b.x - a.x, b.y - a.y), .5));
       const t01 = p0 === p1 ? dist(p1, p2) : dist(p0, p1), t12 = dist(p1, p2), t23 = p3 === p2 ? dist(p1, p2) : dist(p2, p3);
       const q0 = p0 === p1 ? {x:2*p1.x - p2.x, y:2*p1.y - p2.y} : p0, q3 = p3 === p2 ? {x:2*p2.x - p1.x, y:2*p2.y - p1.y} : p3;
