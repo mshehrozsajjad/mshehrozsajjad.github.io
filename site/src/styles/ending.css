@@ -4,26 +4,26 @@
 /* ---------- follow the pen ----------
    An element with data-reveal waits until the trail's pen has passed it (reveal.js adds .shown once). The same easing and
    two durations as the lab stage. Only under .js, so reduced motion and no-JS see everything. */
-.js [data-reveal=""],.js [data-reveal=print]{transition:opacity var(--rv-fast) var(--ease) var(--rd,0s),translate var(--rv-slow) var(--ease) var(--rd,0s),transform var(--rv-slow) var(--ease) var(--rd,0s)}
+.js [data-reveal=""]{transition:opacity var(--rv-fast) var(--ease) calc(var(--rd,0s) + var(--hd,0s)),translate var(--rv-fast) var(--ease) calc(var(--rd,0s) + var(--hd,0s))}
 .js [data-reveal=""]:not(.shown){opacity:0;translate:0 10px}
-/* a print rises and settles at its own tilt */
-.js [data-reveal=print]{transform:rotate(var(--tilt,0deg))}
-.js [data-reveal=print]:not(.shown){opacity:0;transform:translateY(64px) rotate(calc(var(--tilt,0deg)*2.4)) scale(.95)}
-/* a headline sharpens word by word */
+/* a print rises and settles at its own tilt. It moves with the individual transform properties, so a card's own tilt and hover stay as they are.
+   --rv-more carries what else the card transitions (its hover) */
+.js [data-reveal=print]{transition:opacity var(--rv-fast) var(--ease) var(--rd,0s),translate var(--rv-slow) var(--ease) var(--rd,0s),rotate var(--rv-slow) var(--ease) var(--rd,0s),scale var(--rv-slow) var(--ease) var(--rd,0s),var(--rv-more,transform 0s)}
+.js [data-reveal=print]:not(.shown){opacity:0;translate:0 64px;rotate:calc(var(--r,var(--tilt,0deg))*1.4);scale:.95}
+/* a headline sharpens word by word: each word .3s, the last one no later than .15s after the first */
 .js [data-reveal=words] .w{display:inline-block;opacity:0;filter:blur(12px);transform:translateY(14px)}
-.js [data-reveal=words].shown .w{opacity:1;filter:none;transform:none;transition:opacity var(--rv-fast) var(--ease),filter var(--rv-fast) var(--ease),transform var(--rv-fast) var(--ease);transition-delay:calc(var(--w)*55ms + .22s + var(--rd,0s))}
-/* hand notes and doodles inside a revealed block come just after it */
-.js [data-reveal] .hand{transition:opacity var(--rv-fast) var(--ease) .9s}
+.js [data-reveal=words].shown .w{opacity:1;filter:none;transform:none;transition:opacity .3s var(--ease),filter .3s var(--ease),transform .3s var(--ease);transition-delay:calc(min(var(--w)*20ms,150ms) + var(--rd,0s))}
+/* hand notes and doodles come just after their block */
+.hand[data-reveal]{--hd:.3s}
+.js [data-reveal] .hand:not(.role-note){transition:opacity var(--rv-fast) var(--ease) .3s}
 .js [data-reveal]:not(.shown) .hand{opacity:0}
-[data-reveal].shown .dd .dd-svg path{stroke-dashoffset:0;transition-delay:calc(.8s + var(--d,0s))}
+[data-reveal=words].shown .dd .dd-svg path{stroke-dashoffset:0;transition-delay:calc(.45s + var(--d,0s))}
 
 /* ---------- the closer: a loop that comes back around ---------- */
-.close{--loop:470px;position:relative;height:700px}
+.close{--loop:470px;position:relative;height:590px}
 .close h2 .it,.pc-msg h2 .it{font-weight:400}
-/* the sentence sits inside the loop, the sprite where it closes */
+/* the sentence sits inside the loop */
 .close-p{position:absolute;left:42%;top:336px;width:40%;max-width:440px;margin:0}
-.close .s-point{--h:140px;position:absolute;left:280px;top:312px;transition:opacity var(--rv-slow) var(--ease) .2s,translate var(--rv-slow) var(--ease) .2s}
-.js .close:not(:has(.k4 .dot.hit)) .s-point{opacity:0;translate:0 10px}
 /* the chain: a knot on the line and a hand-written word beside it, lit as the pen passes */
 .chain{list-style:none;margin:0;padding:0}
 .chain li{position:absolute;left:var(--kx);top:var(--ky)}
@@ -105,9 +105,9 @@ footer p{margin:0}
   .say-hi{font-size:var(--fs-hand-s)}
 }
 @media (max-width:760px){
-  .close{--loop:400px;height:auto;padding-bottom:var(--loop)}
+  /* the negative margin trims the empty tail below the loop to one beat before the flight */
+  .close{--loop:400px;height:auto;padding-bottom:var(--loop);margin-bottom:-76px}
   .close-p{position:static;width:auto;max-width:36ch;margin-top:20px}
-  .close .s-point{--h:104px;left:110px;top:calc(100% - var(--loop) + 120px)}
   .k1{--kx:92px;--ky:calc(100% - var(--loop) + 240px);--lx:-62px;--ly:12px}
   .k2{--kx:170px;--ky:calc(100% - var(--loop) + 298px);--lx:-92px;--ly:16px}
   .k3{--kx:250px;--ky:calc(100% - var(--loop) + 292px);--lx:-30px;--ly:16px}
@@ -119,5 +119,8 @@ footer p{margin:0}
   .pc-msg{padding:0 0 var(--sp-3)}
   .pc-addr{padding:var(--sp-3) 0 0;border-left:0;border-top:1px solid var(--warm)}
   footer .wrap{flex-direction:column;align-items:flex-start;gap:0;padding-left:calc(var(--gl) + 30px);padding-bottom:80px}
+  /* the legal row is one line: the name drops, the gaps tighten */
+  .f-name{display:none}
+  .f-legal{flex-wrap:nowrap;white-space:nowrap;gap:0 12px}
   .f-social{margin-left:-11px}
 }

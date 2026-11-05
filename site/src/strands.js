@@ -2,8 +2,8 @@
 // The wobble is seeded, so a strand looks the same on every resize and never jitters.
 const f = n => n.toFixed(1);
 const noise = (seed, k) => { const s = Math.sin(seed*127.1 + k*311.7)*43758.5453; return (s - Math.floor(s))*2 - 1; }; // -1..1
-// a handle that keeps a sideways run of dx in a short drop from bending tighter than a radius of about 45px
-const wide = dx => Math.sqrt(30*dx);
+// a handle that keeps a sideways run of dx in a short drop from bending tighter than a radius of about 150px, so the curvature eases in
+const wide = dx => Math.sqrt(100*dx);
 
 // a to b, heading down at both ends. ka / kb are the handle lengths as a share of the drop: a long start hugs
 // the vertical, a short end swings in late. The hand shows as a small seeded sideways wobble of each handle.
@@ -17,7 +17,7 @@ export function strand(a0, b, seed, {ka = .55, kb = .3, drop = 0, ta = 0, tb = 0
   const la = share === 'a' ? len : Math.min(cap, Math.max(dy*ka, wide(dx))), lb = share === 'b' ? len : Math.min(cap, Math.max(dy*kb, wide(dx)));
   // no wobble at a shared end or under a lean: there the strands fan out in order, and a wobble would swap neighbours
   const wa = share === 'a' || ta ? 0 : noise(seed, 1)*la*.05, wb = share === 'b' || tb ? 0 : noise(seed, 2)*lb*.05;
-  const slip = via ? `C${f(a0.x)} ${f(a0.y + (a.y - a0.y)*.65)} ${f(a.x)} ${f(a.y - (a.y - a0.y)*.65)} ${f(a.x)} ${f(a.y)}` : '';
+  const slip = via ? `C${f(a0.x)} ${f(a0.y + (a.y - a0.y)*.85)} ${f(a.x)} ${f(a.y - (a.y - a0.y)*.85)} ${f(a.x)} ${f(a.y)}` : '';
   return `M${f(a0.x)} ${f(a0.y)}${slip}${drop ? `L${f(s.x)} ${f(s.y)}` : ''}C${f(s.x + la*Math.sin(ta) + wa)} ${f(s.y + la*Math.cos(ta))} ${f(b.x - lb*Math.sin(tb) + wb)} ${f(b.y - lb*Math.cos(tb))} ${f(b.x)} ${f(b.y)}`;
 }
 

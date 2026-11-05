@@ -26,6 +26,8 @@
 
   --sp-1:8px; --sp-2:16px; --sp-3:24px; --sp-4:40px; --sp-5:64px; --sp-6:104px; --sp-7:160px;
   --gl:max(24px,env(safe-area-inset-left,0px)); --gr:max(24px,env(safe-area-inset-right,0px));
+  /* where the line runs down the left: one wrap-padding in from the content edge. A waypoint at left:var(--gut) sits on it */
+  --gut:calc(max(0px,(100% - 1120px)/2) + var(--gl) - 24px);
   --ease:cubic-bezier(.23,1,.32,1);
   --tint:color-mix(in srgb,var(--ink) 4.5%,var(--paper));
   /* the hand-drawn underline shared by every action */
@@ -109,9 +111,6 @@ main{position:relative;overflow-x:clip}
 @keyframes burst{0%{stroke-dashoffset:1;opacity:1}40%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
 .copied-note{position:absolute;font:400 var(--fs-hand)/1 var(--hand);color:var(--signal);transform:translate(-50%,-130%) rotate(-4deg);pointer-events:none;animation:copied 1.4s ease-out forwards}
 @keyframes copied{0%{opacity:0;translate:0 6px}20%{opacity:1;translate:0 0}75%{opacity:1}100%{opacity:0}}
-.js .rise{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.js .rise.in{opacity:1;transform:none}
-@keyframes unfold{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 
 /* ---------- pixel sprites of Shehroz ---------- */
 .sprite{display:block;height:var(--h,150px);width:auto;max-width:none;pointer-events:none;user-select:none;-webkit-user-drag:none}
@@ -180,6 +179,7 @@ main{position:relative;overflow-x:clip}
 .ch,.now{position:relative;padding-block:var(--sp-6);display:flex;flex-direction:column}
 .ch > .wrap,.now > .wrap{width:100%}
 .ch1,.ch2{border-top:1px solid var(--line)}
+.ch2{padding-top:var(--sp-7)}
 .ch h2 .it,.now h2 .it{font-weight:400}
 .ch .lead,.now .lead{margin-top:var(--sp-3);max-width:50ch}
 .steps,.places,.lab-head + .shelf{margin-top:var(--sp-5)}
@@ -196,20 +196,19 @@ main{position:relative;overflow-x:clip}
 .c-flappy{grid-area:flappy;align-self:start;max-width:440px;justify-self:end}
 .c-team{grid-area:team;position:relative;align-self:start;margin:var(--sp-3) 0 var(--sp-5);max-width:420px}
 .proofs{list-style:none;display:grid;gap:4px;margin-top:var(--sp-2);padding:0;font-size:var(--fs-s);color:var(--muted)}
-.s3 .s-sign{position:absolute;right:-96px;bottom:-40px;--h:130px}
 .hand.note-first{position:absolute;left:-150px;top:var(--sp-5);transform:rotate(-12deg);display:block}
 .hand.note-first svg{position:absolute;left:92px;top:-8px;width:40px;height:24px}
 .hand.note-pixel{position:absolute;left:22%;top:-48px;transform:rotate(-8deg);white-space:nowrap;z-index:2}
 .hand.note-pixel svg{position:absolute;left:58%;top:20px;width:26px;height:30px}
 /* prints: cream paper, a slight tilt, a handwritten caption */
-.snapcard{position:relative;margin:0;padding:12px 12px 0;background:var(--print);border-radius:6px;transform:rotate(var(--r,0deg));box-shadow:0 1px 2px rgba(40,30,10,.12),0 22px 44px -24px rgba(40,30,10,.5);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.snapcard{--rv-more:transform .35s var(--ease),box-shadow .35s var(--ease);position:relative;margin:0;padding:12px 12px 0;background:var(--print);border-radius:6px;transform:rotate(var(--r,0deg));box-shadow:0 1px 2px rgba(40,30,10,.12),0 22px 44px -24px rgba(40,30,10,.5);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
 .snap-img{position:relative;overflow:hidden;border-radius:2px;background:#e8e2d4}
 .snap-img img{display:block;width:100%;height:auto}
 .snapcard figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 6px 12px;font:400 var(--fs-hand)/1.1 var(--hand);color:var(--print-ink)}
 .snapcard .sig{color:var(--print-signal);white-space:nowrap;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;transform:rotate(-6deg)}
 .snapcard.poster,.snapcard.team2,.kh-print,.cv-print,.field-prints .snapcard{padding:8px 8px 0}
 .snapcard.poster figcaption,.snapcard.team2 figcaption,.kh-print figcaption,.cv-print figcaption,.field-prints .snapcard figcaption{justify-content:center;font-size:var(--fs-hand-s);padding:7px 4px 9px}
-.snapcard.poster{position:absolute;right:-44px;bottom:-52px;width:42%}
+.snapcard.poster{position:absolute;left:-12px;bottom:-52px;width:42%}
 .snapcard.team2{position:absolute;left:0;top:-96px;width:60%}
 .c-team .snapcard.team{z-index:1}
 @media (hover:hover) and (pointer:fine){.snapcard:hover{transform:rotate(0deg) translateY(-4px);box-shadow:0 1px 2px rgba(40,30,10,.12),0 30px 54px -26px rgba(40,30,10,.55);z-index:3}}
@@ -230,15 +229,13 @@ main{position:relative;overflow-x:clip}
 
 /* 02 */
 .ch2-head{position:relative}
-.laptop{position:absolute;right:4%;top:-30px;margin:0}
-.laptop .sprite{--h:170px}
-.laptop .ground{display:block;height:2px;width:190px;margin:-2px 0 0 -30px;background:var(--signal);border-radius:2px}
-.places{grid-template-areas:"p1 ." "note p2" "p3 stat";row-gap:var(--sp-4);position:relative}
+.places{grid-template-areas:"p1 ." ". p2" "p3 stat";row-gap:var(--sp-6);position:relative}
 .place{max-width:480px}
 .p1{grid-area:p1}
 .p2{grid-area:p2}
 .p3{grid-area:p3}
-.hand.note-real{grid-area:note;justify-self:end;align-self:center;transform:translateY(28px) rotate(-5deg);white-space:nowrap}
+.hand.note-real{position:absolute;left:24px;top:calc(100% + 6px);transform:rotate(-4deg);white-space:nowrap}
+.p2{margin-top:116px}
 .stat{grid-area:stat;align-self:end}
 .stat b{display:block;font:600 var(--fs-h2)/1 var(--sans);letter-spacing:var(--ls-h2);color:var(--ink)}
 .stat span{display:block;margin-top:var(--sp-1);color:var(--muted)}
@@ -284,18 +281,16 @@ main{position:relative;overflow-x:clip}
 /* the peak: the numbers sit in the swells of a calm line */
 .peak{position:relative;margin-top:var(--sp-6)}
 .peak-stage{position:relative;height:clamp(420px,34vw,480px)}
-.peak-in{left:94%;top:0}
-.peak-out{left:calc(max(0px,(100% - 1120px)/2) + var(--gl) - 24px);top:100%}
+.peak-in{left:min(calc(50% + 658px),calc(100% - 28px));top:0}
+.peak-out{left:var(--gut);top:100%}
 .wave{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .wave path{fill:none;stroke-linecap:round;stroke-linejoin:round}
 .wave-line{stroke:var(--signal);stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
-.peak-k.hand{position:absolute;top:-6px;right:calc(max(0px,(100% - 1120px)/2) + var(--gr) + 90px);transform:rotate(-5deg);opacity:0;transition:opacity .6s var(--ease)}
-.peak.speaking .peak-k{opacity:1}
-.peak-n{position:absolute;top:0;transform:translate(-50%,10px);display:grid;justify-items:center;text-align:center;gap:6px;opacity:0;transition:opacity .5s var(--ease),transform .7s var(--ease);pointer-events:none}
-.peak-n.on{opacity:1;transform:translate(-50%,0)}
+.peak-k.hand{position:absolute;top:-6px;right:calc(max(0px,(100% - 1120px)/2) + var(--gr) + 90px);transform:rotate(-5deg)}
+.peak-n{position:absolute;top:0;transform:translateX(-50%);display:grid;justify-items:center;text-align:center;gap:6px;pointer-events:none}
 .peak-n b{font:600 clamp(34px,3.3vw,50px)/1 var(--sans);letter-spacing:var(--ls-h2);font-variant-numeric:tabular-nums}
 .peak-n span{font-size:var(--fs-s);line-height:1.35;max-width:20ch;color:var(--muted)}
-.peak-src{position:absolute;left:calc(max(0px,(100% - 1120px)/2) + var(--gl));bottom:4px;font-size:var(--fs-xs);color:var(--muted)}
+.peak-src{position:absolute;left:calc(var(--gut) + 24px);bottom:4px;font-size:var(--fs-xs);color:var(--muted)}
 .peak-src a{color:var(--signal);text-underline-offset:3px}
 .now-low{margin-top:var(--sp-5)}
 .field{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:var(--sp-5);align-items:center}
@@ -308,14 +303,11 @@ main{position:relative;overflow-x:clip}
 .fp3{margin:8px 0 0 -18px;align-self:center;z-index:1}
 .fp3 .snap-img img{aspect-ratio:4/3}
 .now .snapcard:hover{z-index:4}
-.field-prints .snapcard.enter{opacity:0;transform:translateY(36px) rotate(calc(var(--r,0deg) * 2.2));transition:opacity .8s ease-out var(--d,0ms),transform 1s var(--ease) var(--d,0ms),box-shadow .35s var(--ease)}
-.field-prints .snapcard.enter.in{opacity:1;transform:rotate(var(--r,0deg))}
-@media (hover:hover) and (pointer:fine){.field-prints .snapcard.enter.in:hover{transform:rotate(0deg) translateY(-4px);transition-delay:0ms}}
 
 /* ---------- 04: the lab. A fork of four collections on the line, then one pinned stage that steps through the open collection ---------- */
 .lab{padding-bottom:var(--sp-5);--lift:0 2px 6px rgba(20,20,30,.06),0 46px 70px -40px rgba(20,20,30,.5)}
 @property --ret{syntax:'<number>';inherits:false;initial-value:0}
-.shelf{--e:cubic-bezier(.65,0,.35,1);--th:128px;--fh:clamp(200px,19vw,270px);--nh:56px;--pw:236px;--side:clamp(48px,6vw,72px);--gap:clamp(16px,2.4vw,32px);position:relative;padding:var(--th) 0 210px}
+.shelf{--e:cubic-bezier(.65,0,.35,1);--th:128px;--fh:clamp(200px,19vw,270px);--nh:56px;--pw:236px;--side:clamp(48px,6vw,72px);--gap:clamp(16px,2.4vw,32px);position:relative;padding:var(--th) 0 330px}
 .rail{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:0}
 .rail-in{left:-24px;top:var(--th)}
 .rail-out{left:-24px;top:100%}
@@ -347,7 +339,7 @@ main{position:relative;overflow-x:clip}
 .fk:focus-visible{outline:none}
 .fk:focus-visible .pk:last-child{box-shadow:0 0 0 2px var(--signal),0 14px 24px -14px rgba(40,30,10,.55)}
 .fk-stack{position:relative;display:block;width:min(100%,var(--pw));margin-bottom:var(--sp-4)}
-.pk{display:block;padding:8px 8px 34px;background:var(--print);border-radius:5px;box-shadow:0 0 0 1px rgba(40,30,10,.1),0 1px 2px rgba(40,30,10,.14),0 14px 24px -14px rgba(40,30,10,.55);transition:transform .7s var(--ease)}
+.pk{--rv-more:transform .7s var(--ease);display:block;padding:8px 8px 34px;background:var(--print);border-radius:5px;box-shadow:0 0 0 1px rgba(40,30,10,.1),0 1px 2px rgba(40,30,10,.14),0 14px 24px -14px rgba(40,30,10,.55);transition:transform .7s var(--ease)}
 .pk:last-child{position:relative;margin:0 10px 10px;transform:rotate(-1.2deg)}
 .pk:not(:last-child){position:absolute;inset:0 10px 10px}
 .pk:nth-child(1){transform:translate(-11px,8px) rotate(-7deg)}
@@ -359,7 +351,7 @@ main{position:relative;overflow-x:clip}
 .fk:is(:hover,:focus-visible,.hot) .pk:nth-child(2){transform:translate(26px,-3px) rotate(9deg)}
 .fk:is(:hover,:focus-visible,.hot) .pk:last-child{transform:none}
 .fk:is(.on,.done,:hover,:focus-visible,.hot) .pk img{filter:none}
-/* given away has no imagery: index cards, the repo names written on the back ones and listed by hand on the top one */
+/* open source has no imagery: index cards, the repo names written on the back ones and listed by hand on the top one */
 .snap-img.note{display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(to bottom,transparent 0 23px,rgba(45,43,224,.16) 23px 24px) 0 10px,#F7F1E1}
 .note code{font:400 var(--fs-hand)/1.2 var(--hand);color:var(--print-ink)}
 .note code::before{content:"~/";opacity:.5}
@@ -415,10 +407,16 @@ main{position:relative;overflow-x:clip}
 .m-duo figure + figure{margin-top:44px}
 .m-duo video{aspect-ratio:9/16;object-fit:cover;background:#000}
 .m-duo figcaption{margin-top:12px;font-size:var(--fs-xs);color:var(--muted)}
-.m-photos{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--sp-2);align-items:end;width:100%}
+/* a portrait film beside a landscape one, standing on the same line */
+.m-duo.mixed{grid-template-columns:minmax(0,.8fr) minmax(0,1.5fr);align-items:end;width:100%}
+.m-duo.mixed figure + figure{margin-top:0}
+.m-duo.mixed figure + figure video{aspect-ratio:16/9}
+.m-photos{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--sp-2);align-items:end;width:min(100%,400px)}
 .m-photos figure{margin:0}
 .m-photos img{aspect-ratio:4/5;object-fit:cover}
-.m-photos figure + figure img{aspect-ratio:2/3}
+.m-photos figure:nth-child(2) img{aspect-ratio:2/3}
+.m-photos figure:nth-child(3){grid-column:1/-1}
+.m-photos video{aspect-ratio:16/9;object-fit:cover;background:#000}
 .m-term{width:100%;background:#16161A;color:#E9E8E2;padding:22px 30px 40px;aspect-ratio:16/10;display:flex;flex-direction:column}
 .m-term .dots{display:flex;gap:6px}.m-term .dots i{width:9px;height:9px;border-radius:50%;background:#3A3A40}
 .m-term code{margin:auto 0;font:500 var(--fs-body)/1.75 var(--sans)}
@@ -522,13 +520,10 @@ main{position:relative;overflow-x:clip}
   .c-team{margin:var(--sp-5) 46px var(--sp-4) 0}
   .snapcard.poster{right:-30px;bottom:-46px;width:52%}
   .snapcard.team2{left:-14px;top:-84px;width:58%}
-  .s3 .s-sign,.role-note{display:none}
-  .laptop{right:0;top:-6px}
-  .laptop .sprite{--h:104px}
-  .laptop .ground{width:120px;margin-left:-14px}
+  .role-note{display:none}
   .ch2 h2{padding-right:96px}
-  .places{grid-template-columns:minmax(0,1fr);grid-template-areas:"p1" "p2" "note" "p3" "stat" "cv";row-gap:var(--sp-5)}
-  .hand.note-real{justify-self:start;transform:rotate(-5deg)}
+  .places{grid-template-columns:minmax(0,1fr);grid-template-areas:"p1" "p2" "p3" "stat" "cv";row-gap:var(--sp-5)}
+  .p2{margin-top:0}
   .kh-print{position:relative;left:auto;top:auto;width:56%;margin-top:22px}
   .cv-print{position:relative;right:auto;bottom:auto;grid-area:cv;justify-self:end;width:44%;margin:-8px 6px 0 0}
   .along{flex-wrap:wrap;gap:6px 14px}
@@ -544,8 +539,7 @@ main{position:relative;overflow-x:clip}
   .n3-tabs .sl{margin:0 9px}
   .peak{margin-top:var(--sp-5)}
   .peak-stage{height:auto;padding:72px 0 var(--sp-4) 46px;display:grid;gap:34px}
-  .peak-n,.peak-n.low{position:relative;top:auto;left:auto;transform:translateY(10px);justify-items:start;text-align:left}
-  .peak-n.on{transform:none}
+  .peak-n,.peak-n.low{position:relative;top:auto;left:auto;transform:none;justify-items:start;text-align:left}
   .peak-n b{font-size:38px}
   .peak-n span{max-width:none}
   .peak-k.hand{left:46px;right:auto;top:6px}
@@ -576,6 +570,8 @@ main{position:relative;overflow-x:clip}
   .m-term{padding:16px 20px 28px}
   .m-duo figure + figure{margin-top:28px}
 }
+/* below the wrap's full width the page edge would swallow the line: keep it on the page, as phones do */
+@media (max-width:1120px){:root{--gut:calc(var(--gl) + 6px)}main .wrap{padding-left:calc(var(--gl) + 30px)}}
 @media (max-width:1100px){.itm{gap:48px}.shelf{--th:112px}}
 @media (max-width:1100px) and (min-width:761px){.peak-n span{max-width:13ch}.n3-work,.n3-site{display:none}.hero > .wrap{grid-template-columns:minmax(0,1fr) 270px}.hero .s-draw .sprite{--h:200px}.call{width:220px}}
 @media (prefers-reduced-motion: reduce){

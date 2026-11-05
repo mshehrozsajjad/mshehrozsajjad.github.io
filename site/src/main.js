@@ -1,5 +1,6 @@
 import {strand, sharedHandle} from './strands.js';
 import {createReveal, splitWords} from './reveal.js';
+import {smooth} from './spline.js';
 (() => {
 "use strict";
 const $ = (s, r=document) => r.querySelector(s), $$ = (s, r=document) => [...r.querySelectorAll(s)];
@@ -7,7 +8,6 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>'
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const main = $('#main'), svg = $('#trail'), pMain = $('#pMain'), pNow = $('#pMainNow');
 if (!reduce) document.documentElement.classList.add('js');
-const reveal = createReveal(reduce);
 
 // the sprites are two-frame animations; people who asked for less motion get the still frame
 const calm = (root = document) => { if (reduce) $$('img.sprite', root).forEach(i => { const a = i.getAttribute('src'); if (a && a.includes('-anim.webp')) i.setAttribute('src', a.replace('/v2/', '/').replace('-anim.webp', '.webp')); }); };
@@ -40,10 +40,10 @@ const LAB = [
   {id:'livekit', n:'LiveKit JS plugin', label:'Open source', line:'Brings Beyond Presence avatars to LiveKit web apps.', body:['Ported from the Python plugin.'], code:['LiveKit JS plugin','JavaScript · ported from Python','LiveKit web app → Beyond Presence avatar']},
   {id:'n8nflows', n:'n8n workflows', label:'Free', line:'Ready-made workflows for using Beyond Presence avatars in n8n.', code:['n8n workflows','Free · ready to import','trigger → avatar → result']},
   {id:'n8nnode', n:'Beyond Presence n8n node', label:'Published', line:'A custom node plus templates. The only verified n8n integration in the AI avatar category.', code:['Beyond Presence node','Verified on n8n','node + templates']},
-  {id:'f-yolk', n:'Yolk', label:'Launch film', line:'The launch film for Yolk, made alongside its brand and website.', film:'/assets/media/yolk-film.mp4', poster:'/assets/media/yolk-film-poster.webp', filmLabel:'The Yolk launch film', tall:true},
-  {id:'f-npc', n:'NPC Filter', label:'Launch film', line:'The launch film for NPC Filter.', film:'/assets/media/npc-film.mp4', poster:'/assets/media/npc-film-poster.webp', filmLabel:'The NPC Filter launch film'},
-  {id:'drone', n:'Drone', label:'Drone footage', line:'A beach town from above, flown and edited by me.', film:'/assets/media/drone.mp4', poster:'/assets/media/drone-poster.webp', filmLabel:'Drone shot over a beach town'},
-  {id:'photos', n:'Photos', label:'Photography', line:'A bridge from above and a lit dome, both at night.', photos:[['/assets/media/photo-bridge.webp','A bridge at night, shot from above'],['/assets/media/photo-dome.webp','A lit dome at night']], sprite:'camera'}
+  {id:'photos', n:'Photography', label:'Photos and aerial video', line:'A bridge from above, a lit dome at night, and a drone flight over a beach town.',
+   photos:[['/assets/media/photo-bridge.webp','A bridge at night, shot from above'],['/assets/media/photo-dome.webp','A lit dome at night'],['/assets/media/drone.mp4','Drone shot over a beach town','/assets/media/drone-poster.webp']], sprite:'camera'},
+  {id:'launch-films', n:'Launch films', label:'Two films', line:'The launch films for Yolk and NPC Filter, made alongside their brand and website.',
+   clips:[['/assets/media/yolk-film.mp4','/assets/media/yolk-film-poster.webp','Yolk'],['/assets/media/npc-film.mp4','/assets/media/npc-film-poster.webp','NPC Filter']], mixed:true}
 ];
 const BY = Object.fromEntries(LAB.map(w => [w.id, w]));
 // Every strand leaves the one junction on the left and lands on the same row, so the four curves nest and cannot cross, whatever the order.
@@ -52,42 +52,43 @@ const BY = Object.fromEntries(LAB.map(w => [w.id, w]));
 const COLS = [
   {id:'software', n:'Software', unit:'projects', tag:'products', items:['roomrush','myclosr','slaptastic','vorsprech','npcfilter']},
   {id:'hardware', n:'Hardware', unit:'builds', tag:'builds', items:['yolk','tars']},
-  {id:'given', n:'Given away', unit:'tools', tag:'things, free', items:['reels','livekit','n8nflows','n8nnode']},
-  {id:'films', n:'Films', unit:'pieces', tag:'films & photos', items:['f-yolk','f-npc','drone','photos']}
+  {id:'opensource', n:'Open source', unit:'projects', tag:'repos', items:['reels','livekit','n8nflows','n8nnode']},
+  {id:'creative', n:'Creative', unit:'pieces', tag:'pieces', items:['photos','launch-films']}
 ];
 const COL = Object.fromEntries(COLS.map(c => [c.id, c]));
 const img = (src, alt, pos = '') => `<img src="${src}" alt="${esc(alt)}" loading="lazy"${pos ? ` style="object-position:${pos}"` : ''}>`;
 // each collection is a small pile of the same cream prints as chapter 01, back to front; the top one carries the handwritten caption.
-// Given away has no imagery, so its prints are index cards: repo names on the back ones, a handwritten list on top
+// Open source has no imagery, so its prints are index cards: repo names on the back ones, a handwritten list on top
 const PEEK = {
   software: [['/assets/shots/roomrush.webp'], ['/assets/shots/myclosr.webp'], ['/assets/shots/npcfilter.webp', '30% 50%']],
   hardware: [['/assets/media/tars-falling-poster.webp', '50% 40%'], ['/assets/media/yolk-in-hand-poster.webp', '50% 58%'], ['/assets/media/yolk-device.webp']],
-  given: [['n8n-workflows'], ['livekit-js-plugin'], ['reels-in-code', 'livekit js plugin', 'n8n workflows', 'n8n node']],
-  films: [['/assets/media/yolk-film-poster.webp', '50% 35%'], ['/assets/media/npc-film-poster.webp'], ['/assets/media/drone-poster.webp']]
+  opensource: [['n8n-workflows'], ['livekit-js-plugin'], ['reels-in-code', 'livekit js plugin', 'n8n workflows', 'n8n node']],
+  creative: [['/assets/media/yolk-film-poster.webp', '50% 35%'], ['/assets/media/drone-poster.webp'], ['/assets/media/photo-bridge.webp', '50% 40%']]
 };
 const printHTML = ([src, ...rest], cap) => {
   const face = src.startsWith('/') ? `<span class="snap-img">${img(src, '', rest[0])}</span>`
     : `<span class="snap-img note">${rest.length ? `<ul>${[src, ...rest].map(t => `<li>${esc(t)}</li>`).join('')}</ul>` : `<code>${esc(src)}</code>`}</span>`;
-  return `<span class="pk">${face}${cap ? `<span class="pk-cap">${esc(cap)}</span>` : ''}</span>`;
+  return `<span class="pk" data-reveal="print">${face}${cap ? `<span class="pk-cap">${esc(cap)}</span>` : ''}</span>`;
 };
 // the same column twice: on the fork, and again on the map at the end. The name is what the hand-drawn mark goes under
 const colHTML = (c, cls, attrs, label) => {
   const cap = `${c.items.length} ${c.tag}`;
-  return `<button class="fk${cls}" type="button" data-col="${c.id}" ${attrs} aria-label="${esc(label)}"><span class="fk-stack" aria-hidden="true">${PEEK[c.id].map((p, i, all) => printHTML(p, i === all.length - 1 && cap)).join('')}</span><i class="fk-dot" aria-hidden="true"></i><span class="fk-t"><span class="fk-n"><span class="dd" data-doodle="underline2" data-manual>${esc(c.n)}</span></span><span class="fk-c" aria-hidden="true">${esc(cap)}</span></span></button>`;
+  return `<button class="fk${cls}" type="button" data-col="${c.id}" ${attrs} aria-label="${esc(label)}"><span class="fk-stack" aria-hidden="true">${PEEK[c.id].map((p, i, all) => printHTML(p, i === all.length - 1 && cap)).join('')}</span><i class="fk-dot" aria-hidden="true"></i><span class="fk-t" data-reveal><span class="fk-n"><span class="dd" data-doodle="underline2" data-manual>${esc(c.n)}</span></span><span class="fk-c" aria-hidden="true">${esc(cap)}</span></span></button>`;
 };
 $('#cols').innerHTML = COLS.map(c => colHTML(c, '', `id="col-${c.id}" aria-pressed="false" aria-controls="stage"`, `${c.n}, ${c.items.length} ${c.unit}`)).join('');
 $('#rail').innerHTML = COLS.map(c => `<g class="st" data-c="${c.id}"><path class="st-out" pathLength="1"/><path class="st-back" pathLength="1"/></g>`).join('');
 $('#mapNames').innerHTML = COLS.map(c => colHTML(c, ' mp', '', c.n)).join('');
 // the masks reveal the dashed strands with the same draw-on as the solid ones
 $('#mapSvg').innerHTML = `<path class="mp-trunk" pathLength="1"/>` + COLS.map(c => `<g data-c="${c.id}"><mask id="mk-${c.id}" maskUnits="userSpaceOnUse" x="-400" y="-100" width="4000" height="4000"><path class="mp-reveal" pathLength="1"/></mask><path class="mp-solid" pathLength="1"/><path class="mp-dash" mask="url(#mk-${c.id})"/></g>`).join('');
+const reveal = createReveal(reduce);
 const explored = new Set();
 
 const TILTS = [-2.5, 2, -1.8, 2.6, -2.2];
 const video = (src, poster, label) => `<video src="${src}" poster="${poster}" muted loop playsinline preload="none"${reduce ? ' controls' : ''} aria-label="${esc(label)}"></video>`;
 function mediaHTML(w){
-  if (w.photos) return `<div class="m-photos">${w.photos.map(p => `<figure>${img(p[0], p[1])}</figure>`).join('')}</div>`;
+  if (w.photos) return `<div class="m-photos">${w.photos.map(([src, alt, poster]) => `<figure>${poster ? video(src, poster, alt) : img(src, alt)}</figure>`).join('')}</div>`;
   if (w.code) return `<div class="m-term" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span><code><b>${esc(w.code[0])}</b><i>${esc(w.code[1])}</i>${esc(w.code[2])}</code></div>`;
-  if (w.clips) return `<div class="m-duo">${w.clips.map(c => `<figure>${video(...c)}<figcaption>${esc(c[2])}</figcaption></figure>`).join('')}</div>`;
+  if (w.clips) return `<div class="m-duo${w.mixed ? ' mixed' : ''}">${w.clips.map(c => `<figure>${video(...c)}<figcaption>${esc(c[2])}</figcaption></figure>`).join('')}</div>`;
   const vid = w.film ? video(w.film, w.poster, w.filmLabel || w.n) : '';
   if (w.shot) return `<div class="m-shot${w.tall ? ' tall' : ''}">${img(w.shot, w.shotAlt || (w.n + ' homepage'))}${w.film ? `<div class="m-film" hidden>${vid}</div>` : ''}</div>`;
   return `<div class="m-film${w.tall ? ' tall' : ''}">${vid}</div>`;
@@ -200,7 +201,7 @@ const reach = (mirror = false) => narrow() ? (mirror ? [0.3, .55] : [.55, .3]) :
 // a strand lands on its pile as a tack, slips behind the pile and out of its left edge, runs straight down the side of the column past the name,
 // and only then curves away (phones have no piles: names are rows, so it just leaves the dot, at a slight angle so it clears the name above)
 const lean = () => narrow() ? .3 : 0;
-const slipOut = (btn, box) => { if (narrow()) return null; const p = $('.fk-stack', btn).getBoundingClientRect(); return {x:btn.getBoundingClientRect().left - box.left - 14, y:p.top + p.height*.72 - box.top}; };
+const slipOut = (btn, box) => { if (narrow()) return null; const p = $('.fk-stack', btn).getBoundingClientRect(); return {x:btn.getBoundingClientRect().left - box.left - 14, y:p.top + p.height*.95 - box.top}; };
 const legDrop = (btn, from, box) => narrow() ? 0 : btn.getBoundingClientRect().bottom - box.top + 12 - from.y;
 const planLeg = (s, box) => { s.via = slipOut(s.btn, box); s.drop = legDrop(s.btn, s.via || s.q, box); };
 
@@ -310,35 +311,6 @@ $('#archList').innerHTML = ARCH.map(a => `<li><em>${esc(a[2])}</em><b>${esc(a[0]
 function pos(el){ const r = el.getBoundingClientRect(), m = main.getBoundingClientRect(); return {x: r.left - m.left + r.width/2, y: r.top - m.top + r.height/2}; }
 function visible(el){ return el.offsetParent !== null || !!el.closest('.top'); }
 const f1 = n => n.toFixed(1);
-// Catmull-Rom through the points, except where a point asks to be met vertically (data-v),
-// and straight lines between stacked points (data-vn), so the line runs down the gutter beside open details
-function smooth(pts){
-  if (pts.length < 2) return '';
-  let d = `M${f1(pts[0].x)} ${f1(pts[0].y)}`;
-  for (let i=0; i<pts.length-1; i++){
-    const p0 = pts[i-1]||pts[i], p1 = pts[i], p2 = pts[i+1], p3 = pts[i+2]||p2, k = 0.2, dy = p2.y - p1.y;
-    if (p1.vn && p2.vert && Math.abs(p1.x - p2.x) < 2){ d += ` L${f1(p2.x)} ${f1(p2.y)}`; continue; }
-    // keep every control point between the segment's ends, so a far neighbour never makes the line overshoot and loop
-    const lo = Math.min(p1.y, p2.y), hi = Math.max(p1.y, p2.y), cy = y => (p1.free || p2.free) ? y : Math.max(lo, Math.min(hi, y));
-    let c1, c2;
-    if (true){
-      // every stretch: centripetal Catmull-Rom, smooth through every point without loops or overshoot
-      const dist = (a, b) => Math.max(1e-3, Math.pow(Math.hypot(b.x - a.x, b.y - a.y), .5));
-      const t01 = p0 === p1 ? dist(p1, p2) : dist(p0, p1), t12 = dist(p1, p2), t23 = p3 === p2 ? dist(p1, p2) : dist(p2, p3);
-      const q0 = p0 === p1 ? {x:2*p1.x - p2.x, y:2*p1.y - p2.y} : p0, q3 = p3 === p2 ? {x:2*p2.x - p1.x, y:2*p2.y - p1.y} : p3;
-      const m1 = ['x','y'].map(a => (p2[a] - p1[a]) + t12*((p1[a] - q0[a])/t01 - (p2[a] - q0[a])/(t01 + t12)));
-      const m2 = ['x','y'].map(a => (p2[a] - p1[a]) + t12*((q3[a] - p2[a])/t23 - (q3[a] - p1[a])/(t12 + t23)));
-      c1 = {x:p1.x + m1[0]/3, y:p1.y + m1[1]/3}; c2 = {x:p2.x - m2[0]/3, y:p2.y - m2[1]/3};
-      if (p1.vert) c1 = {x:p1.x, y:p1.y + dy*0.45};
-      if (p2.vert) c2 = {x:p2.x, y:p2.y - dy*0.45};
-    } else {
-      c1 = p1.vert ? {x:p1.x, y:p1.y + dy*0.45} : {x:p1.x+(p2.x-p0.x)*k, y:cy(p1.y+(p2.y-p0.y)*k)};
-      c2 = p2.vert ? {x:p2.x, y:p2.y - dy*0.45} : {x:p2.x-(p3.x-p1.x)*k, y:cy(p2.y-(p3.y-p1.y)*k)};
-    }
-    d += ` C${f1(c1.x)} ${f1(c1.y)} ${f1(c2.x)} ${f1(c2.y)} ${f1(p2.x)} ${f1(p2.y)}`;
-  }
-  return d;
-}
 const phone = () => innerWidth <= 760;
 let nodes = [], trails = [];
 function phonePoints(pts){
@@ -346,15 +318,17 @@ function phonePoints(pts){
   const x0 = parseFloat(getComputedStyle($('main .wrap')).paddingLeft) - 24;
   pts = pts.filter(p => !p.el.closest('.top'));
   // data-keep: the closer's loop keeps its own shape on phones too
-  const norm = pts.map(p => p.el.hasAttribute('data-keep') ? {...p, keep:true} : (p.el.classList.contains('wm') || p.el.classList.contains('pen')) ? {...p, swing:true} : {x:x0, y:p.y, el:p.el, vert:p.vert, vn:p.vn, cut:p.cut, arc:p.arc});
+  const norm = pts.map(p => p.el.hasAttribute('data-keep') ? {...p, keep:true} : (p.el.classList.contains('wm') || p.el.classList.contains('pen')) ? {...p, x:x0 + Math.min(p.x - x0, 70), swing:true} : {x:x0, y:p.y, el:p.el, vert:p.vert, vn:p.vn, cut:p.cut, arc:p.arc});
   norm.unshift({x:x0, y: pos($('.hero .kicker')).y - 6});
   if (norm.length < 2) return norm;
+  // a swing is a lobe, not a spike: it leaves and returns to the gutter over a long run, through a halfway point
+  const lobe = (p, side, gap) => { const A = p.x - x0, d = Math.min(80, gap*.5); return side < 0 ? [{x:x0, y:p.y - d}, {x:x0 + A*.75, y:p.y - d/2}] : [{x:x0 + A*.75, y:p.y + d/2}, {x:x0, y:p.y + d}]; };
   const out = [norm[0]]; let alt = 1;
   for (let i=1;i<norm.length;i++){
     const a = norm[i-1], b = norm[i], gap = b.y - a.y;
     if (a.keep || b.keep){ out.push(b); continue; }
-    if (b.swing){ if (gap > 90) out.push({x:x0, y:b.y - Math.min(70, gap*.45)}); out.push(b); continue; }
-    if (a.swing){ if (gap > 90) out.push({x:x0, y:a.y + Math.min(70, gap*.45)}); out.push(b); continue; }
+    if (b.swing){ if (gap > 90) out.push(...lobe(b, -1, gap)); out.push(b); continue; }
+    if (a.swing){ if (gap > 90) out.push(...lobe(a, 1, gap)); out.push(b); continue; }
     if (gap > 110 && !(a.vn && b.vert) && !a.cut){ out.push({x: x0 + alt*11, y: a.y + gap*.5}); alt = -alt; }
     out.push(b);
   }
@@ -429,13 +403,6 @@ let heroFloor = 0, heroLen = 0, heroT = reduce ? 1 : 0;
   new IntersectionObserver(es => es.forEach(e => { seen = e.isIntersecting; if (seen) start(); else stop(); }), {threshold:.2}).observe(win);
 })();
 
-// 03: the field prints come in one by one
-(() => {
-  const prints = $$('.field-prints .snapcard'); if (!prints.length || reduce) return;
-  prints.forEach((p, j) => { p.classList.add('enter'); p.style.setProperty('--d', (j*160) + 'ms'); });
-  new IntersectionObserver((es, io) => es.forEach(e => { if (e.isIntersecting){ prints.forEach(p => p.classList.add('in')); io.disconnect(); } }), {threshold:.25, rootMargin:'0px 0px -10% 0px'}).observe($('.field-prints'));
-})();
-
 // every fold on the page opens and closes with a slide instead of a jump
 function slideDetails(d, open){
   if (d._anim){ d._anim.cancel(); d._anim = null; }
@@ -497,8 +464,6 @@ function build(){
     const p = pos(el), t = trails[segs.findIndex(sg => sg.some(q => q.el === el))], arc = t && t.arc;
     return {el, y: p.y, t: arc ? t : null, L: arc ? lengthAt(t, p) : 0};
   });
-  const mr = main.getBoundingClientRect();
-  reveal.measure(el => el.getBoundingClientRect().top - mr.top);
   $$('details.dig').forEach(d => drawBranch(d, false));
   const nb = $('#nowBg'), r = nb.getBoundingClientRect(), c = pos(nb);
   const rect = $('#nowRect'); rect.setAttribute('y', c.y - r.height/2); rect.setAttribute('width', W); rect.setAttribute('height', r.height);
@@ -533,9 +498,9 @@ function layoutPeak(){
     ns.forEach(n => { n.style.left = ''; n.style.top = ''; });
   } else {
     // desktop: in from the right margin, three soft swells right to left, out to the left gutter
-    const xS = Math.max(xb + 70, W*.06), xE = Math.min(W - 110, xa - 140), y0 = H*.5, A = Math.min(140, H*.3), N = 160;
+    const xS = Math.max(xb + 70, W*.06), xE = Math.min(W - 110, xa - 240), y0 = H*.5, A = Math.min(88, H*.2), N = 160;
     const Y = u => y0 - A*Math.cos(2*Math.PI*(u - .2)/.6);
-    const sl = Math.abs(A*2*Math.PI/.6*Math.sin(2*Math.PI*(0 - .2)/.6)/(xE - xS)), kE = Math.min(60, (xa - xE)*.7);
+    const sl = Math.abs(A*2*Math.PI/.6*Math.sin(2*Math.PI*(0 - .2)/.6)/(xE - xS)), kE = Math.min(110, (xa - xE)*.6);
     d = `M${f(xa)} 0 C${f(xa)} ${f(H*.45)} ${f(xE + kE)} ${f(Y(1) + kE*sl)} ${f(xE)} ${f(Y(1))}`;
     for (let i = N; i >= 0; i--){ const u = i/N; d += ` L${f(xS + (xE - xS)*u)} ${f(Y(u))}`; }
     // leave along the swell's own slope, then settle vertical into the gutter
@@ -543,7 +508,7 @@ function layoutPeak(){
     d += ` C${f(xS - k)} ${f(Y(0) + k*sl)} ${f(xb)} ${f(Math.max(Y(0) + k*sl + 20, H*.72))} ${f(xb)} ${f(H)}`;
     ns.forEach(n => { const u = +n.dataset.u, crest = Math.cos(2*Math.PI*(u - .2)/.6) > 0, h = n.offsetHeight;
       n.style.left = f(xS + (xE - xS)*u) + 'px';
-      n.style.top = f(crest ? Y(u) + A*.64 : Y(u) - h - A*.6) + 'px'; });
+      n.style.top = f(crest ? Y(u) + A*.95 : Y(u) - h - A*.95) + 'px'; });
   }
   $('#wave').setAttribute('viewBox', `0 0 ${W} ${H}`);
   waveLine.setAttribute('d', d);
@@ -555,9 +520,6 @@ function peakFrame(){
   // the line draws as the reading point passes, like the rest of the trail
   const p = reduce ? 1 : cl((vh*.64 - r.top)/r.height);
   waveLine.style.strokeDashoffset = (1 - p).toFixed(4);
-  const ph = phone();
-  $$('.peak-n', peak).forEach(n => n.classList.toggle('on', reduce || (ph ? n.getBoundingClientRect().top < vh*.85 : p > (1 - +n.dataset.u)*.8 + .08)));
-  peak.classList.toggle('speaking', reduce || p > .15);
 }
 /* ================= SCROLL ================= */
 const nowSec = $('#now'), nowBg = $('#nowBg');
@@ -565,7 +527,7 @@ const cl = (v,a=0,b=1)=>Math.max(a,Math.min(b,v)), seg=(p,a,b)=>cl((p-a)/(b-a)),
 let ticking = false;
 function frame(){
   ticking = false;
-  const mTop = main.getBoundingClientRect().top + scrollY, vh0 = innerHeight;
+  const mTop = main.getBoundingClientRect().top + scrollY;
   const readY = scrollY + innerHeight*0.64 - mTop;
   // at the very bottom the line has reached everything, however short the page ends
   const atEnd = scrollY + innerHeight >= document.documentElement.scrollHeight - 4;
@@ -584,17 +546,13 @@ function frame(){
   });
   nodes.forEach(n => n.el.classList.toggle('hit', reduce || (n.t ? n.t.shown >= n.L - 2 : n.y <= penY)));
   // reveals run ahead of the reader: when the pen passes, or when the element enters the lower 15% of the screen, whichever is first
-  reveal.check(Math.max(penY, scrollY + vh0*0.85 - mTop));
+  reveal.check(penY + mTop - scrollY);
 
-  // present-day chapter opens out; product and marketing enter together
+  // present-day chapter opens out
   const vh = innerHeight, r = nowSec.getBoundingClientRect();
   const p = reduce ? 1 : cl((vh - r.top)/(vh*0.95));
   const o = ease(seg(p, 0, .55));
   nowBg.style.clipPath = `inset(${((1-o)*3).toFixed(2)}% ${((1-o)*6).toFixed(2)}% 0 ${((1-o)*6).toFixed(2)}% round ${((1-o)*28).toFixed(1)}px)`;
-  const mm = ease(seg(p, .32, .78));
-  [['#mA',60],['#mB',90]].forEach(([s,dd]) => { const el = $(s); el.style.opacity = (reduce?1:.0001+mm).toString(); el.style.transform = reduce ? 'none' : `translateY(${((1-mm)*dd).toFixed(1)}px) scale(${(.94+.06*mm).toFixed(3)})`; });
-  const t = ease(seg(p, .18, .5)), tx = $('#nowText'); tx.style.opacity = (reduce?1:.0001+t).toString(); tx.style.transform = reduce ? 'none' : `translateY(${((1-t)*30).toFixed(1)}px)`;
-  const cp = seg(p, .62, .9); $$('.n3-note').forEach(el => el.style.opacity = (reduce?1:.0001+cp).toString());
 
   peakFrame(); stageFrame();
   if (forkFrame() | mapFrame()) busy = true;
@@ -608,9 +566,6 @@ addEventListener('resize', rebuild);
 new ResizeObserver(rebuild).observe(main);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
 addEventListener('load', build);
-
-const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), {rootMargin:'0px 0px -12% 0px'});
-if (!reduce) $$('.rise').forEach(el => io.observe(el));
 
 /* ================= EVENTS ================= */
 const go = sel => { const el = $(sel); if (el) el.scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'}); };
@@ -648,7 +603,7 @@ const A = {
   now:{t:"I own the creator and call platforms at Beyond Presence, the layer behind our real-time avatars and Managed Agents. I built the integration that sends avatars into Zoom and Teams calls. Lately I'm also automating our go-to-market with n8n and AI agents in Slack.", go:['Show me', () => go('#now')]},
   make:{t:"Yolk, my own AI device with an e-paper screen and a dial, which makes my German phone calls. And TARS, a 3D-printed desk robot running my avatar locally.", go:['Show me', () => labOpen('hardware','yolk')]},
   saas:{t:"myClosr, Slaptastic, Vorsprech and NPC Filter are live. RoomRush got 50 signups in its first 10 minutes, but the unit economics didn't hold, so I stopped it.", go:['Open the lab', () => labOpen('software','roomrush')]},
-  oss:{t:"reels-in-code, the LiveKit JS plugin for Beyond Presence avatars, and free n8n workflows for using Beyond Presence.", go:['Show me', () => labOpen('given','reels')]},
+  oss:{t:"reels-in-code, the LiveKit JS plugin for Beyond Presence avatars, and free n8n workflows for using Beyond Presence.", go:['Show me', () => labOpen('opensource','reels')]},
   story:{t:"Design work in my first semester, then my own apps, then CodeJunkie, which I co-founded and ran as CTO with 25 people. Then product work at Keyhole, a top German car company and cureVision, and Beyond Presence at pre-seed, before there was a product.", go:['Walk the story', () => go('#story')]},
   hire:{t:"Book a call or email me at mshehrozsajjad@gmail.com. Tell me what you're building and where it's stuck.", go:['Book a call', () => go('#contact')]},
   none:{t:"I don't know that one, and I only answer from what I've confirmed. Email me at mshehrozsajjad@gmail.com.", go:null}
