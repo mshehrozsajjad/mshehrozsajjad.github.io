@@ -1196,6 +1196,29 @@ footer a{text-underline-offset:4px}
   .field-prints .snapcard figcaption{font-size:18px}
 }
 @media (prefers-reduced-motion:reduce){.pane{transition:none}}
+
+/* v7.1: the numbers sit in the swells of a calm line, nothing pinned */
+.peak{height:auto;margin-top:110px}
+.peak-stage{position:relative;top:auto;height:clamp(420px,34vw,480px);overflow:visible}
+.wave-line{stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1}
+.peak-n{top:0;gap:6px;transform:translate(-50%,10px)}
+.peak-n.on{transform:translate(-50%,0)}
+.peak-n b{font:600 clamp(34px,3.3vw,50px)/1 var(--sans);letter-spacing:-.04em}
+.peak-n span{font-size:16px;max-width:20ch;color:color-mix(in srgb,var(--now-ink) 72%,var(--now-bg))}
+.peak-k.hand{top:-6px;right:calc(max(0px,(100% - 1120px)/2) + var(--gr) + 90px)}
+.peak-src{right:auto;left:calc(max(0px,(100% - 1120px)/2) + var(--gl) + clamp(28px,5vw,60px) + 40px);bottom:4px;font-style:italic}
+@media (max-width:760px){
+  .peak{margin-top:64px}
+  .peak-stage{height:auto;padding:72px 0 48px calc(var(--gl) + 46px);display:grid;gap:34px}
+  .peak-n,.peak-n.low,.peak-n:last-of-type{position:relative;top:auto;left:auto;transform:translateY(10px);justify-items:start;text-align:left}
+  .peak-n.on{transform:none}
+  .peak-n b{font-size:38px}
+  .peak-n span{font-size:14.5px;max-width:none}
+  .peak-k.hand{left:calc(var(--gl) + 46px);right:auto;top:6px}
+  .peak-src{position:relative;left:auto;top:auto;bottom:auto;margin-top:-6px}
+}
+@media (prefers-reduced-motion:reduce){.peak-stage{height:clamp(420px,36vw,520px)}}
+@media (prefers-reduced-motion:reduce) and (max-width:760px){.peak-stage{height:auto}}
 </style>
 </head>
 <body>
@@ -1404,13 +1427,13 @@ footer a{text-underline-offset:4px}
     <span class="way peak-in" data-o="8.9" data-cut></span>
     <div class="peak-stage">
       <p class="peak-k hand">built to scale</p>
-      <svg class="wave" id="wave" aria-hidden="true"><defs><clipPath id="waveClip"><rect id="waveRect" x="0" y="0" width="0" height="0"/></clipPath></defs><path class="wave-link" id="waveIn" pathLength="1"/><path class="wave-echo" id="waveEcho" clip-path="url(#waveClip)"/><path class="wave-line" id="waveLine" clip-path="url(#waveClip)"/><path class="wave-link" id="waveOut" pathLength="1"/></svg>
+      <svg class="wave" id="wave" aria-hidden="true"><path class="wave-line" id="waveLine" pathLength="1"/></svg>
       <div class="peak-n" data-u=".2"><b>200,000+</b><span>avatar sessions served</span></div>
       <div class="peak-n low" data-u=".5"><b>1,000+</b><span>running at the same time</span></div>
       <div class="peak-n" data-u=".8"><b>15,000+</b><span>startups, scaleups and enterprise teams</span></div>
       <p class="peak-src">Public figures from <a href="https://www.beyondpresence.ai/" target="_blank" rel="noopener">beyondpresence.ai</a></p>
     </div>
-    <span class="way peak-out" data-o="9"></span>
+    <span class="way peak-out" data-o="9" data-v></span>
   </div>
   <div class="wrap now-low">
     <div class="field c">
@@ -1797,67 +1820,49 @@ document.addEventListener('toggle', e => {
   requestAnimationFrame(() => { drawBranch(d, true); build(); });
 }, true);
 
-/* ================= THE PEAK: the line becomes a voice ================= */
-const peak = $('#peak'), waveLine = $('#waveLine'), waveEcho = $('#waveEcho'), waveRect = $('#waveRect');
-// syllables: where the voice is loud, where it pauses
-const SYL = [.25,.7,1,.55,0,.45,.9,.75,.2,0,.6,1,.85,.4,0,.7,.95,.5,.3,0,.55,.8,.45,.15];
-const BUMPS = SYL.map((h, i) => ({c:(i + .5)/SYL.length, w:.021 + (i % 3)*.004, h}));
-let PK = null, pkRaf = 0;
+/* ================= THE PEAK: the line breathes through the numbers ================= */
+const peak = $('#peak'), waveLine = $('#waveLine');
+let PK = null;
 function layoutPeak(){
   if (!peak) return;
   const st = $('.peak-stage', peak), sr = st.getBoundingClientRect(), W = st.clientWidth, H = st.clientHeight;
   const a = $('.peak-in', peak).getBoundingClientRect(), b = $('.peak-out', peak).getBoundingClientRect();
-  // the trail drops in at the top, sweeps across the empty stage, speaks left to right, then sweeps back to the gutter
-  const xa = a.left + a.width/2 - sr.left, xb = b.left + b.width/2 - sr.left;
-  const xS = phone() ? xb : Math.max(xb + 40, W*.08), xE = phone() ? W - 14 : Math.min(W*.92, W - 60), y = H*.5;
-  PK = {W, H, xS, xE, y, A: Math.min(phone() ? 54 : 92, H*.11), amp: PK ? PK.amp : 0};
-  const f = n => n.toFixed(1);
-  $('#waveIn').setAttribute('d', `M${f(xa)} 0 C${f(xa)} ${f(H*.08)} ${f(xS)} ${f(H*.03)} ${f(xS)} ${f(H*.2)} L${f(xS)} ${f(y)}`);
-  $('#waveOut').setAttribute('d', `M${f(xE)} ${f(y)} L${f(xE)} ${f(H*.8)} C${f(xE)} ${f(H*.97)} ${f(xb)} ${f(H*.9)} ${f(xb)} ${f(H)}`);
-  $('.peak-k', peak).style.left = (xS + 22) + 'px';
+  const xa = a.left + a.width/2 - sr.left, xb = b.left + b.width/2 - sr.left, f = n => n.toFixed(1);
+  const ns = $$('.peak-n', peak);
+  let d = '';
+  if (phone()){
+    // phones: the trail keeps to the gutter and sways gently past a column of numbers
+    const x0 = xb, A = 10, N = 80;
+    for (let i = 0; i <= N; i++){ const u = i/N, y = H*u, x = x0 + A*Math.sin(u*Math.PI*3)*Math.min(1, u/.12, (1-u)/.12); d += `${i ? 'L' : 'M'}${f(x)} ${f(y)}`; }
+    ns.forEach(n => { n.style.left = ''; n.style.top = ''; });
+  } else {
+    // desktop: in from the right margin, three soft swells right to left, out to the left gutter
+    const xS = Math.max(xb + 70, W*.06), xE = Math.min(W - 70, xa - 40), y0 = H*.5, A = Math.min(140, H*.3), N = 160;
+    const Y = u => y0 - A*Math.cos(2*Math.PI*(u - .2)/.6);
+    const sl = Math.abs(A*2*Math.PI/.6*Math.sin(2*Math.PI*(0 - .2)/.6)/(xE - xS)), kE = Math.min(60, (xa - xE)*.7);
+    d = `M${f(xa)} 0 C${f(xa)} ${f(H*.45)} ${f(xE + kE)} ${f(Y(1) + kE*sl)} ${f(xE)} ${f(Y(1))}`;
+    for (let i = N; i >= 0; i--){ const u = i/N; d += ` L${f(xS + (xE - xS)*u)} ${f(Y(u))}`; }
+    // leave along the swell's own slope, then settle vertical into the gutter
+    const k = Math.min(60, (xS - xb)*.6);
+    d += ` C${f(xS - k)} ${f(Y(0) + k*sl)} ${f(xb)} ${f(Math.max(Y(0) + k*sl + 20, H*.72))} ${f(xb)} ${f(H)}`;
+    ns.forEach(n => { const u = +n.dataset.u, crest = Math.cos(2*Math.PI*(u - .2)/.6) > 0, h = n.offsetHeight;
+      n.style.left = f(xS + (xE - xS)*u) + 'px';
+      n.style.top = f(crest ? Y(u) + A*.64 : Y(u) - h - A*.6) + 'px'; });
+  }
   $('#wave').setAttribute('viewBox', `0 0 ${W} ${H}`);
-  waveRect.setAttribute('y', 0); waveRect.setAttribute('height', H);
-  $$('.peak-n', peak).forEach(n => { const x = xS + (xE - xS) * +n.dataset.u; n.style.left = (phone() ? W/2 : Math.max(120, Math.min(W - 120, x))) + 'px'; });
-  drawWave(0);
+  waveLine.setAttribute('d', d);
+  PK = {W, H};
 }
 function peakFrame(){
   if (!PK) return;
-  const r = peak.getBoundingClientRect(), vh = innerHeight, span = Math.max(1, r.height - vh);
-  const p = reduce ? 1 : cl(-r.top / span);
-  // silence first: the line travels flat, then the voice comes in, then it settles before the page moves on
-  const drawn = reduce ? 1 : ease(seg(p, .1, .6));
-  PK.amp = reduce ? .75 : seg(p, .2, .42) * (1 - .8*seg(p, .88, 1));
-  $('#waveIn').style.strokeDashoffset = (reduce ? 0 : 1 - ease(seg(p, 0, .1))).toFixed(3);
-  $('#waveOut').style.strokeDashoffset = (reduce ? 0 : 1 - ease(seg(p, .62, .78))).toFixed(3);
-  const x2 = PK.xS + (PK.xE - PK.xS)*drawn;
-  waveRect.setAttribute('x', (Math.min(PK.xS, x2) - 2).toFixed(1)); waveRect.setAttribute('width', (Math.abs(x2 - PK.xS) + 4).toFixed(1));
-  $$('.peak-n', peak).forEach(n => n.classList.toggle('on', reduce || drawn >= +n.dataset.u + .04));
-  peak.classList.toggle('speaking', PK.amp > .05);
-  const live = r.top < vh && r.bottom > 0;
-  if (reduce) drawWave(0);
-  else if (live && !pkRaf) pkRaf = requestAnimationFrame(waveTick);
+  const r = peak.getBoundingClientRect(), vh = innerHeight;
+  // the line draws as the reading point passes, like the rest of the trail
+  const p = reduce ? 1 : cl((vh*.7 - r.top)/(r.height + vh*.15));
+  waveLine.style.strokeDashoffset = (1 - p).toFixed(4);
+  const ph = phone();
+  $$('.peak-n', peak).forEach(n => n.classList.toggle('on', reduce || (ph ? n.getBoundingClientRect().top < vh*.85 : p > (1 - +n.dataset.u)*.8 + .08)));
+  peak.classList.toggle('speaking', reduce || p > .15);
 }
-function waveTick(ts){
-  pkRaf = 0;
-  const r = peak.getBoundingClientRect(); if (r.top >= innerHeight || r.bottom <= 0) return;
-  drawWave(ts/1000); pkRaf = requestAnimationFrame(waveTick);
-}
-function drawWave(t){
-  if (!PK) return;
-  const {xS, xE, y, A, amp} = PK, N = phone() ? 240 : 460;
-  let d = '', e = '';
-  for (let i = 0; i <= N; i++){
-    const u = i/N, x = xS + (xE - xS)*u;
-    let env = 0; for (const b of BUMPS){ const z = (u - b.c)/b.w; env += b.h*Math.exp(-z*z); }
-    const tap = Math.min(1, u/.06, (1 - u)/.06);
-    const carrier = Math.sin(u*Math.PI*2*62 + t*9)*.7 + Math.sin(u*Math.PI*2*21 - t*5.3)*.3;
-    const v = A*amp*Math.min(1, env)*tap*(.82 + .18*Math.sin(t*2.2 + u*7))*carrier;
-    d += `${i ? 'L' : 'M'}${x.toFixed(1)} ${(y - v).toFixed(1)}`;
-    e += `${i ? 'L' : 'M'}${x.toFixed(1)} ${(y + v*.5).toFixed(1)}`;
-  }
-  waveLine.setAttribute('d', d); waveEcho.setAttribute('d', e);
-}
-
 /* ================= SCROLL ================= */
 const nowSec = $('#now'), nowBg = $('#nowBg');
 const cl = (v,a=0,b=1)=>Math.max(a,Math.min(b,v)), seg=(p,a,b)=>cl((p-a)/(b-a)), ease=t=>1-Math.pow(1-t,3);
