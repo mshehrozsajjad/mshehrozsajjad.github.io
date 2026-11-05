@@ -977,6 +977,72 @@ footer a{text-underline-offset:4px}
   .hero .avatar{display:block}
   .hero .twin-card{max-width:420px}
 }
+
+/* ===== 01: three steps on the line, photos as prints ===== */
+.ch1{padding-block:120px 72px;justify-content:flex-start}
+.chap .wrap{color:var(--signal)}
+.ch1 h2{margin:0;font-size:clamp(36px,4.2vw,56px);line-height:1.04;letter-spacing:-.04em}
+.ch1 h2 .it{font-weight:400}
+.steps{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"s1 flappy" ". s2" "team s3";gap:28px 64px;margin-top:64px}
+.step{position:relative;max-width:470px}
+.step .dot{left:-34px;top:4px}
+.step-k{font:500 15px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--signal)}
+.step h3{font:700 clamp(26px,2.5vw,33px)/1.1 var(--sans);letter-spacing:-.035em;margin-top:12px}
+.step > p:not(.step-k){margin-top:12px;font-size:18px;line-height:1.5;color:var(--ink);max-width:40ch}
+.s1{grid-area:s1;margin-left:clamp(28px,9vw,140px);padding-top:40px}
+.s2{grid-area:s2;margin-left:24px;margin-top:8px}
+.s3{grid-area:s3;margin-top:56px}
+.c-flappy{grid-area:flappy;align-self:start;max-width:440px;justify-self:end;margin-top:-10px}
+.c-team{grid-area:team;position:relative;margin-top:-40px;max-width:460px;justify-self:end;margin-right:24px}
+.s3 .proofs{display:grid;gap:4px;margin-top:22px;font:400 14px/1.6 var(--mono);color:var(--muted)}
+.s3 .proofs li::before{display:none}
+.s3 .s-sign{position:absolute;right:-110px;bottom:-40px;--h:130px}
+.hand.note-first{position:absolute;left:-180px;top:30px;font-size:24px;line-height:1;color:var(--ink);transform:rotate(-12deg);display:block}
+.hand.note-first svg{position:absolute;left:96px;top:-8px;width:40px;height:24px}
+.hand.note-pixel{position:absolute;left:22%;top:-58px;font-size:23px;color:var(--ink);transform:rotate(-8deg);white-space:nowrap;z-index:2}
+.hand.note-pixel svg{position:absolute;left:58%;top:20px;width:26px;height:30px}
+.ch1 .hand svg path{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+/* prints: cream paper, a slight tilt, a handwritten caption */
+.snapcard{position:relative;margin:0;padding:12px 12px 0;background:linear-gradient(160deg,#FBF7EE,#F1EADC);border-radius:6px;transform:rotate(var(--r,0deg));box-shadow:0 1px 2px rgba(40,30,10,.12),0 22px 44px -24px rgba(40,30,10,.5);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.snap-img{position:relative;overflow:hidden;border-radius:2px;background:#e8e2d4}
+.snap-img img{display:block;width:100%;height:auto}
+.snapcard figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 6px 12px;font:400 22px/1.1 var(--hand);color:#2B2620}
+.snapcard .sig{color:var(--signal);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;transform:rotate(-6deg)}
+.snapcard.poster{position:absolute;right:-56px;bottom:-34px;width:46%;padding:8px 8px 0}
+.snapcard.poster figcaption{font-size:19px;padding:6px 4px 8px;justify-content:center}
+@media (hover:hover) and (pointer:fine){.snapcard:hover{transform:rotate(0deg) translateY(-4px);box-shadow:0 1px 2px rgba(40,30,10,.12),0 30px 54px -26px rgba(40,30,10,.55);z-index:3}}
+/* the longer story */
+.ch1 .longer{margin:88px 0 0;border-top:1px solid var(--line);padding-top:14px}
+.ch1 .longer .dig-in{top:-20px}
+.dig summary{font:500 17px/1 var(--mono);letter-spacing:0;text-transform:none;gap:8px}
+.dig .plus{width:auto;height:auto;border:0;font:500 17px/1 var(--mono)}
+.longer-path{position:absolute;right:0;top:28px;font:400 15px/1 var(--mono);color:var(--muted)}
+@media (max-width:760px){
+  .ch1{padding-block:96px 56px}
+  .steps{grid-template-columns:minmax(0,1fr);grid-template-areas:"s1" "s2" "flappy" "s3" "team";gap:44px;margin-top:48px}
+  .s1,.s2,.s3{margin:0;padding:0}
+  .step .dot{left:-30px}
+  .hand.note-first{left:-62px;top:60px;font-size:19px;transform:rotate(-14deg)}
+  .hand.note-first svg{display:none}
+  .c-flappy{justify-self:start;margin:46px 8px 0 0}
+  .c-team{margin:8px 46px 40px 0;justify-self:start}
+  .snapcard.poster{right:-40px;bottom:-40px;width:52%}
+  .s3 .s-sign{right:0;bottom:auto;top:calc(100% + 380px);--h:96px}
+  .longer-path{display:none}
+  .snapcard figcaption{font-size:19px}
+}
+.m-only{display:none}
+.snapcard .sig{white-space:nowrap}
+@media (max-width:760px){
+  .hand.note-first{left:auto;right:0;top:-8px;transform:rotate(-6deg)}
+  .hand.note-first br{display:none}
+  .s3 .s-sign{display:none}
+  .ch1 .longer .m-only{display:block;position:absolute;right:0;top:-112px;--h:96px}
+  .snapcard figcaption{font-size:18px}
+}
+.ch1 .longer{margin-top:124px}
+.snapcard.poster{right:-84px;bottom:-52px;width:44%}
+@media (max-width:760px){.snapcard.poster{right:-30px;bottom:-46px}.ch1 .longer .m-only{top:-100px}.ch1 .longer{margin-top:96px}}
 </style>
 </head>
 <body>
@@ -1017,7 +1083,6 @@ footer a{text-underline-offset:4px}
   <span class="way wd" data-o="2" data-free style="left:min(calc(50% + 605px),calc(100% - 34px));top:66%"></span>
   <span class="way wd" data-o="2.5" data-free style="left:min(calc(50% + 690px),calc(100% - 18px));top:calc(100% - 150px)"></span>
   <div class="wrap">
-    <span class="way wd" data-o="3.5" style="left:12%;top:calc(100% + 58px)"></span>
     <div class="c hero-copy">
       <p class="label">Product engineer · Munich</p>
       <h1 id="h1" tabindex="-1">Started in <span class="it">design.</span><br>Kept following<br>the idea.</h1>
@@ -1038,38 +1103,67 @@ footer a{text-underline-offset:4px}
     </div>
   </div>
   <figure class="sprite-fig s-draw c" aria-hidden="true"><img class="sprite" src="assets/sprites/shehroz-draw.webp" alt="" width="302" height="436"><span class="way pen" data-o="2.8"></span><svg class="spark" viewBox="0 0 24 24"><path d="M12 2 C 12.6 8.5, 15.5 11.4, 22 12 C 15.5 12.6, 12.6 15.5, 12 22 C 11.4 15.5, 8.5 12.6, 2 12 C 8.5 11.4, 11.4 8.5, 12 2 Z"/></svg></figure>
-  <span class="way wd" data-o="2.9" data-v style="left:min(calc(50% + 628px),calc(100% - 58px));top:calc(100% + 34px)"></span>
+  <span class="way wd" data-o="2.9" data-cut style="left:calc(100% + 40px);top:calc(100% - 60px)"></span>
 </section>
 
 <section class="ch ch1" id="story" aria-labelledby="h-ch1">
-  <div class="chap" aria-hidden="true"><div class="wrap">01 / The story</div></div>
+  <div class="chap" aria-hidden="true"><div class="wrap">01 / How it started</div></div>
+  <span class="way wd" data-o="3.5" style="left:-24px;top:200px"></span>
   <div class="wrap">
-    <h2 id="h-ch1" class="c rise">Design became products.<br>Products became <span class="dd" data-doodle="circle">a company.</span></h2>
-    <p class="gist c rise">It began with a student trip company I co-founded at NUST. We had no money for a designer, so I opened Photoshop.</p>
-    <div class="miles c">
-      <div class="mile"><span class="dot" data-o="4"></span><b>Design /</b>Freelance gigs, then a contract with a social media design agency<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>first semester</span></div>
-      <div class="mile"><span class="dot" data-o="5"></span><b>First app /</b>Flappy Returns, a mobile game built on a physics engine<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>designed every element myself</span></div>
-      <div class="mile"><span class="dot" data-o="6"></span><b>CodeJunkie /</b>Co-founded in my final semester. I ran tech as CTO, and we grew to 25<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>banks in the UAE and Oman</span></div>
+    <h2 id="h-ch1" class="c rise">Design became products.<br>Products became a <span class="it">company.</span></h2>
+    <div class="steps c">
+      <div class="step s1">
+        <span class="dot" data-o="4" data-v></span>
+        <span class="hand note-first" aria-hidden="true">first <br>semester<svg viewBox="0 0 40 24"><path d="M3 20 C 14 20, 26 14, 36 4 M36 4 L 27 6 M36 4 L 35 13"/></svg></span>
+        <p class="step-k">01 – Design</p>
+        <h3>No budget. So I opened Photoshop.</h3>
+        <p>A student trip company at NUST led to freelance gigs, then a design agency contract.</p>
+        <span class="way wd" data-o="4.4" data-free data-v style="left:-28px;top:calc(100% + 40px)"></span>
+        <span class="way wd" data-o="4.6" data-free style="left:150px;top:calc(100% + 92px)"></span>
+      </div>
+      <figure class="snapcard c-flappy" style="--r:-2.5deg">
+        <span class="hand note-pixel" aria-hidden="true">every pixel, mine.<svg viewBox="0 0 30 34"><path d="M24 3 C 22 16, 16 24, 6 30 M6 30 L 8 21 M6 30 L 15 29"/></svg></span>
+        <div class="snap-img"><img src="assets/media/flappy-banner.webp" alt="Flappy Returns, my first published game" loading="lazy" width="1000" height="767"></div>
+        <figcaption><span>My first published game.</span><span class="sig">Flappy Returns</span></figcaption>
+      </figure>
+      <div class="step s2">
+        <span class="dot" data-o="5" data-v></span>
+        <p class="step-k">02 – First app, 2015</p>
+        <h3>Then I built what I designed.</h3>
+        <p>Flappy Returns. My first published game, built on a physics engine.</p>
+        <span class="way wd" data-o="5.3" data-free data-v style="left:-28px;top:calc(100% + 16px)"></span>
+        <span class="way wd" data-o="5.6" data-free style="left:-110px;top:calc(100% + 70px)"></span>
+      </div>
+      <div class="step s3">
+        <span class="dot" data-o="6" data-v></span>
+        <p class="step-k">03 – CodeJunkie</p>
+        <h3>A company. And 25 people.</h3>
+        <p>Co-founded in my final semester. I ran tech as CTO, building products for startups and corporate teams.</p>
+        <ul class="proofs"><li>From idea to MVP, worldwide</li><li>Recognised by DesignRush</li></ul>
+        <img class="sprite s-sign" src="assets/sprites/shehroz-sign.webp" alt="" aria-hidden="true" width="280" height="473">
+        <span class="way wd" data-o="6.3" data-free data-v style="left:-28px;top:calc(100% + 96px)"></span>
+      </div>
+      <div class="c-team">
+        <figure class="snapcard team" style="--r:2deg">
+          <div class="snap-img"><img src="assets/media/codejunkie-team.webp" alt="The CodeJunkie team on a day out" loading="lazy" width="800" height="480"></div>
+          <figcaption><span>A day away from our desks.</span></figcaption>
+        </figure>
+        <figure class="snapcard poster" style="--r:-4deg">
+          <div class="snap-img"><img src="assets/media/codejunkie-poster.webp" alt="A CodeJunkie internship poster" loading="lazy" width="1000" height="667"></div>
+          <figcaption><span>We were growing.</span></figcaption>
+        </figure>
+      </div>
     </div>
-    <div class="strip c">
-      <div class="ph has rise"><img src="assets/media/flappy-returns.webp" alt="Flappy Returns, my first published game" loading="lazy"></div>
-      <div class="ph has rise"><img src="assets/media/codejunkie-team.webp" alt="The CodeJunkie team on a day out" loading="lazy"></div>
-      <div class="ph has rise"><img src="assets/media/codejunkie-poster.webp" alt="A CodeJunkie internship poster" loading="lazy"></div>
-      <img class="sprite s-sign rise" src="assets/sprites/shehroz-sign.webp" alt="" width="280" height="473">
-    </div>
-    <ul class="proofs c" aria-label="Proof">
-      <li>Startups worldwide, from idea to MVP</li><li>Awarded by review platforms like DesignRush</li>
-    </ul>
-    <div class="digwrap c">
-      <span class="way wd" data-o="6.4" style="left:calc(100% + 36px);top:-24px"></span>
+    <div class="digwrap c longer">
       <span class="way dig-in" data-o="6.45" data-v data-vn></span>
+      <span class="longer-path" aria-hidden="true">Design → Build → Lead</span>
+      <img class="sprite s-sign m-only" src="assets/sprites/shehroz-sign.webp" alt="" aria-hidden="true" width="280" height="473">
       <details class="dig">
-        <summary><span class="dot knot" data-o="6.5" data-v data-vn></span><span class="plus" aria-hidden="true">+</span>Dig in: how it started</summary>
+        <summary><span class="dot knot" data-o="6.5" data-v data-vn></span><span class="plus" aria-hidden="true">+</span>The longer story</summary>
         <div class="dig-body">
           <p>I studied computer science, so building what I designed came naturally. After the game I designed the UI and UX for all my own projects and freelanced building full web apps.</p>
-          <p>At CodeJunkie I ran the technical side. Besides startups we built for corporate clients, and I trained our designers and developers as the team grew.</p>
+          <p>At CodeJunkie I ran the technical side. Besides startups we built for corporate clients, including banks in the UAE and Oman, and I trained our designers and developers as the team grew.</p>
           <ul class="chips"><li>Brand design</li><li>UI/UX</li><li>Web apps</li><li>MVPs</li><li>Team of 25</li></ul>
-          <div class="dig-media"><div class="ph">Excursion company /<br>brand work</div><div class="ph">CodeJunkie /<br>logo</div></div>
         </div>
         <span class="way dig-end" data-o="6.55" data-v data-vn></span>
       </details>
