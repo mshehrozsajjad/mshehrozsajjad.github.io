@@ -1219,6 +1219,15 @@ footer a{text-underline-offset:4px}
 }
 @media (prefers-reduced-motion:reduce){.peak-stage{height:clamp(420px,36vw,520px)}}
 @media (prefers-reduced-motion:reduce) and (max-width:760px){.peak-stage{height:auto}}
+
+/* v7.2: tabs show they are playing; prints arrive */
+.n3-tabs button{position:relative}
+.n3-tabs.run button[aria-selected="true"]{border-bottom-color:color-mix(in srgb,var(--now-trail) 30%,transparent)}
+.n3-tabs.run button[aria-selected="true"]::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--now-trail);transform-origin:left;animation:n3fill var(--step,5000ms) linear forwards}
+@keyframes n3fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.field-prints .snapcard.enter{opacity:0;transform:translateY(36px) rotate(calc(var(--r,0deg) * 2.2));transition:opacity .8s ease-out var(--d,0ms),transform 1s var(--ease) var(--d,0ms),box-shadow .35s var(--ease)}
+.field-prints .snapcard.enter.in{opacity:1;transform:rotate(var(--r,0deg))}
+@media (hover:hover) and (pointer:fine){.field-prints .snapcard.enter.in:hover{transform:rotate(0deg) translateY(-4px);transition-delay:0ms}}
 </style>
 </head>
 <body>
@@ -1773,24 +1782,38 @@ function drawBranch(d, animate){
 const PAIRS = [[pMain, pNow]];
 function pair(i){ while (PAIRS.length <= i){ const a = pMain.cloneNode(), b = pNow.cloneNode(); a.removeAttribute('id'); b.removeAttribute('id'); svg.appendChild(a); svg.appendChild(b); PAIRS.push([a, b]); } return PAIRS[i]; }
 let heroFloor = 0;
-// 03: what the platform runs, one screen at a time
+// 03: what the platform runs, one screen at a time. It plays through on its own;
+// a click takes over, and it picks up again after a while
 (() => {
   const tabs = $$('.n3-tabs [role=tab]'); if (!tabs.length) return;
-  let i = 0, auto = !reduce, timer = 0;
+  const STEP = 5000, win = $('#mA'), bar = $('.n3-tabs');
+  let i = 0, timer = 0, resume = 0, seen = false, hold = false;
   const show = (k, focus) => {
     i = (k + tabs.length) % tabs.length;
     tabs.forEach((t, j) => { const on = j === i, pane = $('#' + t.getAttribute('aria-controls'));
       t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; pane.hidden = !on; pane.classList.toggle('on', on);
       const v = $('video', pane); if (v){ if (on && !reduce){ v.currentTime = 0; v.play().catch(() => {}); } else v.pause(); } });
     if (focus) tabs[i].focus();
+    // restart the progress bar under the active tab
+    bar.classList.remove('run'); void bar.offsetWidth; if (timer) bar.classList.add('run');
   };
-  const stop = () => { auto = false; clearInterval(timer); };
-  tabs.forEach((t, j) => { t.addEventListener('click', () => { stop(); show(j); });
-    t.addEventListener('keydown', e => { const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (d){ e.preventDefault(); stop(); show(i + d, true); } }); });
-  // cycle while the screen is in view, until someone picks a tab
-  const io = new IntersectionObserver(es => es.forEach(e => { clearInterval(timer); if (e.isIntersecting && auto) timer = setInterval(() => show(i + 1), 6500); }), {threshold:.5});
-  io.observe($('#mA'));
+  const stop = () => { clearInterval(timer); timer = 0; bar.classList.remove('run'); };
+  const start = () => { if (reduce || timer || !seen || hold) return; timer = setInterval(() => show(i + 1), STEP); bar.classList.add('run'); };
+  const takeOver = () => { stop(); clearTimeout(resume); resume = setTimeout(start, 12000); };
+  tabs.forEach((t, j) => { t.addEventListener('click', () => { takeOver(); show(j); });
+    t.addEventListener('keydown', e => { const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (d){ e.preventDefault(); takeOver(); show(i + d, true); } }); });
+  [win, bar].forEach(el => { el.addEventListener('pointerenter', () => { hold = true; stop(); }); el.addEventListener('pointerleave', () => { hold = false; start(); }); });
+  bar.style.setProperty('--step', STEP + 'ms');
+  new IntersectionObserver(es => es.forEach(e => { seen = e.isIntersecting; if (seen) start(); else stop(); }), {threshold:.2}).observe(win);
 })();
+
+// 03: the field prints come in one by one
+(() => {
+  const prints = $$('.field-prints .snapcard'); if (!prints.length || reduce) return;
+  prints.forEach((p, j) => { p.classList.add('enter'); p.style.setProperty('--d', (j*160) + 'ms'); });
+  new IntersectionObserver((es, io) => es.forEach(e => { if (e.isIntersecting){ prints.forEach(p => p.classList.add('in')); io.disconnect(); } }), {threshold:.25, rootMargin:'0px 0px -10% 0px'}).observe($('.field-prints'));
+})();
+
 // CodeJunkie role: opens in place, the trail below moves with it
 $$('details.role').forEach(r => {
   r.addEventListener('toggle', () => requestAnimationFrame(build));
