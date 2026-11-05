@@ -887,6 +887,17 @@ footer a{text-underline-offset:4px}
   .l-branch,.l-drop,.l-frame path{stroke-dashoffset:0}
   .l-tick,.l-tip,.l-why,.l-future,.l-cut,.l-card > :not(.l-frame){opacity:1;transform:none}
 }
+
+/* real media inside the frames: the frame keeps the layout, the picture fills it */
+.ph.has{padding:0;background:var(--tint)}
+.ph.has::before{display:none}
+.ph.has > img,.ph.has > video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.avatar .portrait > video{object-position:50% 30%}
+.drawer .d-ph.has{aspect-ratio:3/2}
+.sound{position:absolute;left:12px;bottom:12px;border:0;border-radius:999px;padding:8px 12px;min-height:36px;background:color-mix(in srgb,var(--ink) 72%,transparent);color:var(--paper);font:600 13px/1 var(--sans);cursor:pointer}
+.sound[aria-pressed="true"]{background:var(--signal);color:var(--on-signal)}
+.strip .ph.has:nth-child(2){aspect-ratio:5/3}.strip .ph.has:nth-child(3){aspect-ratio:3/2}
+@media (max-width:760px){.strip .ph.has:nth-child(1){aspect-ratio:5/4}}
 </style>
 </head>
 <body>
@@ -928,9 +939,9 @@ footer a{text-underline-offset:4px}
     <span class="hand c" aria-hidden="true">one thing led to another</span>
     <figure class="sprite-fig s-draw c" aria-hidden="true"><img class="sprite" src="assets/sprites/shehroz-draw.webp" alt="" width="302" height="436"><span class="way pen" data-o="2.8"></span></figure>
     <div class="avatar c">
-      <div class="ph portrait">Portrait /<br>real photo</div>
+      <div class="ph portrait has"><video class="twin" src="assets/media/avatar-loop.mp4" poster="assets/media/avatar-poster.webp" autoplay muted loop playsinline aria-label="My AI twin, looping"></video></div>
       <button class="ask" type="button" data-open="agent">Ask my AI self <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button>
-      <p class="avatar-caption">Preset answers from my own notes.</p>
+      <p class="avatar-caption">My AI twin. For now it answers from my own notes.</p>
     </div>
   </div>
   <span class="way wm" data-o="3.6" style="left:82%;top:calc(100% - 34px)"></span>
@@ -943,13 +954,13 @@ footer a{text-underline-offset:4px}
     <p class="gist c rise">It began with a student trip company I co-founded at NUST. We had no money for a designer, so I opened Photoshop.</p>
     <div class="miles c">
       <div class="mile"><span class="dot" data-o="4"></span><b>Design /</b>Freelance gigs, then a contract with a social media design agency<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>first semester</span></div>
-      <div class="mile"><span class="dot" data-o="5"></span><b>First app /</b>A game on the App Store, built on a physics engine<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>designed every element myself</span></div>
+      <div class="mile"><span class="dot" data-o="5"></span><b>First app /</b>Flappy Returns, a mobile game built on a physics engine<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>designed every element myself</span></div>
       <div class="mile"><span class="dot" data-o="6"></span><b>CodeJunkie /</b>Co-founded in my final semester. I ran tech as CTO, and we grew to 25<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>banks in the UAE and Oman</span></div>
     </div>
     <div class="strip c">
-      <div class="ph rise">App Store game /<br>icon + screens</div>
-      <div class="ph rise">CodeJunkie /<br>team photo</div>
-      <div class="ph rise">Client work /<br>2–3 screens</div>
+      <div class="ph has rise"><img src="assets/media/flappy-returns.webp" alt="Flappy Returns, my first published game" loading="lazy"></div>
+      <div class="ph has rise"><img src="assets/media/codejunkie-team.webp" alt="The CodeJunkie team on a day out" loading="lazy"></div>
+      <div class="ph has rise"><img src="assets/media/codejunkie-poster.webp" alt="A CodeJunkie internship poster" loading="lazy"></div>
       <img class="sprite s-sign rise" src="assets/sprites/shehroz-sign.webp" alt="" width="280" height="473">
     </div>
     <ul class="proofs c" aria-label="Proof">
@@ -1024,10 +1035,10 @@ footer a{text-underline-offset:4px}
   <div class="wrap now-low">
     <div class="hack c">
       <div class="hack-row">
-        <figure><div class="ph">Hackathon /<br>on stage</div><figcaption>Speaking · event to come</figcaption></figure>
+        <figure><div class="ph has"><img src="assets/media/stage-paris.webp" alt="Speaking on stage at a hackathon in Paris" loading="lazy"></div><figcaption>Speaking · hackathon in Paris</figcaption></figure>
         <figure><div class="ph">Judging panel</div><figcaption>Judging · event to come</figcaption></figure>
         <figure><div class="ph">Mentoring a team</div><figcaption>Mentoring · event to come</figcaption></figure>
-        <figure><div class="ph">With partner companies</div><figcaption>Partnerships · event to come</figcaption></figure>
+        <figure><div class="ph has"><img src="assets/media/cx-summit.webp" alt="The Conversational AI and Customer Experience Summit" loading="lazy"></div><figcaption>Partnerships · Conversational AI &amp; CX Summit</figcaption></figure>
       </div>
       <p class="hack-cap">I represent us at hackathons, on stage and on judging panels. In between I mentor teams and meet companies we might partner with.</p>
     </div>
@@ -1083,7 +1094,7 @@ footer a{text-underline-offset:4px}
       <h3><span class="dot" data-o="31" data-v data-vn></span>Where the taste comes from.</h3>
       <p class="sub2">I shoot photo and video and fly a drone, and I edit everything myself. That’s why Yolk and NPC Filter both launched with a film.</p>
       <div class="taste-grid">
-        <div class="ph t1">Photo /<br>best frames</div><div class="ph t2">Drone /<br>10 s clip</div><div class="ph t3">Photo</div><div class="ph t4">Launch film /<br>Yolk</div><div class="ph t5">Launch film /<br>NPC Filter</div>
+        <div class="ph t1 has"><img src="assets/media/photo-bridge.webp" alt="A bridge at night, shot from above" loading="lazy"></div><div class="ph t2">Drone /<br>10 s clip</div><div class="ph t3 has"><img src="assets/media/photo-dome.webp" alt="A lit dome at night" loading="lazy"></div><div class="ph t4">Launch film /<br>Yolk</div><div class="ph t5">Launch film /<br>NPC Filter</div>
         <img class="sprite s-camera" src="assets/sprites/shehroz-camera.webp" alt="" aria-hidden="true" width="194" height="479">
       </div>
     </div>
@@ -1140,7 +1151,7 @@ footer a{text-underline-offset:4px}
 
 <aside role="dialog" aria-modal="true" class="drawer" id="agent" aria-label="Ask my AI self" aria-hidden="true">
   <div class="d-head"><p class="label">Ask my AI self</p><button class="x" type="button" data-close aria-label="Close">×</button></div>
-  <div class="ph d-ph">AI avatar placeholder<br>Beyond Presence, real-time</div>
+  <div class="ph d-ph has"><video class="twin" id="twinVideo" src="assets/media/avatar.mp4" poster="assets/media/avatar-poster.webp" muted loop playsinline aria-label="My AI twin"></video><button class="sound" type="button" id="twinSound" aria-pressed="false">Sound on</button></div>
   <p class="d-note">A preview built from my confirmed notes. These are preset answers, not a live AI conversation. Choose a question to explore my work.</p>
   <div class="qs">
     <button class="q" type="button" data-q="now">What are you working on now?</button>
@@ -1509,7 +1520,7 @@ $('#copy').addEventListener('click', async e => { const b = e.currentTarget; try
 
 /* drawers */
 const scrim = $('#scrim'); let lastFocus = null;
-function openD(id){ lastFocus = document.activeElement; closeD(false); const d = $('#'+id); d.classList.add('open'); d.setAttribute('aria-hidden','false'); scrim.classList.add('open'); main.inert = true; $('footer').inert = true; $('#fab').inert = true; document.body.style.overflow = 'hidden'; setTimeout(() => (id==='agent' ? $('#askInput') : $('.x', d)).focus(), 60); }
+function openD(id){ if (id === 'agent' && !reduce){ const v = $('#twinVideo'); v && v.play().catch(() => {}); } lastFocus = document.activeElement; closeD(false); const d = $('#'+id); d.classList.add('open'); d.setAttribute('aria-hidden','false'); scrim.classList.add('open'); main.inert = true; $('footer').inert = true; $('#fab').inert = true; document.body.style.overflow = 'hidden'; setTimeout(() => (id==='agent' ? $('#askInput') : $('.x', d)).focus(), 60); }
 function closeD(restore){ $$('.drawer.open').forEach(d => { d.classList.remove('open'); d.setAttribute('aria-hidden','true'); }); scrim.classList.remove('open'); main.inert = false; $('footer').inert = false; $('#fab').inert = false; document.body.style.overflow = ''; if (restore && lastFocus && lastFocus.focus) lastFocus.focus(); }
 addEventListener('keydown', e => {
   const drawer = $('.drawer.open');
@@ -1550,6 +1561,9 @@ function answer(q, key){
 }
 $$('.q').forEach(b => b.addEventListener('click', () => answer(b.textContent, b.dataset.q)));
 $('#askForm').addEventListener('submit', e => { e.preventDefault(); const i = $('#askInput'), v = i.value.trim(); if (!v) return; answer(v, route(v)); i.value = ''; });
+
+$('#twinSound').addEventListener('click', e => { const v = $('#twinVideo'), on = v.muted; v.muted = !on; if (on){ v.currentTime = 0; v.play().catch(() => {}); } e.currentTarget.setAttribute('aria-pressed', String(on)); e.currentTarget.textContent = on ? 'Sound off' : 'Sound on'; });
+if (reduce) $$('video[autoplay]').forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
 
 /* theme */
 try { const savedTheme = localStorage.getItem('site-theme'); if (['light','dark'].includes(savedTheme)) document.documentElement.dataset.theme = savedTheme; } catch (_) {}
