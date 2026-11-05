@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Shehroz Sajjad, applied AI and product engineer in Munich. Started in design, kept following the idea.">
-<title>Shehroz Sajjad — Applied AI &amp; product engineer</title>
+<meta name="description" content="Shehroz Sajjad, product engineer in Munich. Design, engineering and go-to-market, usually on the same product.">
+<title>Shehroz Sajjad · Product engineer</title>
 <link rel="icon" href="design-system/assets/Logos/shehroz-mark.svg" type="image/svg+xml">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=JetBrains+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap">
 <style>
-/* Layout: a shared life story drawn by one scroll-driven trail, then a crossroads where the visitor's choice rebuilds the rest of the page into one focused path. */
+/* Layout: one scroll-driven trail tells the gist; "dig in" branches fork off it for the details, then rejoin. */
 :root{
   --paper:#F5F5F2; --raised:#FBFBF9; --ink:#111113; --muted:#5C5C64; --line:#DCDCD5;
   --signal:#2D2BE0; --signal-soft:#E3E3FB; --on-signal:#FFFFFF;
@@ -148,80 +148,6 @@ main{position:relative;overflow-x:clip}
 .cross-stage{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center}
 .cross-stage > .wrap{width:100%}
 
-/* chapter 3: the crossroads. While undecided it pins, and scroll focuses each path in turn. */
-.ch3{padding-block:0}
-.ch3[data-mode="pin"]{height:calc(100vh * 3.4)}
-.cross-stage{position:relative;padding-block:64px 48px}
-.ch3[data-mode="pin"] .cross-stage{min-height:0;position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;padding-block:48px 28px;overflow:hidden}
-.ch3[data-mode="pin"] .cross-stage > .wrap{width:100%}
-.ch3 .numeral{right:-10px;top:4px}
-.ch3 h2{font-size:clamp(34px,4.4vw,52px);line-height:1.02}
-.local{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
-.local path{fill:none;stroke-linecap:round;stroke-linejoin:round;transition:opacity .4s var(--ease),stroke .25s}
-.cross-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:end}
-.cross-head p{font-size:18px;color:var(--muted);max-width:34ch;margin-top:16px}
-.snaps{position:relative;height:190px}
-.snap{position:absolute;width:var(--w);aspect-ratio:var(--r);left:var(--x);top:var(--y);font-size:9px;letter-spacing:.12em;padding:6px;opacity:0;transform:translateY(14px) scale(.92) rotate(var(--rot));transition:opacity .6s var(--ease),transform .6s var(--ease);transition-delay:calc(var(--i) * 90ms);box-shadow:0 10px 24px -16px rgba(17,17,19,.5)}
-.snaps.hit .snap{opacity:1;transform:rotate(var(--rot))}
-.cross-node{position:relative;height:18px;width:18px;margin:34px 0 0 calc(50% - 21px)}
-.cross-node .dot{left:0;top:0}
-.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin:44px 0 0 clamp(28px,5vw,60px)}
-.opt{position:relative;min-width:0;transition:opacity .45s var(--ease),transform .45s var(--ease),filter .45s}
-.fields .opt:nth-child(2){margin-top:22px}
-.fields .opt:nth-child(3){margin-top:4px}
-.opt-b{display:block;text-align:left;border:0;background:none;padding:0;cursor:pointer;width:100%}
-.opt-b b{display:block;font:700 clamp(22px,2.3vw,27px)/1.08 var(--sans);letter-spacing:-.03em;transition:color .2s}
-.opt-b span{display:block;margin-top:8px;font-size:16px;opacity:.85}
-.opt-b em{display:inline-block;margin-top:12px;font:600 12px/1 var(--sans);font-style:normal;letter-spacing:.14em;text-transform:uppercase;color:var(--signal)}
-.opt-b:hover b{color:var(--signal)}
-.opt-b .tease{display:block;max-height:0;opacity:0;overflow:hidden;font-size:15px;line-height:1.4;color:var(--muted);transition:max-height .45s var(--ease),opacity .45s var(--ease),margin .45s var(--ease)}
-.fields[data-focus] .opt:not(.focus){opacity:.38}
-.opt.focus .opt-b b{color:var(--signal)}
-.opt.focus .opt-b .tease{max-height:5em;opacity:1;margin-top:10px}
-.opt.focus{transform:translateY(-4px)}
-.ring{position:absolute;left:-33px;top:calc(.42em - 7px);width:26px;height:26px;pointer-events:none;transform:rotate(-90deg)}
-.ring circle{fill:none;stroke:var(--signal);stroke-width:2;stroke-dasharray:75.4;stroke-dashoffset:75.4;opacity:0}
-.opt.arming .ring circle{opacity:1;stroke-dashoffset:0;transition:stroke-dashoffset 1.6s linear}
-[data-chosen] > .opt:not(.on){opacity:.34;transform:scale(.97);filter:saturate(0)}
-[data-chosen] > .opt:not(.on):hover{opacity:.7}
-.opt.on .opt-b b{color:var(--signal)}
-.prompt{display:none}
-.ch3[data-mode="pin"] .prompt{display:flex;align-items:center;gap:14px;margin:40px 0 0 clamp(28px,5vw,60px);max-width:760px;padding:8px 8px 8px 18px;border:1px solid var(--line);border-radius:999px;background:var(--raised);box-shadow:0 14px 34px -26px rgba(17,17,19,.5)}
-.pdots{display:flex;gap:6px;flex:none}
-.pdots i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--signal);transition:background .2s}
-.pdots i.on{background:var(--signal)}
-#promptText{flex:1;min-width:0;font-size:15px;line-height:1.35}
-#promptText b{font-weight:600}
-#promptText small{display:block;color:var(--muted);font-size:13px}
-#take{flex:none}
-#take:disabled{opacity:.35;cursor:default}
-
-/* a chosen path */
-.fsec,.wsec{position:relative;padding-block:84px 40px;border-top:1px solid var(--line)}
-.fsec .label,.wsec .label{color:var(--signal)}
-.fsec h2,.wsec h2{margin:18px 0 14px}
-.intro{font-size:clamp(18px,1.6vw,20px);max-width:52ch;color:var(--ink)}
-.beats{display:grid;gap:64px;margin:72px 0 0 clamp(28px,5vw,60px)}
-.beat{position:relative;max-width:520px}
-.beat:nth-of-type(2){margin-left:auto;margin-right:6%}
-.beat:nth-of-type(3){margin-left:18%}
-.beat .k{font:600 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.beat q{display:block;quotes:none;font:700 clamp(24px,2.6vw,32px)/1.12 var(--sans);letter-spacing:-.03em;margin-top:10px}
-.beat p{margin-top:10px;color:var(--muted);font-size:17px}
-.deeper{margin-top:96px}
-.deeper h3{font:700 clamp(28px,3vw,38px)/1.05 var(--sans);letter-spacing:-.04em}
-.deeper > p{color:var(--muted);margin-top:8px}
-.deeper .cross-node{margin-left:clamp(4px,24vw,260px);margin-top:30px}
-.subs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin:40px 0 0 clamp(28px,5vw,60px)}
-.subs .opt:nth-child(2){margin-top:18px}
-.work{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px 40px;margin:64px 0 0 clamp(28px,5vw,60px)}
-.card{position:relative}
-.card .ph{aspect-ratio:16/10;margin-bottom:18px}
-.card .st{font:600 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.card h3{font:700 26px/1.1 var(--sans);letter-spacing:-.03em;margin-top:8px}
-.card p{margin-top:8px;color:var(--muted);font-size:16.5px}
-.card .note{font:400 23px/1.05 var(--hand);color:var(--signal);margin-top:10px;display:block}
-.card a{display:inline-block;margin-top:12px;font:600 15px/1 var(--sans);color:var(--signal);text-underline-offset:4px}
 .end{margin:96px 0 0;display:flex;align-items:flex-end;gap:18px;position:relative}
 .end b{font:700 22px/1.2 var(--sans);letter-spacing:-.02em}
 .pill{border:1px solid var(--ink);background:none;border-radius:999px;padding:12px 18px;font:500 15px/1 var(--sans);cursor:pointer}
@@ -248,14 +174,6 @@ footer{border-top:1px solid var(--line);padding-block:26px 40px;font-size:14px;c
 footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;align-items:center}
 .copy{border:1px solid var(--line);background:none;border-radius:999px;padding:6px 12px;font:500 13px/1 var(--sans);cursor:pointer;color:var(--ink)}
 
-/* breadcrumb */
-.crumbs{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:50%;z-index:45;display:flex;align-items:center;gap:4px;max-width:calc(100% - 32px);overflow-x:auto;scrollbar-width:none;white-space:nowrap;background:var(--raised);border:1px solid var(--line);border-radius:999px;padding:5px 6px 5px 14px;box-shadow:0 12px 30px -20px rgba(17,17,19,.5);transform:translate(-50%,-160%);transition:transform .4s var(--ease)}
-.crumbs.show{transform:translate(-50%,0)}
-.crumbs::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--signal);margin-right:6px}
-.crumbs button{border:0;background:none;padding:7px 9px;border-radius:999px;font:500 14px/1 var(--sans);cursor:pointer;color:var(--muted)}
-.crumbs button:hover{color:var(--signal);background:var(--signal-soft)}
-.crumbs button[aria-current="step"]{color:var(--ink);font-weight:600;cursor:default;background:none}
-.crumbs i{font-style:normal;color:var(--line)}
 
 /* floating ask + drawers */
 .fab{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;border:0;background:var(--signal);color:var(--on-signal);border-radius:999px;padding:13px 18px;font:600 15px/1 var(--sans);cursor:pointer;transform:translateY(160%);transition:transform .35s var(--ease);box-shadow:0 14px 34px -18px rgba(17,17,19,.55)}
@@ -323,34 +241,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
   .now h2{margin-top:56px}
   .media{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:12px;margin-top:32px}
   .now .hand{margin-left:0}
-  .cross-head{grid-template-columns:minmax(0,1fr)}
-  .ch3 h2{margin-top:56px}
-  .ch3[data-mode="pin"] .cross-stage{padding-block:18px 12px}
-  .ch3[data-mode="pin"] h2{margin-top:0;font-size:32px}
-  .ch3[data-mode="pin"] .cross-head{gap:0}
-  .ch3[data-mode="pin"] .cross-head p{margin-top:8px;font-size:15.5px}
-  .ch3[data-mode="pin"] .snaps{height:130px;margin:8px 0 -52px;transform:scale(.6);transform-origin:left top;width:166%}
-  .ch3[data-mode="pin"] .cross-node{margin-top:14px}
-  .ch3[data-mode="pin"] .fields{margin-top:14px;gap:12px}
-  .ch3[data-mode="pin"] .opt-b b{font-size:21px}
-  .ch3[data-mode="pin"] .opt-b span{margin-top:4px;font-size:14.5px}
-  .ch3[data-mode="pin"] .opt-b em{margin-top:6px}
-  .ch3[data-mode="pin"] .prompt{margin:18px 0 0;border-radius:16px;flex-wrap:wrap;padding:12px}
-  .ch3[data-mode="pin"] #take{width:100%}
-  .ring{left:-37px}
-  .snaps{height:120px;margin-top:22px}
-  .cross-node,.deeper .cross-node{margin-left:-32px}
-  .beats{margin-left:0;gap:48px}
-  .beat:nth-child(n){margin-left:0;margin-right:0}
-  .work{grid-template-columns:minmax(0,1fr);margin-left:0;gap:44px}
-  .card:nth-child(even){margin-top:0}
   .dot{left:-30px}
-  .crumbs{top:auto;bottom:calc(76px + env(safe-area-inset-bottom,0px));transform:translate(-50%,calc(100% + 120px))}
-  .crumbs.show{transform:translate(-50%,0)}
-}
-@media (max-width:760px) and (max-height:700px){
-  .ch3[data-mode="pin"] .snaps{display:none}
-  .ch3[data-mode="pin"] .cross-head p{display:none}
 }
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{transition:none!important;animation:none!important}
@@ -536,6 +427,183 @@ footer a{text-underline-offset:4px}
   .bot-eyes i,.think-dots i{animation:none}
   .mnote,.dd-svg path,.mnote path{transition:none}
 }
+
+/* ===== Story v4: gist on the trail, details on branches ===== */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hero .sub{max-width:40ch}
+.tease-note{display:inline-block;margin-top:12px;font:400 23px/1 var(--hand);color:var(--signal);transform:rotate(-3deg);transform-origin:left center}
+.gist{font-size:clamp(19px,1.8vw,22px);line-height:1.5;max-width:46ch;margin:24px 0 0 clamp(0px,9vw,96px)}
+.ch2{border-top:1px solid var(--line)}
+.ch2 .numeral{left:auto;right:-10px}
+.ch2 h2{margin-left:clamp(0px,9vw,96px)}
+.strip{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr) auto;gap:20px;align-items:end;margin-top:64px}
+.strip .ph:nth-child(1){aspect-ratio:4/3}.strip .ph:nth-child(2){aspect-ratio:1/1}.strip .ph:nth-child(3){aspect-ratio:4/5}
+.strip .s-sign{--h:168px}
+.ch2-low{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,.8fr);gap:32px;align-items:end;margin-top:56px}
+.ch2-low .ph{aspect-ratio:16/5}
+.ch2-low .s-laptop{--h:150px}
+.ch2-low p{color:var(--muted);font-size:16px;max-width:32ch}
+.proofs{list-style:none;display:flex;flex-wrap:wrap;gap:10px 26px;margin:32px 0 0;padding:0;font:500 13px/1.4 var(--mono);letter-spacing:.01em}
+.proofs li{display:flex;align-items:center;gap:8px}
+.proofs li::before{content:"";width:7px;height:7px;background:var(--signal);border-radius:1px;flex:none}
+.chips{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 0;padding:0}
+.chips li{font:500 11px/1 var(--mono);letter-spacing:.02em;border:1px solid var(--line);border-radius:999px;padding:7px 10px;color:var(--muted)}
+.now .chips li{border-color:color-mix(in srgb,var(--now-ink) 26%,transparent);color:color-mix(in srgb,var(--now-ink) 72%,transparent)}
+
+/* dig in: a branch leaves the trail, runs beside the details, and rejoins */
+.digwrap{position:relative;margin:44px 0 0 clamp(28px,5vw,60px)}
+.dig{position:relative}
+.dig summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;min-height:44px;font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--signal);user-select:none}
+.dig summary::-webkit-details-marker{display:none}
+.dig summary:hover{text-decoration:underline;text-underline-offset:4px}
+.dig .plus{width:20px;height:20px;border:1.5px solid currentColor;border-radius:50%;display:grid;place-items:center;font:500 14px/1 var(--sans);transition:transform .25s var(--ease)}
+.dig[open] .plus{transform:rotate(45deg)}
+.dig .knot{top:calc(50% - 6px)}
+.dig summary{position:relative}
+.dig-body{display:grid;gap:14px;max-width:720px;padding:10px 0 34px 30px;font-size:17px;line-height:1.6}
+.dig-body > p{color:var(--ink)}
+.now .dig-body > p{color:var(--now-ink)}
+.js .dig[open] .dig-body{animation:unfold .55s var(--ease) both}
+.dig-media{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-top:6px}
+.dig-media .ph{aspect-ratio:4/3}
+.dig-end{left:-20px;bottom:0}
+.dig-in{left:-20px;top:-14px}
+.dig-branch{position:absolute;left:-20px;width:30px;overflow:visible;pointer-events:none;z-index:1}
+.dig-branch path{fill:none;stroke:var(--signal);stroke-width:1.6;stroke-linecap:round;transition:stroke-dashoffset .7s var(--ease)}
+.now .dig-branch path{stroke:var(--now-trail)}
+
+/* now: proof and the road */
+.now .now-low{display:block;margin-top:72px}
+.now-low > .c + .c{margin-top:56px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:0;border-top:1px solid color-mix(in srgb,var(--now-ink) 22%,transparent);padding-top:28px}
+.stats dt{font:600 clamp(36px,4.4vw,56px)/1 var(--sans);letter-spacing:-.045em}
+.stats dd{margin:10px 0 0;font-size:15px;opacity:.75;max-width:22ch}
+.src{margin-top:16px;font:400 11px/1.5 var(--mono);opacity:.6}
+.src a{text-underline-offset:3px}
+.hack .label{opacity:.75}
+.hack-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:18px}
+.hack-row figure{margin:0}
+.hack-row .ph{aspect-ratio:4/5}
+.hack-row figcaption{margin-top:10px;font:500 11px/1.4 var(--mono);opacity:.75}
+.hack-cap{margin-top:20px;font-size:17px;max-width:56ch}
+.now .digwrap{margin-top:40px}
+
+/* the lab */
+.lab{padding-block:104px 64px}
+.lab .numeral{right:-10px;top:30px}
+.lab-head{position:relative;margin-left:clamp(28px,5vw,60px)}
+.lab-head h2{margin-top:18px;max-width:14ch}
+.lab-head .lead{font-size:clamp(18px,1.6vw,20px);line-height:1.6;color:var(--muted);max-width:52ch;margin-top:20px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+.chip-b{border:1px solid var(--line);background:none;border-radius:999px;padding:0 15px;min-height:40px;font:500 14px/1 var(--sans);cursor:pointer;transition:background-color .16s,color .16s,border-color .16s}
+.chip-b:hover{border-color:var(--signal);color:var(--signal)}
+.chip-b[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.think-wrap{position:absolute;right:0;bottom:0}
+.lab-head .s-think{position:static;--h:150px}
+.think-wrap .think-dots{right:auto;left:72%;bottom:auto;top:-30px}
+.lab:not([data-filter="all"]) .think-dots{opacity:0}
+.lab-list{position:relative;display:grid;gap:96px;margin:96px 0 0 clamp(28px,5vw,60px)}
+.lab-entry{left:-20px;top:-56px}
+[data-tags]{transition:opacity .35s var(--ease)}
+.lab:not([data-filter="all"]) [data-tags]:not(.match){opacity:.26}
+.node{position:relative}
+.node-main{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:24px 56px;align-items:start}
+.node .k{font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.node h3{font:600 clamp(28px,3vw,36px)/1.05 var(--sans);letter-spacing:-.04em;margin-top:12px}
+.node .line{font-size:clamp(18px,1.6vw,20px);line-height:1.45;margin-top:12px;max-width:34ch}
+.node .proof{display:flex;align-items:center;gap:8px;margin-top:14px;font:500 13px/1.4 var(--mono);color:var(--signal)}
+.node .proof::before{content:"";width:7px;height:7px;background:currentColor;border-radius:1px;flex:none}
+.meter{list-style:none;display:flex;gap:4px;margin:22px 0 0;padding:0;max-width:400px}
+.meter li{flex:1;min-width:0;padding-top:9px;border-top:3px solid var(--line);font:500 10px/1 var(--mono);letter-spacing:.02em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:border-color .5s var(--ease) calc(var(--i) * 110ms),color .5s var(--ease) calc(var(--i) * 110ms)}
+.meter li.on{border-color:var(--signal);color:var(--ink)}
+.meter li.stop{border-top-style:dashed;text-decoration:line-through}
+.js .node.rise:not(.in) .meter li.on{border-color:var(--line);color:var(--muted)}
+.meter-l{display:block;margin-top:8px;font-size:14px;color:var(--muted)}
+.taught{margin-top:18px;padding-left:12px;border-left:2px solid var(--signal);font-size:16px;line-height:1.5;max-width:40ch}
+.taught span{display:block;font:500 10px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.node .links{display:flex;flex-wrap:wrap;gap:16px;margin-top:18px}
+.node .links a{font:600 15px/1 var(--sans);color:var(--signal);text-underline-offset:4px}
+.shot{position:relative}
+.shot > img:not(.sprite),.shot > .ph{display:block;width:100%;aspect-ratio:16/10;border:1px solid var(--line);border-radius:3px}
+.shot > img:not(.sprite){object-fit:cover;object-position:top;background:var(--raised)}
+.node .chips{margin-top:16px}
+.node .hand{font-size:23px;color:var(--signal);margin-top:14px}
+.node .s-solder{--h:120px;position:absolute;right:-8px;bottom:-62px}
+.node .dig{margin-top:18px}
+.given,.taste{position:relative;margin:120px 0 0 clamp(28px,5vw,60px)}
+.given h3,.taste h3{position:relative;font:600 clamp(28px,3vw,36px)/1.05 var(--sans);letter-spacing:-.04em}
+.given h3 .dot,.taste h3 .dot{top:.3em}
+.sub2{color:var(--muted);margin-top:12px;max-width:52ch}
+.given-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 48px;margin-top:36px;max-width:900px}
+.given-list .st{font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.given-list b{display:block;font:600 21px/1.2 var(--sans);letter-spacing:-.02em;margin-top:8px}
+.given-list p:not(.st){color:var(--muted);font-size:16px;margin-top:6px}
+.given-list a{display:inline-block;margin-top:10px;font:600 15px/1 var(--sans);color:var(--signal);text-underline-offset:4px}
+.taste-grid{position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;margin-top:36px}
+.taste-grid .t1{grid-column:span 3;aspect-ratio:3/2}.taste-grid .t2{grid-column:span 3;aspect-ratio:3/2}
+.taste-grid .t3{grid-column:span 2;aspect-ratio:4/5}.taste-grid .t4{grid-column:span 2;aspect-ratio:4/5}.taste-grid .t5{grid-column:span 2;aspect-ratio:4/5}
+.taste-grid .s-camera{--h:120px;position:absolute;right:-6px;top:-118px}
+.close{position:relative;display:flex;align-items:flex-end;gap:20px;margin:132px 0 0 clamp(28px,5vw,60px)}
+.close > .dot{top:auto;bottom:calc(100% - 4px)}
+.close .s-point{--h:124px;flex:none}
+.close h3{font:600 clamp(28px,3vw,36px)/1.08 var(--sans);letter-spacing:-.04em}
+.close p{color:var(--muted);margin-top:10px;max-width:46ch}
+.close .hand{margin-top:16px;color:var(--signal);font-size:22px;transform:rotate(-2deg)}
+
+/* calls to action */
+.foot{padding-block:96px 120px;border-top:1px solid var(--line)}
+.foot .wrap{display:block;padding-right:var(--gr)}
+.foot .doodle-plane{margin:0 0 8px}
+.foot-h{font-size:clamp(38px,5vw,60px);line-height:1}
+.cta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:40px;max-width:900px}
+.cta-card{display:grid;gap:14px;align-content:start;border:1px solid var(--line);background:var(--raised);border-radius:4px;padding:26px}
+.cta-card .label{color:var(--muted)}
+.cta-card .t{font-size:20px;line-height:1.3;letter-spacing:-.01em}
+.cta-card form{display:flex;gap:8px;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--paper)}
+.cta-card input{flex:1;min-width:0;border:0;background:none;color:var(--ink);font:500 16px/1 var(--sans);padding:0 16px;border-radius:999px}
+.cta-card input::placeholder{color:var(--muted)}
+.cta-card .msg{margin-top:0;min-height:0}
+.cta-card .msg:empty{display:none}
+.foot .big-link{display:inline-block;margin-top:44px}
+.foot .s-wave{bottom:-90px}
+
+@media (max-width:760px){
+  .gist,.ch2 h2{margin-left:0}
+  .ch2 h2{margin-top:36px}
+  .ch2 .numeral{top:10px;right:4px}
+  .strip{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:40px}
+  .strip .ph:nth-child(1){grid-column:span 2;aspect-ratio:16/9}
+  .strip .s-sign{display:none}
+  .ch2-low{grid-template-columns:minmax(0,1fr);gap:20px}
+  .ch2-low .ph{aspect-ratio:16/8}
+  .ch2-low .s-laptop{--h:110px}
+  .digwrap,.lab-head,.lab-list,.given,.taste,.close{margin-left:0}
+  .dig-end,.dig-in,.dig-branch,.lab-entry{left:-24px}
+  .dig-body{padding-left:26px}
+  .stats{grid-template-columns:minmax(0,1fr);gap:20px}
+  .hack-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .think-wrap{display:none}
+  .lab{padding-block:72px 48px}
+  .lab-list{gap:72px;margin-top:64px}
+  .node-main{grid-template-columns:minmax(0,1fr);gap:18px}
+  .node .s-solder{display:none}
+  .given,.taste{margin-top:88px}
+  .given-list{grid-template-columns:minmax(0,1fr);gap:28px}
+  .taste-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .taste-grid .t1{grid-column:span 2}.taste-grid .t2,.taste-grid .t3,.taste-grid .t4,.taste-grid .t5{grid-column:span 1;aspect-ratio:4/5}
+  .taste-grid .s-camera{--h:96px;top:-104px}
+  .close{flex-wrap:wrap;margin-top:96px}
+  .close .s-point{--h:92px}
+  .cta{grid-template-columns:minmax(0,1fr)}
+  .cta-card{padding:20px}
+  .foot{padding-block:72px 120px}
+  .foot .s-wave{bottom:-104px}
+  .cta-card form{flex-wrap:wrap;border-radius:16px;padding:6px}
+  .cta-card input{min-height:44px;flex-basis:100%}
+  .cta-card .btn{width:100%}
+  .foot .say-hi{bottom:-64px;right:calc(var(--gr) + 104px)}
+  .taste-grid .s-camera{display:none}
+}
 </style>
 </head>
 <body>
@@ -543,17 +611,14 @@ footer a{text-underline-offset:4px}
 <main id="main">
 <svg id="trail" aria-hidden="true">
   <defs><clipPath id="nowClip"><rect id="nowRect" x="0" y="0" width="0" height="0"/></clipPath></defs>
-  <g id="branches"></g>
   <path id="pMain" style="stroke:var(--signal);stroke-width:2"/>
   <path id="pMainNow" clip-path="url(#nowClip)" style="stroke:var(--now-trail);stroke-width:2"/>
-  <path id="pPost" style="stroke:var(--signal);stroke-width:2"/>
-  <path id="pPost2" style="stroke:var(--signal);stroke-width:2"/>
 </svg>
 
 <header class="top c">
   <div class="wrap">
     <a class="mark" href="#" aria-label="shehrozsajjad.com, back to top">Shehroz Sajjad <span class="dot hit" data-o="0"></span></a>
-    <nav class="nav" aria-label="Main"><a href="#now">Work</a><i>/</i><a href="#story">Story</a><i>/</i><a href="#experiments">Experiments</a></nav>
+    <nav class="nav" aria-label="Main"><a href="#story">Story</a><i>/</i><a href="#now">Now</a><i>/</i><a href="#lab">Lab</a></nav>
     <button class="theme" id="theme" type="button">Dark</button>
   </div>
 </header>
@@ -565,12 +630,13 @@ footer a{text-underline-offset:4px}
     <span class="way wd" data-o="3" style="left:62%;top:calc(100% + 36px)"></span>
     <span class="way wd" data-o="3.5" style="left:12%;top:calc(100% + 58px)"></span>
     <div class="c">
-      <p class="label">Applied AI &amp; product engineer</p>
+      <p class="label">Product engineer · Munich</p>
       <h1 id="h1" tabindex="-1">Started in <span class="it">design.</span><br>Kept following <span class="dd" data-doodle="underline2" data-manual>the idea.</span></h1>
-      <p class="sub">Products, companies, stories—and the occasional robot.</p>
-      <div class="hero-actions"><a class="pill pri" href="#experiments">Explore my work <span aria-hidden="true">↘</span></a><a class="text-link" href="#story">Follow the story <span aria-hidden="true">↓</span></a></div>
+      <p class="sub">It led to a 25-person studio, a platform behind 200,000+ avatar sessions, a pocket device that <span class="dd" data-doodle="underline" data-manual>makes my German phone calls</span>, and the occasional robot.</p>
+      <span class="tease-note" aria-hidden="true">more on that call later ↓</span>
+      <div class="hero-actions"><a class="pill pri" href="#lab">Explore my work <span aria-hidden="true">↘</span></a><a class="text-link" href="#story">Follow the story <span aria-hidden="true">↓</span></a></div>
       <img class="doodle doodle-idea" src="assets/doodles/idea.png" alt="" aria-hidden="true" width="2172" height="724">
-      <p class="disc">Design <i>·</i> Development <i>·</i> Marketing <i>·</i> AI</p>
+      <p class="disc">Design <i>·</i> Engineering <i>·</i> Go-to-market <i>·</i> AI</p>
     </div>
     <span class="hand c" aria-hidden="true">one thing led to another</span>
     <figure class="sprite-fig s-draw c" aria-hidden="true"><img class="sprite" src="assets/sprites/shehroz-draw.webp" alt="" width="302" height="436"><span class="way pen" data-o="2.8"></span></figure>
@@ -586,91 +652,205 @@ footer a{text-underline-offset:4px}
   <span class="numeral" aria-hidden="true">01</span>
   <div class="wrap">
     <h2 id="h-ch1" class="c rise">Design became products.<br>Products became <span class="dd" data-doodle="circle">a company.</span></h2>
+    <p class="gist c rise">First semester: no budget, so I opened Photoshop. Final semester: I co-founded CodeJunkie and grew it to 25 people.</p>
     <div class="miles c">
-      <div class="mile"><span class="dot" data-o="4"></span><b>CodeJunkie /</b>Co-founder<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>my first company · 20+ products</span></div>
-      <div class="mile"><span class="dot" data-o="5"></span><b>Interfaces &amp; medical technology /</b>Porsche work · cureVision<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>where feel matters as much as function</span></div>
-      <div class="mile"><span class="dot" data-o="6"></span><b>Beyond Presence /</b>Founding Engineer<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>here since Sep 2024</span></div>
+      <div class="mile"><span class="dot" data-o="4"></span><b>Design /</b>Freelance gigs, an agency contract, and an excursion company I co-founded<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>first semester, no budget</span></div>
+      <div class="mile"><span class="dot" data-o="5"></span><b>First app /</b>A game on the App Store, built on a physics engine<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>designed every element myself</span></div>
+      <div class="mile"><span class="dot" data-o="6"></span><b>CodeJunkie /</b>Co-founder &amp; CTO · 25 people<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>banks in the UAE and Oman</span></div>
     </div>
-    <div class="ch1-low c">
-      <div class="ph rise">Personal archive /<br>Photography coming soon</div>
+    <div class="strip c">
+      <div class="ph rise">App Store game /<br>icon + screens</div>
+      <div class="ph rise">CodeJunkie /<br>team photo</div>
+      <div class="ph rise">Client work /<br>2–3 screens</div>
       <img class="sprite s-sign rise" src="assets/sprites/shehroz-sign.webp" alt="" width="280" height="473">
-      <p class="rise">Along the way: a master’s in entrepreneurship in Munich.</p>
+    </div>
+    <ul class="proofs c" aria-label="Proof">
+      <li>Startups worldwide, idea to MVP</li><li>Banks in the UAE and Oman</li><li>Awarded by review platforms like DesignRush</li>
+    </ul>
+    <div class="digwrap c">
+      <span class="way wd" data-o="6.4" style="left:calc(100% + 36px);top:-24px"></span>
+      <span class="way dig-in" data-o="6.45" data-v data-vn></span>
+      <details class="dig">
+        <summary><span class="dot knot" data-o="6.5" data-v data-vn></span><span class="plus" aria-hidden="true">+</span>Dig in: how it started</summary>
+        <div class="dig-body">
+          <p>First semester at NUST, I co-founded a company that took students on excursion trips. It needed a brand and we had no budget, so I opened Photoshop. That led to freelance design gigs and a contract with a social media design agency.</p>
+          <p>As a computer science student, building came naturally. My first app was a game on the App Store: I designed every element and built it on a physics engine. From then on I designed the UI and UX for my own projects and freelanced building full web apps.</p>
+          <p>In my final semester I co-founded CodeJunkie and ran it as CTO. We grew to 25 people, took startups around the world from idea to MVP, and built for corporate clients including banks in the UAE and Oman. I also trained and mentored our designers and developers.</p>
+          <ul class="chips"><li>Brand design</li><li>UI/UX</li><li>Web apps</li><li>MVPs</li><li>Team of 25</li></ul>
+          <div class="dig-media"><div class="ph">Excursion company /<br>brand work</div><div class="ph">CodeJunkie /<br>logo</div></div>
+        </div>
+        <span class="way dig-end" data-o="6.55" data-v data-vn></span>
+      </details>
     </div>
   </div>
-  <span class="way wd" data-o="7" style="left:88%;top:62%"></span>
-  <span class="way wm" data-o="7.5" style="left:76%;top:calc(100% - 44px)"></span>
+  <span class="way wm" data-o="6.95" style="left:76%;top:calc(100% - 44px)"></span>
+</section>
+
+<section class="ch ch1 ch2" id="inside" aria-labelledby="h-ch2">
+  <span class="numeral" aria-hidden="true">02</span>
+  <div class="wrap">
+    <h2 id="h-ch2" class="c rise">Then I went inside <span class="dd" data-doodle="underline">the product.</span></h2>
+    <p class="gist c rise">A React rebuild at Keyhole, an in-car system for a top German car company, and edge ML at cureVision.</p>
+    <div class="miles c">
+      <div class="mile"><span class="dot" data-o="7.2"></span><b>Keyhole /</b>Social media analytics. Rebuilt legacy platform components in React</div>
+      <div class="mile"><span class="dot" data-o="7.3"></span><b>A top German car company /</b>A car information system</div>
+      <div class="mile"><span class="dot" data-o="7.4"></span><b>cureVision /</b>Custom software on custom hardware, ML on the device<span class="mnote" aria-hidden="true"><svg viewBox="0 0 22 20"><path pathLength="1" d="M19 18 C 13 16, 8 12, 6 3 M2 8 L6 2 L10 7"/></svg>joined at the foundational stage</span></div>
+    </div>
+    <div class="ch2-low c">
+      <div class="ph rise">cureVision /<br>public product photo</div>
+      <img class="sprite s-laptop rise" src="assets/sprites/shehroz-laptop.webp" alt="" width="258" height="438">
+      <p class="rise">Along the way: a master’s in entrepreneurship in Munich.</p>
+    </div>
+    <div class="digwrap c">
+      <span class="way wd" data-o="7.5" style="left:calc(100% + 36px);top:-24px"></span>
+      <span class="way dig-in" data-o="7.55" data-v data-vn></span>
+      <details class="dig">
+        <summary><span class="dot knot" data-o="7.6" data-v data-vn></span><span class="plus" aria-hidden="true">+</span>Dig in: the product years</summary>
+        <div class="dig-body">
+          <p>At Keyhole, a social media analytics company, I rebuilt components of their legacy platform in React.</p>
+          <p>For one of Germany’s top car companies, I worked on a car information system.</p>
+          <p>In Munich I joined cureVision at its foundational stage. I built custom software on custom hardware that runs ML models on the device, which made wound documentation about 90% faster.</p>
+          <ul class="chips"><li>React</li><li>Edge ML</li><li>Custom hardware</li><li>Medical technology</li><li>Automotive</li></ul>
+        </div>
+        <span class="way dig-end" data-o="7.65" data-v data-vn></span>
+      </details>
+    </div>
+  </div>
+  <span class="way wm" data-o="7.95" style="left:72%;top:calc(100% - 40px)"></span>
 </section>
 
 <section class="now" id="now" aria-labelledby="h-now">
   <div class="now-bg" id="nowBg"></div>
-  <span class="numeral" aria-hidden="true">02</span>
-  <span class="way wd" data-o="8" style="left:57%;top:3%"></span>
-  <span class="way wd" data-o="9" style="left:79%;top:52%"></span>
-  <span class="way wd" data-o="10" style="left:91%;top:93%"></span>
+  <span class="numeral" aria-hidden="true">03</span>
+  <span class="way wd" data-o="8" style="left:94%;top:4%"></span>
   <span class="way wm" data-o="8.5" style="left:58%;top:30px"></span>
-  <span class="way wm" data-o="10.5" style="left:88%;top:calc(100% - 28px)"></span>
   <div class="wrap">
     <div class="c" id="nowText">
       <p class="label">Now / Beyond Presence</p>
       <h2 id="h-now">Build the product. Then help it <span class="dd" data-doodle="underline">reach people.</span></h2>
-      <p class="sub">Product design and engineering.<br>Real-time AI. Internal GTM experiments.</p>
+      <p class="sub">I joined at pre-seed, before there was a product. Now I own the platform behind 200,000+ avatar sessions.</p>
+      <ul class="chips"><li>Real-time AI</li><li>Video avatars</li><li>Managed agents</li><li>Meeting integrations</li><li>Embeds</li></ul>
     </div>
     <div class="c">
       <div class="media">
-        <div class="ph a" id="mA">Product experience /<br>media placeholder</div>
-        <div class="ph b" id="mB">Marketing &amp;<br>design /<br>media<br>placeholder</div>
+        <div class="ph a" id="mA">Avatar in a Zoom call /<br>15 s clip</div>
+        <div class="ph b" id="mB">Concierge widget /<br>screen recording</div>
       </div>
-      <p class="cap" id="nowCap">Exploring AI automation for our marketing and design work.</p>
+      <p class="cap" id="nowCap">Avatars that join Zoom and Teams calls, a kiosk, and a concierge that drives a website while you talk to it.</p>
       <span class="hand" id="nowHand" aria-hidden="true">the work doesn’t end at launch</span>
     </div>
   </div>
+  <div class="wrap now-low">
+    <div class="c">
+      <dl class="stats">
+        <div><dt>200,000+</dt><dd>avatar sessions served</dd></div>
+        <div><dt>1,000+</dt><dd>sessions in parallel</dd></div>
+        <div><dt>15,000+</dt><dd>startups, scaleups and enterprise teams</dd></div>
+      </dl>
+      <p class="src">Public figures from <a href="https://www.beyondpresence.ai/" target="_blank" rel="noopener">beyondpresence.ai</a></p>
+    </div>
+    <div class="hack c">
+      <p class="label">On the road for Beyond Presence</p>
+      <div class="hack-row">
+        <figure><div class="ph">Hackathon /<br>on stage</div><figcaption>Speaker · event to come</figcaption></figure>
+        <figure><div class="ph">Hackathon /<br>judging panel</div><figcaption>Judge · event to come</figcaption></figure>
+        <figure><div class="ph">Hackathon /<br>mentoring a team</div><figcaption>Mentor · event to come</figcaption></figure>
+        <figure><div class="ph">Hackathon /<br>with partners</div><figcaption>Partnerships · event to come</figcaption></figure>
+      </div>
+      <span class="way wd" data-o="9" style="left:calc(100% + 40px);top:100%"></span>
+      <p class="hack-cap">I represent us at hackathons: speaking, judging ideas, mentoring teams, and meeting companies we could partner with.</p>
+    </div>
+    <div class="digwrap c">
+      <span class="way dig-in" data-o="9.45" data-v data-vn></span>
+      <details class="dig">
+        <summary><span class="dot knot" data-o="9.5" data-v data-vn></span><span class="plus" aria-hidden="true">+</span>Dig in: what I own</summary>
+        <div class="dig-body">
+          <p>I own the creator platform and the call platform end to end. Together they serve our real-time avatar technology and our Managed Agents product: creating an avatar, embedding it on any website, and sending it into external meetings.</p>
+          <p>I built the meetings integration, so an avatar can join a Zoom or Teams call like any other participant. Around the platform sit a kiosk and an AI concierge widget that controls a website while you talk to it.</p>
+          <p>I joined as one of the first employees and helped take it from MVP to a full product.</p>
+          <div class="dig-media"><div class="ph">Creator platform /<br>screen recording</div><div class="ph">Kiosk /<br>photo or clip</div></div>
+        </div>
+        <span class="way dig-end" data-o="9.55" data-v data-vn></span>
+      </details>
+    </div>
+  </div>
+  <span class="way wm" data-o="10.5" style="left:88%;top:calc(100% - 28px)"></span>
 </section>
 
-<section class="ch ch3" id="experiments" aria-labelledby="h-ch3" data-mode="pin">
-  <div class="cross-stage" id="stage">
-    <span class="numeral" aria-hidden="true">03</span>
-    <svg class="local" id="local" aria-hidden="true"><path id="lEntry" style="stroke:var(--signal);stroke-width:2"/><g id="lBranches"></g></svg>
-    <div class="wrap">
-      <div class="cross-head">
-        <div class="c">
-          <h2 id="h-ch3">And then there’s<br>everything I <span class="dd" data-doodle="underline2">try.</span></h2>
-          <p>Three paths from here. Pick one and the rest of the page follows it.</p>
-        </div>
-        <div class="snaps c" id="snaps" aria-hidden="true">
-          <div class="ph snap" style="--w:96px;--r:4/5;--x:6%;--y:30px;--rot:-4deg;--i:0">photo</div>
-          <div class="ph snap" style="--w:120px;--r:4/3;--x:30%;--y:0;--rot:2deg;--i:1">photo</div>
-          <div class="ph snap" style="--w:84px;--r:1/1;--x:58%;--y:58px;--rot:-2deg;--i:2">photo</div>
-          <div class="ph snap" style="--w:104px;--r:3/4;--x:78%;--y:6px;--rot:3deg;--i:3">photo</div>
-        </div>
+<section class="ch lab" id="lab" aria-labelledby="h-lab" data-filter="all">
+  <span class="numeral" aria-hidden="true">04</span>
+  <div class="wrap">
+    <div class="lab-head c">
+      <p class="label">The lab</p>
+      <h2 id="h-lab">My lab: from idea to <span class="dd" data-doodle="underline2">customers.</span></h2>
+      <p class="lead">Outside work, I run my own lab. Every idea gets the full treatment: a name, a brand, a build, a launch, and real people using it. I pay for it mostly with what my side hustles earn. It’s where I learned to sell.</p>
+      <div class="filters" role="group" aria-label="Highlight projects">
+        <button class="chip-b" type="button" data-f="all" aria-pressed="true">All</button>
+        <button class="chip-b" type="button" data-f="software" aria-pressed="false">Software</button>
+        <button class="chip-b" type="button" data-f="hardware" aria-pressed="false">Hardware</button>
+        <button class="chip-b" type="button" data-f="given" aria-pressed="false">Given away</button>
+        <button class="chip-b" type="button" data-f="films" aria-pressed="false">Films</button>
       </div>
-      <div class="cross-node c"><span class="dot fork hit" data-o="12" id="crossNode"></span><img class="sprite s-think" src="assets/sprites/shehroz-think.webp" alt="" width="199" height="484"></div>
-      <div class="fields c" id="fields"></div>
-      <div class="prompt c" id="prompt" role="status">
-        <span class="pdots" aria-hidden="true"><i></i><i></i><i></i></span>
-        <p id="promptText">Three paths from here. Scroll to look down each one.</p>
-        <button class="pill pri" type="button" id="take" disabled>Take this path →</button>
+      <span class="think-wrap" aria-hidden="true"><img class="sprite s-think" src="assets/sprites/shehroz-think.webp" alt="" width="199" height="484"></span>
+    </div>
+    <div class="lab-list c" id="labList"><span class="way lab-entry" data-o="19.9" data-v data-vn></span></div>
+
+    <div class="given c" id="given" data-tags="given software">
+      <h3><span class="dot" data-o="30" data-v data-vn></span>Given away.</h3>
+      <p class="sub2">Open source and free tools, mostly for building with Beyond Presence.</p>
+      <div class="given-list">
+        <div><p class="st">Open source</p><b>reels-in-code</b><p>A Claude skill that takes an idea to a finished reel: hooks, shots, captions, zooms, sound effects. Built with Claude and Remotion.</p><a href="https://github.com/mshehrozsajjad/reels-in-code" target="_blank" rel="noopener">GitHub ↗</a></div>
+        <div><p class="st">Open source</p><b>LiveKit JS plugin</b><p>Brings Beyond Presence avatars to LiveKit web apps. Ported from Python.</p></div>
+        <div><p class="st">Free</p><b>n8n workflows</b><p>Ready-made workflows for using Beyond Presence avatars in n8n.</p></div>
+        <div><p class="st">Published</p><b>Beyond Presence n8n node</b><p>A custom node plus templates. The only verified n8n integration in the AI avatar category.</p></div>
+      </div>
+    </div>
+
+    <div class="taste c" id="taste" data-tags="films">
+      <h3><span class="dot" data-o="31" data-v data-vn></span>Where the taste comes from.</h3>
+      <p class="sub2">I shoot photo and video, fly a drone and edit my own films. It’s why every launch gets a film: Yolk and NPC Filter both have one.</p>
+      <div class="taste-grid">
+        <div class="ph t1">Photo /<br>best frames</div><div class="ph t2">Drone /<br>10 s clip</div><div class="ph t3">Photo</div><div class="ph t4">Launch film /<br>Yolk</div><div class="ph t5">Launch film /<br>NPC Filter</div>
+        <img class="sprite s-camera" src="assets/sprites/shehroz-camera.webp" alt="" aria-hidden="true" width="194" height="479">
+      </div>
+    </div>
+
+    <div class="close c" id="close">
+      <span class="dot" data-o="32" data-v></span>
+      <img class="sprite s-point" src="assets/sprites/shehroz-point.webp" alt="" aria-hidden="true" width="257" height="473">
+      <div class="close-body">
+        <h3>Then it all comes back <span class="dd" data-doodle="underline">to work.</span></h3>
+        <p>What the lab taught me about selling, I bring to Beyond Presence. I’m automating our go-to-market with n8n and AI agents wired into Slack.</p>
+        <span class="hand" aria-hidden="true">design → engineering → go-to-market → back into the product</span>
       </div>
     </div>
   </div>
 </section>
 
-<div id="journey"></div>
-
-<section class="foot c" aria-label="Keep going">
+<section class="foot c" id="contact" aria-labelledby="h-foot">
   <div class="wrap">
     <img class="doodle doodle-plane" src="assets/doodles/paper-plane.png" alt="" aria-hidden="true" width="2172" height="724" loading="lazy">
+    <h2 id="h-foot" class="foot-h">Stay <span class="dd" data-doodle="circle">close.</span></h2>
+    <div class="cta">
+      <div class="cta-card">
+        <p class="label">Newsletter</p>
+        <p class="t">One email when I ship something.</p>
+        <form id="nl" novalidate>
+          <label for="nl-email" class="sr">Email address</label>
+          <input id="nl-email" type="email" placeholder="you@domain.com" autocomplete="email">
+          <button class="btn" type="submit">Follow along</button>
+        </form>
+        <p class="msg" id="nl-msg" role="status"></p>
+      </div>
+      <div class="cta-card">
+        <p class="label">Book a call</p>
+        <p class="t">Building something and stuck? Book 30 minutes.</p>
+        <div><button class="pill pri" type="button" id="book">Book on Cal.com <span aria-hidden="true">→</span></button></div>
+        <p class="msg" id="book-msg" role="status"></p>
+      </div>
+    </div>
     <button class="big-link" type="button" data-open="archive">Explore the full archive ↗</button>
-    <span class="slash" aria-hidden="true">/</span>
-    <button class="follow" type="button" id="follow" aria-expanded="false" aria-controls="signup">Follow what happens next</button>
     <img class="sprite s-wave rise" src="assets/sprites/shehroz-wave.webp" alt="" width="248" height="481">
-    <div class="signup" id="signup"><div>
-      <form id="nl" novalidate>
-        <label for="nl-email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Email address</label>
-        <input id="nl-email" type="email" placeholder="you@domain.com" tabindex="-1">
-        <button class="btn" type="submit" tabindex="-1">Follow along</button>
-      </form>
-      <p class="msg" id="nl-msg" role="status">Newsletter coming soon. This preview does not collect email addresses.</p>
-    </div></div>
   </div>
 </section>
 </main>
@@ -678,12 +858,10 @@ footer a{text-underline-offset:4px}
 <footer>
   <div class="wrap">
     <span>mshehrozsajjad@gmail.com <button class="copy" type="button" id="copy">Copy</button></span>
-    <span><a href="https://github.com/mshehrozsajjad" target="_blank" rel="noopener">GitHub</a> · Impressum · Datenschutz</span>
+    <span><a href="https://github.com/mshehrozsajjad" target="_blank" rel="noopener">GitHub</a> · LinkedIn · Cal.com · Impressum · Datenschutz</span>
     <span>Prototype · placeholders mark where real media goes</span>
   </div>
 </footer>
-
-<nav class="crumbs" id="crumbs" aria-label="Where you are"></nav>
 <button class="fab" id="fab" type="button" data-open="agent">Ask my AI self</button>
 <div class="scrim" id="scrim"></div>
 
@@ -694,8 +872,8 @@ footer a{text-underline-offset:4px}
   <div class="qs">
     <button class="q" type="button" data-q="now">What are you working on now?</button>
     <button class="q" type="button" data-q="make">What have you built that I can hold?</button>
-    <button class="q" type="button" data-q="saas">Which of your tools are live?</button>
-    <button class="q" type="button" data-q="oss">What have you open-sourced?</button>
+    <button class="q" type="button" data-q="saas">Which of your products are live?</button>
+    <button class="q" type="button" data-q="oss">What have you given away?</button>
     <button class="q" type="button" data-q="story">How did you get here?</button>
     <button class="q" type="button" data-q="hire">Can we work together?</button>
   </div>
@@ -713,241 +891,128 @@ footer a{text-underline-offset:4px}
 "use strict";
 const $ = (s, r=document) => r.querySelector(s), $$ = (s, r=document) => [...r.querySelectorAll(s)];
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const plain = s => s.replace(/&amp;/g,'&');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const main = $('#main'), svg = $('#trail'), pMain = $('#pMain'), pNow = $('#pMainNow'), pPost = $('#pPost'), pPost2 = $('#pPost2');
-const ch3 = $('#experiments'), stage = $('#stage');
+const main = $('#main'), svg = $('#trail'), pMain = $('#pMain'), pNow = $('#pMainNow');
 if (!reduce) document.documentElement.classList.add('js');
 
-/* ================= CONTENT ================= */
-const FIELDS = {
-  build: { opt:['Building products &amp; tools','SaaS · automation · open source'], crumb:'Building', sprite:'laptop', hl:'wish existed.',
-    h:'I build the tools I wish existed.', intro:'Most of these started as a problem of my own. Some became products, some became automations, and some I gave away.',
-    beats:[
-      {k:'German calling agent', q:'I needed to make a phone call in German.', p:'So I built an agent that waits on hold, says it’s an AI, and books the table.'},
-      {k:'RoomRush', q:'Finding a flat in Munich nearly broke me.', p:'So I built RoomRush.'},
-      {k:'reels-in-code', q:'I was editing every reel by hand.', p:'So I wrote a Claude skill that takes an idea to a finished reel.'}],
-    subs:{ saas:['SaaS','Vorsprech · Closr · RoomRush'], auto:['Automation','Calling agent · n8n node · concierge plugin'], oss:['Open source','reels-in-code · LiveKit JS plugin'] } },
-  make: { opt:['Things I make physical','Yolk · TARS / hardware experiments'], crumb:'Making', sprite:'solder', hl:'a body.',
-    h:'Some ideas need a body.', intro:'Hardware, wiring and 3D models, mostly on my desk.',
-    beats:[
-      {k:'Yolk', q:'AI in a device you can hold.', p:'An e-ink screen, a rotary dial, voice to voice, and a ping when a task is done.'},
-      {k:'TARS', q:'A robot on my desk with my face on it, which is a longer story.', p:'Face, voice and LLM run locally on a Mac. Only speech-to-text goes to the cloud.'},
-      {k:'TARS', q:'Walking was the hardest part.', p:''}],
-    subs:{ yolk:['Yolk','Pocket AI device'], tars:['TARS','Desk robot'], lab:['Experiments','Sketches, wiring, failures'] } },
-  tell: { opt:['Stories, frames &amp; motion','Photography · Video · AI-assisted creation'], crumb:'Telling', sprite:'camera', hl:'a story.',
-    h:'Every build ships with a story.', intro:'A demo, a reel and a write-up for each one. Captions always on.',
-    beats:[
-      {k:'Reels', q:'Cold open on the strongest real moment.', p:'Then the reveal, the why, how it was built, and a close that loops.'},
-      {k:'The twin', q:'An AI twin on screen. My recorded voice underneath.', p:'Calm, not loud. Every take backed by a real build.'},
-      {k:'reels-in-code', q:'Then I automated the editing.', p:'Hooks, shots, captions, zooms and sound effects, from one idea.'}],
-    subs:{ photo:['Photography','Frames from along the way'], video:['Video &amp; reels','Reels 001, 002 and 004'], ai:['AI-assisted creation','reels-in-code · Slaptastic'] } }
-};
-const KEYS = Object.keys(FIELDS);
-const WORK = {
-  'build/saas':[
-    {n:'Vorsprech', st:'Live · gives AI a face', p:'An AI examiner that runs foreign doctors through a mock German medical exam, over video.', a:['vorsprech.com','http://vorsprech.com/']},
-    {n:'Closr', st:'Live · ears and a voice', p:'Listens to sales calls and helps in real time.', a:['myclosr.com','https://myclosr.com/']},
-    {n:'RoomRush', st:'Live', p:'A tool for the Munich flat hunt. Link to come.', note:'built because finding a flat here nearly broke me'}],
-  'build/auto':[
-    {n:'German calling agent', st:'Personal tool · Reel 001', p:'Calls on my behalf, waits on hold, says it’s an AI and books the table. It has also filled in a refund form and scheduled water-heater maintenance. Muse, ElevenLabs Agents and Twilio.'},
-    {n:'Beyond Presence n8n node', st:'Published', p:'A custom node plus templates. The only verified n8n integration in the AI avatar category.'},
-    {n:'AI concierge plugin', st:'Experiment', p:'Drops into any website and lets the AI control it. Built on Beyond Presence tech.'},
-    {n:'Marketing &amp; design automation', st:'Now · Beyond Presence', p:'Internal experiments with AI automation for our marketing and design work.'}],
-  'build/oss':[
-    {n:'reels-in-code', st:'Open source · Reel 004', p:'A Claude skill that takes an idea to a finished reel: hooks, shots, captions, zooms, sound effects. Claude and Remotion.', a:['GitHub','https://github.com/mshehrozsajjad/reels-in-code']},
-    {n:'LiveKit JS plugin', st:'Open source', p:'Brings Beyond Presence avatars to LiveKit web apps. Ported from Python.'}],
-  'make/yolk':[
-    {n:'Yolk', st:'Waitlist · Reel 002', p:'A pocket AI device. E-ink screen, rotary dial, voice to voice, cute animations, a sleep mode and a ping when a task is done.', a:['Join the waitlist','https://getyolk.tech']},
-    {n:'How it’s made', st:'Build gallery', p:'Meta’s open-source Muse Gadgets SDK, a Waveshare ESP32 e-ink board, a rotary encoder, and an AI-assisted 3D model and wiring guide.'}],
-  'make/tars':[
-    {n:'TARS', st:'Prototype', p:'A desk robot running my own avatar. Face, voice and LLM run fully local on a Mac. Only speech-to-text goes to the cloud.', note:'walking was the hardest part'},
-    {n:'The build', st:'Build gallery', p:'Photos of the body, the wiring and the attempts at walking go here.'}],
-  'make/lab':[
-    {n:'Hardware experiments', st:'To come', p:'Sketches, wiring and the ones that didn’t work.'},
-    {n:'Next on the bench', st:'To come', p:'Whatever I’m soldering now.'}],
-  'tell/photo':[
-    {n:'Photography', st:'To come', p:'A selection of frames from along the way.'},
-    {n:'Behind the builds', st:'To come', p:'Desk shots, process and the robot at odd hours.'}],
-  'tell/video':[
-    {n:'Reel 001 · German calls', st:'Reel', p:'The agent that makes my German phone calls.'},
-    {n:'Reel 002 · Yolk', st:'Reel', p:'A pocket AI device, from dial to ping.'},
-    {n:'Reel 004 · reels-in-code', st:'Reel', p:'The reel that edited itself.'}],
-  'tell/ai':[
-    {n:'reels-in-code', st:'Open source', p:'An idea in, a finished reel out.', a:['GitHub','https://github.com/mshehrozsajjad/reels-in-code']},
-    {n:'Slaptastic', st:'Live', p:'AI that produces the video itself.'},
-    {n:'The twin pipeline', st:'Lab', p:'A HeyGen twin on screen with my recorded voice, used for every reel.'}]
-};
-const ARCH = [
- ['Beyond Presence','Real-time AI avatars you can video-call. Founding engineer, Sep 2024 to now.','Now'],
- ['German calling agent','Makes my German phone calls. Waits on hold, says it’s an AI, books the table.','Reel 001'],
- ['Yolk','A pocket AI device with an e-ink screen and a rotary dial.','Waitlist'],
- ['TARS','A desk robot running my own avatar.','Prototype'],
- ['reels-in-code','A Claude skill that takes an idea to a finished reel.','Open source'],
- ['Vorsprech','An AI examiner for the German medical exam, over video.','Live'],
- ['Closr','Listens to sales calls and helps in real time.','Live'],
- ['RoomRush','Built because finding a flat in Munich nearly broke me.','Live'],
- ['Slaptastic','AI that produces the video itself.','Live'],
- ['AI concierge plugin','Drops into any website and lets the AI control it.','Experiment'],
- ['LiveKit JS plugin','Brings Beyond Presence avatars to LiveKit web apps.','Open source'],
- ['Beyond Presence n8n node','The only verified n8n integration in the AI avatar category.','Published']];
-$('#archList').innerHTML = ARCH.map(a => `<li><em>${a[2]}</em><b>${a[0]}</b><span>${a[1]}</span></li>`).join('');
-
-/* ================= JOURNEY STATE ================= */
-const state = {field:null, sub:null, focus:-1};
-const saved = {cross:null, fork:null};
-const pinned = () => ch3.dataset.mode === 'pin';
-function setMode(m){ ch3.dataset.mode = m; }
-setMode(reduce || innerWidth <= 760 || innerHeight < 720 ? 'static' : 'pin');
-
-function optHTML(key, title, sub, from, chosen, kind, tease){
-  const on = chosen === key;
-  const ring = kind === 'field' ? '<svg class="ring" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="12"/></svg>' : '';
-  return `<div class="opt${on?' on':''}" data-key="${key}">
-    <span class="dot${kind==='field'?' hit':''}" ${on ? `data-o="${kind==='field'?13:31}"` : `data-from="${from}"`}></span>${ring}
-    <button class="opt-b" type="button" data-${kind}="${key}" aria-pressed="${on}"><b>${title}</b><span>${sub}</span>${tease?`<span class="tease">Starts with “${esc(tease)}”</span>`:''}<em>${on ? 'You’re on this path' : (chosen ? 'Switch to this path' : 'Take this path →')}</em></button>
-  </div>`;
-}
-function render(){
-  const f = state.field, F = f && FIELDS[f];
-  const fields = $('#fields');
-  fields.innerHTML = KEYS.map(k => optHTML(k, FIELDS[k].opt[0], FIELDS[k].opt[1], 'cross', f, 'field', FIELDS[k].beats[0].q)).join('');
-  if (f) fields.setAttribute('data-chosen', f); else fields.removeAttribute('data-chosen');
-  let html = '';
-  if (F){
-    html += `<section class="fsec" id="field" aria-labelledby="fh"><div class="wrap">
-      <span class="way wd" data-o="19" style="left:max(8px,calc((100% - 1120px)/2 + 2px));top:28px"></span><div class="c ${reduce?'':'unfold'}"><p class="label">Path / ${F.crumb}</p><h2 id="fh">${F.hl ? F.h.replace(F.hl, `<span class="dd" data-doodle="underline">${F.hl}</span>`) : F.h}</h2><p class="intro">${F.intro}</p></div><img class="sprite s-field c ${reduce?'':'unfold'}" src="assets/sprites/shehroz-${F.sprite}.webp" alt="" aria-hidden="true">
-      <div class="beats c"><span class="way wd" data-o="19.5" style="left:calc(-1 * clamp(28px,5vw,60px) - 14px);top:-30px"></span>${F.beats.map((b,i) => `<div class="beat ${reduce?'':'rise'}"><span class="dot" data-o="${20+i}"></span><p class="k">${esc(b.k)}</p><q>${esc(b.q)}</q>${b.p?`<p>${esc(b.p)}</p>`:''}</div>`).join('')}</div>
-      <div class="deeper c">
-        <h3>Go deeper.</h3><p>Choose what to see finished.</p>
-        <div class="cross-node"><span class="dot fork" data-o="30" id="forkNode"></span></div>
-        <div class="subs" id="subs" ${state.sub?`data-chosen="${state.sub}"`:''}>${Object.entries(F.subs).map(([k,v]) => optHTML(k, v[0], v[1], 'fork', state.sub, 'sub')).join('')}</div>
+/* ================= THE LAB, in the order it was built ================= */
+const STAGES = ['Idea','Brand','Built','Launched','Customers'];
+const LAB = [
+  {id:'roomrush', n:'RoomRush', kind:'Software', tags:'software', line:'I needed a flat in Munich, so I built a tool to find one. It found me one.', proof:'50 signups in the first 10 minutes',
+   steps:[1,1,1,1,'x'], label:'Launched, then stopped: the unit economics didn’t hold', taught:'Demand is easy to see. Unit economics aren’t.', shot:'roomrush', a:[['roomrush.de','https://roomrush.de']],
+   body:['My first self-initiated product. I built it to find my own flat in Munich, and it worked.','People loved it. But the unit economics made it too expensive to run as a business, so I stopped.'], media:['The launch post','Brand']},
+  {id:'myclosr', n:'myClosr', kind:'Software', tags:'software', line:'Live coaching during sales calls, on Mac and Windows.', proof:'Live',
+   steps:[1,1,1,1,0], label:'Live', taught:'Where I started learning to sell: ads, SEO and an automated blog.', shot:'myclosr', a:[['myclosr.com','https://myclosr.com']], chips:['Desktop app','Real-time AI'],
+   body:['A Mac and Windows app that coaches you live during sales calls, then lets you practise afterwards.','It’s where I started learning go-to-market on my own money: running ads, doing SEO and automating the blog.'], media:['In-call coaching / screen recording','Brand']},
+  {id:'slaptastic', n:'Slaptastic', kind:'Software', tags:'software', line:'A product photo in, creator-style video ads and images out.', proof:'Customers won through my own ads',
+   steps:[1,1,1,1,1], label:'Live, with customers', taught:'How to bring customers back: n8n flows that send Stripe offers.', shot:'slaptastic', a:[['getslaptastic.com','https://getslaptastic.com']], chips:['Generative video','n8n','Stripe'],
+   body:['Give it a product photo and it makes creator-style video ads and images.','I ran ads for it and won customers. Then I built n8n flows that send Stripe offers to re-engage people and to upsell them.'], media:['Product photo → ad','The n8n flow','Brand']},
+  {id:'vorsprech', n:'Vorsprech', kind:'Software', tags:'software', line:'Built for my wife’s German medical exam, on Beyond Presence tech.', proof:'B1 pilot customers',
+   steps:[1,1,1,1,1], label:'Live, with pilot customers', a:[['vorsprech.com','https://vorsprech.com']], chips:['Real-time avatars','Speech'],
+   body:['My wife was preparing for the German medical language exam. I built a way to practise the spoken part, scored against the exam rubric.','It runs on Beyond Presence’s real-time avatars, so you practise with an examiner who has a face. B1 pilot customers followed.'], media:['The spoken exam / screen recording','Brand']},
+  {id:'tars', n:'TARS', kind:'Hardware', tags:'hardware', line:'My first robot, my first soldering, and a walk Claude learned.', proof:'Our avatars, running fully local',
+   steps:[1,0,1,0,0], label:'Prototype', taught:'Our avatars can run on the edge.', sprite:'solder', chips:['3D printing','Soldering','Local LLM'],
+   body:['Two years into building with AI, I wanted to push into hardware. I 3D-printed an open-source TARS and added a motion sensor. It was my first time soldering.','It kept falling over until Claude learned and optimised its walk. Then I gave it my face with a Beyond Presence avatar and ran the whole stack locally, LLM included, for free.'], media:['Falling, then walking','The soldering','With my avatar face']},
+  {id:'yolk', n:'Yolk', kind:'Hardware', tags:'hardware films', line:'I always wanted a Pokédex, so I designed my own AI device. It makes my phone calls in German.', proof:'Waitlist open', hand:'the phone calls I promised ↑',
+   steps:[1,1,1,1,0], label:'Launched, waitlist open', shot:'yolk', a:[['Join the waitlist','https://getyolk.tech']], chips:['Custom hardware','E-paper','Voice agents'],
+   body:['When Meta open-sourced Muse Gadgets, I designed my own device: custom hardware, an e-paper screen and a rotary encoder that drives an AI agent.','To make it useful, it calls on my behalf in German, using what I learned building real-time AI. It waits on hold, says it’s an AI and books the table. It has also filled in a refund form and scheduled water-heater maintenance.','I designed its brand, built its website and made its launch film.'], media:['Launch film','In hand','Making a call','The build']},
+  {id:'npcfilter', n:'NPC Filter', kind:'Software', tags:'software films', line:'LinkedIn filled up with AI comments, so my agent built a filter overnight.', proof:'Free in the Chrome Web Store',
+   steps:[1,1,1,1,0], label:'Launched', shot:'npcfilter', a:[['npcfilter.com','https://npcfilter.com']], chips:['Chrome extension','Cloudflare','Clef'],
+   body:['“Keep the weird. Skip the filler.” Someone in my comments suggested a filter for AI-written posts, and my agent built it overnight.','I designed the architecture to scale and stay cheap. It runs on Cloudflare’s infrastructure and uses Clef, Cloudflare’s typed decision model, so each check returns a structured verdict quickly and at low cost. It flags likely AI-written posts on LinkedIn, X and Reddit.'], media:['In a LinkedIn feed','Launch film']}
+];
+function nodeHTML(w, i){
+  const o = 20 + i;
+  const reach = w.steps.filter(s => s === 1).length;
+  const meter = STAGES.map((s, j) => `<li class="${w.steps[j] === 1 ? 'on' : (w.steps[j] === 'x' ? 'stop' : '')}" style="--i:${j}">${s}</li>`).join('');
+  const media = w.shot ? `<img src="assets/shots/${w.shot}.webp" alt="${esc(w.n)} homepage" loading="lazy" width="800" height="500">` : `<div class="ph">${esc(w.n)} /<br>${esc(w.media[0])}</div>`;
+  return `<article class="node ${reduce?'':'rise'}" id="n-${w.id}" data-tags="${w.tags}">
+    <span class="dot" data-o="${o}" data-v data-vn></span>
+    <div class="node-main">
+      <div>
+        <p class="k">${String(i+1).padStart(2,'0')} · ${w.kind}</p>
+        <h3>${esc(w.n)}</h3>
+        <p class="line">${esc(w.line)}</p>
+        <p class="proof">${esc(w.proof)}</p>
+        <ol class="meter" aria-label="How far it got: ${esc(w.label)}">${meter}</ol>
+        <span class="meter-l">${esc(w.label)}</span>
+        ${w.taught ? `<p class="taught"><span>What it taught me</span>${esc(w.taught)}</p>` : ''}
+        ${w.hand ? `<span class="hand" aria-hidden="true">${esc(w.hand)}</span>` : ''}
+        ${w.a ? `<div class="links">${w.a.map(a => `<a href="${a[1]}" target="_blank" rel="noopener">${esc(a[0])} ↗</a>`).join('')}</div>` : ''}
       </div>
-    </div></section>`;
-  }
-  if (F && state.sub){
-    const S = F.subs[state.sub], list = WORK[f+'/'+state.sub] || [];
-    html += `<section class="wsec" id="work" aria-labelledby="wh"><div class="wrap">
-      <span class="way wd" data-o="39" style="left:max(8px,calc((100% - 1120px)/2 + 2px));top:28px"></span><div class="c ${reduce?'':'unfold'}"><p class="label">${F.crumb} / ${S[0]}</p><h2 id="wh">${S[0]}, <span class="dd" data-doodle="circle">finished.</span></h2></div>
-      <div class="work c"><span class="way wd" data-o="39.5" style="left:calc(-1 * clamp(28px,5vw,60px) - 14px);top:-30px"></span>${list.map((w,i) => `<article class="card ${reduce?'':'rise'}"><span class="dot" data-o="${40+i}"></span><div class="ph">${w.n} /<br>media placeholder</div><p class="st">${w.st}</p><h3>${w.n}</h3><p>${w.p}</p>${w.note?`<span class="note">${w.note}</span>`:''}${w.a?`<a href="${w.a[1]}" target="_blank" rel="noopener">${w.a[0]} ↗</a>`:''}</article>`).join('')}</div>
-      <div class="end c"><span class="dot" data-o="49"></span><img class="sprite s-point" src="assets/sprites/shehroz-point.webp" alt="" aria-hidden="true" width="257" height="473">
-        <div class="end-body"><b>That’s the end of this path.</b><div class="end-actions">
-        <button class="pill" type="button" data-crumb="cross">Back to the crossroads</button>
-        <button class="pill" type="button" data-crumb="field">Other ${F.crumb.toLowerCase()} work</button>
-        <button class="pill pri" type="button" data-ask="${f}/${state.sub}">Ask my AI about this</button></div></div></div>
-    </div></section>`;
-  }
-  $('#journey').innerHTML = html;
-  if (!reduce) $$('#journey .rise').forEach(el => io.observe(el));
-  renderCrumbs();
-  state.focus = -2; // force focus classes to refresh
-  build();
+      <div class="shot">${media}${w.sprite ? `<img class="sprite s-${w.sprite}" src="assets/sprites/shehroz-${w.sprite}.webp" alt="" aria-hidden="true">` : ''}</div>
+    </div>
+    <details class="dig">
+      <summary><span class="dot knot" data-o="${o + .5}" data-v data-vn></span><span class="plus" aria-hidden="true">+</span>Dig in: the story</summary>
+      <div class="dig-body">
+        ${w.body.map(p => `<p>${esc(p)}</p>`).join('')}
+        ${w.chips ? `<ul class="chips">${w.chips.map(c => `<li>${esc(c)}</li>`).join('')}</ul>` : ''}
+        <div class="dig-media">${w.media.map(m => `<div class="ph">${esc(w.n)} /<br>${esc(m)}</div>`).join('')}</div>
+      </div>
+      <span class="way dig-end" data-o="${o + .55}" data-v data-vn></span>
+    </details>
+  </article>`;
 }
-function renderCrumbs(){
-  const f = state.field, items = [['story','The story'],['cross','Crossroads']];
-  if (f) items.push(['field', FIELDS[f].crumb]);
-  if (f && state.sub) items.push(['sub', plain(FIELDS[f].subs[state.sub][0])]);
-  $('#crumbs').innerHTML = items.map((it,i) => `${i?'<i aria-hidden="true">/</i>':''}<button type="button" data-crumb="${it[0]}" ${i===items.length-1?'aria-current="step"':''}>${esc(it[1])}</button>`).join('');
-}
-const docTop = el => el.getBoundingClientRect().top + scrollY;
-function nudge(el){ if (!el) return; requestAnimationFrame(() => { const y = docTop(el) - innerHeight*0.28; if (y > scrollY + 20) scrollTo({top:y, behavior: reduce?'auto':'smooth'}); }); }
-function setField(f, scroll=true){
-  if (state.field === f) return;
-  disarm();
-  if (!state.field) saved.cross = scrollY;
-  if (pinned()){
-    // unpin without a visual jump: keep the crossroads exactly where it sits on screen
-    const stageTop = stage.getBoundingClientRect().top;
-    setMode('decided');
-    state.field = f; state.sub = null; saved.fork = null; render();
-    scrollTo({top: docTop(ch3) - stageTop, behavior:'instant'});
-  } else { state.field = f; state.sub = null; saved.fork = null; render(); }
-  if (scroll) setTimeout(() => nudge($('#field')), reduce ? 0 : 380);
-}
-function setSub(s, scroll=true){
-  if (state.sub === s) return;
-  if (!state.sub) saved.fork = scrollY;
-  state.sub = s; render();
-  if (scroll) nudge($('#work'));
-}
-function crumb(to){
-  if (to === 'story'){ $('#story').scrollIntoView({behavior: reduce?'auto':'smooth'}); return; }
-  if (to === 'cross'){
-    state.field = null; state.sub = null; setMode(reduce || innerWidth <= 760 || innerHeight < 720 ? 'static' : 'pin'); render();
-    dwellOK = false; settleAt = 0;
-    const y = saved.cross ?? docTop(ch3);
-    scrollTo({top:y, behavior: reduce?'auto':'smooth'}); return;
-  }
-  if (to === 'field' && state.field){
-    const y = saved.fork ?? docTop($('#field'));
-    state.sub = null; render(); scrollTo({top:y, behavior: reduce?'auto':'smooth'});
-  }
-}
+$('#labList').insertAdjacentHTML('beforeend', LAB.map(nodeHTML).join(''));
+
+const ARCH = [
+ ['Beyond Presence','Creator and call platforms, owned end to end. Joined at pre-seed.','Now'],
+ ['NPC Filter','Flags likely AI-written posts. Built overnight on Cloudflare and Clef.','Live'],
+ ['Yolk','My own AI device. Makes my German phone calls.','Waitlist'],
+ ['TARS','A 3D-printed desk robot running my avatar locally.','Prototype'],
+ ['Vorsprech','The spoken German medical exam, scored against the rubric.','Pilot customers'],
+ ['Slaptastic','A product photo in, creator-style ads out.','Live'],
+ ['myClosr','Live coaching during sales calls.','Live'],
+ ['RoomRush','50 signups in the first 10 minutes, then stopped.','Stopped'],
+ ['reels-in-code','A Claude skill that takes an idea to a finished reel.','Open source'],
+ ['LiveKit JS plugin','Beyond Presence avatars in LiveKit web apps.','Open source'],
+ ['n8n workflows','Free workflows for using Beyond Presence avatars.','Free'],
+ ['Beyond Presence n8n node','The only verified n8n integration in the AI avatar category.','Published'],
+ ['cureVision','Custom software on custom hardware, ML on the device.','Product'],
+ ['Keyhole','Legacy platform components rebuilt in React.','Product'],
+ ['CodeJunkie','Co-founded and ran as CTO. 25 people.','Company']];
+$('#archList').innerHTML = ARCH.map(a => `<li><em>${esc(a[2])}</em><b>${esc(a[0])}</b><span>${esc(a[1])}</span></li>`).join('');
 
 /* ================= TRAIL ================= */
 function pos(el){ const r = el.getBoundingClientRect(), m = main.getBoundingClientRect(); return {x: r.left - m.left + r.width/2, y: r.top - m.top + r.height/2}; }
-function localPos(el){ const r = el.getBoundingClientRect(), s = stage.getBoundingClientRect(); return {x: r.left - s.left + r.width/2, y: r.top - s.top + r.height/2}; }
 function visible(el){ return el.offsetParent !== null || !!el.closest('.top'); }
+const f1 = n => n.toFixed(1);
+// Catmull-Rom through the points, except where a point asks to be met vertically (data-v),
+// and straight lines between stacked points (data-vn), so the line runs down the gutter beside open details
 function smooth(pts){
   if (pts.length < 2) return '';
-  let d = `M${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
+  let d = `M${f1(pts[0].x)} ${f1(pts[0].y)}`;
   for (let i=0; i<pts.length-1; i++){
-    const p0 = pts[i-1]||pts[i], p1 = pts[i], p2 = pts[i+1], p3 = pts[i+2]||p2, k = 0.2;
-    d += ` C${(p1.x+(p2.x-p0.x)*k).toFixed(1)} ${(p1.y+(p2.y-p0.y)*k).toFixed(1)} ${(p2.x-(p3.x-p1.x)*k).toFixed(1)} ${(p2.y-(p3.y-p1.y)*k).toFixed(1)} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`;
+    const p0 = pts[i-1]||pts[i], p1 = pts[i], p2 = pts[i+1], p3 = pts[i+2]||p2, k = 0.2, dy = p2.y - p1.y;
+    if (p1.vn && p2.vert && Math.abs(p1.x - p2.x) < 2){ d += ` L${f1(p2.x)} ${f1(p2.y)}`; continue; }
+    // keep every control point between the segment's ends, so a far neighbour never makes the line overshoot and loop
+    const lo = Math.min(p1.y, p2.y), hi = Math.max(p1.y, p2.y), cy = y => Math.max(lo, Math.min(hi, y));
+    const c1 = p1.vert ? {x:p1.x, y:p1.y + dy*0.45} : {x:p1.x+(p2.x-p0.x)*k, y:cy(p1.y+(p2.y-p0.y)*k)};
+    const c2 = p2.vert ? {x:p2.x, y:p2.y - dy*0.45} : {x:p2.x-(p3.x-p1.x)*k, y:cy(p2.y-(p3.y-p1.y)*k)};
+    d += ` C${f1(c1.x)} ${f1(c1.y)} ${f1(c2.x)} ${f1(c2.y)} ${f1(p2.x)} ${f1(p2.y)}`;
   }
   return d;
 }
 const phone = () => innerWidth <= 760;
-let len = 0, maxY = [], step = 1, branchGeo = [], localGeo = [], nodes = [];
-function phonePoints(pts, fromHero, tail){
+let nodes = [], trails = [];
+function phonePoints(pts){
   // a living line: it swings across the page in the empty bands between sections, and sways in the gutter between nodes
   const x0 = parseFloat(getComputedStyle($('main .wrap')).paddingLeft) - 24;
-  pts = pts.filter(p => !p.el || !p.el.closest('.top'));
-  const norm = pts.map(p => p.entry ? {x:x0, y:p.y, entry:true} : ((p.el.classList.contains('wm') || p.el.classList.contains('pen')) ? {...p, swing:true} : {x:x0, y:p.y, el:p.el}));
-  if (fromHero) norm.unshift({x:x0, y: pos($('.hero .label')).y - 6});
-  if (!norm.length) return [];
+  pts = pts.filter(p => !p.el.closest('.top'));
+  const norm = pts.map(p => (p.el.classList.contains('wm') || p.el.classList.contains('pen')) ? {...p, swing:true} : {x:x0, y:p.y, el:p.el, vert:p.vert, vn:p.vn});
+  norm.unshift({x:x0, y: pos($('.hero .label')).y - 6});
+  if (norm.length < 2) return norm;
   const out = [norm[0]]; let alt = 1;
   for (let i=1;i<norm.length;i++){
     const a = norm[i-1], b = norm[i], gap = b.y - a.y;
     if (b.swing){ if (gap > 90) out.push({x:x0, y:b.y - Math.min(70, gap*.45)}); out.push(b); continue; }
     if (a.swing){ if (gap > 90) out.push({x:x0, y:a.y + Math.min(70, gap*.45)}); out.push(b); continue; }
-    if (gap > 110){ out.push({x: x0 + alt*11, y: a.y + gap*.5}); alt = -alt; }
+    if (gap > 110 && !(a.vn && b.vert)){ out.push({x: x0 + alt*11, y: a.y + gap*.5}); alt = -alt; }
     out.push(b);
   }
-  const last = out[out.length-1]; if (tail) out.push({x:x0+12, y:last.y+60}, {x:x0, y:last.y+130});
   return out;
 }
-// a fork line: leaves the node gently and drops straight down into its dot, never swinging past it
-function branchD(s, e){
-  const k = phone() ? 18 : 0, f = n => n.toFixed(1);
-  return `M${f(s.x)} ${f(s.y)} C${f(s.x + (e.x - s.x)*0.15 + k)} ${f(s.y + 30)} ${f(e.x + k)} ${f(Math.min(e.y - 20, s.y + (e.y - s.y)*0.35))} ${f(e.x)} ${f(e.y)}`;
-}
-// route the line through the gaps between blocks rather than across their text
-function relRect(el){ const r = el.getBoundingClientRect(), m = main.getBoundingClientRect(); return {top: r.top - m.top, bottom: r.bottom - m.top}; }
-function thread(pts){
-  if (phone()) return pts;
-  const out = [];
-  pts.forEach((p, i) => {
-    out.push(p);
-    const q = pts[i+1]; if (!q) return;
-    const pd = p.el && p.el.classList.contains('dot'), qd = q.el && q.el.classList.contains('dot');
-    const a = pd ? relRect(p.el.parentElement) : {top:p.y, bottom:p.y}, b = qd ? relRect(q.el.parentElement) : {top:q.y, bottom:q.y};
-    if (b.top - a.bottom <= 24) return;
-    if (pd) out.push({x:p.x, y:a.bottom + 12});
-    if (qd) out.push({x:q.x, y:Math.max(pd ? a.bottom + 24 : p.y + 20, b.top - 12)});
-  });
-  return out;
-}
-let trails = [];
-// vertical S-curves: leave each point straight down and arrive straight down, so the line never swings past a dot
-function pathV(pts){
-  const f = n => n.toFixed(1);
-  let d = `M${f(pts[0].x)} ${f(pts[0].y)}`;
-  for (let i=1;i<pts.length;i++){ const p = pts[i-1], q = pts[i], h = Math.max(8, (q.y - p.y)*0.5); d += ` C${f(p.x)} ${f(p.y + h)} ${f(q.x)} ${f(q.y - h)} ${f(q.x)} ${f(q.y)}`; }
-  return d;
-}
-function makeTrail(paths, pts, vertical){
-  const d = pts.length > 1 ? (vertical ? pathV(pts) : smooth(pts)) : '';
+function makeTrail(paths, pts){
+  const d = pts.length > 1 ? smooth(pts) : '';
   paths.forEach(p => p.setAttribute('d', d));
   const len = d ? (paths[0].getTotalLength() || 0) : 0;
   const N = Math.max(200, Math.round(len/6)), step = len ? len/N : 1, maxY = [];
@@ -956,94 +1021,39 @@ function makeTrail(paths, pts, vertical){
   const prev = trails.find(t => t.paths[0] === paths[0]);
   return {paths, len, maxY, step, shown: prev ? Math.min(prev.shown, len) : 0};
 }
+// the dig-in branch: leaves the knot, runs beside the open details, rejoins the trail at the end
+const NS = 'http://www.w3.org/2000/svg';
+function drawBranch(d, animate){
+  let b = $(':scope > .dig-branch', d);
+  if (!d.open){ if (b) b.remove(); return; }
+  const k = $('.knot', d), e = $('.dig-end', d), dr = d.getBoundingClientRect(), kr = k.getBoundingClientRect(), er = e.getBoundingClientRect();
+  const y0 = kr.top + kr.height/2 - dr.top, h = Math.max(40, er.top - dr.top - y0), w = 22;
+  const fresh = !b;
+  if (fresh){ b = document.createElementNS(NS, 'svg'); b.setAttribute('class', 'dig-branch'); b.setAttribute('aria-hidden', 'true'); b.appendChild(document.createElementNS(NS, 'path')); d.appendChild(b); }
+  b.style.top = y0 + 'px'; b.style.height = h + 'px'; b.setAttribute('viewBox', `0 0 30 ${f1(h)}`);
+  const p = $('path', b), c = Math.min(28, h/4);
+  p.setAttribute('d', `M0.5 0 C0.5 ${f1(c*.7)} ${w} ${f1(c*.35)} ${w} ${f1(c)} L${w} ${f1(h - c)} C${w} ${f1(h - c*.35)} 0.5 ${f1(h - c*.7)} 0.5 ${f1(h)}`);
+  const l = p.getTotalLength(); p.style.strokeDasharray = `${l} ${l}`;
+  if (fresh && animate && !reduce){ p.style.transition = 'none'; p.style.strokeDashoffset = l; p.getBoundingClientRect(); p.style.transition = ''; requestAnimationFrame(() => p.style.strokeDashoffset = 0); }
+  else p.style.strokeDashoffset = 0;
+}
 function build(){
   const H = main.scrollHeight, W = main.clientWidth;
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.style.height = H+'px';
-  const all = $$('[data-o]').filter(visible).map(el => ({...pos(el), el, o:+el.dataset.o}));
-  // the story trail ends where it enters the crossroads; the crossroads draws its own lines
-  const ln = localPos($('#crossNode')), st = stage.getBoundingClientRect(), m = main.getBoundingClientRect();
-  let pre = all.filter(p => p.o < 12 && !stage.contains(p.el));
-  pre.push({x: st.left - m.left + ln.x, y: ch3.getBoundingClientRect().top - m.top, o:11.9, entry:true});
-  pre.sort((a,b) => a.o - b.o);
-  // the chosen path picks up again at the chosen field's dot
-  // ...and again at the chosen sub-path's dot, after the second fork
-  let post = state.field ? all.filter(p => p.o >= 13 && p.o <= 30).sort((a,b) => a.o - b.o) : [];
-  let post2 = state.sub ? all.filter(p => p.o >= 31).sort((a,b) => a.o - b.o) : [];
-  post = thread(post); post2 = thread(post2);
-  if (phone()){ pre = phonePoints(pre, true, false); post = phonePoints(post, false, !state.sub); post2 = phonePoints(post2, false, true); }
-  const v = !phone();
-  trails = [makeTrail([pMain, pNow], pre), makeTrail([pPost], post, v), makeTrail([pPost2], post2, v)];
-  nodes = $$('.dot[data-o], .dot[data-from]').filter(visible).filter(el => !stage.contains(el)).map(el => ({el, y: pos(el).y}));
-  // crossroads lines live inside the stage, so they stay put while it is pinned
-  const lsvg = $('#local'); lsvg.setAttribute('viewBox', `0 0 ${st.width} ${st.height}`);
-  // the incoming line keeps the trail's movement: it carries the sweep in from the dark chapter, eases back, then settles into the fork
-  const sw = phone() ? [10, -6] : [-Math.min(90, st.width*0.07), Math.min(32, st.width*0.025)];
-  const entry = $('#lEntry'); entry.setAttribute('d', smooth([{x:ln.x, y:0}, {x:ln.x + sw[0], y:ln.y*0.36}, {x:ln.x + sw[1], y:ln.y*0.74}, ln]));
-  const le = entry.getTotalLength(); entry.style.strokeDasharray = `${le} ${le}`; entry.dataset.l = le;
-  const lg = $('#lBranches'); lg.innerHTML = '';
-  localGeo = $$('#fields .opt').map(opt => {
-    const e = localPos($('.dot', opt));
-    const p = document.createElementNS('http://www.w3.org/2000/svg','path');
-    p.setAttribute('d', branchD(ln, e)); lg.appendChild(p);
-    const l = p.getTotalLength(); p.style.strokeDasharray = `${l} ${l}`;
-    return {p, l, key: opt.dataset.key};
-  });
-  // second fork, inside the chosen field
-  const g = $('#branches'); g.innerHTML = '';
-  const fork = $('#forkNode');
-  branchGeo = fork ? $$('#subs .opt').map(opt => {
-    const dot = $('.dot', opt), s = pos(fork), e = pos(dot);
-    const p = document.createElementNS('http://www.w3.org/2000/svg','path');
-    p.setAttribute('d', branchD(s, e));
-    const chosen = state.sub === opt.dataset.key;
-    p.setAttribute('class', 'branch' + (state.sub && !chosen ? ' recede' : ''));
-    p.style.stroke = chosen ? 'var(--signal)' : 'var(--branch)'; p.style.strokeWidth = chosen ? 2 : 1.2; g.appendChild(p);
-    const l = p.getTotalLength(); p.style.strokeDasharray = `${l} ${l}`;
-    return {p, l, y0:s.y, y1:e.y};
-  }) : [];
+  let pts = $$('[data-o]').filter(visible).map(el => ({...pos(el), el, o:+el.dataset.o, vert: el.hasAttribute('data-v'), vn: el.hasAttribute('data-vn')})).sort((a,b) => a.o - b.o);
+  if (phone()) pts = phonePoints(pts);
+  trails = [makeTrail([pMain, pNow], pts)];
+  nodes = $$('.dot[data-o]').filter(visible).map(el => ({el, y: pos(el).y}));
+  $$('details.dig').forEach(d => drawBranch(d, false));
   const nb = $('#nowBg'), r = nb.getBoundingClientRect(), c = pos(nb);
   const rect = $('#nowRect'); rect.setAttribute('y', c.y - r.height/2); rect.setAttribute('width', W); rect.setAttribute('height', r.height);
   frame();
 }
 function drawnLength(t, penY){ const a = t.maxY; if (!a.length || a[0] > penY) return 0; let lo=0, hi=a.length-1; while (lo<hi){ const mm=(lo+hi+1)>>1; if (a[mm] <= penY) lo=mm; else hi=mm-1; } return lo*t.step; }
-
-/* ================= CROSSROADS FOCUS + DWELL ================= */
-let lastScroll = 0, dwellOK = true, settleAt = 0, arming = null, armTimer = null, lastY = scrollY;
-const SPANS = [[.12,.38],[.38,.64],[.64,.9]];
-function pinProgress(){ const r = ch3.getBoundingClientRect(); const total = r.height - innerHeight; return total > 0 ? Math.max(0, Math.min(1, -r.top / total)) : 0; }
-function focusIndex(pp){ for (let i=0;i<SPANS.length;i++) if (pp >= SPANS[i][0] && pp < SPANS[i][1]) return i; return -1; }
-function applyFocus(i, pp){
-  if (i === state.focus) return;
-  state.focus = i;
-  const fields = $('#fields');
-  if (i >= 0) fields.setAttribute('data-focus', KEYS[i]); else fields.removeAttribute('data-focus');
-  $$('#fields .opt').forEach((o, j) => o.classList.toggle('focus', j === i));
-  $$('.pdots i').forEach((d, j) => d.classList.toggle('on', j === i));
-  const take = $('#take');
-  take.disabled = i < 0;
-  take.dataset.key = i >= 0 ? KEYS[i] : '';
-  promptText(i, pp);
-}
-function promptText(i, pp){
-  const t = $('#promptText');
-  if (arming){ t.innerHTML = `<b>Taking ${FIELDS[arming].opt[0]}…</b><small>Keep scrolling to look around instead.</small>`; return; }
-  if (i >= 0){ t.innerHTML = `<b>${FIELDS[KEYS[i]].opt[0]}</b><small>Choose this path to explore it. Keep scrolling to see the next.</small>`; return; }
-  t.innerHTML = (pp ?? 0) >= .9 ? `<b>Not sure yet?</b><small>Click any path, or keep scrolling to the archive.</small>` : `<b>Three paths from here.</b><small>Scroll to look down each one.</small>`;
-}
-function disarm(){
-  clearTimeout(armTimer); armTimer = null;
-  if (arming){ arming = null; $$('#fields .opt.arming').forEach(o => o.classList.remove('arming')); promptText(state.focus, pinProgress()); }
-}
-function maybeArm(){
-  if (reduce || !pinned() || state.field || !dwellOK || state.focus < 0 || arming) return;
-  if (performance.now() - lastScroll < 450) return;
-  const key = KEYS[state.focus];
-  arming = key;
-  const opt = $(`#fields .opt[data-key="${key}"]`); opt && opt.classList.add('arming');
-  promptText(state.focus);
-  armTimer = setTimeout(() => { if (arming === key) setField(key); }, 1650);
-}
-// Paths open only on an explicit click or keyboard activation.
+document.addEventListener('toggle', e => {
+  const d = e.target; if (!d.matches || !d.matches('details.dig')) return;
+  requestAnimationFrame(() => { drawBranch(d, true); build(); });
+}, true);
 
 /* ================= SCROLL ================= */
 const nowSec = $('#now'), nowBg = $('#nowBg');
@@ -1061,27 +1071,9 @@ function frame(){
     t.paths.forEach(p => p.style.strokeDashoffset = (t.len - t.shown).toFixed(1));
   });
   nodes.forEach(n => n.el.classList.toggle('hit', reduce || n.y <= penY));
-  branchGeo.forEach(b => { const t = reduce ? 1 : seg(penY, b.y0 - 60, Math.max(b.y0, b.y1) + 10); b.p.style.strokeDashoffset = (b.l*(1-t)).toFixed(1); });
-
-  // crossroads: entry line, branch lines, focus
-  const cr = ch3.getBoundingClientRect(), vh = innerHeight;
-  const arrive = reduce ? 1 : seg(vh*0.64 - cr.top, 0, vh*0.35);
-  const entry = $('#lEntry'), le = +entry.dataset.l || 0; entry.style.strokeDashoffset = (le*(1-arrive)).toFixed(1);
-  $('#snaps').classList.toggle('hit', reduce || cr.top < vh*0.45);
-  const pin = pinned(), pp = pin ? pinProgress() : 0;
-  if (pin && !state.field) applyFocus(cr.top <= 1 ? focusIndex(pp) : -1, pp);
-  else if (state.focus !== -1){ state.focus = -2; applyFocus(-1, 0); }
-  const grow = reduce ? 1 : (pin ? seg(arrive, .6, 1) : 1);
-  localGeo.forEach(b => {
-    const chosen = state.field === b.key, focused = KEYS[state.focus] === b.key;
-    b.p.style.strokeDashoffset = (b.l*(1-grow)).toFixed(1);
-    b.p.style.stroke = (chosen || focused) ? 'var(--signal)' : 'var(--branch)';
-    b.p.style.strokeWidth = (chosen || focused) ? 2 : 1.2;
-    b.p.style.opacity = state.field ? (chosen ? 1 : .16) : (state.focus >= 0 && !focused ? .3 : 1);
-  });
 
   // present-day chapter opens out; product and marketing enter together
-  const r = nowSec.getBoundingClientRect();
+  const vh = innerHeight, r = nowSec.getBoundingClientRect();
   const p = reduce ? 1 : cl((vh - r.top)/(vh*0.95));
   const o = ease(seg(p, 0, .55));
   nowBg.style.clipPath = `inset(${((1-o)*3).toFixed(2)}% ${((1-o)*6).toFixed(2)}% 0 ${((1-o)*6).toFixed(2)}% round ${((1-o)*28).toFixed(1)}px)`;
@@ -1090,19 +1082,11 @@ function frame(){
   const t = ease(seg(p, .18, .5)), tx = $('#nowText'); tx.style.opacity = (reduce?1:.0001+t).toString(); tx.style.transform = reduce ? 'none' : `translateY(${((1-t)*30).toFixed(1)}px)`;
   const cp = seg(p, .62, .9); ['#nowCap','#nowHand'].forEach(s => $(s).style.opacity = (reduce?1:.0001+cp).toString());
 
-  const inPin = pin && cr.top <= 1 && cr.bottom >= vh - 1;
-  $('#fab').classList.toggle('show', scrollY > vh*0.7 && !inPin);
-  $('#crumbs').classList.toggle('show', !!state.field && cr.top < vh);
+  $('#fab').classList.toggle('show', scrollY > vh*0.7);
   if (!reduce && busy) req();
 }
 function req(){ if (!ticking){ ticking = true; requestAnimationFrame(frame); } }
-addEventListener('scroll', () => {
-  lastScroll = performance.now();
-  if (arming) disarm();
-  req();
-}, {passive:true});
-['wheel','touchmove'].forEach(ev => addEventListener(ev, () => { dwellOK = true; }, {passive:true}));
-addEventListener('keydown', e => { if (['ArrowDown','ArrowUp','PageDown','PageUp',' ','Home','End'].includes(e.key)) dwellOK = true; });
+addEventListener('scroll', req, {passive:true});
 let rz; const rebuild = () => { clearTimeout(rz); rz = setTimeout(build, 120); };
 addEventListener('resize', rebuild);
 new ResizeObserver(rebuild).observe(main);
@@ -1112,37 +1096,38 @@ addEventListener('load', build);
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), {rootMargin:'0px 0px -12% 0px'});
 if (!reduce) $$('.rise').forEach(el => io.observe(el));
 
+/* ================= LAB FILTERS: highlight, never hide ================= */
+const lab = $('#lab'), docTop = el => el.getBoundingClientRect().top + scrollY;
+$$('.chip-b').forEach(b => b.addEventListener('click', () => {
+  const f = b.dataset.f; lab.dataset.filter = f;
+  $$('.chip-b').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+  const items = $$('[data-tags]', lab);
+  items.forEach(it => it.classList.toggle('match', f === 'all' || it.dataset.tags.split(' ').includes(f)));
+  const first = items.find(it => it.classList.contains('match'));
+  if (f !== 'all' && first) scrollTo({top: docTop(first) - innerHeight*0.2, behavior: reduce ? 'auto' : 'smooth'});
+}));
+
 /* ================= EVENTS ================= */
+const go = sel => { const el = $(sel); if (el) el.scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'}); };
 document.addEventListener('click', e => {
   const t = e.target.closest('button, a'); if (!t) return;
-  if (t.id === 'take'){ if (t.dataset.key) setField(t.dataset.key); return; }
-  if (t.dataset.field){ setField(t.dataset.field); return; }
-  if (t.dataset.sub){ setSub(t.dataset.sub); return; }
-  if (t.dataset.crumb && !t.hasAttribute('aria-current')){ crumb(t.dataset.crumb); return; }
-  if (t.dataset.ask){ openD('agent'); const [f,s] = t.dataset.ask.split('/'); answer(`Tell me about ${plain(FIELDS[f].subs[s][0])}`, s === 'oss' ? 'oss' : s === 'saas' ? 'saas' : f === 'make' ? 'make' : 'now'); return; }
   if (t.dataset.open){ openD(t.dataset.open); return; }
   if (t.hasAttribute('data-close')){ closeD(true); return; }
 });
 $('#scrim').addEventListener('click', () => closeD(true));
 addEventListener('keydown', e => { if (e.key === 'Escape' && $('.drawer.open')) closeD(true); });
 
-$('#follow').addEventListener('click', () => {
-  const s = $('#signup'), open = !s.classList.contains('open');
-  s.classList.toggle('open', open); $('#follow').setAttribute('aria-expanded', open);
-  $$('#signup input, #signup button').forEach(el => el.tabIndex = open ? 0 : -1);
-  if (open) setTimeout(() => $('#nl-email').focus({preventScroll:true}), 300);
-});
 $('#nl').addEventListener('submit', e => {
   e.preventDefault(); const v = $('#nl-email').value.trim();
-  $('#nl-msg').textContent = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? "Thanks for your interest. Sign-up is not connected yet; your email has not been saved." : 'That email looks off. Check it and try again.';
+  $('#nl-msg').textContent = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? 'Thanks. Sign-up isn’t connected yet, so your email hasn’t been saved.' : 'That email looks off. Check it and try again.';
 });
+$('#book').addEventListener('click', () => { $('#book-msg').textContent = 'The booking link is coming soon. Until then, email me at mshehrozsajjad@gmail.com.'; });
 $('#copy').addEventListener('click', async e => { const b = e.currentTarget; try { await navigator.clipboard.writeText('mshehrozsajjad@gmail.com'); b.textContent = 'Copied'; } catch(_) { b.textContent = 'Select it'; } setTimeout(() => b.textContent = 'Copy', 1800); });
 
 /* drawers */
 const scrim = $('#scrim'); let lastFocus = null;
-function openD(id){ lastFocus = document.activeElement; closeD(false); const d = $('#'+id); d.classList.add('open'); d.setAttribute('aria-hidden','false'); scrim.classList.add('open'); main.inert = true; $('footer').inert = true; $('#fab').inert = true; $('#crumbs').inert = true; document.body.style.overflow = 'hidden'; setTimeout(() => (id==='agent' ? $('#askInput') : $('.x', d)).focus(), 60); }
-function closeD(restore){ $$('.drawer.open').forEach(d => { d.classList.remove('open'); d.setAttribute('aria-hidden','true'); }); scrim.classList.remove('open'); main.inert = false; $('footer').inert = false; $('#fab').inert = false; $('#crumbs').inert = false; document.body.style.overflow = ''; if (restore && lastFocus && lastFocus.focus) lastFocus.focus(); }
-
+function openD(id){ lastFocus = document.activeElement; closeD(false); const d = $('#'+id); d.classList.add('open'); d.setAttribute('aria-hidden','false'); scrim.classList.add('open'); main.inert = true; $('footer').inert = true; $('#fab').inert = true; document.body.style.overflow = 'hidden'; setTimeout(() => (id==='agent' ? $('#askInput') : $('.x', d)).focus(), 60); }
+function closeD(restore){ $$('.drawer.open').forEach(d => { d.classList.remove('open'); d.setAttribute('aria-hidden','true'); }); scrim.classList.remove('open'); main.inert = false; $('footer').inert = false; $('#fab').inert = false; document.body.style.overflow = ''; if (restore && lastFocus && lastFocus.focus) lastFocus.focus(); }
 addEventListener('keydown', e => {
   const drawer = $('.drawer.open');
   if (!drawer || e.key !== 'Tab') return;
@@ -1152,24 +1137,24 @@ addEventListener('keydown', e => {
   else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
 });
 
-/* the AI self answers from confirmed notes and moves the visitor along the right path */
+/* the AI self answers from confirmed notes and takes the visitor to the right place */
 const A = {
-  now:{t:"I'm a founding engineer at Beyond Presence, building real-time AI avatars people can video-call. I build the product, and lately I also help it reach people with AI automation for our marketing and design.", go:['Show me', () => $('#now').scrollIntoView({behavior: reduce?'auto':'smooth'})]},
-  make:{t:"Two so far. Yolk, a pocket AI device with an e-ink screen and a rotary dial, and TARS, a desk robot running my own avatar. Walking was the hardest part.", go:['Take that path', () => { setField('make', false); $('#field').scrollIntoView({behavior: reduce?'auto':'smooth'}); }]},
-  saas:{t:"Vorsprech, Closr and RoomRush are live. Vorsprech runs doctors through a mock German medical exam, Closr helps during sales calls, and RoomRush exists because flat hunting in Munich nearly broke me.", go:['Show the finished work', () => { setField('build', false); setSub('saas', false); $('#work').scrollIntoView({behavior: reduce?'auto':'smooth'}); }]},
-  oss:{t:"reels-in-code, a Claude skill that turns an idea into a finished reel, and the LiveKit JavaScript plugin for Beyond Presence avatars.", go:['Show the finished work', () => { setField('build', false); setSub('oss', false); $('#work').scrollIntoView({behavior: reduce?'auto':'smooth'}); }]},
-  story:{t:"I started in design, co-founded a product agency called CodeJunkie, then worked on car interfaces for Porsche and medical technology at cureVision before joining Beyond Presence. Along the way, a master's in entrepreneurship in Munich.", go:['Walk the story', () => $('#story').scrollIntoView({behavior: reduce?'auto':'smooth'})]},
-  hire:{t:"Email is fastest: mshehrozsajjad@gmail.com. Tell me what you're trying to build and where it's stuck.", go:null},
+  now:{t:"I own the creator and call platforms at Beyond Presence, the layer behind our real-time avatars and Managed Agents. I built the integration that sends avatars into Zoom and Teams calls. Lately I'm also automating our go-to-market with n8n and AI agents in Slack.", go:['Show me', () => go('#now')]},
+  make:{t:"Yolk, my own AI device with an e-paper screen and a dial, which makes my German phone calls. And TARS, a 3D-printed desk robot running my avatar locally.", go:['Show me', () => go('#n-yolk')]},
+  saas:{t:"myClosr, Slaptastic, Vorsprech and NPC Filter are live. RoomRush got 50 signups in its first 10 minutes, but the unit economics didn't hold, so I stopped it.", go:['Open the lab', () => go('#lab')]},
+  oss:{t:"reels-in-code, the LiveKit JS plugin for Beyond Presence avatars, and free n8n workflows for using Beyond Presence.", go:['Show me', () => go('#given')]},
+  story:{t:"Design work in my first semester, then my own apps, then CodeJunkie, which I co-founded and ran as CTO with 25 people. Then product work at Keyhole, a top German car company and cureVision, and Beyond Presence at pre-seed, before there was a product.", go:['Walk the story', () => go('#story')]},
+  hire:{t:"Book a call or email me at mshehrozsajjad@gmail.com. Tell me what you're building and where it's stuck.", go:['Book a call', () => go('#contact')]},
   none:{t:"I don't know that one, and I only answer from what I've confirmed. Email me at mshehrozsajjad@gmail.com.", go:null}
 };
 function route(q){
   const s = q.toLowerCase();
-  if (/(open source|open-source|github|plugin|reels-in-code)/.test(s)) return 'oss';
+  if (/(open source|open-source|github|plugin|reels-in-code|free|n8n)/.test(s)) return 'oss';
   if (/(yolk|tars|robot|hardware|device|hold|physical)/.test(s)) return 'make';
-  if (/(vorsprech|closr|roomrush|saas|tool|live|app)/.test(s)) return 'saas';
-  if (/(now|current|beyond|working on|today|avatar)/.test(s)) return 'now';
-  if (/(story|background|career|codejunkie|porsche|curevision|how did|master)/.test(s)) return 'story';
-  if (/(hire|work together|collab|email|contact|job)/.test(s)) return 'hire';
+  if (/(vorsprech|closr|roomrush|slaptastic|npc|saas|tool|live|app|product)/.test(s)) return 'saas';
+  if (/(now|current|beyond|working on|today|avatar|platform)/.test(s)) return 'now';
+  if (/(story|background|career|codejunkie|keyhole|curevision|car|how did|master)/.test(s)) return 'story';
+  if (/(hire|work together|collab|email|contact|job|call|book)/.test(s)) return 'hire';
   return 'none';
 }
 let gid = 0;
@@ -1190,7 +1175,7 @@ const label = () => $('#theme').textContent = th()==='dark' ? 'Light' : 'Dark';
 $('#theme').addEventListener('click', () => { document.documentElement.dataset.theme = th()==='dark' ? 'light' : 'dark'; try { localStorage.setItem('site-theme', th()); } catch (_) {} label(); });
 label();
 
-render();
+build();
 })();
 </script>
 <script>
@@ -1264,14 +1249,12 @@ function watchOpts(root){
 }
 watchOpts($('#fields'));
 
-/* work cards: a burst on the corner when you hover one */
+/* lab cards: a burst on the corner of the media when you hover one */
 if (fine) document.addEventListener('mouseover', e => {
-  const c = e.target.closest('.card'); if (!c || c.contains(e.relatedTarget)) return;
-  const ph = $('.ph', c); if (ph) burst(c, ph.offsetWidth + 2, 4, 25);
+  const c = e.target.closest('.node-main'); if (!c || c.contains(e.relatedTarget)) return;
+  const m = $('.shot', c); if (m) burst(c, m.offsetLeft + m.offsetWidth + 2, m.offsetTop + 4, 25);
 });
 
-/* the journey re-renders paths: doodle new headings and watch the new fork */
-new MutationObserver(() => { scan(); watchOpts($('#subs')); }).observe($('#journey'), {childList:true});
 
 /* ---------- robot eyes that follow the pointer ---------- */
 const sub = $('.hero .sub');
