@@ -28,7 +28,7 @@ export function createReveal(reduce){
   return {
     // top(el): the element's top in the trail's coordinates; call after every layout
     measure(top){ waiting = reduce ? [] : els.filter(el => !el.classList.contains('shown')).map(el => ({el, y: top(el)})); },
-    // per frame, from the trail's own frame(): no listeners of its own
+    // per frame, from the trail's own frame(): no listeners of its own. penY is already pushed ahead of the reader by the caller, so nothing waits unread
     check(penY){
       if (!waiting.length) return;
       const reached = waiting.filter(r => r.y - AHEAD <= penY);

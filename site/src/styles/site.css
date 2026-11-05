@@ -83,10 +83,10 @@ button{font:inherit;color:inherit}
 .act::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--signal);-webkit-mask:var(--ul) center/100% 100% no-repeat;mask:var(--ul) center/100% 100% no-repeat}
 .act .ar{width:.8em;height:.8em}
 .act:hover .ar,.act:focus-visible .ar{transform:translateX(3px)}
-/* small outline controls: the theme switch, copy, drawer chips */
-.theme,.copy,.q,.x{border:1px solid var(--line);background:none;border-radius:999px;color:var(--ink);font:500 var(--fs-xs)/1 var(--sans);cursor:pointer;min-height:40px;padding:0 16px;transition:background-color .16s,border-color .16s,transform .16s}
-.theme:hover,.copy:hover,.q:hover,.x:hover{background:var(--signal-soft)}
-.theme:active,.copy:active,.q:active{transform:scale(.97)}
+/* small outline controls: the theme switch, drawer chips */
+.theme,.q,.x{border:1px solid var(--line);background:none;border-radius:999px;color:var(--ink);font:500 var(--fs-xs)/1 var(--sans);cursor:pointer;min-height:40px;padding:0 16px;transition:background-color .16s,border-color .16s,transform .16s}
+.theme:hover,.q:hover,.x:hover{background:var(--signal-soft)}
+.theme:active,.q:active{transform:scale(.97)}
 .msg{font-size:var(--fs-s);color:var(--muted);margin-top:10px;min-height:1.4em}
 
 /* ---------- the line ---------- */

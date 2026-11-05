@@ -484,6 +484,9 @@ function build(){
   if (cur.length) segs.push(cur);
   trails = segs.map((sg, i) => makeTrail(pair(i), sg));
   forkTrail = trails[segs.findIndex(sg => sg[sg.length - 1].el === $('.rail-in'))];
+  // the paper plane flies along the line's own heading at its end
+  const tail = $('.dot.tail'), tt = trails[segs.findIndex(sg => sg[sg.length - 1].el === tail)];
+  if (tt && tt.len){ const pth = tt.paths[0], a = pth.getPointAtLength(tt.len - 4), b = pth.getPointAtLength(tt.len); tail.style.setProperty('--ang', (Math.atan2(b.y - a.y, b.x - a.x)*180/Math.PI).toFixed(1) + 'deg'); }
   // how far along the first stroke the pen sits
   heroLen = 0;
   if (penPt && trails[0] && trails[0].len){ const t = trails[0], pth = t.paths[0]; let best = 1e9;
@@ -562,7 +565,7 @@ const cl = (v,a=0,b=1)=>Math.max(a,Math.min(b,v)), seg=(p,a,b)=>cl((p-a)/(b-a)),
 let ticking = false;
 function frame(){
   ticking = false;
-  const mTop = main.getBoundingClientRect().top + scrollY;
+  const mTop = main.getBoundingClientRect().top + scrollY, vh0 = innerHeight;
   const readY = scrollY + innerHeight*0.64 - mTop;
   // at the very bottom the line has reached everything, however short the page ends
   const atEnd = scrollY + innerHeight >= document.documentElement.scrollHeight - 4;
@@ -580,7 +583,8 @@ function frame(){
     t.paths.forEach(p => { p.style.strokeDashoffset = (t.len - t.shown).toFixed(1); p.style.visibility = t.shown > 1 ? '' : 'hidden'; });
   });
   nodes.forEach(n => n.el.classList.toggle('hit', reduce || (n.t ? n.t.shown >= n.L - 2 : n.y <= penY)));
-  reveal.check(penY);
+  // reveals run ahead of the reader: when the pen passes, or when the element enters the lower 15% of the screen, whichever is first
+  reveal.check(Math.max(penY, scrollY + vh0*0.85 - mTop));
 
   // present-day chapter opens out; product and marketing enter together
   const vh = innerHeight, r = nowSec.getBoundingClientRect();
@@ -623,7 +627,8 @@ $('#nl').addEventListener('submit', e => {
   $('#nl-msg').textContent = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? 'Thanks. Sign-up isn’t connected yet, so your email hasn’t been saved.' : 'That email looks off. Check it and try again.';
 });
 $('#book').addEventListener('click', () => { $('#book-msg').textContent = 'The booking link is coming soon. Until then, email me at mshehrozsajjad@gmail.com.'; });
-$('#copy').addEventListener('click', async e => { const b = e.currentTarget; try { await navigator.clipboard.writeText('mshehrozsajjad@gmail.com'); b.textContent = 'Copied'; } catch(_) { b.textContent = 'Select it'; } setTimeout(() => b.textContent = 'Copy', 1800); });
+// the "copied!" note is drawn by the micro layer below; only a failed copy changes the hint
+$('#copy').addEventListener('click', async () => { try { await navigator.clipboard.writeText('mshehrozsajjad@gmail.com'); } catch(_) { const h = $('#copy-hint'); h.textContent = 'select it'; setTimeout(() => h.textContent = 'tap to copy', 1800); } });
 
 /* drawers */
 const scrim = $('#scrim'); let lastFocus = null;
@@ -694,8 +699,7 @@ const svgEl = (tag, attrs={}) => { const e = document.createElementNS(NS, tag); 
 /* ---------- marker doodles, drawn when they enter view ---------- */
 const SHAPES = {
   underline:  {box:'left:-3%;width:106%;bottom:-.26em;height:.42em', vb:'0 0 100 20', d:['M2 13 C 18 8, 34 15, 52 11 S 84 8, 98 12']},
-  underline2: {box:'left:-4%;width:108%;bottom:-.34em;height:.5em', vb:'0 0 100 24', d:['M2 10 C 22 5, 48 14, 70 8 S 92 7, 98 9','M8 18 C 30 14, 62 20, 94 15']},
-  circle:     {box:'left:-9%;width:118%;top:-24%;height:150%', vb:'0 0 100 40', d:['M14 31 C 2 23, 7 6, 40 4 C 72 2, 98 8, 97 21 C 96 34, 64 38, 40 37 C 16 36, 4 28, 10 16 C 13 11, 20 8, 31 6']}
+  underline2: {box:'left:-4%;width:108%;bottom:-.34em;height:.5em', vb:'0 0 100 24', d:['M2 10 C 22 5, 48 14, 70 8 S 92 7, 98 9','M8 18 C 30 14, 62 20, 94 15']}
 };
 const io = new IntersectionObserver(es => es.forEach(e => {
   if (!e.isIntersecting) return;
@@ -732,11 +736,9 @@ function burst(host, x, y, rot=0){
   host.appendChild(b); setTimeout(() => b.remove(), 1200);
 }
 
-/* ---------- thinking dots, speech bubble, copy note ---------- */
+/* ---------- thinking dots, copy note ---------- */
 const think = $('.s-think');
 if (think) think.insertAdjacentHTML('afterend', '<span class="think-dots" aria-hidden="true"><i></i><i></i><i></i></span>');
-const wave = $('.s-wave');
-if (wave) wave.insertAdjacentHTML('afterend', '<span class="say-hi" aria-hidden="true"><span class="long">If any of this sparked an idea, say hi.</span><span class="short">say hi.</span></span>');
 const copy = $('#copy');
 if (copy) copy.addEventListener('click', () => {
   const n = document.createElement('span'); n.className = 'copied-note'; n.textContent = 'copied!';

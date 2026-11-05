@@ -1,5 +1,5 @@
 /* ===== The ending: the closer (a loop that comes back around), a postcard, and a footer. One continuous line, one reveal system ===== */
-:root{--rv-fast:.7s;--rv-slow:1s}
+:root{--rv-fast:.45s;--rv-slow:.7s}
 
 /* ---------- follow the pen ----------
    An element with data-reveal waits until the trail's pen has passed it (reveal.js adds .shown once). The same easing and
@@ -35,68 +35,74 @@
 .k3{--kx:71.8%;--ky:526px;--lx:2px;--ly:20px;--lr:-5deg}
 .k4{--kx:48.5%;--ky:212px;--lx:-98px;--ly:-60px;--lr:-3deg}
 
-/* ---------- the contact: a postcard, and the line's last flight ---------- */
-.contact{position:relative;padding:var(--sp-3) 0 var(--sp-5)}
-.post-stage{position:relative;display:grid;grid-template-columns:minmax(0,740px) minmax(190px,1fr);column-gap:clamp(20px,4vw,56px);align-items:end;padding-top:var(--sp-6)}
-.dot.tail{width:0;height:0;border-radius:0;background:none;opacity:1;transform:none;left:700px;top:-6px}
-.tail .plane{position:absolute;left:-5px;top:-41px;width:124px;height:83px;overflow:visible}
-.plane path{fill:none;stroke:var(--signal);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .8s var(--ease)}
-.plane path:nth-child(2){transition-delay:.3s}
-.plane path:nth-child(3){transition-delay:.5s}
-.tail.hit .plane path{stroke-dashoffset:0}
+/* ---------- the contact: the back of a postcard, and the line's last flight ---------- */
+.contact{position:relative}
+/* the stage: a shallow band for the flight, the card, and the rule the sprite stands on */
+.post-stage{position:relative;padding:140px 0 var(--sp-4);border-bottom:1px solid var(--line)}
+.dot.tail{width:0;height:0;border-radius:0;background:none;opacity:1;transform:none;left:calc(100% - 70px);top:34px}
+/* the plane is drawn with its tail at the origin and its nose along +x; build() sets --ang to the line's own heading, so it flies where the line was going */
+.plane{position:absolute;left:-20px;top:-24px;width:68px;height:48px;overflow:visible;transform-origin:20px 24px;rotate:var(--ang,-28deg)}
+.plane path{fill:var(--paper);fill-opacity:0;stroke:var(--signal);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .8s var(--ease),fill-opacity .4s ease-out .6s}
+.plane path + path{fill:none;transition-delay:.3s}
+.tail.hit .plane path{stroke-dashoffset:0;fill-opacity:1}
 
-.postcard{--ink:var(--print-ink);--paper:#FBF7EE;--signal:var(--print-signal);--muted:color-mix(in srgb,var(--print-ink) 72%,transparent);--cg:clamp(28px,4.4vw,56px);position:relative;grid-column:1;margin-left:clamp(28px,5vw,60px);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:20px var(--cg);padding:clamp(28px,3.6vw,44px) clamp(28px,3.6vw,48px) 14px;background:var(--print);color:var(--print-ink);border-radius:6px;box-shadow:0 1px 2px rgba(40,30,10,.12),0 22px 44px -24px rgba(40,30,10,.5);transform:rotate(var(--tilt,0deg))}
-.stamp{position:absolute;top:18px;right:20px;width:46px;height:54px;display:grid;place-items:center;border:2px dashed color-mix(in srgb,var(--print-signal) 60%,transparent);border-radius:3px;transform:rotate(4deg)}
-.stamp svg{width:22px;height:22px;fill:none;stroke:var(--print-signal);stroke-width:1.5;stroke-linejoin:round}
-.pc-lead{margin-top:var(--sp-3);max-width:28ch;color:var(--muted)}
-.pc-book{margin-top:var(--sp-2);min-height:44px}
+/* the card is a physical object: cream in both themes, so everything inside it uses fixed ink */
+.postcard{--ink:var(--print-ink);--paper:#FBF7EE;--signal:var(--print-signal);--muted:color-mix(in srgb,var(--print-ink) 68%,transparent);--warm:color-mix(in srgb,var(--print-ink) 16%,transparent);--tilt:-1.6deg;position:relative;display:grid;grid-template-columns:1fr 1fr;width:min(640px,100%);min-height:380px;padding:var(--sp-4);background:var(--print);color:var(--print-ink);border:1px solid rgba(60,45,20,.18);border-radius:6px;box-shadow:0 1px 2px rgba(40,30,10,.12),0 22px 44px -24px rgba(40,30,10,.5);transform:rotate(var(--tilt))}
+.pc-msg{padding-right:var(--sp-3)}
+.pc-lead{margin-top:var(--sp-2);color:var(--muted)}
+.pc-book{margin-top:var(--sp-3)}
 .postcard .msg{margin:0;min-height:0}
 .postcard .msg:not(:empty){margin-top:10px}
-/* the right half is the address side: a drawn divider, and the email written on a line */
-.pc-addr{position:relative;display:flex;flex-direction:column;justify-content:center;padding-top:52px}
-.pc-addr::before{content:"";position:absolute;left:calc(var(--cg)/-2 - 3px);top:6px;bottom:6px;width:6px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 100' preserveAspectRatio='none'%3E%3Cpath d='M3 0 C 5 20, 1 40, 3 55 S 5 85, 3 100' fill='none' stroke='%232B2620' stroke-opacity='.3' stroke-width='1.4' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center/100% 100% no-repeat}
-.postcard .pc-hand{margin-bottom:8px;transform:rotate(-2deg)}
-#nl{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 16px}
-.pc-line{position:relative;flex:1 1 220px;min-width:0}
-.pc-line input{display:block;width:100%;padding:6px 2px 12px;border:0;outline:0;background:none;color:var(--print-ink);font:400 var(--fs-hand)/1.1 var(--hand)}
-.pc-line input::placeholder{color:rgba(43,38,32,.4)}
-.pc-line svg{position:absolute;left:0;bottom:0;width:100%;height:10px;overflow:visible;pointer-events:none}
-.pc-line path{fill:none;stroke:var(--print-ink);stroke-opacity:.55;stroke-width:1.6;stroke-linecap:round;vector-effect:non-scaling-stroke;transition:stroke .25s,stroke-opacity .25s}
-.pc-line:focus-within path{stroke:var(--print-signal);stroke-opacity:1}
-#nl .btn{min-height:44px}
-.pc-rule{display:block;height:10px;margin-top:22px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 10' preserveAspectRatio='none'%3E%3Cpath d='M2 5 C 90 7, 150 3, 230 5 S 350 4, 398 6' fill='none' stroke='%232B2620' stroke-opacity='.28' stroke-width='1.4' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat}
-.pc-ps{grid-column:1/-1;justify-self:start;min-height:44px}
-.pc-ps .hand{transform:none}
-/* the waving sprite, with its line, beside the card */
-.wave-fig{grid-column:2;display:flex;flex-direction:column;align-items:flex-end;margin-bottom:-6px}
-.wave-fig .s-wave{--h:150px}
-.say-hi{order:-1;max-width:224px;margin:0 clamp(16px,3vw,40px) 10px 0;padding:10px 14px;border:1.5px solid var(--ink);border-radius:16px 16px 3px 16px;background:var(--raised);font:400 var(--fs-hand)/1.05 var(--hand);color:var(--ink);transform:rotate(-1.5deg);transition:opacity var(--rv-fast) var(--ease) .5s,translate var(--rv-fast) var(--ease) .5s;pointer-events:none}
-.js .wave-fig:not(.shown) .say-hi{opacity:0;translate:0 8px}
-.say-hi .short{display:none}
+/* the address side: stamp on top, the two address lines at the foot */
+.pc-addr{display:flex;flex-direction:column;justify-content:space-between;gap:var(--sp-3);padding-left:var(--sp-3);border-left:1px solid var(--warm)}
+/* the stamp. The frame is the slot for Shehroz's photo, for when the card becomes a flip card */
+.pc-stamp{position:relative;align-self:flex-end;width:72px;height:88px}
+.pc-stamp svg{display:block;width:100%;height:100%;filter:drop-shadow(0 1px 1.5px rgba(40,30,10,.3))}
+.pc-stamp .field{fill:var(--print-signal)}
+.pc-stamp .cream{fill:none;stroke:#FBF7EE;stroke-linecap:round;stroke-linejoin:round}
+.pc-stamp .val{fill:#FBF7EE;font:600 9px/1 var(--sans);letter-spacing:.06em}
+.pc-mark{position:absolute;right:calc(100% - 10px);top:10px;display:grid;place-items:center;width:70px;height:70px;padding-right:6px;border:1px solid var(--signal);border-radius:50%;color:var(--signal);font:600 10px/1 var(--sans);letter-spacing:.1em;opacity:.6;transform:rotate(-10deg);pointer-events:none}
+.pc-rows{display:grid;gap:var(--sp-3)}
+.pc-row{position:relative;display:flex;align-items:center;gap:var(--sp-1);min-height:44px;border-bottom:1px solid var(--warm);transition:border-color .25s,box-shadow .25s}
+.pc-row:focus-within{border-bottom-color:var(--signal);box-shadow:0 1px 0 var(--signal)}
+.pc-k{flex:none;font:600 var(--fs-xs)/1 var(--sans);letter-spacing:.08em;color:var(--muted)}
+.pc-mail,.pc-send{min-height:44px;padding:0;background:none;border:0;cursor:pointer;font:500 var(--fs-s)/1 var(--sans);color:var(--ink);text-align:left;transition:color .2s}
+.pc-mail:hover,.pc-send:hover{color:var(--signal)}
+.pc-send{margin-left:auto;font-weight:600}
+.pc-hint{margin-top:2px;text-align:right}
+.pc-hint .hand{font-size:var(--fs-hand-s);transform:rotate(-2deg)}
+.pc-note{margin:0 0 2px;font-size:var(--fs-xs);color:var(--muted)}
+.pc-row input{flex:1;min-width:0;height:44px;padding:0;border:0;outline:0;background:none;font:500 var(--fs-s)/1 var(--sans);color:var(--ink)}
+.pc-row input::placeholder{color:color-mix(in srgb,var(--print-ink) 42%,transparent)}
 
-/* ---------- the footer: one quiet line ---------- */
-footer{border-top:1px solid var(--line);color:var(--muted);font-size:var(--fs-s)}
-footer .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 32px;padding-block:var(--sp-2) 92px}
+/* Shehroz stands on the rule, facing the card, with one small thing to say */
+.wave-fig{position:absolute;left:calc(640px + 100px);bottom:-1px;margin:0}
+.wave-fig .s-wave{--h:210px;transform:scaleX(-1)}
+.say-hi{position:absolute;right:calc(100% - 22px);bottom:calc(100% - 40px);padding:6px 14px 8px;border:1.5px solid var(--ink);border-radius:16px 16px 3px 16px;background:var(--raised);font:400 var(--fs-hand)/1 var(--hand);color:var(--ink);white-space:nowrap;transform:rotate(-3deg);transition:opacity var(--rv-fast) var(--ease) .5s,translate var(--rv-fast) var(--ease) .5s,scale var(--rv-fast) var(--ease) .5s;pointer-events:none}
+.js .wave-fig:not(.shown) .say-hi{opacity:0;translate:0 8px;scale:.85}
+
+/* ---------- the bottom bar: one quiet row ---------- */
+footer{color:var(--muted);font-size:var(--fs-s)}
+footer .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 var(--sp-4);padding-block:var(--sp-1) 72px}
 footer p{margin:0}
-.f-legal{display:flex;flex-wrap:wrap;align-items:center;gap:0 20px}
-.f-legal a{padding-block:13px;text-decoration:none;text-underline-offset:4px}
-.f-legal a:hover,.f-legal a:focus-visible{color:var(--ink);text-decoration:underline}
-.f-social{display:flex;margin:0;padding:0;list-style:none}
-.f-social a{position:relative;display:grid;place-items:center;width:44px;height:44px;color:var(--muted);transition:color .2s,translate .3s var(--ease)}
-.f-social svg{width:21px;height:21px;fill:currentColor}
+.f-legal{display:flex;flex-wrap:wrap;align-items:center;gap:0 var(--sp-3)}
+.f-legal a,.f-legal button{padding:13px 0;border:0;background:none;color:inherit;font:inherit;cursor:pointer;text-decoration:none;text-underline-offset:4px}
+.f-legal a:hover,.f-legal a:focus-visible,.f-legal button:hover,.f-legal button:focus-visible{color:var(--ink);text-decoration:underline}
+.f-social{display:flex;gap:4px;margin:0;padding:0;list-style:none}
+.f-social a{position:relative;display:grid;place-items:center;width:44px;height:44px;color:var(--ink);transition:color .2s,translate .3s var(--ease)}
+.f-social svg{width:20px;height:20px;fill:currentColor}
 /* a small hand-drawn underline that draws in under the icon */
 .f-social i{position:absolute;left:12px;right:12px;bottom:6px;height:6px;background:currentColor;-webkit-mask:var(--ul) center/100% 100% no-repeat;mask:var(--ul) center/100% 100% no-repeat;transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
 .f-social a:hover,.f-social a:focus-visible{color:var(--signal);translate:0 -2px}
 .f-social a:hover i,.f-social a:focus-visible i{transform:none}
-.f-mail{position:relative;display:flex;align-items:center;gap:10px}
-.f-sign{font-size:var(--fs-sign);transform:rotate(-3deg)}
 
 /* ---------- tablet and phone ---------- */
 @media (max-width:900px){
-  .postcard{grid-template-columns:minmax(0,1fr)}
-  .pc-addr{padding-top:8px}
-  .pc-addr::before{display:none}
-  .stamp{display:none}
+  /* no room beside the card: he stands on the rule below it, at the right */
+  .post-stage{padding-bottom:152px}
+  .wave-fig{left:auto;right:0}
+  .wave-fig .s-wave{--h:120px}
+  .say-hi{font-size:var(--fs-hand-s)}
 }
 @media (max-width:760px){
   .close{--loop:400px;height:auto;padding-bottom:var(--loop)}
@@ -106,20 +112,12 @@ footer p{margin:0}
   .k2{--kx:170px;--ky:calc(100% - var(--loop) + 298px);--lx:-92px;--ly:16px}
   .k3{--kx:250px;--ky:calc(100% - var(--loop) + 292px);--lx:-30px;--ly:16px}
   .k4{--kx:160px;--ky:calc(100% - var(--loop) + 62px);--lx:-84px;--ly:-52px}
-  .contact{padding-top:0}
-  .post-stage{grid-template-columns:minmax(0,1fr);padding-top:var(--sp-6);row-gap:12px}
-  .dot.tail{left:214px;top:8px}
-  .tail .plane{left:-4px;top:-30px;width:90px;height:60px}
-  .postcard{margin-left:0;padding:28px 22px 6px}
-  .pc-lead{max-width:none}
-  .wave-fig{grid-column:1;flex-direction:row-reverse;align-items:flex-end;justify-content:flex-start;gap:12px;margin:10px 0 0}
-  .wave-fig .s-wave{--h:110px}
-  .say-hi{order:0;margin:0 0 48px;font-size:var(--fs-hand-s);max-width:180px}
-  .say-hi .long{display:none}
-  .say-hi .short{display:inline}
-  footer .wrap{flex-direction:column;align-items:flex-start;gap:4px;padding-block:20px 96px}
-  .f-social{order:1;margin-left:-11px}
-  .f-mail{order:2}
-  .f-legal{order:3}
-  .f-sign{order:4;margin-top:10px}
+  .post-stage{padding-top:124px}
+  .dot.tail{left:calc(100% - 44px);top:26px}
+  .plane{scale:.75}
+  .postcard{grid-template-columns:minmax(0,1fr);min-height:0;padding:var(--sp-3);--tilt:-.5deg}
+  .pc-msg{padding:0 0 var(--sp-3)}
+  .pc-addr{padding:var(--sp-3) 0 0;border-left:0;border-top:1px solid var(--warm)}
+  footer .wrap{flex-direction:column;align-items:flex-start;gap:0;padding-left:calc(var(--gl) + 30px);padding-bottom:80px}
+  .f-social{margin-left:-11px}
 }
