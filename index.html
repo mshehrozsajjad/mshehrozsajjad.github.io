@@ -1228,6 +1228,11 @@ footer a{text-underline-offset:4px}
 .field-prints .snapcard.enter{opacity:0;transform:translateY(36px) rotate(calc(var(--r,0deg) * 2.2));transition:opacity .8s ease-out var(--d,0ms),transform 1s var(--ease) var(--d,0ms),box-shadow .35s var(--ease)}
 .field-prints .snapcard.enter.in{opacity:1;transform:rotate(var(--r,0deg))}
 @media (hover:hover) and (pointer:fine){.field-prints .snapcard.enter.in:hover{transform:rotate(0deg) translateY(-4px);transition-delay:0ms}}
+
+/* v7.3: the hero line reaches the pen, then the spark */
+.js .hero > .s-draw:not(.arrived) .spark{opacity:0;animation:none}
+.js .hero > .s-draw.arrived .spark{animation:sparkpop .7s var(--ease),twinkle 2.4s ease-in-out .7s infinite}
+@keyframes sparkpop{0%{opacity:0;transform:scale(.2) rotate(-40deg)}60%{opacity:1;transform:scale(1.35)}100%{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -1781,7 +1786,20 @@ function drawBranch(d, animate){
 // the trail can pause (data-cut) while it becomes something else, then pick up again
 const PAIRS = [[pMain, pNow]];
 function pair(i){ while (PAIRS.length <= i){ const a = pMain.cloneNode(), b = pNow.cloneNode(); a.removeAttribute('id'); b.removeAttribute('id'); svg.appendChild(a); svg.appendChild(b); PAIRS.push([a, b]); } return PAIRS[i]; }
-let heroFloor = 0;
+let heroFloor = 0, heroLen = 0, heroT = reduce ? 1 : 0;
+// on arrival the hero line draws itself, at a hand's pace, until it reaches the pen
+(() => {
+  if (reduce){ const s = document.querySelector('.hero > .s-draw'); s && s.classList.add('arrived'); return; }
+  let seen = false; try { seen = sessionStorage.getItem('intro-seen') === '1'; } catch(_) {}
+  const delay = seen ? 250 : 650, dur = seen ? 1700 : 2600;
+  const ease2 = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3)/2;
+  let t0 = 0, go = false;
+  // start once the page has settled, so the stroke is seen from its first mark
+  const begin = () => { if (go) return; go = true; requestAnimationFrame(tick); };
+  const tick = ts => { if (!t0) t0 = ts + delay; const k = Math.max(0, Math.min(1, (ts - t0)/dur)); heroT = ease2(k);
+    if (typeof req === 'function') req(); if (k < 1) requestAnimationFrame(tick); else { const s = document.querySelector('.hero > .s-draw'); s && s.classList.add('arrived'); } };
+  if (document.readyState === 'complete') begin(); else { addEventListener('load', begin, {once:true}); setTimeout(begin, 1800); }
+})();
 // 03: what the platform runs, one screen at a time. It plays through on its own;
 // a click takes over, and it picks up again after a while
 (() => {
@@ -1850,6 +1868,7 @@ $$('details.role').forEach(r => {
 function build(){
   layoutLimbs(); layoutPeak();
   const pen = $('.hero .pen'); heroFloor = pen && visible(pen) ? pos(pen).y + 2 : 0;
+  const penPt = pen && visible(pen) ? pos(pen) : null;
   const H = main.scrollHeight, W = main.clientWidth;
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.style.height = H+'px';
   let pts = $$('[data-o]').filter(visible).map(el => ({...pos(el), el, o:+el.dataset.o, vert: el.hasAttribute('data-v'), vn: el.hasAttribute('data-vn'), cut: el.hasAttribute('data-cut'), free: el.hasAttribute('data-free')})).sort((a,b) => a.o - b.o);
@@ -1858,6 +1877,10 @@ function build(){
   pts.forEach(p => { cur.push(p); if (p.cut){ segs.push(cur); cur = []; } });
   if (cur.length) segs.push(cur);
   trails = segs.map((sg, i) => makeTrail(pair(i), sg));
+  // how far along the first stroke the pen sits
+  heroLen = 0;
+  if (penPt && trails[0] && trails[0].len){ const t = trails[0], pth = t.paths[0]; let best = 1e9;
+    for (let L = 0; L <= t.len; L += t.step){ const q = pth.getPointAtLength(L), dd = (q.x - penPt.x)**2 + (q.y - penPt.y)**2; if (dd < best){ best = dd; heroLen = L; } } }
   PAIRS.slice(segs.length).forEach(pp => pp.forEach(p => p.setAttribute('d', '')));
   nodes = $$('.dot[data-o]').filter(visible).map(el => ({el, y: pos(el).y}));
   $$('details.dig').forEach(d => drawBranch(d, false));
@@ -1921,11 +1944,14 @@ let ticking = false;
 function frame(){
   ticking = false;
   const mTop = main.getBoundingClientRect().top + scrollY;
-  const penY = Math.max(scrollY + innerHeight*0.64 - mTop, heroFloor);
-  let busy = false;
-  trails.forEach(t => {
-    const target = reduce ? t.len : drawnLength(t, penY);
-    t.shown = reduce ? target : t.shown + (target - t.shown)*0.2;
+  const readY = scrollY + innerHeight*0.64 - mTop, penY = Math.max(readY, heroT >= 1 ? heroFloor : 0);
+  let busy = heroT < 1;
+  trails.forEach((t, j) => {
+    let target = reduce ? t.len : drawnLength(t, penY);
+    // until the pen is reached, the hero line leads; scrolling takes over at once
+    const intro = heroT < 1 && heroLen && scrollY < 40, drawingIn = intro && j === 0;
+    if (drawingIn) target = heroLen*heroT; else if (intro) target = 0;
+    t.shown = reduce || drawingIn ? target : t.shown + (target - t.shown)*0.2;
     if (Math.abs(target - t.shown) > 0.5) busy = true;
     t.paths.forEach(p => p.style.strokeDashoffset = (t.len - t.shown).toFixed(1));
   });
