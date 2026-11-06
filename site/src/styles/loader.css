@@ -1,0 +1,15 @@
+/* First-visit loader: the waiting sprite on the line, the line drawing itself as the page loads.
+   Only shown while <html> has .booting (set by the inline head script), so no-JS never sees it.
+   Sits under the grain (30) so it shares the paper's texture. */
+.loader{display:none}
+.booting .loader{position:fixed;inset:0;z-index:29;display:grid;place-content:center;justify-items:center;gap:var(--sp-3);background:var(--paper);transition:opacity .5s var(--ease),transform .6s var(--ease)}
+.booting{overflow:hidden}
+.loader-fig{position:relative;margin:0;display:grid;justify-items:center}
+.loader-fig .sprite{--h:clamp(140px,22vh,200px);image-rendering:pixelated}
+.loader-line{width:clamp(180px,26vw,280px);height:14px;margin-top:-2px;overflow:visible}
+.loader-line path{fill:none;stroke:var(--signal);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:var(--p,1);transition:stroke-dashoffset .35s ease-out}
+.loader-note{font:400 var(--fs-hand-s,22px)/1 var(--hand);color:var(--signal);transform:rotate(-3deg)}
+.loader-note i{font-style:normal;display:inline-block;animation:loader-dot 1.2s infinite}
+.loader-note i:nth-child(2){animation-delay:.15s}.loader-note i:nth-child(3){animation-delay:.3s}
+@keyframes loader-dot{0%,60%,100%{opacity:.25}30%{opacity:1}}
+.booted .loader{opacity:0;transform:translateY(-24px);pointer-events:none}
