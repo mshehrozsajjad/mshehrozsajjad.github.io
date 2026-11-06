@@ -8,11 +8,14 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=JetBrains+Mono:wght@500&family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=JetBrains+Mono:wght@500&family=Instrument+Sans:wdth,wght@75..100,400..700&family=Instrument+Serif:ital@0;1&display=swap">
 <link rel="stylesheet" href="/src/styles/site.css">
 <link rel="stylesheet" href="/src/styles/ending.css">
 <link rel="stylesheet" href="/src/styles/grain.css">
 <link rel="stylesheet" href="/src/styles/pages.css">
+<link rel="stylesheet" href="/src/styles/home.css">
+<link rel="preload" href="/fonts/shehroz-hand.woff2" as="font" type="font/woff2" crossorigin>
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js')</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -26,105 +29,142 @@
 
 <header class="top c">
   <div class="wrap">
-    <a class="mark" href="/" aria-label="Shehroz Sajjad, home">Shehroz Sajjad <span class="dot hit" data-o="0"></span></a>
+    <a class="mark" href="/" aria-label="Shehroz Sajjad, home">Shehroz Sajjad <span class="dot hit"></span></a>
     <nav class="nav" aria-label="Main"><a href="/code" aria-label="Engineering"><span class="nl">Engineering</span><span class="ns" aria-hidden="true">Code</span></a><i>/</i><a href="/design" aria-label="Design"><span class="nl">Design</span><span class="ns" aria-hidden="true">Design</span></a><i>/</i><a href="/ai" aria-label="AI products"><span class="nl">AI products</span><span class="ns" aria-hidden="true">AI</span></a><i>/</i><a href="/hardware" aria-label="Hardware"><span class="nl">Hardware</span><span class="ns" aria-hidden="true">Hardware</span></a></nav>
     <button class="theme" id="theme" type="button">Dark</button>
   </div>
 </header>
 
-<section class="hero p-hero" aria-labelledby="h1">
-  <span class="way wd" data-o="0.3" style="left:calc(50% + 120px);top:40px"></span>
-  <span class="way wd" data-o="0.6" style="left:min(calc(50% + 520px),calc(100% - 90px));top:120px"></span>
-  <div class="wrap">
-    <div class="c hero-copy">
+<!-- the hello: a word bigger than the screen, Shehroz in front of it, his own hand around him -->
+<section class="hx" aria-labelledby="h1">
+  <h1 id="h1" tabindex="-1" class="hx-h1">
+    <span class="hx-word" aria-hidden="true"><span class="hx-in">Hello</span></span>
+    <span class="sr">Hello, <span data-who>stranger</span>. I’m Shehroz.</span>
+  </h1>
+  <figure class="hx-fig">
+    <svg class="hx-scrib" viewBox="0 0 1049 1600" aria-hidden="true">
+      <!-- one marker gesture behind him: a ring round his head, three "look here" ticks, and a spark -->
+      <path class="loop" pathLength="1" d="M405 268 C 352 170, 420 -20, 600 -24 C 770 -28, 830 120, 800 220 C 772 320, 640 392, 520 372 C 430 356, 380 300, 392 230"/>
+      <path pathLength="1" d="M330 62 L 268 22"/>
+      <path pathLength="1" d="M300 172 L 226 168"/>
+      <path pathLength="1" d="M330 292 L 270 334"/>
+      <path class="spark" pathLength="1" d="M900 45 C 905 80, 912 86, 945 90 C 912 94, 905 100, 900 135 C 895 100, 888 94, 855 90 C 888 86, 895 80, 900 45 Z"/>
+    </svg>
+    <img class="hx-photo" src="/assets/photos/shehroz-front.webp" srcset="/assets/photos/shehroz-front-sm.webp 590w, /assets/photos/shehroz-front.webp 1049w" sizes="(max-width:760px) 80vw, 46vh" width="1049" height="1600" alt="Shehroz in sunglasses, a black overshirt and a red knit polo" fetchpriority="high">
+    
+  </figure>
+  <p class="hx-note hand" aria-hidden="true">hi, <span data-who>stranger</span>!<br>i’m Shehroz<svg viewBox="0 0 60 40"><path d="M4 6 C 22 6, 44 14, 54 34 M54 34 L 44 30 M54 34 L 56 23"/></svg></p>
+  <div class="hx-foot">
+    <div class="hx-copy">
       <p class="kicker">Founding engineer · Munich</p>
-      <h1 id="h1" tabindex="-1"><span class="hello">Hello, <span class="it" data-who>stranger</span>.</span><br>I’m Shehroz.</h1>
       <p class="pitch">I sit with the customer, own the platform, and ship what they need, <span class="dd" data-doodle="underline">fast.</span></p>
-      <div class="hero-actions"><a class="btn" href="#doors">See the work <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a><button class="act" type="button" data-open="agent">Talk to my AI twin <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button></div>
+      <div class="hero-actions"><a class="btn" href="#sides">See the work <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a><button class="act" type="button" data-open="agent">Talk to my AI twin <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button></div>
     </div>
-    <div class="hero-side">
-      <figure class="sprite-fig s-draw c" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-draw-anim.webp" alt="" aria-hidden="true" width="302" height="436"><span class="way pen" data-o="1"></span><svg class="spark" viewBox="0 0 24 24"><path d="M12 2 C 12.6 8.5, 15.5 11.4, 22 12 C 15.5 12.6, 12.6 15.5, 12 22 C 11.4 15.5, 8.5 12.6, 2 12 C 8.5 11.4, 11.4 8.5, 12 2 Z"/></svg></figure>
-      <div class="call-wrap c">
-        <div class="call">
-          <video class="twin" id="heroTwin" src="/assets/media/avatar.mp4" poster="/assets/media/avatar-poster.webp" autoplay muted loop playsinline aria-label="My AI twin"></video>
-          <span class="call-live"><i aria-hidden="true"></i>Live</span>
-          <button class="call-sound" type="button" id="heroSound" aria-pressed="false" aria-label="Turn sound on"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path class="off" d="M16 9.5l5 5M21 9.5l-5 5"/><path class="on" d="M16 9a4.5 4.5 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></svg></button>
-          <button class="call-btn" type="button" data-open="agent">Talk to my AI twin <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button>
-        </div>
-        <p class="call-cap">Answers from my own notes.</p>
+    <div class="call-wrap">
+      <div class="call">
+        <video class="twin" id="heroTwin" src="/assets/media/avatar.mp4" poster="/assets/media/avatar-poster.webp" autoplay muted loop playsinline aria-label="My AI twin"></video>
+        <span class="call-live"><i aria-hidden="true"></i>Live</span>
+        <button class="call-sound" type="button" id="heroSound" aria-pressed="false" aria-label="Turn sound on"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path class="off" d="M16 9.5l5 5M21 9.5l-5 5"/><path class="on" d="M16 9a4.5 4.5 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></svg></button>
+        <button class="call-btn" type="button" data-open="agent">Talk to my AI twin <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button>
+      </div>
+      <p class="call-cap">Answers from my own notes.</p>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div class="ticker-in">
+  <span>Founding engineer at Beyond Presence</span><i>✦</i><span>CTO of a 25-person studio</span><i>✦</i><span>Four products live</span><i>✦</i><span>Yolk, my own AI device</span><i>✦</i><span>Open source for LiveKit and n8n</span><i>✦</i>
+  <span>Founding engineer at Beyond Presence</span><i>✦</i><span>CTO of a 25-person studio</span><i>✦</i><span>Four products live</span><i>✦</i><span>Yolk, my own AI device</span><i>✦</i><span>Open source for LiveKit and n8n</span><i>✦</i>
+</div></div>
+
+<!-- the short version, in his hand, written out as you scroll -->
+<section class="qt" aria-labelledby="h-pitch">
+  <span class="way" data-o="3" data-v style="left:var(--gut);top:0"></span>
+  <div class="qt-pin">
+    <div class="wrap">
+      <p class="chap-l">01 / The short version</p>
+      <h2 id="h-pitch" class="qt-text">Most useful when a customer is waiting and the answer doesn’t exist yet.</h2>
+      <p class="qt-sign hand">Shehroz, on most days</p>
+    </div>
+  </div>
+</section>
+
+<!-- who to call: the photo and the proof on one side, everything he does sharpening on the other -->
+<section class="ab" aria-labelledby="h-ab">
+  <div class="wrap ab-grid">
+    <span class="way" data-o="5" data-v style="left:-24px;top:0"></span>
+    <div class="ab-side">
+      <div class="ab-stick">
+        <p class="chap-l">02 / Who to call</p>
+        <h2 id="h-ab" class="ab-h">Tight deadlines are where I do my best&nbsp;work.</h2>
+        <p class="ab-lead">At Beyond Presence I own the platform behind the product, frontend and backend, and I’m in the customer meetings where what we build next gets decided. Before that I ran tech as CTO of a 25-person studio. On the side I take my own ideas from a name and a brand to paying customers.</p>
+        <dl class="ab-proof">
+          <div><dt>CodeJunkie</dt><dd>Co-founded it in my final semester and ran tech as CTO. 25 people, clients worldwide.</dd></div>
+          <div><dt>Beyond Presence</dt><dd>Founding engineer since pre-seed, before there was a product.</dd></div>
+          <div><dt>My own products</dt><dd>myClosr, Slaptastic, Vorsprech and NPC Filter are live. I sell them myself.</dd></div>
+          <div><dt>My own device</dt><dd>Yolk, an AI device I designed, makes my phone calls in German.</dd></div>
+        </dl>
       </div>
     </div>
-  </div>
-  <span class="way wd" data-o="2" data-v style="left:var(--gut);top:calc(100% - 40px)"></span>
-</section>
-
-<section class="ch pitch-sec" aria-labelledby="h-pitch">
-  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">01 / The short version</div></div>
-  <div class="wrap">
-    <span class="way" data-o="3" data-v style="left:-24px;top:0"></span>
-    <h2 id="h-pitch" class="c" data-reveal="words">Most useful when a customer is waiting and the answer <span class="it">doesn’t exist yet.</span></h2>
-    <p class="lead c" data-reveal>At Beyond Presence I own the platform behind the product, frontend and backend, and I’m in the customer meetings where what we build next gets decided. Before that I ran tech as CTO of a 25-person studio. On the side I take my own ideas from a name and a brand to paying customers.</p>
-    <ol class="proof c">
-        <li class="pf" data-reveal><span class="dot" data-o="5" data-v></span><span class="pf-k">CodeJunkie</span><span class="pf-v">Co-founded it in my final semester and ran tech as CTO. 25 people, clients worldwide.</span></li>
-        <li class="pf" data-reveal><span class="dot" data-o="6" data-v></span><span class="pf-k">Beyond Presence</span><span class="pf-v">Founding engineer since pre-seed, before there was a product. I take customer asks to shipped features on tight deadlines, and pick up support when something breaks.</span></li>
-        <li class="pf" data-reveal><span class="dot" data-o="7" data-v></span><span class="pf-k">My own products</span><span class="pf-v">myClosr, Slaptastic, Vorsprech and NPC Filter are live. I sell them myself.</span></li>
-        <li class="pf" data-reveal><span class="dot" data-o="8" data-v></span><span class="pf-k">My own device</span><span class="pf-v">Yolk, an AI device I designed, makes my phone calls in German.</span></li>
-    </ol>
+    <div class="ab-list-wrap">
+      <img class="ab-photo" src="/assets/photos/shehroz-lean-sm.webp" width="459" height="900" alt="" aria-hidden="true" loading="lazy">
+      <ul class="ab-list" aria-label="What I do">
+        <li>Platforms</li><li>Real-time AI</li><li>Frontend</li><li>Backend</li><li>Product design</li><li>Brands</li><li>Launch films</li><li>Hardware</li><li>Getting it sold</li>
+      </ul>
+    </div>
   </div>
 </section>
 
-<section class="ch doors-sec" id="doors" aria-labelledby="h-doors">
-  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">02 / Pick a side</div></div>
+<!-- four sides, four pages -->
+<section class="sd" id="sides" aria-labelledby="h-sides">
   <div class="wrap">
     <span class="way" data-o="10" data-v style="left:-24px;top:0"></span>
-    <div class="doors-head c">
-      <h2 id="h-doors" data-reveal="words">What are you <span class="it">here for?</span></h2>
-      <p class="lead" data-reveal>Each page is written for one kind of work. Open the one you care about.</p>
-      <span class="hand pick" data-reveal aria-hidden="true">pick one<svg viewBox="0 0 34 44"><path d="M6 3 C 22 8, 30 20, 26 40 M26 40 L 20 32 M26 40 L 33 34"/></svg></span>
+    <div class="sd-head">
+      <p class="chap-l">03 / Pick a side</p>
+      <h2 id="h-sides" class="sd-h">What are you <span class="it">here for?</span></h2>
+      <p class="hand sd-pick" aria-hidden="true">each one has its own page</p>
     </div>
-    <div class="doors c">
-      <a class="door" href="/code" data-reveal="print" style="--r:-1.2deg">
-        <span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-think-anim.webp" alt="" aria-hidden="true" width="199" height="484"></span>
-        <span class="door-t"><span class="kicker">Engineering</span><b>Platforms, real-time AI and the code under them.</b>
-          <ul><li>Founding engineer at Beyond Presence</li><li>CTO of a 25-person studio</li><li>Open source for LiveKit and n8n</li></ul></span>
-        <span class="door-go"><span class="act">Open the page <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></span>
-      </a>
-      <a class="door" href="/design" data-reveal="print" style="--r:1deg">
-        <span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-draw-anim.webp" alt="" aria-hidden="true" width="302" height="436"></span>
-        <span class="door-t"><span class="kicker">Design</span><b>Brands, interfaces and films, made by the hands that build them.</b>
-          <ul><li>Where I started: Photoshop</li><li>A name and a brand for every idea</li><li>Launch films and photography</li></ul></span>
-        <span class="door-go"><span class="act">Open the page <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></span>
-      </a>
-      <a class="door" href="/ai" data-reveal="print" style="--r:1.4deg">
-        <span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" aria-hidden="true" width="248" height="481"></span>
-        <span class="door-t"><span class="kicker">AI products</span><b>Applied AI, built on my own and put in front of real people.</b>
-          <ul><li>Four products live</li><li>Selling them with ads, SEO and n8n</li><li>Avatars that join calls</li></ul></span>
-        <span class="door-go"><span class="act">Open the page <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></span>
-      </a>
-      <a class="door" href="/hardware" data-reveal="print" style="--r:-0.8deg">
-        <span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-solder-anim.webp" alt="" aria-hidden="true" width="260" height="431"></span>
-        <span class="door-t"><span class="kicker">Hardware</span><b>Where the AI leaves the screen.</b>
-          <ul><li>Yolk, my own AI device</li><li>TARS, my first robot</li><li>Software for a medical device</li></ul></span>
-        <span class="door-go"><span class="act">Open the page <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></span>
-      </a>
-    </div>
+    <ol class="sd-list">
+      <li><a class="sd-row" href="/code"><span class="sd-n">01</span><span class="sd-w">Engineering</span><span class="sd-t">Platforms, real-time AI and the code under them.</span><svg class="ar sd-ar" aria-hidden="true"><use href="#i-ne"/></svg>
+        <span class="sd-peek" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-think-anim.webp" alt="" width="199" height="484" loading="lazy"><span class="hand">founding engineer, ex-CTO</span></span></a></li>
+      <li><a class="sd-row" href="/design"><span class="sd-n">02</span><span class="sd-w">Design</span><span class="sd-t">Brands, interfaces and films, made by the hands that build them.</span><svg class="ar sd-ar" aria-hidden="true"><use href="#i-ne"/></svg>
+        <span class="sd-peek" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-draw-anim.webp" alt="" width="302" height="436" loading="lazy"><span class="hand">where I started</span></span></a></li>
+      <li><a class="sd-row" href="/ai"><span class="sd-n">03</span><span class="sd-w">AI products</span><span class="sd-t">Applied AI, built on my own and put in front of real people.</span><svg class="ar sd-ar" aria-hidden="true"><use href="#i-ne"/></svg>
+        <span class="sd-peek" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" width="248" height="481" loading="lazy"><span class="hand">four of them live</span></span></a></li>
+      <li><a class="sd-row" href="/hardware"><span class="sd-n">04</span><span class="sd-w">Hardware</span><span class="sd-t">Where the AI leaves the screen.</span><svg class="ar sd-ar" aria-hidden="true"><use href="#i-ne"/></svg>
+        <span class="sd-peek" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-solder-anim.webp" alt="" width="260" height="431" loading="lazy"><span class="hand">Yolk, TARS and more</span></span></a></li>
+    </ol>
   </div>
 </section>
 
-<section class="ch faq" aria-labelledby="h-faq">
-  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">03 / Before you ask</div></div>
+<section class="fq" aria-labelledby="h-faq">
   <div class="wrap">
     <span class="way" data-o="20" data-v style="left:-24px;top:0"></span>
-    <h2 id="h-faq" class="c" data-reveal="words">Before <span class="it">you ask.</span></h2>
-    <ol class="qa-list c">
-        <li data-reveal><span class="qa-n">01</span><h3>Where are you?</h3><p>Munich, Germany.</p></li>
-        <li data-reveal><span class="qa-n">02</span><h3>What do you do right now?</h3><p>Founding engineer at Beyond Presence. I own the creator and call platforms behind our real-time avatars, frontend and backend, and I’m in the customer meetings turning what they need into something working, fast.</p></li>
-        <li data-reveal><span class="qa-n">03</span><h3>What are you best at?</h3><p>Getting from a customer’s problem to something working, fast. Tight deadlines are where I do my best work.</p></li>
-        <li data-reveal><span class="qa-n">04</span><h3>Designer or engineer?</h3><p>Both, usually on the same product. Then I help it reach people.</p></li>
-        <li data-reveal><span class="qa-n">05</span><h3>Is the twin really you?</h3><p>It answers from my own notes, with preset answers for now. For the real me, book a call or write.</p></li>
-        <li data-reveal><span class="qa-n">06</span><h3>Can I see everything in one place?</h3><p>Yes. <a class="act" href="/story">The long story <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a> walks through all of it, from Photoshop to now.</p></li>
+    <p class="chap-l">04 / Before you ask</p>
+    <h2 id="h-faq" class="fq-h">Before you ask…</h2>
+    <ol class="fq-list">
+      <li><span class="qa-n">01</span><h3>Where are you?</h3><p>Munich, Germany.</p></li>
+      <li><span class="qa-n">02</span><h3>What do you do right now?</h3><p>Founding engineer at Beyond Presence. I own the creator and call platforms behind our real-time avatars, frontend and backend, and I’m in the customer meetings turning what they need into something working, fast.</p></li>
+      <li><span class="qa-n">03</span><h3>What are you best at?</h3><p>Getting from a customer’s problem to something working, fast. Tight deadlines are where I do my best work.</p></li>
+      <li><span class="qa-n">04</span><h3>Designer or engineer?</h3><p>Both, usually on the same product. Then I help it reach people.</p></li>
+      <li><span class="qa-n">05</span><h3>Is the twin really you?</h3><p>It answers from my own notes, with preset answers for now. For the real me, book a call or write.</p></li>
+      <li><span class="qa-n">06</span><h3>Everything in one place?</h3><p>Yes. <a class="act" href="/story">The long story <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a> walks through all of it, from Photoshop to now.</p></li>
     </ol>
   </div>
+</section>
+
+<!-- the ending: his hand, over and over, and a big promise across it -->
+<section class="wl" aria-labelledby="h-wl">
+  <div class="wl-hand" aria-hidden="true">
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
+  </div>
+  <h2 id="h-wl" class="wl-h"><span class="wl-a">Got an idea?</span> <span class="wl-b">Let’s build&nbsp;it.</span></h2>
+  <img class="wl-photo" src="/assets/photos/shehroz-stride-sm.webp" width="626" height="900" alt="" aria-hidden="true" loading="lazy">
 </section>
 
 <section class="contact" id="contact" aria-labelledby="h-foot">
@@ -172,6 +212,7 @@
 </section>
 </main>
 
+
 <footer>
   <div class="wrap">
     <p class="f-legal" data-reveal>© 2026<span class="f-name"> Shehroz Sajjad</span><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a><a href="/story">The long story</a></p>
@@ -202,5 +243,6 @@
   <form class="d-form" id="askForm" autocomplete="off"><label for="askInput" class="sr">Your question</label><input id="askInput" placeholder="Ask about any project…"><button class="btn" type="submit">Ask</button></form>
 </aside>
 <script type="module" src="/src/pages.js"></script>
+<script type="module" src="/src/home.js"></script>
 </body>
 </html>
