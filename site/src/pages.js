@@ -212,7 +212,16 @@ function openD(id){ const d = $('#' + id); if (!d) return; if (!reduce){ const v
 function closeD(restore){ $$('.drawer.open').forEach(d => { d.classList.remove('open'); d.setAttribute('aria-hidden', 'true'); }); if (scrim) scrim.classList.remove('open'); main.inert = false; document.body.style.overflow = ''; if (restore && lastFocus && lastFocus.focus) lastFocus.focus(); }
 document.addEventListener('click', e => { const t = e.target.closest('button, a'); if (!t) return; if (t.dataset.open){ openD(t.dataset.open); } else if (t.hasAttribute('data-close')) closeD(true); });
 if (scrim) scrim.addEventListener('click', () => closeD(true));
-addEventListener('keydown', e => { if (e.key === 'Escape' && $('.drawer.open')) closeD(true); });
+addEventListener('keydown', e => {
+  const drawer = $('.drawer.open');
+  if (!drawer) return;
+  if (e.key === 'Escape') { closeD(true); return; }
+  if (e.key !== 'Tab') return;
+  const focusable = $$('a[href], button:not([disabled]), input:not([disabled]), [tabindex="0"]', drawer).filter(el => el.getClientRects().length);
+  const first = focusable[0], last = focusable.at(-1);
+  if (e.shiftKey && (document.activeElement === first || !drawer.contains(document.activeElement))) { e.preventDefault(); last?.focus(); }
+  else if (!e.shiftKey && (document.activeElement === last || !drawer.contains(document.activeElement))) { e.preventDefault(); first?.focus(); }
+});
 const A = {
   now: {t: "I'm a founding engineer at Beyond Presence. I own the creator and call platforms behind our real-time avatars and Managed Agents, frontend and backend (the real-time models and their scaling are my teammates'). I sit in customer meetings and ship what customers need on tight deadlines, like the integration that puts an avatar in a Zoom or Teams call.", go: ['The engineering side', '/code']},
   make: {t: "Yolk, my own AI device with an e-paper screen and a dial, which makes my German phone calls. And TARS, a 3D-printed desk robot running my avatar locally.", go: ['The hardware', '/hardware']},
