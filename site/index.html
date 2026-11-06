@@ -30,7 +30,6 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 <div class="intro" aria-hidden="true"><p class="intro-w"></p><i class="intro-bar intro-top"></i><i class="intro-bar intro-bot"></i></div>
 <a class="skip-link" href="#h1">Skip to content</a>
 <main id="main">
-<svg id="trail" aria-hidden="true"><path id="pMain" style="stroke:var(--signal);stroke-width:2"/></svg>
 
 <header class="top c">
   <div class="wrap">
@@ -47,8 +46,8 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
     <span class="hx-l hx-l2" aria-hidden="true"><span class="hx-in">lo</span></span>
     <span class="sr">Hello, <span data-who>stranger</span>. I’m Shehroz.</span>
   </h1>
-  <figure class="hx-fig">
-    <img class="hx-photo" src="/assets/photos/shehroz-front.webp" srcset="/assets/photos/shehroz-front-sm.webp 590w, /assets/photos/shehroz-front.webp 1049w" sizes="(max-width:760px) 80vw, 46vh" width="1049" height="1600" alt="Shehroz in sunglasses, a black overshirt and a red knit polo" fetchpriority="high">
+  <figure class="hx-fig" data-anchor="hero-photo">
+    <img class="hx-photo" src="/assets/photos/shehroz-front.webp" srcset="/assets/photos/shehroz-front-sm.webp 590w, /assets/photos/shehroz-front.webp 1049w" sizes="(max-width:760px) 80vw, 46vh" width="1049" height="1600" alt="Shehroz in sunglasses, a black overshirt and a blue knit polo" fetchpriority="high">
   </figure>
   <p class="hx-note hand" aria-hidden="true">hi, <span data-who>stranger</span>!<br>i’m Shehroz<svg viewBox="0 0 60 40"><path d="M4 6 C 22 6, 44 14, 54 34 M54 34 L 44 30 M54 34 L 56 23"/></svg></p>
   <div class="hx-foot">
@@ -76,8 +75,8 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 
 <!-- the short version, in his hand, written out as you scroll -->
 <section class="qt" aria-labelledby="h-pitch">
-  <span class="way" data-o="3" data-v style="left:var(--gut);top:0"></span>
   <div class="qt-pin">
+    <div class="qt-marks" aria-hidden="true"></div>
     <div class="wrap">
       <p class="chap-l">01 / The short version</p>
       <h2 id="h-pitch" class="qt-text">Most useful when a customer is waiting and the answer doesn’t exist yet.</h2>
@@ -89,7 +88,6 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 <!-- who to call: the photo and the proof on one side, everything he does sharpening on the other -->
 <section class="ab" aria-labelledby="h-ab">
   <div class="wrap ab-grid">
-    <span class="way" data-o="5" data-v style="left:-24px;top:0"></span>
     <div class="ab-side">
       <div class="ab-stick">
         <p class="chap-l">02 / Who to call</p>
@@ -115,7 +113,6 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 <!-- four sides, four pages -->
 <section class="sd" id="sides" aria-labelledby="h-sides">
   <div class="wrap">
-    <span class="way" data-o="10" data-v style="left:-24px;top:0"></span>
     <div class="sd-head">
       <p class="chap-l">03 / Pick a side</p>
       <h2 id="h-sides" class="sd-h">What are you <span class="it">here for?</span></h2>
@@ -136,7 +133,6 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 
 <section class="fq" aria-labelledby="h-faq">
   <div class="wrap">
-    <span class="way" data-o="20" data-v style="left:-24px;top:0"></span>
     <p class="chap-l">04 / Before you ask</p>
     <h2 id="h-faq" class="fq-h">Before you ask…</h2>
     <ol class="fq-list">
@@ -161,8 +157,7 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
     <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
   </div>
   <h2 id="h-wl" class="wl-h"><span class="wl-a">Got an idea?</span> <span class="wl-b">Let’s build&nbsp;it.</span></h2>
-  <span class="way" data-o="90" data-v style="left:var(--gut);bottom:0"></span>
-  <img class="wl-photo" src="/assets/photos/shehroz-stride-sm.webp" width="626" height="900" alt="" aria-hidden="true" loading="lazy">
+  <img class="wl-photo" data-anchor="stride-photo" src="/assets/photos/shehroz-stride-sm.webp" width="626" height="900" alt="" aria-hidden="true" loading="lazy">
 </section>
 
 </main>

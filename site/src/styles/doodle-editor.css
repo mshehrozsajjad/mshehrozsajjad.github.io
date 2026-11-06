@@ -1,0 +1,15 @@
+/* Doodle mode (doodle-editor.js, dev only): a sheet of glass over the page to draw on, and a toolbar at the bottom.
+   touch-action:none lets an Apple Pencil or a finger draw instead of scrolling; Scroll mode lets touches through. */
+.dz{position:fixed;inset:0;z-index:300;touch-action:none;cursor:crosshair}
+.dz.scrolling{pointer-events:none}
+.dz-live{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.dz-live path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.dz-bar{pointer-events:auto;cursor:default;position:fixed;left:50%;bottom:max(16px,env(safe-area-inset-bottom));translate:-50% 0;
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px;max-width:calc(100vw - 32px);padding:8px;border-radius:999px;
+  background:var(--ink);color:var(--paper);box-shadow:0 10px 30px rgba(0,0,0,.25);font:600 14px/1 var(--sans)}
+.dz-bar button{min-height:44px;padding:0 14px;border:0;border-radius:999px;background:none;color:inherit;font:inherit;cursor:pointer}
+.dz-bar button[aria-pressed=true]{background:var(--paper);color:var(--ink)}
+.dz-bar [data-color]::before{content:"";display:inline-block;width:12px;height:12px;margin-right:6px;border-radius:50%;background:var(--c);box-shadow:0 0 0 2px var(--paper);vertical-align:-1px}
+.dz-msg{padding:0 10px;font-weight:500;opacity:.75;white-space:nowrap}
+/* while doodling the page holds still: nothing hides behind a reveal */
+.doodling [data-reveal]{opacity:1!important;transform:none!important}

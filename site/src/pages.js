@@ -3,6 +3,7 @@
 import {createReveal} from './reveal.js';
 import {smooth} from './spline.js';
 import {handDrawn} from './hand.js';
+import {playDoodles} from './doodles.js';
 
 (() => {
 "use strict";
@@ -250,6 +251,10 @@ const th = () => root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)
 const themeBtn = $('#theme');
 if (themeBtn){ const label = () => themeBtn.textContent = th() === 'dark' ? 'Light' : 'Dark';
   themeBtn.addEventListener('click', () => { root.dataset.theme = th() === 'dark' ? 'light' : 'dark'; try { localStorage.setItem('site-theme', th()); } catch (_) {} label(); }); label(); }
+
+/* ---------- his doodles: played back, or drawn on the dev server with ?doodle ---------- */
+if (import.meta.env.DEV && new URLSearchParams(location.search).has('doodle')) import('./doodle-editor.js');
+else playDoodles();
 
 build();
 })();

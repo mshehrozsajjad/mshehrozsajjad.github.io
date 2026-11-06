@@ -29,7 +29,7 @@ main{overflow-x:clip}
 .intro-w{margin:0;font-weight:700;font-stretch:75%;font-size:100px;line-height:.8;letter-spacing:-.035em;text-transform:uppercase;white-space:nowrap;visibility:hidden}
 
 /* ---------- the hello ---------- */
-.hx{position:relative;height:max(640px,calc(100svh - 72px));overflow:clip;display:grid;grid-template-rows:1fr auto}
+.hx{position:relative;height:max(640px,calc(90svh - 72px));overflow:clip;display:grid;grid-template-rows:1fr auto}
 /* the word, broken in two and staggered: HEL high on the left, LO lower on the right, both tucked behind him */
 .hx-h1{--hx:clamp(120px,min(25vw,44svh),460px);position:absolute;inset:0;margin:0;pointer-events:none}
 .hx-l{position:absolute;display:block;overflow:clip;padding:0 .03em}
@@ -59,7 +59,13 @@ main{overflow-x:clip}
 /* ---------- the short version, handwritten ---------- */
 .qt{position:relative}
 .qt-pin{min-height:100svh;display:grid;grid-template-columns:minmax(0,1fr);align-items:center;padding-block:var(--sp-6)}
-.qt-pin > .wrap{width:100%}
+.qt-pin > .wrap{position:relative;z-index:1;width:100%}
+/* noughts and crosses in his hand, scattered round the quote (home.js places them and hides any that would touch it) */
+.qt-pin{position:relative}
+.qt-marks{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.qt-mark{position:absolute;font:400 calc(var(--s) * clamp(44px,5.6vw,104px))/1 var(--hand);color:color-mix(in srgb,var(--ink) 32%,transparent);translate:-50% -50%;rotate:var(--r)}
+.qt-mark.hot{color:var(--signal)}
+.qt-mark.off{display:none}
 .qt-text{font:400 clamp(40px,6.4vw,104px)/1.02 var(--hand);letter-spacing:0;color:var(--signal);max-width:min(9.5em,100%)}
 .qt-text .hc{display:inline-block}
 .qt-sign{display:block;margin:var(--sp-4) 0 0 auto;width:max-content;font-size:clamp(28px,2.6vw,40px);color:var(--ink);transform:rotate(-4deg)}
@@ -174,7 +180,7 @@ main{overflow-x:clip}
   .hx-l2{justify-self:end;margin:-.04em calc(var(--gr) - .03em) 0 0}
   .hx-fig{position:relative;left:auto;translate:none;height:auto;width:72vw;margin:-34vw auto 0}
   .hx-note{position:relative;top:auto;left:auto;display:block;width:max-content;margin:14px auto 0;font-size:30px;text-align:center;transform:rotate(-4deg)}
-  .hx-note svg{position:absolute;right:calc(100% - 4px);top:80%;width:clamp(56px,4.6vw,80px);height:auto;transform:scaleX(-1) rotate(30deg)}
+  .hx-note svg{display:none}
   .hx-foot{display:grid;gap:var(--sp-3);padding:var(--sp-3) var(--gr) var(--sp-5) var(--gl)}
   .hx-copy{max-width:none}
   .call-wrap{justify-items:start}
