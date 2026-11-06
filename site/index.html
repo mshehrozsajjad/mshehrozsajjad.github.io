@@ -112,19 +112,13 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 
 <!-- four sides, four pages -->
 <section class="sd" id="sides" aria-labelledby="h-sides">
-  <!-- a spread: the contents on the left, the four volumes in a pile on the right. Pick one and it is pulled out and
-       laid on top; the one on top opens that side in a new tab (bookshelf.js) -->
-  <div class="wrap sd-grid">
-    <div class="sd-side">
-      <div class="sd-head">
-        <p class="chap-l">03 / Pick a side</p>
-        <h2 id="h-sides" class="sd-h">What are you <span class="it">here for?</span></h2>
-        <p class="hand sd-pick" aria-hidden="true">pick one off the pile <span class="sd-arr">→</span></p>
-      </div>
-      <div class="shelf-cap" hidden>
-        <p class="sd-lead">Four volumes, one for each side of my work. Pick one to bring it to the top, then open it.</p>
-        <ol class="toc" aria-label="Contents"></ol>
-      </div>
+  <!-- the four volumes fanned out like a hand of cards under the title (a pile on phones). Pick one and it is pulled
+       out and laid on top; the one on top opens that side in a new tab (bookshelf.js) -->
+  <div class="wrap sd-wrap">
+    <div class="sd-head">
+      <p class="chap-l">03 / Pick a side</p>
+      <h2 id="h-sides" class="sd-h">What are you <span class="it">here for?</span></h2>
+      <p class="hand sd-pick" aria-hidden="true">pick a card, any card <span class="sd-arr">↓</span></p>
     </div>
     <div class="bookshelf">
       <ol class="books">
