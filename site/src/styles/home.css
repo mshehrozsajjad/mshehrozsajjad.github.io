@@ -34,7 +34,7 @@ main{overflow-x:clip}
 .hx-h1{--hx:clamp(120px,min(25vw,44svh),460px);position:absolute;inset:0;margin:0;pointer-events:none}
 .hx-l{position:absolute;display:block;overflow:clip;padding:0 .03em}
 .hx-l1{right:calc(50% + 8vw);top:3%}
-.hx-l2{left:calc(50% + 14vw);top:38%}
+.hx-l2{left:calc(50% + 14vw);top:31%}
 .hx-in{display:block;font-weight:700;font-stretch:75%;font-size:var(--hx);line-height:.8;letter-spacing:-.035em;text-transform:uppercase;color:var(--signal);white-space:nowrap}
 .hx-in .hc{display:inline-block}
 .hx-fig{position:absolute;left:50%;bottom:0;margin:0;height:min(92%,880px);aspect-ratio:1049/1600;translate:-50% 0;z-index:2}
@@ -47,7 +47,12 @@ main{overflow-x:clip}
 .hx-copy{max-width:min(330px,calc(50vw - 300px))}
 .hx-copy .pitch{margin-top:10px;font-size:clamp(20px,1.8vw,26px);max-width:22ch}
 .hx-copy .hero-actions{margin-top:var(--sp-3);gap:var(--sp-2) var(--sp-3)}
-.hx .call{width:220px}
+/* the twin: a polaroid stuck on the poster, the same white edge as his cut-out, his note on the frame */
+.hx .call-wrap{justify-items:center;gap:0;padding:9px 9px 6px;background:var(--raised);border-radius:3px;rotate:4deg;translate:0 10px;
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 8%,transparent),0 22px 40px -22px rgba(20,16,10,.45);transition:rotate .5s var(--ease)}
+.hx .call-wrap:hover{rotate:1deg}
+.hx .call{width:184px;border-radius:2px;box-shadow:none}
+.hx .call-cap{margin:5px 0 1px;max-width:184px;font-size:22px;line-height:1;text-align:center;color:var(--ink)}
 
 /* ---------- the ticker ---------- */
 .ticker{position:relative;z-index:3;overflow:hidden;background:var(--ink);color:var(--paper);rotate:-1.2deg;margin:-6px -20px 0;padding:14px 0}
@@ -255,17 +260,19 @@ main{overflow-x:clip}
   .wl-photo{height:42%}
 }
 @media (max-width:760px){
-  .hx{height:auto;min-height:0;display:block;overflow:visible}
-  .hx-h1{--hx:38vw;position:relative;inset:auto;display:grid;padding-top:var(--sp-3)}
+  /* a poster: HEL over LO down the left, him in front of them on the right, his note by his side */
+  .hx{height:auto;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);overflow:visible}
+  .hx-h1,.hx-fig,.hx-note{grid-area:1 / 1}
+  .hx-h1{--hx:44vw;position:relative;inset:auto;display:grid;justify-items:start;align-content:start;padding:var(--sp-2) 0 0 calc(var(--gl) - .05em)}
   .hx-l{position:static}
-  .hx-l1{justify-self:start;margin-left:calc(var(--gl) - .03em)}
-  .hx-l2{justify-self:end;margin:-.04em calc(var(--gr) - .03em) 0 0}
-  .hx-fig{position:relative;left:auto;translate:none;height:auto;width:72vw;margin:-34vw auto 0}
-  .hx-note{position:relative;top:auto;left:auto;display:block;width:max-content;margin:14px auto 0;font-size:30px;text-align:center;transform:rotate(-4deg)}
-  .hx-note svg{display:none}
+  .hx-l2{margin-top:-.02em}
+  .hx-fig{position:relative;left:auto;translate:none;justify-self:end;height:auto;width:63vw;margin:20vw -3vw 0 0}
+  .hx-note{position:relative;z-index:3;top:auto;left:auto;align-self:end;justify-self:start;margin:0 0 10vw var(--gl);font-size:min(26px,6.8vw);transform:rotate(-6deg)}
+  .hx-note svg{display:block;right:auto;left:62%;top:calc(100% - 4px);width:46px;transform:rotate(-20deg)}
   .hx-foot{display:grid;gap:var(--sp-3);padding:var(--sp-3) var(--gr) var(--sp-5) var(--gl)}
   .hx-copy{max-width:none}
-  .call-wrap{justify-items:start}
+  .hx-copy .hero-actions{margin-top:var(--sp-3)}
+  .hx .call-wrap{display:none}   /* the floating button is the way to the twin on a phone */
   .ticker{margin-inline:-10px}
   .qt-pin{min-height:80svh;padding-block:var(--sp-5)}
   .qt-sign{margin-left:0;font-size:26px}
