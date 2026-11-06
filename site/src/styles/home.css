@@ -86,54 +86,53 @@ main{overflow-x:clip}
 .ab-list li{position:relative;z-index:1}
 .ab-photo{position:sticky;top:calc(50vh - 220px);float:right;width:auto;height:440px;margin:22vh -40px 0 0;opacity:.95;z-index:0;rotate:4deg}
 
-/* ---------- pick a side: a spread, the open book's story on the left and the shelf on the right ----------
-   Four volumes of one size. Each is a real block: the spine is its front face, the cover its side face, so turning it
-   (bookshelf.js) shows the cover the way a real book turns, each face darkening as it turns from the light.
-   Without the script the spines just stand there as links; touch screens get the covers in a swipeable row. */
+/* ---------- pick a side: the four volumes in a pile on the desk, the contents beside them ----------
+   Four paperbacks of one size lie face up, fanned up and to the right so every title shows. Pick one (a book, a line
+   of the contents, or ← →) and it is pulled out of the pile and laid on top (bookshelf.js); the one on top opens its
+   side. Each book is still a real block (spine, cover, page edge), so the one on top leans after the pointer.
+   Without the script the pile just lies there, every book a link. */
 .sd{position:relative;padding-block:var(--sp-5)}
 .sd-grid{max-width:1440px;display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(32px,4vw,80px);align-items:stretch}   /* a wider spread than the page's text width */
-.sd-side{display:flex;flex-direction:column;justify-content:space-between;gap:var(--sp-4);padding-bottom:18px}   /* ends on the plank's line */
+.sd-side{display:flex;flex-direction:column;justify-content:space-between;gap:var(--sp-4)}
 .sd-h{font-size:var(--fs-h2)}
 .sd-pick{display:block;margin-top:var(--sp-2);font-size:clamp(26px,2.2vw,34px);transform:rotate(-3deg)}
 .sd-arr{display:inline-block;font-family:var(--sans);transform:translateY(-2px)}
 
-/* the open book's story, set like "who to call": an ink rule, a narrow-caps name, a muted line, the underlined way in.
-   Before a book is open, a lead paragraph says what the shelf is */
-.shelf-cap{display:grid;gap:var(--sp-4)}
+/* the contents: a book's contents page, one line per volume with a dotted leader to its number.
+   The volume on top is the open line: its number in his blue, what's inside, and the way in */
+.shelf-cap{display:grid;gap:var(--sp-3)}
 .shelf-cap[hidden]{display:none}
 .sd-lead{color:var(--muted);max-width:40ch}
-.shelf-info{display:grid;justify-items:start;gap:8px;border-top:2px solid var(--ink);padding-top:12px}
-.sd:not(.sd-open) .shelf-info,.sd.sd-open .sd-lead{display:none}
-.shelf-n{font:500 var(--fs-xs)/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--signal)}
-.shelf-t{font:700 clamp(26px,2.2vw,34px)/1 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:.01em}
-.shelf-d{max-width:42ch;font-size:var(--fs-s);line-height:1.45;color:var(--muted)}
-.shelf-open{margin-top:8px}
-.shelf-info.swap > *{animation:shelf-swap .6s var(--ease) both}
-.shelf-info.swap > :nth-child(2){animation-delay:.04s}
-.shelf-info.swap > :nth-child(3){animation-delay:.08s}
-.shelf-info.swap > :nth-child(4){animation-delay:.12s}
-@keyframes shelf-swap{from{opacity:0;translate:0 10px}}
-.shelf-nav{display:flex;align-items:center;gap:14px;padding-top:var(--sp-3);border-top:2px solid var(--ink)}
-.shelf-arrow{flex:none;width:48px;height:48px;display:grid;place-items:center;border:2px solid var(--ink);border-radius:50%;background:none;color:var(--ink);cursor:pointer;transition:background .2s,color .2s}
-.shelf-arrow:hover{background:var(--ink);color:var(--paper)}
-.shelf-arrow svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.shelf-arrow[data-step="-1"] svg{rotate:180deg}
-.shelf-ticks{flex:1;display:flex;gap:6px}
-.shelf-ticks i{flex:1;height:3px;border-radius:2px;background:color-mix(in srgb,var(--ink) 18%,transparent);transition:background .3s}
-.shelf-ticks i.on{background:var(--signal)}
-.shelf-count{font:500 var(--fs-xs)/1 var(--mono);letter-spacing:.12em;font-variant-numeric:tabular-nums}
-@media (prefers-reduced-motion:reduce){.shelf-info.swap > *{animation:none}}
+.toc{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+.toc > li{border-bottom:1px solid var(--line)}
+.toc-b{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:baseline;gap:12px;padding:14px 0 10px;cursor:pointer;color:var(--muted);transition:color .25s}
+.toc-t{font:700 clamp(26px,2.3vw,36px)/.95 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:.01em;transition:translate .4s var(--ease)}
+.toc-dots{flex:1;min-width:24px;height:2px;align-self:center;translate:0 6px;opacity:.45;
+  background:radial-gradient(circle,currentColor 1px,transparent 1.3px) 0 50%/7px 2px repeat-x}
+.toc-n{font:500 var(--fs-xs)/1 var(--mono);letter-spacing:.12em;font-variant-numeric:tabular-nums}
+.toc-b:hover,.toc-b:focus-visible,.toc > li.on .toc-b{color:var(--ink)}
+.toc-b:hover .toc-t{translate:6px 0}
+.toc > li.on .toc-t{translate:0 0}
+.toc > li.on .toc-n{color:var(--signal)}
+.toc-b:focus-visible{outline:2px solid var(--signal);outline-offset:4px}
+.toc-more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}
+.toc-more > div{min-height:0;overflow:hidden}
+.toc > li.on .toc-more{grid-template-rows:1fr}
+.toc-more p{max-width:42ch;margin:0 0 10px;font-size:var(--fs-s);line-height:1.45;color:var(--muted)}
+.toc-more .act{margin-bottom:16px}
+@media (prefers-reduced-motion:reduce){.toc-more,.toc-t{transition:none}}
 
-/* the shelf: books stand on an ink plank that runs the width of the column */
-.bookshelf{position:relative;display:flex;flex-direction:column;justify-content:flex-end;container-type:inline-size}
-.bookshelf::after{content:"";display:block;height:18px;border-radius:1px 1px 3px 3px;
-  background:linear-gradient(180deg,color-mix(in srgb,var(--ink) 55%,var(--paper)) 0 3px,var(--ink) 3px,color-mix(in srgb,var(--ink) 85%,#000));
-  box-shadow:0 26px 30px -18px rgba(17,17,19,.5)}
-/* one size for every book, as tall as the screen allows and never wider than the column:
-   three spines (17% of the height each) and one open cover (70%) side by side */
-.books{--H:min(68vh,calc((100cqi - 40px) / 1.21),680px);--W:calc(var(--H) * .17);--cw:calc(var(--H) * .7);
-  list-style:none;margin:0;padding:0;display:flex;justify-content:center;align-items:flex-end;gap:10px;perspective:2400px;perspective-origin:50% 40%}
-.books li{display:flex;align-items:flex-end;transform-style:preserve-3d}
+/* the pile: book d (0 on top) lies d steps up and to the right of the top one, a little askew (--r, its own) */
+.bookshelf{position:relative;display:flex;align-items:flex-end;justify-content:center;container-type:inline-size}
+.books{--dx:.3;--dy:.25;
+  --H:min(50vh,calc(100cqi / (.7 * (1 + 3 * var(--dx)))),620px);--W:calc(var(--H) * .17);--cw:calc(var(--H) * .7);
+  position:relative;list-style:none;margin:0;padding:0;width:calc(var(--cw) * (1 + 3 * var(--dx)));height:calc(var(--H) * (1 + 3 * var(--dy)))}
+.books > li{position:absolute;left:0;bottom:0;width:var(--cw);height:var(--H);z-index:calc(10 - var(--d));
+  transform:translate(calc(var(--d) * var(--dx) * var(--cw)),calc(var(--d) * var(--dy) * var(--H) * -1)) rotate(var(--r))}
+/* its shadow on the desk, deeper as it's lifted (--lift, from the script) */
+.books > li::before{content:"";position:absolute;inset:-4% -9% -12% -5%;pointer-events:none;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(17,17,19,.42),rgba(17,17,19,.16) 70%,transparent);
+  translate:calc(2% + var(--lift,0) * 4%) calc(3% + var(--lift,0) * 7%);opacity:calc(1 - var(--lift,0) * .35)}
 
 /* a book's colours: board, ink, accent */
 .b-ink{--bg:var(--ink);--fg:var(--paper);--ac:color-mix(in srgb,var(--signal) 55%,var(--fg))}
@@ -141,10 +140,9 @@ main{overflow-x:clip}
 .b-print{--bg:var(--print);--fg:var(--print-ink);--ac:var(--print-signal)}
 .b-navy{--bg:color-mix(in srgb,var(--signal) 38%,#0b0b1a);--fg:#F1F1EC;--ac:#9C9BFF}
 
-.book{position:relative;display:block;flex:none;width:var(--W);height:var(--H);color:var(--fg);text-decoration:none;transform-style:preserve-3d}
-.book::after{content:"";position:absolute;left:-6%;right:-6%;bottom:-7px;height:14px;pointer-events:none;border-radius:50%;
-  background:radial-gradient(closest-side,rgba(17,17,19,.42),transparent)}   /* where it meets the shelf */
-.book-3d{position:absolute;left:50%;bottom:0;width:0;height:100%;transform-style:preserve-3d;will-change:transform;transform:translateZ(calc(var(--cw) / -2))}   /* set back half its depth: the spine stands on the plank's front edge */
+.book{position:absolute;inset:0;display:block;color:var(--fg);text-decoration:none;perspective:1800px;cursor:pointer}
+/* face up: the block turned so the cover faces you, set back so the cover lies on the desk */
+.book-3d{position:absolute;left:50%;bottom:0;width:0;height:100%;transform-style:preserve-3d;will-change:transform;transform:translateZ(calc(var(--W) / -2)) rotateY(-90deg)}
 /* paperbacks, worn: real photos of a handled paperback (public/assets/textures, made by tools/book-textures.py).
    Aged but looked after: the photo's softly rounded outline (mask), a little bare paper where the print has rubbed
    (wear, on the colour), and the paper's grain and faint creases over everything, title included (detail, hard-light) */
@@ -189,28 +187,31 @@ main{overflow-x:clip}
 .cv-h{color:var(--ac);font-size:8cqi;transform:rotate(-5deg);width:max-content;max-width:60%}
 .cv-spr{position:absolute;right:5%;bottom:9%;height:50%}
 .cv-a{margin-top:auto;opacity:.7}
-.book:not(.open){cursor:pointer}
+.spine{--shade:.5}   /* the spine is the block's left side now, out of the light */
 .book:focus-visible{outline:none}
-.book:focus-visible .spine,.book:focus-visible .cover{outline:2px solid var(--signal);outline-offset:4px}
+.book:focus-visible .cover{outline:2px solid var(--signal);outline-offset:4px}
 
-/* tablets and small laptops: one column, the shelf centred between the heading and the story */
+/* the stamp on the book on top: a ring of "open the book", turning, so it's clear the top one opens */
+.stamp{position:absolute;bottom:7%;right:-12%;z-index:3;width:31%;aspect-ratio:1;display:grid;place-items:center;border-radius:50%;
+  background:var(--paper);color:var(--ink);box-shadow:0 0 0 1.5px var(--ink),0 14px 26px -12px rgba(17,17,19,.55);
+  scale:0;rotate:-30deg;transition:scale .5s var(--ease),rotate .6s var(--ease)}
+.stamp > svg{position:absolute;inset:6%;width:88%;height:88%;animation:stamp-turn 16s linear infinite}
+.stamp > .stamp-ar{position:static;width:30%;height:30%;fill:none;stroke:var(--signal);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;animation:none;transition:translate .4s var(--ease)}
+.books > li.top .stamp{scale:1;rotate:0deg;transition-delay:.25s}
+.books > li.top .book:hover .stamp-ar{translate:2px -2px}
+@keyframes stamp-turn{to{rotate:360deg}}
+@media (prefers-reduced-motion:reduce){.stamp > svg{animation:none}.stamp{transition:none}}
+
+/* tablets and phones: one column, the heading, then the pile, then the contents; a steeper, narrower fan */
 @media (max-width:1000px){
   .sd-grid{grid-template-columns:minmax(0,1fr)}
   .sd-side{display:contents}
   .sd-head{order:0}
-  .bookshelf{order:1}
+  .bookshelf{order:1;padding-top:var(--sp-3)}
   .shelf-cap{order:2}
-  .books{justify-content:center;--H:min(56vh,calc((100cqi - 40px) / 1.21),520px)}
+  .books{--dx:.14;--dy:.21;--H:min(56svh,calc(100cqi / (.7 * (1 + 3 * var(--dx)))),520px)}
   .sd-arr{display:none}
-}
-/* touch screens: no hover or pointer to turn a book, so the covers face out in a row you swipe */
-@media (hover:none),(pointer:coarse){
-  .books{--H:min(380px,100cqi);gap:16px;justify-content:flex-start;padding:0 0 18px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;perspective:none}
-  .books::-webkit-scrollbar{display:none}
-  .book{width:var(--cw);scroll-snap-align:start}
-  .book::after{display:none}
-  .book-3d{transform:rotateY(-90deg)}
-  .shelf-cap{display:none}
+  .stamp{right:-5%}
 }
 
 /* ---------- before you ask ---------- */

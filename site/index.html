@@ -23,6 +23,7 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-ne" viewBox="0 0 16 16"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6"/></symbol>
   <symbol id="i-down" viewBox="0 0 16 16"><path d="M8 3v10M3.5 8.5 8 13l4.5-4.5"/></symbol>
+  <symbol id="i-stamp" viewBox="0 0 100 100"><path id="stamp-ring" d="M50 50m-38 0a38 38 0 1 1 76 0a38 38 0 1 1-76 0" fill="none"/><text fill="currentColor" style="font:500 9.6px var(--mono);letter-spacing:1.9px;text-transform:uppercase"><textPath href="#stamp-ring">open the book · open the book · </textPath></text></symbol>
   <symbol id="i-right" viewBox="0 0 16 16"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5"/></symbol>
 </svg>
 <!-- the entrance (home.js): a film-title cut through his four sides, then a letterbox opens across his sunglasses
@@ -111,53 +112,42 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 
 <!-- four sides, four pages -->
 <section class="sd" id="sides" aria-labelledby="h-sides">
-  <!-- a spread: the open book's story on the left, the shelf on the right. Each side of him is a volume; one stands open,
-       a spine turns open when clicked, and the open cover takes you to that side in a new tab (bookshelf.js) -->
+  <!-- a spread: the contents on the left, the four volumes in a pile on the right. Pick one and it is pulled out and
+       laid on top; the one on top opens that side in a new tab (bookshelf.js) -->
   <div class="wrap sd-grid">
     <div class="sd-side">
       <div class="sd-head">
         <p class="chap-l">03 / Pick a side</p>
         <h2 id="h-sides" class="sd-h">What are you <span class="it">here for?</span></h2>
-        <p class="hand sd-pick" aria-hidden="true">pull one off the shelf <span class="sd-arr">→</span></p>
+        <p class="hand sd-pick" aria-hidden="true">pick one off the pile <span class="sd-arr">→</span></p>
       </div>
       <div class="shelf-cap" hidden>
-        <p class="sd-lead">Four volumes, one for each side of my work. Pull one off the shelf to see what’s inside.</p>
-        <div class="shelf-info" aria-live="polite">
-          <p class="shelf-n"></p>
-          <p class="shelf-t"></p>
-          <p class="shelf-d"></p>
-          <a class="act shelf-open" href="/code" target="_blank" rel="noopener">Open the book <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a>
-        </div>
-        <div class="shelf-nav">
-          <button class="shelf-arrow" type="button" data-step="-1" aria-label="Previous book"><svg aria-hidden="true"><use href="#i-right"/></svg></button>
-          <span class="shelf-ticks" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-          <span class="shelf-count" aria-hidden="true"></span>
-          <button class="shelf-arrow" type="button" data-step="1" aria-label="Next book"><svg aria-hidden="true"><use href="#i-right"/></svg></button>
-        </div>
+        <p class="sd-lead">Four volumes, one for each side of my work. Pick one to bring it to the top, then open it.</p>
+        <ol class="toc" aria-label="Contents"></ol>
       </div>
     </div>
     <div class="bookshelf">
       <ol class="books">
-        <li><a class="book b-ink" href="/code" target="_blank" rel="noopener" data-inside="Beyond Presence’s creator and call platforms, my years as CTO of a 25-person studio, and open source for LiveKit and n8n." aria-label="Engineering: Platforms, real-time AI and the code under them. (opens in a new tab)">
+        <li style="--d:0;--r:-2deg"><a class="book b-ink" href="/code" target="_blank" rel="noopener" data-inside="Beyond Presence’s creator and call platforms, my years as CTO of a 25-person studio, and open source for LiveKit and n8n." aria-label="Engineering: Platforms, real-time AI and the code under them. (opens in a new tab)">
           <span class="book-3d" aria-hidden="true">
             <span class="spine"><span class="sp-n">01</span><span class="sp-t">Engineering</span><span class="sp-a">S. Sajjad</span></span>
             <span class="cover"><span class="cv-n">Vol. 01</span><span class="cv-t">Engineering</span><span class="cv-d">Platforms, real-time AI and the code under them.</span><span class="hand cv-h">founding engineer, ex-CTO</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-think-anim.webp" alt="" width="199" height="484" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
-          </span></a></li>
-        <li><a class="book b-blue" href="/design" target="_blank" rel="noopener" data-inside="Brands, interfaces and launch films for my own products, plus posters and photography." aria-label="Design: Brands, interfaces and films, made by the hands that build them. (opens in a new tab)">
+          </span><span class="stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#i-stamp"/></svg><svg class="stamp-ar" viewBox="0 0 16 16"><use href="#i-ne"/></svg></span></a></li>
+        <li style="--d:1;--r:1.6deg"><a class="book b-blue" href="/design" target="_blank" rel="noopener" data-inside="Brands, interfaces and launch films for my own products, plus posters and photography." aria-label="Design: Brands, interfaces and films, made by the hands that build them. (opens in a new tab)">
           <span class="book-3d" aria-hidden="true">
             <span class="spine"><span class="sp-n">02</span><span class="sp-t">Design</span><span class="sp-a">S. Sajjad</span></span>
             <span class="cover"><span class="cv-n">Vol. 02</span><span class="cv-t">Design</span><span class="cv-d">Brands, interfaces and films, made by the hands that build them.</span><span class="hand cv-h">where I started</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-draw-anim.webp" alt="" width="302" height="436" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
-          </span></a></li>
-        <li><a class="book b-print" href="/ai" target="_blank" rel="noopener" data-inside="Slaptastic, Vorsprech, myClosr and NPC Filter, all live, and RoomRush, with why I stopped it." aria-label="AI products: Applied AI, built on my own and put in front of real people. (opens in a new tab)">
+          </span><span class="stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#i-stamp"/></svg><svg class="stamp-ar" viewBox="0 0 16 16"><use href="#i-ne"/></svg></span></a></li>
+        <li style="--d:2;--r:-1.2deg"><a class="book b-print" href="/ai" target="_blank" rel="noopener" data-inside="Slaptastic, Vorsprech, myClosr and NPC Filter, all live, and RoomRush, with why I stopped it." aria-label="AI products: Applied AI, built on my own and put in front of real people. (opens in a new tab)">
           <span class="book-3d" aria-hidden="true">
             <span class="spine"><span class="sp-n">03</span><span class="sp-t">AI products</span><span class="sp-a">S. Sajjad</span></span>
             <span class="cover"><span class="cv-n">Vol. 03</span><span class="cv-t">AI products</span><span class="cv-d">Applied AI, built on my own and put in front of real people.</span><span class="hand cv-h">four of them live</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" width="248" height="481" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
-          </span></a></li>
-        <li><a class="book b-navy" href="/hardware" target="_blank" rel="noopener" data-inside="Yolk, the AI device that makes my German phone calls, TARS the desk robot, and software for a medical device." aria-label="Hardware: Where the AI leaves the screen. (opens in a new tab)">
+          </span><span class="stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#i-stamp"/></svg><svg class="stamp-ar" viewBox="0 0 16 16"><use href="#i-ne"/></svg></span></a></li>
+        <li style="--d:3;--r:2.4deg"><a class="book b-navy" href="/hardware" target="_blank" rel="noopener" data-inside="Yolk, the AI device that makes my German phone calls, TARS the desk robot, and software for a medical device." aria-label="Hardware: Where the AI leaves the screen. (opens in a new tab)">
           <span class="book-3d" aria-hidden="true">
             <span class="spine"><span class="sp-n">04</span><span class="sp-t">Hardware</span><span class="sp-a">S. Sajjad</span></span>
             <span class="cover"><span class="cv-n">Vol. 04</span><span class="cv-t">Hardware</span><span class="cv-d">Where the AI leaves the screen.</span><span class="hand cv-h">Yolk, TARS and more</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-solder-anim.webp" alt="" width="260" height="431" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
-          </span></a></li>
+          </span><span class="stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#i-stamp"/></svg><svg class="stamp-ar" viewBox="0 0 16 16"><use href="#i-ne"/></svg></span></a></li>
       </ol>
     </div>
   </div>

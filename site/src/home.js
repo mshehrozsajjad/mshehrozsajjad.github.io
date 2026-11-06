@@ -115,7 +115,7 @@ if (marks) {
   document.fonts?.ready.then(stepAside);
 }
 
-mountShelf($('#sides'));   // the shelf of books, one open at a time (bookshelf.js)
+mountShelf($('#sides'));   // the pile of books, one on top at a time, and their contents (bookshelf.js; it deals them in itself)
 
 const mm = gsap.matchMedia();
 const doodling = import.meta.env.DEV && new URLSearchParams(location.search).has('doodle');
@@ -160,10 +160,6 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
       .to(li, {duration: .6})
       .to(li, {filter: 'blur(10px)', autoAlpha: .18, ease: 'power1.in'});
   });
-
-  /* ---------- the four books drop onto the shelf, one after another ---------- */
-  gsap.from('.book', {y: -140, autoAlpha: 0, duration: 1, ease: 'bounce.out', stagger: .14,
-    clearProps: 'transform,opacity,visibility', scrollTrigger: {trigger: '.bookshelf', start: 'top 78%'}});
 
   /* ---------- before you ask: the headline slams in ---------- */
   gsap.from('.fq-h', {xPercent: -12, autoAlpha: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: {trigger: '.fq-h', start: 'top 85%'}});
