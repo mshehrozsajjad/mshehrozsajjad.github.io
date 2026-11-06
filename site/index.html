@@ -8,11 +8,16 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=JetBrains+Mono:wght@500&family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=JetBrains+Mono:wght@500&family=Instrument+Sans:wdth,wght@75..100,400..700&family=Instrument+Serif:ital@0;1&display=swap">
 <link rel="stylesheet" href="/src/styles/site.css">
 <link rel="stylesheet" href="/src/styles/ending.css">
 <link rel="stylesheet" href="/src/styles/grain.css">
 <link rel="stylesheet" href="/src/styles/pages.css">
+<link rel="stylesheet" href="/src/styles/home.css">
+<link rel="preload" href="/fonts/shehroz-hand.woff2" as="font" type="font/woff2" crossorigin>
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('js');
+// the entrance's safety net: if home.js never started it, take the cover away
+setTimeout(function(){if(!document.documentElement.classList.contains('intro-on')){var i=document.querySelector('.intro');if(i)i.remove()}},4000)}</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -20,187 +25,197 @@
   <symbol id="i-down" viewBox="0 0 16 16"><path d="M8 3v10M3.5 8.5 8 13l4.5-4.5"/></symbol>
   <symbol id="i-right" viewBox="0 0 16 16"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5"/></symbol>
 </svg>
+<!-- the entrance (home.js): a film-title cut through his four sides, then a letterbox opens across his sunglasses
+     and the camera pulls back to the hero. Only with motion on. -->
+<div class="intro" aria-hidden="true"><p class="intro-w"></p><i class="intro-bar intro-top"></i><i class="intro-bar intro-bot"></i></div>
 <a class="skip-link" href="#h1">Skip to content</a>
 <main id="main">
-<svg id="trail" aria-hidden="true"><path id="pMain" style="stroke:var(--signal);stroke-width:2"/></svg>
 
 <header class="top c">
   <div class="wrap">
-    <a class="mark" href="/" aria-label="Shehroz Sajjad, home">Shehroz Sajjad <span class="dot hit" data-o="0"></span></a>
+    <a class="mark" href="/" aria-label="Shehroz Sajjad, home">Shehroz Sajjad <span class="dot hit"></span></a>
     <nav class="nav" aria-label="Main"><a href="/code" aria-label="Engineering"><span class="nl">Engineering</span><span class="ns" aria-hidden="true">Code</span></a><i>/</i><a href="/design" aria-label="Design"><span class="nl">Design</span><span class="ns" aria-hidden="true">Design</span></a><i>/</i><a href="/ai" aria-label="AI products"><span class="nl">AI products</span><span class="ns" aria-hidden="true">AI</span></a><i>/</i><a href="/hardware" aria-label="Hardware"><span class="nl">Hardware</span><span class="ns" aria-hidden="true">Hardware</span></a></nav>
     <button class="theme" id="theme" type="button">Dark</button>
   </div>
 </header>
 
-<section class="hero p-hero" aria-labelledby="h1">
-  <span class="way wd" data-o="0.3" style="left:calc(50% + 120px);top:40px"></span>
-  <span class="way wd" data-o="0.6" style="left:min(calc(50% + 520px),calc(100% - 90px));top:120px"></span>
-  <div class="wrap">
-    <div class="c hero-copy">
+<!-- the hello: a word bigger than the screen, Shehroz in front of it, his own hand around him -->
+<section class="hx" aria-labelledby="h1">
+  <h1 id="h1" tabindex="-1" class="hx-h1">
+    <span class="hx-l hx-l1" aria-hidden="true"><span class="hx-in">Hel</span></span>
+    <span class="hx-l hx-l2" aria-hidden="true"><span class="hx-in">lo</span></span>
+    <span class="sr">Hello, <span data-who>stranger</span>. I’m Shehroz.</span>
+  </h1>
+  <figure class="hx-fig" data-anchor="hero-photo">
+    <img class="hx-photo" src="/assets/photos/shehroz-front.webp" srcset="/assets/photos/shehroz-front-sm.webp 590w, /assets/photos/shehroz-front.webp 1049w" sizes="(max-width:760px) 80vw, 46vh" width="1049" height="1600" alt="Shehroz in sunglasses, a black overshirt and a blue knit polo" fetchpriority="high">
+  </figure>
+  <p class="hx-note hand" aria-hidden="true">hi, <span data-who>stranger</span>!<br>i’m Shehroz<svg viewBox="0 0 60 40"><path d="M4 6 C 22 6, 44 14, 54 34 M54 34 L 44 30 M54 34 L 56 23"/></svg></p>
+  <div class="hx-foot">
+    <div class="hx-copy">
       <p class="kicker">Founding engineer · Munich</p>
-      <h1 id="h1" tabindex="-1"><span class="hello">Hello, <span class="it" data-who>stranger</span>.</span><br>I’m Shehroz.</h1>
       <p class="pitch">I sit with the customer, own the platform, and ship what they need, <span class="dd" data-doodle="underline">fast.</span></p>
-      <div class="hero-actions"><a class="btn" href="#doors">See the work <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a><button class="act" type="button" data-open="agent">Talk to my AI twin <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button></div>
+      <div class="hero-actions"><a class="btn" href="#sides">See the work <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a><button class="act" type="button" data-open="agent">Talk to my AI twin <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button></div>
     </div>
-    <div class="hero-side">
-      <figure class="sprite-fig s-draw c" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-draw-anim.webp" alt="" aria-hidden="true" width="302" height="436"><span class="way pen" data-o="1"></span><svg class="spark" viewBox="0 0 24 24"><path d="M12 2 C 12.6 8.5, 15.5 11.4, 22 12 C 15.5 12.6, 12.6 15.5, 12 22 C 11.4 15.5, 8.5 12.6, 2 12 C 8.5 11.4, 11.4 8.5, 12 2 Z"/></svg></figure>
-      <div class="call-wrap c">
-        <div class="call">
-          <video class="twin" id="heroTwin" src="/assets/media/avatar.mp4" poster="/assets/media/avatar-poster.webp" autoplay muted loop playsinline aria-label="My AI twin"></video>
-          <span class="call-live"><i aria-hidden="true"></i>Live</span>
-          <button class="call-sound" type="button" id="heroSound" aria-pressed="false" aria-label="Turn sound on"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path class="off" d="M16 9.5l5 5M21 9.5l-5 5"/><path class="on" d="M16 9a4.5 4.5 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></svg></button>
-          <button class="call-btn" type="button" data-open="agent">Talk to my AI twin <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button>
-        </div>
-        <p class="call-cap">Answers from my own notes.</p>
+    <div class="call-wrap">
+      <div class="call">
+        <video class="twin" id="heroTwin" src="/assets/media/twin-wave.mp4" poster="/assets/media/twin-wave-poster.webp" autoplay muted loop playsinline aria-label="My AI twin, waving"></video>
+        <span class="call-live"><i aria-hidden="true"></i>Live</span>
+        <button class="call-btn" type="button" data-open="agent">Talk to my AI twin <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button>
+      </div>
+      <p class="call-cap">Answers from my own notes.</p>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div class="ticker-in">
+  <span>Founding engineer at Beyond Presence</span><i>✦</i><span>CTO of a 25-person studio</span><i>✦</i><span>Four products live</span><i>✦</i><span>Yolk, my own AI device</span><i>✦</i><span>Open source for LiveKit and n8n</span><i>✦</i>
+  <span>Founding engineer at Beyond Presence</span><i>✦</i><span>CTO of a 25-person studio</span><i>✦</i><span>Four products live</span><i>✦</i><span>Yolk, my own AI device</span><i>✦</i><span>Open source for LiveKit and n8n</span><i>✦</i>
+</div></div>
+
+<!-- the short version, in his hand, written out as you scroll -->
+<section class="qt" aria-labelledby="h-pitch">
+  <div class="qt-pin">
+    <div class="qt-marks" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="chap-l">01 / The short version</p>
+      <h2 id="h-pitch" class="qt-text">Most useful when a customer is waiting and the answer doesn’t exist yet.</h2>
+      <p class="qt-sign hand">Shehroz, on most days</p>
+    </div>
+  </div>
+</section>
+
+<!-- who to call: the photo and the proof on one side, everything he does sharpening on the other -->
+<section class="ab" aria-labelledby="h-ab">
+  <div class="wrap ab-grid">
+    <div class="ab-side">
+      <div class="ab-stick">
+        <p class="chap-l">02 / Who to call</p>
+        <h2 id="h-ab" class="ab-h">Tight deadlines are where I do my best&nbsp;work.</h2>
+        <p class="ab-lead">At Beyond Presence I own the platform behind the product, frontend and backend, and I’m in the customer meetings where what we build next gets decided. Before that I ran tech as CTO of a 25-person studio. On the side I take my own ideas from a name and a brand to paying customers.</p>
+        <dl class="ab-proof">
+          <div><dt>CodeJunkie</dt><dd>Co-founded it in my final semester and ran tech as CTO. 25 people, clients worldwide.</dd></div>
+          <div><dt>Beyond Presence</dt><dd>Founding engineer since pre-seed, before there was a product.</dd></div>
+          <div><dt>My own products</dt><dd>myClosr, Slaptastic, Vorsprech and NPC Filter are live. I sell them myself.</dd></div>
+          <div><dt>My own device</dt><dd>Yolk, an AI device I designed, makes my phone calls in German.</dd></div>
+        </dl>
       </div>
     </div>
+    <div class="ab-list-wrap">
+      <img class="ab-photo" src="/assets/photos/shehroz-lean-sm.webp" width="459" height="900" alt="" aria-hidden="true" loading="lazy">
+      <ul class="ab-list" aria-label="What I do">
+        <li>Platforms</li><li>Real-time AI</li><li>Frontend</li><li>Backend</li><li>Product design</li><li>Brands</li><li>Launch films</li><li>Hardware</li><li>Getting it sold</li>
+      </ul>
+    </div>
   </div>
-  <span class="way wd" data-o="2" data-v style="left:var(--gut);top:calc(100% - 40px)"></span>
 </section>
 
-<section class="ch pitch-sec" aria-labelledby="h-pitch">
-  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">01 / The short version</div></div>
+<!-- four sides, four pages -->
+<section class="sd" id="sides" aria-labelledby="h-sides">
   <div class="wrap">
-    <span class="way" data-o="3" data-v style="left:-24px;top:0"></span>
-    <h2 id="h-pitch" class="c" data-reveal="words">Most useful when a customer is waiting and the answer <span class="it">doesn’t exist yet.</span></h2>
-    <p class="lead c" data-reveal>At Beyond Presence I own the platform behind the product, frontend and backend, and I’m in the customer meetings where what we build next gets decided. Before that I ran tech as CTO of a 25-person studio. On the side I take my own ideas from a name and a brand to paying customers.</p>
-    <ol class="proof c">
-        <li class="pf" data-reveal><span class="dot" data-o="5" data-v></span><span class="pf-k">CodeJunkie</span><span class="pf-v">Co-founded it in my final semester and ran tech as CTO. 25 people, clients worldwide.</span></li>
-        <li class="pf" data-reveal><span class="dot" data-o="6" data-v></span><span class="pf-k">Beyond Presence</span><span class="pf-v">Founding engineer since pre-seed, before there was a product. I take customer asks to shipped features on tight deadlines, and pick up support when something breaks.</span></li>
-        <li class="pf" data-reveal><span class="dot" data-o="7" data-v></span><span class="pf-k">My own products</span><span class="pf-v">myClosr, Slaptastic, Vorsprech and NPC Filter are live. I sell them myself.</span></li>
-        <li class="pf" data-reveal><span class="dot" data-o="8" data-v></span><span class="pf-k">My own device</span><span class="pf-v">Yolk, an AI device I designed, makes my phone calls in German.</span></li>
+    <div class="sd-head">
+      <p class="chap-l">03 / Pick a side</p>
+      <h2 id="h-sides" class="sd-h">What are you <span class="it">here for?</span></h2>
+      <p class="hand sd-pick" aria-hidden="true">each one has its own page</p>
+    </div>
+    <ol class="sd-list">
+      <li><a class="sd-row" href="/code"><span class="sd-n">01</span><span class="sd-w">Engineering</span><span class="sd-t">Platforms, real-time AI and the code under them.</span><svg class="ar sd-ar" aria-hidden="true"><use href="#i-ne"/></svg>
+        <span class="sd-peek" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-think-anim.webp" alt="" width="199" height="484" loading="lazy"><span class="hand">founding engineer, ex-CTO</span></span></a></li>
+      <li><a class="sd-row" href="/design"><span class="sd-n">02</span><span class="sd-w">Design</span><span class="sd-t">Brands, interfaces and films, made by the hands that build them.</span><svg class="ar sd-ar" aria-hidden="true"><use href="#i-ne"/></svg>
+        <span class="sd-peek" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-draw-anim.webp" alt="" width="302" height="436" loading="lazy"><span class="hand">where I started</span></span></a></li>
+      <li><a class="sd-row" href="/ai"><span class="sd-n">03</span><span class="sd-w">AI products</span><span class="sd-t">Applied AI, built on my own and put in front of real people.</span><svg class="ar sd-ar" aria-hidden="true"><use href="#i-ne"/></svg>
+        <span class="sd-peek" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" width="248" height="481" loading="lazy"><span class="hand">four of them live</span></span></a></li>
+      <li><a class="sd-row" href="/hardware"><span class="sd-n">04</span><span class="sd-w">Hardware</span><span class="sd-t">Where the AI leaves the screen.</span><svg class="ar sd-ar" aria-hidden="true"><use href="#i-ne"/></svg>
+        <span class="sd-peek" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-solder-anim.webp" alt="" width="260" height="431" loading="lazy"><span class="hand">Yolk, TARS and more</span></span></a></li>
     </ol>
   </div>
 </section>
 
-<section class="ch doors-sec" id="doors" aria-labelledby="h-doors">
-  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">02 / Pick a side</div></div>
+<section class="fq" aria-labelledby="h-faq">
   <div class="wrap">
-    <span class="way" data-o="10" data-v style="left:-24px;top:0"></span>
-    <div class="doors-head c">
-      <h2 id="h-doors" data-reveal="words">What are you <span class="it">here for?</span></h2>
-      <p class="lead" data-reveal>Each page is written for one kind of work. Open the one you care about.</p>
-      <span class="hand pick" data-reveal aria-hidden="true">pick one<svg viewBox="0 0 34 44"><path d="M6 3 C 22 8, 30 20, 26 40 M26 40 L 20 32 M26 40 L 33 34"/></svg></span>
-    </div>
-    <div class="doors c">
-      <a class="door" href="/code" data-reveal="print" style="--r:-1.2deg">
-        <span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-think-anim.webp" alt="" aria-hidden="true" width="199" height="484"></span>
-        <span class="door-t"><span class="kicker">Engineering</span><b>Platforms, real-time AI and the code under them.</b>
-          <ul><li>Founding engineer at Beyond Presence</li><li>CTO of a 25-person studio</li><li>Open source for LiveKit and n8n</li></ul></span>
-        <span class="door-go"><span class="act">Open the page <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></span>
-      </a>
-      <a class="door" href="/design" data-reveal="print" style="--r:1deg">
-        <span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-draw-anim.webp" alt="" aria-hidden="true" width="302" height="436"></span>
-        <span class="door-t"><span class="kicker">Design</span><b>Brands, interfaces and films, made by the hands that build them.</b>
-          <ul><li>Where I started: Photoshop</li><li>A name and a brand for every idea</li><li>Launch films and photography</li></ul></span>
-        <span class="door-go"><span class="act">Open the page <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></span>
-      </a>
-      <a class="door" href="/ai" data-reveal="print" style="--r:1.4deg">
-        <span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" aria-hidden="true" width="248" height="481"></span>
-        <span class="door-t"><span class="kicker">AI products</span><b>Applied AI, built on my own and put in front of real people.</b>
-          <ul><li>Four products live</li><li>Selling them with ads, SEO and n8n</li><li>Avatars that join calls</li></ul></span>
-        <span class="door-go"><span class="act">Open the page <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></span>
-      </a>
-      <a class="door" href="/hardware" data-reveal="print" style="--r:-0.8deg">
-        <span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-solder-anim.webp" alt="" aria-hidden="true" width="260" height="431"></span>
-        <span class="door-t"><span class="kicker">Hardware</span><b>Where the AI leaves the screen.</b>
-          <ul><li>Yolk, my own AI device</li><li>TARS, my first robot</li><li>Software for a medical device</li></ul></span>
-        <span class="door-go"><span class="act">Open the page <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<section class="ch faq" aria-labelledby="h-faq">
-  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">03 / Before you ask</div></div>
-  <div class="wrap">
-    <span class="way" data-o="20" data-v style="left:-24px;top:0"></span>
-    <h2 id="h-faq" class="c" data-reveal="words">Before <span class="it">you ask.</span></h2>
-    <ol class="qa-list c">
-        <li data-reveal><span class="qa-n">01</span><h3>Where are you?</h3><p>Munich, Germany.</p></li>
-        <li data-reveal><span class="qa-n">02</span><h3>What do you do right now?</h3><p>Founding engineer at Beyond Presence. I own the creator and call platforms behind our real-time avatars, frontend and backend, and I’m in the customer meetings turning what they need into something working, fast.</p></li>
-        <li data-reveal><span class="qa-n">03</span><h3>What are you best at?</h3><p>Getting from a customer’s problem to something working, fast. Tight deadlines are where I do my best work.</p></li>
-        <li data-reveal><span class="qa-n">04</span><h3>Designer or engineer?</h3><p>Both, usually on the same product. Then I help it reach people.</p></li>
-        <li data-reveal><span class="qa-n">05</span><h3>Is the twin really you?</h3><p>It answers from my own notes, with preset answers for now. For the real me, book a call or write.</p></li>
-        <li data-reveal><span class="qa-n">06</span><h3>Can I see everything in one place?</h3><p>Yes. <a class="act" href="/story">The long story <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a> walks through all of it, from Photoshop to now.</p></li>
+    <p class="chap-l">04 / Before you ask</p>
+    <h2 id="h-faq" class="fq-h">Before you ask…</h2>
+    <ol class="fq-list">
+      <li><span class="qa-n">01</span><h3>Where are you?</h3><p>Munich, Germany.</p></li>
+      <li><span class="qa-n">02</span><h3>What do you do right now?</h3><p>Founding engineer at Beyond Presence. I own the creator and call platforms behind our real-time avatars, frontend and backend, and I’m in the customer meetings turning what they need into something working, fast.</p></li>
+      <li><span class="qa-n">03</span><h3>What are you best at?</h3><p>Getting from a customer’s problem to something working, fast. Tight deadlines are where I do my best work.</p></li>
+      <li><span class="qa-n">04</span><h3>Designer or engineer?</h3><p>Both, usually on the same product. Then I help it reach people.</p></li>
+      <li><span class="qa-n">05</span><h3>Is the twin really you?</h3><p>It answers from my own notes, with preset answers for now. For the real me, book a call or write.</p></li>
+      <li><span class="qa-n">06</span><h3>Everything in one place?</h3><p>Yes. <a class="act" href="/story">The long story <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a> walks through all of it, from Photoshop to now.</p></li>
     </ol>
   </div>
 </section>
 
-<section class="contact" id="contact" aria-labelledby="h-foot">
-  <div class="wrap">
-    <div class="post-stage c">
-      <span class="way" data-o="90" data-v style="left:-24px;top:0"></span>
-      <article class="postcard" data-reveal="print">
-        <div class="pc-msg">
-          <h2 id="h-foot">Stay <span class="it">close.</span></h2>
-          <p class="pc-lead">Building something and stuck? I’m happy to think it through with you.</p>
-          <button class="pc-book act" type="button" id="book">Book a call <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button>
-          <p class="msg" id="book-msg" role="status"></p>
-        </div>
-        <div class="pc-addr">
-          <div class="pc-stamp" aria-hidden="true">
-            <svg viewBox="0 0 72 88">
-              <defs>
-                <pattern id="perf" x="-4" y="-4" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#fff"/><circle cx="4" cy="4" r="3" fill="#000"/></pattern>
-                <mask id="stampCut"><rect x="-4" y="-4" width="80" height="96" fill="#fff"/><rect x="-4" y="-4" width="80" height="8" fill="url(#perf)"/><rect x="-4" y="84" width="80" height="8" fill="url(#perf)"/><rect x="-4" y="-4" width="8" height="96" fill="url(#perf)"/><rect x="68" y="-4" width="8" height="96" fill="url(#perf)"/></mask>
-              </defs>
-              <g mask="url(#stampCut)"><rect class="field" width="72" height="88"/>
-                <rect class="cream" x="6" y="6" width="60" height="76" stroke-width="1" opacity=".75"/>
-                <path class="cream" stroke-width="1.2" d="M12 64 C 18 62, 20 54, 26 50 S 32 44, 38 40"/>
-                <path class="cream" stroke-width="1.2" transform="translate(38 40) rotate(-30) scale(.42)" d="M0 0 L-16 -17 L44 3 L-4 14 Z M0 0 L44 3"/>
-                <text class="val" x="36" y="76" text-anchor="middle">0.85</text></g>
-            </svg>
-            <span class="pc-mark">MUNICH</span>
-          </div>
-          <div class="pc-rows">
-            <div class="pc-from">
-              <div class="pc-row"><span class="pc-k" aria-hidden="true">FROM</span><button class="pc-mail" type="button" id="copy" aria-label="Copy mshehrozsajjad@gmail.com">mshehrozsajjad@gmail.com</button></div>
-              <p class="pc-hint"><span class="hand" id="copy-hint">tap to copy</span></p>
-            </div>
-            <form id="nl" novalidate>
-              <p class="pc-note">One email when I ship something.</p>
-              <div class="pc-row"><label for="nl-email" class="sr">Email address</label><span class="pc-k" aria-hidden="true">TO</span><input id="nl-email" type="email" placeholder="you@domain.com" autocomplete="email"><button class="pc-send" type="submit">Send</button></div>
-              <p class="msg" id="nl-msg" role="status"></p>
-            </form>
-          </div>
-        </div>
-      </article>
-      <div class="wave-fig" data-reveal><img class="sprite s-wave" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" aria-hidden="true" width="248" height="481"><span class="say-hi" aria-hidden="true">say hi!</span></div>
-    </div>
+<!-- the ending: his hand, over and over, and a big promise across it -->
+<section class="wl" aria-labelledby="h-wl">
+  <div class="wl-hand" aria-hidden="true">
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
   </div>
+  <h2 id="h-wl" class="wl-h"><span class="wl-a">Got an idea?</span> <span class="wl-b">Let’s build&nbsp;it.</span></h2>
+  <img class="wl-photo" data-anchor="stride-photo" src="/assets/photos/shehroz-stride-sm.webp" width="626" height="900" alt="" aria-hidden="true" loading="lazy">
 </section>
+
 </main>
 
-<footer>
+<!-- the ending: one ink block, the same weight as the poster above it. IDs are the ones pages.js wires (copy, book, newsletter) -->
+<footer class="ft" id="contact" aria-labelledby="h-foot">
+  <div class="ft-wave" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" width="248" height="481"><span class="ft-hi hand">say hi!</span></div>
   <div class="wrap">
-    <p class="f-legal" data-reveal>© 2026<span class="f-name"> Shehroz Sajjad</span><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a><a href="/story">The long story</a></p>
-    <ul class="f-social" aria-label="Elsewhere" data-reveal>
-      <li><a href="https://www.linkedin.com/in/mshehrozsajjad/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><i aria-hidden="true"></i></a></li>
-      <li><a href="https://www.instagram.com/mshehroz.sajjad/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg><i aria-hidden="true"></i></a></li>
-      <li><a href="https://github.com/mshehrozsajjad" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><i aria-hidden="true"></i></a></li>
-      <li><a href="https://www.tiktok.com/@mshehrozsajjad" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg><i aria-hidden="true"></i></a></li>
+    <p class="ft-chap">05 / Say hi</p>
+    <h2 id="h-foot" class="sr">Get in touch</h2>
+    <button class="ft-mail" type="button" id="copy" aria-label="Copy mshehrozsajjad@gmail.com">mshehrozsajjad<wbr>@gmail.com</button>
+    <p class="ft-hint"><span class="hand" id="copy-hint">tap to copy</span></p>
+    <div class="ft-row">
+      <div class="ft-book">
+        <p>Building something and stuck? I’m happy to think it through with you.</p>
+        <button class="ft-btn" type="button" id="book">Book a call <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button>
+        <p class="msg" id="book-msg" role="status"></p>
+      </div>
+      <form class="ft-nl" id="nl" novalidate>
+        <label for="nl-email">One email when I ship something.</label>
+        <div class="ft-field"><input id="nl-email" type="email" placeholder="you@domain.com" autocomplete="email"><button type="submit">Send</button></div>
+        <p class="msg" id="nl-msg" role="status"></p>
+      </form>
+    </div>
+    <ul class="ft-social" aria-label="Elsewhere">
+      <li><a href="https://www.linkedin.com/in/mshehrozsajjad/" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://www.instagram.com/mshehroz.sajjad/" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="https://github.com/mshehrozsajjad" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://www.tiktok.com/@mshehrozsajjad" target="_blank" rel="noopener">TikTok</a></li>
     </ul>
+    <p class="ft-legal"><span>© 2026 Shehroz Sajjad, Munich</span><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a><a href="/story">The long story</a></p>
   </div>
 </footer>
 
-<button class="fab" id="fab" type="button" data-open="agent">Ask my AI self</button>
+<button class="fab" id="fab" type="button" data-open="agent"><span class="fab-face" aria-hidden="true"><video src="/assets/media/twin-wave-thumb.mp4" poster="/assets/media/twin-wave-poster.webp" muted loop playsinline preload="none"></video><i></i></span>Ask my AI self</button>
+<button class="fab-tip hand" id="fabTip" type="button" data-open="agent" tabindex="-1" aria-hidden="true"></button>
 <div class="scrim" id="scrim"></div>
-<aside role="dialog" aria-modal="true" class="drawer" id="agent" aria-label="Ask my AI self" aria-hidden="true">
-  <div class="d-head"><p class="kicker">Ask my AI self</p><button class="x" type="button" data-close aria-label="Close">×</button></div>
-  <div class="d-ph"><video class="twin" id="twinVideo" src="/assets/media/avatar.mp4" poster="/assets/media/avatar-poster.webp" muted loop playsinline aria-label="My AI twin"></video><button class="sound" type="button" id="twinSound" aria-pressed="false">Sound on</button></div>
-  <p class="d-note">A preview built from my confirmed notes. These are preset answers, not a live AI conversation. Choose a question to explore my work.</p>
+<aside role="dialog" aria-modal="true" class="drawer" id="agent" aria-label="Talk to my AI twin" aria-hidden="true">
+  <div class="d-head"><p class="kicker">Talk to my AI twin</p><button class="x" type="button" data-close aria-label="Close">×</button></div>
+  <div class="d-ph d-call">
+    <video class="twin" id="twinVideo" muted autoplay playsinline aria-label="My AI twin, live"></video>
+    <div class="d-screen" id="twinScreen" role="status"><span class="d-loader" aria-hidden="true"><i></i><i></i><i></i></span><p id="twinScreenText">Calling my twin…</p><button class="btn" id="twinAgain" type="button" hidden>Call again</button></div>
+    <p class="d-live" id="twinLive" hidden></p>
+    <button class="d-sound" id="twinSound" type="button" hidden>Tap for sound</button>
+    <button class="d-mic" id="twinMic" type="button" aria-pressed="false" hidden>Use my mic</button>
+  </div>
+  <p class="d-note">A live AI version of me that answers from my notes, and can get things wrong. Type or tap a question; your mic stays off unless you turn it on. Calls end after three minutes.</p>
   <div class="qs">
-    <button class="q" type="button" data-q="now">What are you working on now?</button>
-    <button class="q" type="button" data-q="saas">Which of your products are live?</button>
-    <button class="q" type="button" data-q="make">What have you built that I can hold?</button>
-    <button class="q" type="button" data-q="design">Do you design too?</button>
-    <button class="q" type="button" data-q="oss">What have you open-sourced?</button>
-    <button class="q" type="button" data-q="hire">Can we work together?</button>
+    <button class="q" type="button">What are you working on now?</button>
+    <button class="q" type="button">Which of your products are live?</button>
+    <button class="q" type="button">What have you built that I can hold?</button>
+    <button class="q" type="button">Do you design too?</button>
+    <button class="q" type="button">What have you open-sourced?</button>
+    <button class="q" type="button">Can we work together?</button>
   </div>
   <div class="log" id="log" aria-live="polite"></div>
-  <form class="d-form" id="askForm" autocomplete="off"><label for="askInput" class="sr">Your question</label><input id="askInput" placeholder="Ask about any project…"><button class="btn" type="submit">Ask</button></form>
+  <form class="d-form" id="askForm" autocomplete="off"><label for="askInput" class="sr">Your question</label><input id="askInput" placeholder="Ask me anything…"><button class="btn" type="submit">Ask</button></form>
 </aside>
 <script type="module" src="/src/pages.js"></script>
+<script type="module" src="/src/home.js"></script>
 </body>
 </html>

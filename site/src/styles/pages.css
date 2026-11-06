@@ -184,3 +184,24 @@
 .awards b{font:600 var(--fs-s)/1.3 var(--sans)}
 .awards i{font-style:normal;font-size:var(--fs-xs);color:var(--muted);line-height:1.35}
 @media (max-width:760px){.awards{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:var(--sp-3)}.awards li:nth-child(3){padding-left:0;border-left:0}}
+
+/* ---------- his doodles (doodles.js): each set draws itself in, like his pen, the first time it comes into view ---------- */
+.doodles{position:absolute;z-index:4;pointer-events:none;overflow:visible}
+.doodles path{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .7s cubic-bezier(.6,0,.2,1) var(--d,0s)}
+.doodles.drawn path{stroke-dashoffset:0}
+
+/* ---------- his pen as the cursor (cursor.js): mouse and trackpad only, text fields keep their caret ---------- */
+.pen-cursor,.pen-cursor *{cursor:none!important}
+.pen-cursor :is(input,textarea,[contenteditable="true"]){cursor:text!important}
+.pen{position:fixed;left:0;top:0;z-index:400;pointer-events:none;will-change:transform}
+.pen[hidden],.pen[data-mode=text]{display:none}
+.pen svg{position:absolute;display:none;overflow:visible;transition:scale .12s ease-out}
+.pen-nib{left:-2px;top:-26px;transform-origin:2px 26px}   /* the tip of the nib is the hotspot */
+.pen-hand{left:-10px;top:-2px;transform-origin:10px 2px}   /* the fingertip is the hotspot */
+.pen[data-mode=nib] .pen-nib,.pen[data-mode=hand] .pen-hand{display:block}
+.pen-nib path,.pen-nib circle{fill:var(--ink)}
+.pen-nib .pen-cut{fill:none;stroke:var(--paper);stroke-width:1.2;stroke-linecap:round}
+.pen-nib circle.pen-cut{fill:var(--paper);stroke:none}
+.pen-hand path{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round}
+.pen.down svg{scale:.86}
+.pen-ink{position:fixed;inset:0;width:100vw;height:100vh;z-index:399;pointer-events:none}

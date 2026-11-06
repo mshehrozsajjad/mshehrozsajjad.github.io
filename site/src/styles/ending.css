@@ -120,8 +120,8 @@ footer p{margin:0}
   .pc-msg{padding:0 0 var(--sp-3)}
   .pc-addr{padding:var(--sp-3) 0 0;border-left:0;border-top:1px solid var(--warm)}
   footer .wrap{flex-direction:column;align-items:flex-start;gap:0;padding-left:calc(var(--gl) + 30px);padding-bottom:80px}
-  /* the legal row is one line: the name drops, the gaps tighten */
+  /* the legal row: the name drops, the gaps tighten, and it wraps rather than run off a narrow phone */
   .f-name{display:none}
-  .f-legal{flex-wrap:nowrap;white-space:nowrap;gap:0 12px}
+  .f-legal{flex-wrap:wrap;gap:0 12px}
   .f-social{margin-left:-11px}
 }

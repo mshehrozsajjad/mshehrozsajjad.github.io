@@ -3,6 +3,9 @@
 import {createReveal} from './reveal.js';
 import {smooth} from './spline.js';
 import {handDrawn} from './hand.js';
+import {playDoodles} from './doodles.js';
+import {mountTwin} from './twin-drawer.js';
+import {mountCursor} from './cursor.js';
 
 (() => {
 "use strict";
@@ -93,9 +96,34 @@ function frame(){
   }
   nodes.forEach(n => n.el.classList.toggle('hit', reduce || atEnd || n.y <= readY));
   reveal.check(atEnd);
-  const fab = $('#fab'); if (fab) fab.classList.toggle('show', scrollY > innerHeight*.7);
+  fabShow(scrollY > innerHeight*.7);
   if (!reduce && busy) req();
 }
+/* ---------- the floating "ask my AI self": his live face, a wave when it arrives, and a few teasers in his hand ---------- */
+const fab = $('#fab'), tip = $('#fabTip');
+const TIPS = ['psst, I’m live. ask me anything', 'ask me what I’m building', 'yes, it’s really me. well, AI me'];
+const TIP_SECONDS = 4.5, TIP_EVERY = 20;   // each teaser stays a few seconds; at most one per TIP_EVERY seconds
+let fabOn = false, tipsShown = 0, tipTimer = 0, engaged = false;
+function fabShow(on){
+  if (!fab || on === fabOn) return;
+  fabOn = on;
+  fab.classList.toggle('show', on);
+  if (!on){ clearTimeout(tipTimer); tip?.classList.remove('on'); return; }
+  if (!reduce){ fab.classList.remove('hello'); void fab.offsetWidth; fab.classList.add('hello'); }   // restart the wave
+  if (tip && !engaged && tipsShown < TIPS.length) tipTimer = setTimeout(teaser, 1200);
+}
+function teaser(){
+  if (!fabOn || engaged || tipsShown >= TIPS.length) return;
+  tip.textContent = TIPS[tipsShown++];
+  tip.classList.add('on');
+  tipTimer = setTimeout(() => {
+    tip.classList.remove('on');
+    if (tipsShown < TIPS.length) tipTimer = setTimeout(teaser, (TIP_EVERY - TIP_SECONDS) * 1000);
+  }, TIP_SECONDS * 1000);
+}
+// once they've opened the twin, the nudging stops
+$$('[data-open="agent"]').forEach(b => b.addEventListener('click', () => { engaged = true; clearTimeout(tipTimer); tip?.classList.remove('on'); }));
+
 function req(){ if (!ticking){ ticking = true; requestAnimationFrame(frame); } }
 addEventListener('scroll', req, {passive: true});
 let rz; const rebuild = () => { clearTimeout(rz); rz = setTimeout(build, 120); };
@@ -208,41 +236,14 @@ if (copy) copy.addEventListener('click', async () => {
 
 /* ---------- the AI twin (home only) ---------- */
 const scrim = $('#scrim'); let lastFocus = null;
-function openD(id){ const d = $('#' + id); if (!d) return; if (!reduce){ const v = $('#twinVideo'); v && v.play().catch(() => {}); } lastFocus = document.activeElement; d.classList.add('open'); d.setAttribute('aria-hidden', 'false'); scrim.classList.add('open'); main.inert = true; document.body.style.overflow = 'hidden'; setTimeout(() => ($('#askInput') || $('.x', d)).focus(), 60); }
-function closeD(restore){ $$('.drawer.open').forEach(d => { d.classList.remove('open'); d.setAttribute('aria-hidden', 'true'); }); if (scrim) scrim.classList.remove('open'); main.inert = false; document.body.style.overflow = ''; if (restore && lastFocus && lastFocus.focus) lastFocus.focus(); }
+function openD(id){ const d = $('#' + id); if (!d) return; if (id === 'agent') twin?.open(); lastFocus = document.activeElement; d.classList.add('open'); d.setAttribute('aria-hidden', 'false'); scrim.classList.add('open'); main.inert = true; document.body.style.overflow = 'hidden'; setTimeout(() => ($('#askInput') || $('.x', d)).focus(), 60); }
+function closeD(restore){ twin?.close(); $$('.drawer.open').forEach(d => { d.classList.remove('open'); d.setAttribute('aria-hidden', 'true'); }); if (scrim) scrim.classList.remove('open'); main.inert = false; document.body.style.overflow = ''; if (restore && lastFocus && lastFocus.focus) lastFocus.focus(); }
 document.addEventListener('click', e => { const t = e.target.closest('button, a'); if (!t) return; if (t.dataset.open){ openD(t.dataset.open); } else if (t.hasAttribute('data-close')) closeD(true); });
 if (scrim) scrim.addEventListener('click', () => closeD(true));
 addEventListener('keydown', e => { if (e.key === 'Escape' && $('.drawer.open')) closeD(true); });
-const A = {
-  now: {t: "I'm a founding engineer at Beyond Presence. I own the creator and call platforms behind our real-time avatars and Managed Agents, frontend and backend (the real-time models and their scaling are my teammates'). I sit in customer meetings and ship what customers need on tight deadlines, like the integration that puts an avatar in a Zoom or Teams call.", go: ['The engineering side', '/code']},
-  make: {t: "Yolk, my own AI device with an e-paper screen and a dial, which makes my German phone calls. And TARS, a 3D-printed desk robot running my avatar locally.", go: ['The hardware', '/hardware']},
-  saas: {t: "myClosr, Slaptastic, Vorsprech and NPC Filter are live. RoomRush got 50 signups in its first 10 minutes, but the unit economics didn't hold, so I stopped it.", go: ['The AI products', '/ai']},
-  design: {t: "Design is where I started: Photoshop in my first semester, then every brand, interface and launch film for my own products.", go: ['The design side', '/design']},
-  oss: {t: "reels-in-code, the LiveKit JS plugin for Beyond Presence avatars, a verified n8n node and free n8n workflows.", go: ['The engineering side', '/code#open-source']},
-  hire: {t: "Book a call or email me at mshehrozsajjad@gmail.com. Tell me what you're building and where it's stuck.", go: ['Book a call', '#contact']},
-  none: {t: "I don't know that one, and I only answer from what I've confirmed. Email me at mshehrozsajjad@gmail.com.", go: null}
-};
-const route = q => { const s = q.toLowerCase();
-  if (/(open source|open-source|github|plugin|reels|n8n)/.test(s)) return 'oss';
-  if (/(yolk|tars|robot|hardware|device|hold|physical)/.test(s)) return 'make';
-  if (/(design|brand|ui|ux|film|photo|figma)/.test(s)) return 'design';
-  if (/(vorsprech|closr|roomrush|slaptastic|npc|saas|ai product|live|customer)/.test(s)) return 'saas';
-  if (/(now|current|beyond|working on|today|avatar|platform|engineer|code)/.test(s)) return 'now';
-  if (/(hire|work together|collab|email|contact|job|call|book)/.test(s)) return 'hire';
-  return 'none'; };
-const log = $('#log');
-function answer(q, key){
-  const a = A[key], p1 = document.createElement('p'), box = document.createElement('div'), p2 = document.createElement('p');
-  p1.className = 'me'; p1.textContent = q; box.className = 'ai'; p2.textContent = a.t; box.appendChild(p2);
-  if (a.go){ const l = document.createElement('a'); l.className = 'act'; l.href = a.go[1]; l.textContent = a.go[0] + ' '; l.addEventListener('click', () => closeD(false)); box.appendChild(l); }
-  log.append(p1, box); log.scrollTop = 1e6;
-}
-if (log){
-  $$('.q').forEach(b => b.addEventListener('click', () => answer(b.textContent, b.dataset.q)));
-  $('#askForm').addEventListener('submit', e => { e.preventDefault(); const i = $('#askInput'), v = i.value.trim(); if (!v) return; answer(v, route(v)); i.value = ''; });
-  const snd = (btn, vid) => btn && btn.addEventListener('click', () => { const v = $(vid), on = v.muted; v.muted = !on; if (on){ v.currentTime = 0; v.play().catch(() => {}); } btn.setAttribute('aria-pressed', String(on)); if (btn.id === 'twinSound') btn.textContent = on ? 'Sound off' : 'Sound on'; else btn.setAttribute('aria-label', on ? 'Turn sound off' : 'Turn sound on'); });
-  snd($('#twinSound'), '#twinVideo'); snd($('#heroSound'), '#heroTwin');
-}
+const twin = $('#agent') ? mountTwin($('#agent')) : null;   // the live AI twin (twin-drawer.js)
+// fetch the call code as soon as someone heads for a "talk to my twin" button, so the call can start inside their click
+if (twin) $$('[data-open="agent"]').forEach(b => ['pointerenter', 'pointerdown', 'focus'].forEach(ev => b.addEventListener(ev, twin.warm, {once: true})));
 
 /* ---------- theme ---------- */
 try { const t = localStorage.getItem('site-theme'); if (['light', 'dark'].includes(t)) root.dataset.theme = t; } catch (_) {}
@@ -250,6 +251,10 @@ const th = () => root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)
 const themeBtn = $('#theme');
 if (themeBtn){ const label = () => themeBtn.textContent = th() === 'dark' ? 'Light' : 'Dark';
   themeBtn.addEventListener('click', () => { root.dataset.theme = th() === 'dark' ? 'light' : 'dark'; try { localStorage.setItem('site-theme', th()); } catch (_) {} label(); }); label(); }
+
+/* ---------- his doodles: played back, or drawn on the dev server with ?doodle; and his pen as the cursor ---------- */
+if (import.meta.env.DEV && new URLSearchParams(location.search).has('doodle')) import('./doodle-editor.js');   // keeps its crosshair
+else { playDoodles(); mountCursor(); }
 
 build();
 })();

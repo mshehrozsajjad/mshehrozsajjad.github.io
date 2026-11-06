@@ -4,5 +4,10 @@
   "compatibility_date": "2026-11-05",
   "assets": {
     "run_worker_first": ["/api/*"]
+  },
+  // the AI twin (/api/twin). BEY_API_KEY is a secret: `wrangler secret put BEY_API_KEY`, and site/.dev.vars locally
+  "vars": {
+    "BEY_API_URL": "https://api-dev.bey.dev",
+    "BEY_AGENT_ID": "cb621d4f-49da-4547-99e0-9ddce8cf4bd0"
   }
 }
