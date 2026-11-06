@@ -16,19 +16,33 @@ main{overflow-x:clip}
 /* the small mono label that opens each part */
 .chap-l{font:500 var(--fs-xs)/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:var(--sp-3)}
 
+/* ---------- the entrance ----------
+   Shown only when the head script added .js (motion allowed); home.js plays it and removes it.
+   If home.js never starts, the head script removes it after 4s so the page is never stuck behind it. */
+.intro{display:none}
+.js .intro{display:grid;place-items:center;position:fixed;inset:0;z-index:200;cursor:pointer;background:#0c0c0e}
+/* the letterbox: two black bars meeting at his eye line (--cy, set by home.js) */
+.intro-bar{position:absolute;left:0;right:0;background:#0c0c0e;visibility:hidden}
+.intro-top{top:0;height:var(--cy,40%)}
+.intro-bot{top:var(--cy,40%);height:100lvh}
+.js.intro-on{overflow:hidden}
+.intro-w{margin:0;font-weight:700;font-stretch:75%;font-size:100px;line-height:.8;letter-spacing:-.035em;text-transform:uppercase;white-space:nowrap;visibility:hidden}
+
 /* ---------- the hello ---------- */
 .hx{position:relative;height:max(640px,calc(100svh - 72px));overflow:clip;display:grid;grid-template-rows:1fr auto}
-.hx-h1{position:absolute;inset:0;margin:0;display:grid;justify-items:center;align-content:start;padding-top:min(5vh,48px);pointer-events:none}
-.hx-word{display:block;overflow:clip;padding:0 .02em}
-.hx-in{display:block;font-weight:700;font-stretch:75%;font-size:clamp(120px,min(27vw,62svh),520px);line-height:.8;letter-spacing:-.035em;text-transform:uppercase;color:var(--signal);white-space:nowrap}
+/* the word, broken in two and staggered: HEL high on the left, LO lower on the right, both tucked behind him */
+.hx-h1{--hx:clamp(120px,min(25vw,44svh),460px);position:absolute;inset:0;margin:0;pointer-events:none}
+.hx-l{position:absolute;display:block;overflow:clip;padding:0 .03em}
+.hx-l1{right:calc(50% + 8vw);top:3%}
+.hx-l2{left:calc(50% + 14vw);top:38%}
+.hx-in{display:block;font-weight:700;font-stretch:75%;font-size:var(--hx);line-height:.8;letter-spacing:-.035em;text-transform:uppercase;color:var(--signal);white-space:nowrap}
 .hx-in .hc{display:inline-block}
 .hx-fig{position:absolute;left:50%;bottom:0;margin:0;height:min(92%,880px);aspect-ratio:1049/1600;translate:-50% 0;z-index:2}
-.hx-photo{position:relative;z-index:1;display:block;width:100%;height:100%;object-fit:contain;object-position:bottom;filter:drop-shadow(0 18px 30px rgba(20,16,10,.22))}
-.hx-scrib{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
-.hx-scrib path{fill:none;stroke:var(--ink);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:0}
-.hx-scrib .spark{fill:var(--ink)}
-.hx-note{position:absolute;left:max(var(--gl),calc(50% - 560px));top:16%;z-index:3;font-size:clamp(34px,3.6vw,56px);line-height:1;transform:rotate(-7deg);color:var(--ink)}
-.hx-note svg{display:block;width:clamp(48px,4vw,64px);height:auto;margin:10px 0 0 60%;transform:rotate(8deg)}
+.hx-photo{display:block;width:100%;height:100%;object-fit:contain;object-position:bottom;filter:drop-shadow(0 18px 30px rgba(20,16,10,.22))}
+/* tucked in beside his head (the photo scales with the screen height, so svh keeps it close), tilted towards him */
+.hx-note{position:absolute;left:calc(50% + 24svh);top:15%;z-index:3;font-size:clamp(30px,3vw,48px);line-height:1;transform:rotate(8deg);color:var(--ink)}
+/* the arrow hangs off the note's left side and points down at him */
+.hx-note svg{position:absolute;right:calc(100% + 6px);top:38%;width:clamp(56px,4.6vw,80px);height:auto;transform:scaleX(-1) rotate(30deg)}
 .hx-foot{grid-row:2;position:relative;z-index:3;display:flex;align-items:flex-end;justify-content:space-between;gap:var(--sp-4);padding:0 max(var(--gr),calc(50% - 560px)) var(--sp-4) max(var(--gl),calc(50% - 560px))}
 .hx-copy{max-width:min(330px,calc(50vw - 300px))}
 .hx-copy .pitch{margin-top:10px;font-size:clamp(20px,1.8vw,26px);max-width:22ch}
@@ -107,6 +121,39 @@ main{overflow-x:clip}
 .wl-b{rotate:2deg;margin-top:-.02em}
 .wl-photo{position:absolute;right:max(2vw,calc(50% - 640px));bottom:0;z-index:3;height:min(70%,560px);width:auto}
 
+/* ---------- the ending: one ink block ----------
+   --now-bg/--now-ink are the site's inverted pair, so it is ink on paper in light mode and paper on ink in dark */
+.ft{position:relative;margin-top:120px;background:var(--now-bg);color:var(--now-ink);padding:var(--sp-6) 0 var(--sp-3)}
+.ft .wrap{display:block;padding-block:0}  /* undo the shared footer row layout from ending.css */
+.ft ::selection{background:var(--now-trail);color:var(--now-bg)}
+.ft-wave{position:absolute;left:max(var(--gl),calc(50% - 560px));bottom:100%;line-height:0}
+.ft-wave .sprite{--h:150px}
+.ft-hi{position:absolute;left:100%;top:10px;font-size:28px;color:var(--ink);transform:rotate(-8deg);white-space:nowrap}
+.ft-chap{font:500 var(--fs-xs)/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:color-mix(in srgb,var(--now-ink) 60%,transparent);margin-bottom:var(--sp-3)}
+.ft-mail{display:block;padding:0;border:0;background:none;color:inherit;cursor:pointer;text-align:left;font-weight:700;font-stretch:75%;font-size:clamp(40px,8.6vw,150px);line-height:.9;letter-spacing:-.03em;overflow-wrap:anywhere;transition:color .25s var(--ease)}
+.ft-mail:hover,.ft-mail:focus-visible{color:var(--now-trail)}
+.ft-hint{margin-top:8px}
+.ft-hint .hand{color:var(--now-trail);font-size:28px;transform:rotate(-3deg)}
+.ft-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-5);margin-top:var(--sp-5);padding-top:var(--sp-4);border-top:1px solid color-mix(in srgb,var(--now-ink) 22%,transparent)}
+.ft-book p:first-child,.ft-nl label{display:block;max-width:34ch;color:color-mix(in srgb,var(--now-ink) 72%,transparent)}
+.ft-btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;margin-top:var(--sp-2);padding:0 26px;border:0;border-radius:999px;background:var(--now-ink);color:var(--now-bg);font:600 var(--fs-s)/1 var(--sans);cursor:pointer;transition:transform .16s ease-out}
+.ft-btn:hover .ar{transform:translateX(3px)}
+.ft-btn:active{transform:scale(.97)}
+.ft-field{display:flex;align-items:center;gap:var(--sp-2);margin-top:var(--sp-2);border-bottom:2px solid currentColor}
+.ft-field input{flex:1;min-width:0;height:52px;border:0;outline:0;background:none;color:inherit;font:500 var(--fs-body)/1 var(--sans)}
+.ft-field input::placeholder{color:color-mix(in srgb,var(--now-ink) 45%,transparent)}
+.ft-field button{min-height:44px;padding:0;border:0;background:none;color:inherit;font:700 var(--fs-body)/1 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
+.ft-field:focus-within{border-color:var(--now-trail)}
+.ft .msg:not(:empty){margin-top:10px;font-size:var(--fs-s);color:var(--now-trail)}
+.ft-social{list-style:none;margin:var(--sp-5) 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px clamp(20px,3vw,48px)}
+.ft-social a{display:inline-block;color:inherit;text-decoration:none;font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(32px,4.4vw,72px);line-height:1;letter-spacing:-.02em;transition:color .2s,translate .3s var(--ease)}
+.ft-social a::after{content:" \2197";font-size:.5em;vertical-align:.6em;opacity:.5}
+.ft-social a:hover,.ft-social a:focus-visible{color:var(--now-trail);translate:0 -3px}
+.ft-legal{display:flex;flex-wrap:wrap;gap:4px var(--sp-3);margin-top:var(--sp-5);font-size:var(--fs-xs);color:color-mix(in srgb,var(--now-ink) 60%,transparent)}
+.ft-legal a{color:inherit;text-decoration:none;padding:12px 0}
+.ft-legal span{padding:12px 0;margin-right:auto}
+.ft-legal a:hover,.ft-legal a:focus-visible{color:var(--now-ink);text-decoration:underline}
+
 /* ---------- phones and tablets ---------- */
 @media (max-width:1000px){
   .ab-grid{grid-template-columns:minmax(0,1fr)}
@@ -121,12 +168,13 @@ main{overflow-x:clip}
 }
 @media (max-width:760px){
   .hx{height:auto;min-height:0;display:block;overflow:visible}
-  .hx-h1{position:relative;inset:auto;display:block;padding-top:var(--sp-3);text-align:center}
-  .hx-word{translate:none}
-  .hx-in{font-size:31vw}
-  .hx-fig{position:relative;left:auto;translate:none;height:auto;width:72vw;margin:-8vw auto 0}
-  .hx-note{position:relative;top:auto;left:auto;display:block;width:max-content;margin:-8px auto 0;font-size:30px;text-align:center;transform:rotate(-4deg)}
-  .hx-note svg{display:none}
+  .hx-h1{--hx:38vw;position:relative;inset:auto;display:grid;padding-top:var(--sp-3)}
+  .hx-l{position:static}
+  .hx-l1{justify-self:start;margin-left:calc(var(--gl) - .03em)}
+  .hx-l2{justify-self:end;margin:-.04em calc(var(--gr) - .03em) 0 0}
+  .hx-fig{position:relative;left:auto;translate:none;height:auto;width:72vw;margin:-34vw auto 0}
+  .hx-note{position:relative;top:auto;left:auto;display:block;width:max-content;margin:14px auto 0;font-size:30px;text-align:center;transform:rotate(-4deg)}
+  .hx-note svg{position:absolute;right:calc(100% - 4px);top:80%;width:clamp(56px,4.6vw,80px);height:auto;transform:scaleX(-1) rotate(30deg)}
   .hx-foot{display:grid;gap:var(--sp-3);padding:var(--sp-3) var(--gr) var(--sp-5) var(--gl)}
   .hx-copy{max-width:none}
   .call-wrap{justify-items:start}
@@ -142,4 +190,10 @@ main{overflow-x:clip}
   .sd-row{grid-template-columns:32px minmax(0,1fr) 28px;gap:6px 12px}
   .sd-w{font-size:11.5vw;white-space:nowrap}
   .wl-photo{height:36%;right:-6vw}
+  .ft{margin-top:100px}
+  .ft .wrap{padding:0 var(--gr) 0 var(--gl)}
+  .ft-row{grid-template-columns:minmax(0,1fr);gap:var(--sp-4)}
+  .ft-wave .sprite{--h:110px}
+  .ft-hi{font-size:22px}
+  .ft-legal span{flex-basis:100%}
 }
