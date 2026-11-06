@@ -4,18 +4,12 @@
 import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {SplitText} from 'gsap/SplitText';
+import {mountShelf} from './bookshelf.js';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const wide = '(min-width: 761px)';
-
-// the peek card follows the pointer inside its row (CSS shows it on hover)
-$$('.sd-row').forEach(row => row.addEventListener('pointermove', e => {
-  const r = row.getBoundingClientRect();
-  row.style.setProperty('--mx', `${e.clientX - r.left}px`);
-  row.style.setProperty('--my', `${e.clientY - r.top}px`);
-}));
 
 /* ---------- the entrance, cut like a film title: his four sides flash one beat each, then a letterbox opens across
    his sunglasses and the camera pulls back to the hero while the hello lands. A click or any key skips it. ---------- */
@@ -121,6 +115,8 @@ if (marks) {
   document.fonts?.ready.then(stepAside);
 }
 
+mountShelf($('#sides'));   // the shelf of books, one open at a time (bookshelf.js)
+
 const mm = gsap.matchMedia();
 const doodling = import.meta.env.DEV && new URLSearchParams(location.search).has('doodle');
 mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions}) => {
@@ -165,11 +161,9 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
       .to(li, {filter: 'blur(10px)', autoAlpha: .18, ease: 'power1.in'});
   });
 
-  /* ---------- the four sides rise out of their rows ---------- */
-  $$('.sd-w').forEach(w => {
-    const s = SplitText.create(w, {type: 'chars', charsClass: 'hc'});
-    gsap.from(s.chars, {yPercent: 105, stagger: .025, duration: .9, ease: 'expo.out', scrollTrigger: {trigger: w, start: 'top 88%'}});
-  });
+  /* ---------- the four books drop onto the shelf, one after another ---------- */
+  gsap.from('.book', {y: -140, autoAlpha: 0, duration: 1, ease: 'bounce.out', stagger: .14,
+    clearProps: 'transform,opacity,visibility', scrollTrigger: {trigger: '.bookshelf', start: 'top 78%'}});
 
   /* ---------- before you ask: the headline slams in ---------- */
   gsap.from('.fq-h', {xPercent: -12, autoAlpha: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: {trigger: '.fq-h', start: 'top 85%'}});
