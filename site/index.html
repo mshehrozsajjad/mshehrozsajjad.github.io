@@ -58,9 +58,8 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
     </div>
     <div class="call-wrap">
       <div class="call">
-        <video class="twin" id="heroTwin" src="/assets/media/avatar.mp4" poster="/assets/media/avatar-poster.webp" autoplay muted loop playsinline aria-label="My AI twin"></video>
+        <video class="twin" id="heroTwin" src="/assets/media/twin-wave.mp4" poster="/assets/media/twin-wave-poster.webp" autoplay muted loop playsinline aria-label="My AI twin, waving"></video>
         <span class="call-live"><i aria-hidden="true"></i>Live</span>
-        <button class="call-sound" type="button" id="heroSound" aria-pressed="false" aria-label="Turn sound on"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path class="off" d="M16 9.5l5 5M21 9.5l-5 5"/><path class="on" d="M16 9a4.5 4.5 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></svg></button>
         <button class="call-btn" type="button" data-open="agent">Talk to my AI twin <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button>
       </div>
       <p class="call-cap">Answers from my own notes.</p>
@@ -192,22 +191,29 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
   </div>
 </footer>
 
-<button class="fab" id="fab" type="button" data-open="agent">Ask my AI self</button>
+<button class="fab" id="fab" type="button" data-open="agent"><span class="fab-face" aria-hidden="true"><video src="/assets/media/twin-wave-thumb.mp4" poster="/assets/media/twin-wave-poster.webp" muted loop playsinline preload="none"></video><i></i></span>Ask my AI self</button>
+<button class="fab-tip hand" id="fabTip" type="button" data-open="agent" tabindex="-1" aria-hidden="true"></button>
 <div class="scrim" id="scrim"></div>
-<aside role="dialog" aria-modal="true" class="drawer" id="agent" aria-label="Ask my AI self" aria-hidden="true">
-  <div class="d-head"><p class="kicker">Ask my AI self</p><button class="x" type="button" data-close aria-label="Close">×</button></div>
-  <div class="d-ph"><video class="twin" id="twinVideo" src="/assets/media/avatar.mp4" poster="/assets/media/avatar-poster.webp" muted loop playsinline aria-label="My AI twin"></video><button class="sound" type="button" id="twinSound" aria-pressed="false">Sound on</button></div>
-  <p class="d-note">A preview built from my confirmed notes. These are preset answers, not a live AI conversation. Choose a question to explore my work.</p>
+<aside role="dialog" aria-modal="true" class="drawer" id="agent" aria-label="Talk to my AI twin" aria-hidden="true">
+  <div class="d-head"><p class="kicker">Talk to my AI twin</p><button class="x" type="button" data-close aria-label="Close">×</button></div>
+  <div class="d-ph d-call">
+    <video class="twin" id="twinVideo" muted autoplay playsinline aria-label="My AI twin, live"></video>
+    <div class="d-screen" id="twinScreen" role="status"><span class="d-loader" aria-hidden="true"><i></i><i></i><i></i></span><p id="twinScreenText">Calling my twin…</p><button class="btn" id="twinAgain" type="button" hidden>Call again</button></div>
+    <p class="d-live" id="twinLive" hidden></p>
+    <button class="d-sound" id="twinSound" type="button" hidden>Tap for sound</button>
+    <button class="d-mic" id="twinMic" type="button" aria-pressed="false" hidden>Use my mic</button>
+  </div>
+  <p class="d-note">A live AI version of me that answers from my notes, and can get things wrong. Type or tap a question; your mic stays off unless you turn it on. Calls end after three minutes.</p>
   <div class="qs">
-    <button class="q" type="button" data-q="now">What are you working on now?</button>
-    <button class="q" type="button" data-q="saas">Which of your products are live?</button>
-    <button class="q" type="button" data-q="make">What have you built that I can hold?</button>
-    <button class="q" type="button" data-q="design">Do you design too?</button>
-    <button class="q" type="button" data-q="oss">What have you open-sourced?</button>
-    <button class="q" type="button" data-q="hire">Can we work together?</button>
+    <button class="q" type="button">What are you working on now?</button>
+    <button class="q" type="button">Which of your products are live?</button>
+    <button class="q" type="button">What have you built that I can hold?</button>
+    <button class="q" type="button">Do you design too?</button>
+    <button class="q" type="button">What have you open-sourced?</button>
+    <button class="q" type="button">Can we work together?</button>
   </div>
   <div class="log" id="log" aria-live="polite"></div>
-  <form class="d-form" id="askForm" autocomplete="off"><label for="askInput" class="sr">Your question</label><input id="askInput" placeholder="Ask about any project…"><button class="btn" type="submit">Ask</button></form>
+  <form class="d-form" id="askForm" autocomplete="off"><label for="askInput" class="sr">Your question</label><input id="askInput" placeholder="Ask me anything…"><button class="btn" type="submit">Ask</button></form>
 </aside>
 <script type="module" src="/src/pages.js"></script>
 <script type="module" src="/src/home.js"></script>

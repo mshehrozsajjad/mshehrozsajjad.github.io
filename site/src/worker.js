@@ -23,10 +23,46 @@ async function contributions(ctx){
   ctx.waitUntil(cache.put(key, out.clone()));
   return out;
 }
+/* /api/twin: starts a live call with Shehroz's AI twin (a Beyond Presence managed agent).
+   The browser never sees the API key: the worker asks Beyond Presence for a LiveKit room and hands back only the room's
+   address and a join token. Basic protection against bots: the request has to come from this site, and each visitor can
+   start one call every COOLDOWN seconds. Settings: BEY_API_KEY (secret), BEY_AGENT_ID and BEY_API_URL (wrangler.jsonc). */
+const COOLDOWN = 30;
+const BEY_ERRORS = {402: 'unavailable', 429: 'busy'};   // plan limit reached, too many calls at once
+async function twin(request, env){
+  if (request.method !== 'POST') return Response.json({error: 'method'}, {status: 405});
+  const origin = request.headers.get('origin');
+  if (!origin || new URL(origin).host !== new URL(request.url).host) return Response.json({error: 'forbidden'}, {status: 403});
+  if (!env.BEY_API_KEY || !env.BEY_AGENT_ID) return Response.json({error: 'unavailable'}, {status: 503});
+
+  const cache = caches.default, key = new Request(`https://cache.internal/twin/${encodeURIComponent(request.headers.get('cf-connecting-ip') || 'local')}`);
+  if (await cache.match(key)) return Response.json({error: 'wait', retry: COOLDOWN}, {status: 429});
+
+  let res;
+  try {
+    res = await fetch(`${env.BEY_API_URL || 'https://api.bey.dev'}/v1/livekit-rooms`, {
+      method: 'POST',
+      headers: {'x-api-key': env.BEY_API_KEY, 'content-type': 'application/json'},
+      body: JSON.stringify({agent_id: env.BEY_AGENT_ID, tags: {source: 'website'}}),
+    });
+  } catch (e) {
+    console.error('twin: Beyond Presence unreachable', e.message);
+    return Response.json({error: 'error'}, {status: 502});
+  }
+  if (!res.ok){
+    console.error('twin: Beyond Presence said', res.status, await res.text());   // the key is never in its reply
+    return Response.json({error: BEY_ERRORS[res.status] || 'error'}, {status: 502});
+  }
+  const room = await res.json();
+  await cache.put(key, new Response('1', {headers: {'cache-control': `max-age=${COOLDOWN}`}}));
+  return Response.json({url: room.livekit_url, token: room.livekit_token}, {headers: {'cache-control': 'no-store'}});
+}
+
 export default {
   async fetch(request, env, ctx){
     const url = new URL(request.url);
     if (url.pathname === '/api/contributions') return contributions(ctx);
+    if (url.pathname === '/api/twin') return twin(request, env);
     return Response.json({error: 'Not found'}, {status: 404});
   },
 };

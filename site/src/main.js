@@ -645,7 +645,6 @@ $$('.q').forEach(b => b.addEventListener('click', () => answer(b.textContent, b.
 $('#askForm').addEventListener('submit', e => { e.preventDefault(); const i = $('#askInput'), v = i.value.trim(); if (!v) return; answer(v, route(v)); i.value = ''; });
 
 $('#twinSound').addEventListener('click', e => { const v = $('#twinVideo'), on = v.muted; v.muted = !on; if (on){ v.currentTime = 0; v.play().catch(() => {}); } e.currentTarget.setAttribute('aria-pressed', String(on)); e.currentTarget.textContent = on ? 'Sound off' : 'Sound on'; });
-$('#heroSound').addEventListener('click', e => { const v = $('#heroTwin'), b = e.currentTarget, on = v.muted; v.muted = !on; if (on){ v.currentTime = 0; v.play().catch(() => {}); } b.setAttribute('aria-pressed', String(on)); b.setAttribute('aria-label', on ? 'Turn sound off' : 'Turn sound on'); });
 if (reduce) $$('video[autoplay]').forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
 
 /* theme */
