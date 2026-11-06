@@ -86,9 +86,26 @@ button{font:inherit;color:inherit}
 .act .ar{width:.8em;height:.8em}
 .act:hover .ar,.act:focus-visible .ar{transform:translateX(3px)}
 /* small outline controls: the theme switch, drawer chips */
-.theme,.q,.x{border:1px solid var(--line);background:none;border-radius:999px;color:var(--ink);font:500 var(--fs-xs)/1 var(--sans);cursor:pointer;min-height:40px;padding:0 16px;transition:background-color .16s,border-color .16s,transform .16s}
-.theme:hover,.q:hover,.x:hover{background:var(--signal-soft)}
-.theme:active,.q:active{transform:scale(.97)}
+.q,.x{border:1px solid var(--line);background:none;border-radius:999px;color:var(--ink);font:500 var(--fs-xs)/1 var(--sans);cursor:pointer;min-height:40px;padding:0 16px;transition:background-color .16s,border-color .16s,transform .16s}
+.q:hover,.x:hover{background:var(--signal-soft)}
+.q:active{transform:scale(.97)}
+/* the theme switch: a pill with the sun and the moon (Phosphor) at either end, and a knob that slides over the one
+   that's on, carrying it filled in. aria-checked is dark (pages.js, main.js) */
+.theme{--tw:64px;--k:28px;position:relative;flex:none;width:var(--tw);height:36px;padding:0;border:1px solid var(--line);border-radius:999px;background:none;color:var(--ink);cursor:pointer;transition:border-color .2s,background-color .2s}
+.theme:hover{background:var(--signal-soft)}
+.theme:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+.theme > svg{position:absolute;top:50%;width:15px;height:15px;translate:0 -50%;fill:currentColor;opacity:.45}
+.theme > .th-sun{left:10px}
+.theme > .th-moon{right:10px}
+.th-knob{position:absolute;top:3px;left:3px;width:var(--k);height:var(--k);display:grid;place-items:center;border-radius:50%;background:var(--ink);color:var(--paper);
+  box-shadow:0 2px 6px -2px rgba(0,0,0,.35);transition:translate .45s var(--ease)}
+.th-knob svg{grid-area:1 / 1;width:15px;height:15px;fill:currentColor;transition:opacity .3s,rotate .45s var(--ease),scale .45s var(--ease)}
+.th-knob .th-moon{opacity:0;rotate:-90deg;scale:.5}
+.theme[aria-checked="true"] .th-knob{translate:calc(var(--tw) - var(--k) - 8px) 0}
+.theme[aria-checked="true"] .th-knob .th-sun{opacity:0;rotate:90deg;scale:.5}
+.theme[aria-checked="true"] .th-knob .th-moon{opacity:1;rotate:0deg;scale:1}
+.theme:active .th-knob{scale:.92}
+@media (prefers-reduced-motion:reduce){.th-knob,.th-knob svg{transition:none}}
 .msg{font-size:var(--fs-s);color:var(--muted);margin-top:10px;min-height:1.4em}
 
 /* ---------- the line ---------- */

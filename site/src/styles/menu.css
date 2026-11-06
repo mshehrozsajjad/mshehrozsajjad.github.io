@@ -28,6 +28,7 @@
 .menu-on .top .mark,.menu-on .top .theme{color:var(--paper);transition-delay:.3s}
 .menu-on .top .theme{border-color:color-mix(in srgb,var(--paper) 30%,transparent)}
 .menu-on .top .theme:hover{background:color-mix(in srgb,var(--paper) 12%,transparent)}
+.menu-on .th-knob{background:var(--paper);color:var(--ink);transition:translate .45s var(--ease),background-color .25s .3s,color .25s .3s}
 .menu-on .burger{color:var(--paper)}
 .menu-on .fab,.menu-on .fab-tip{opacity:0;pointer-events:none}
 
