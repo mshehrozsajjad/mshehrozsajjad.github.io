@@ -81,12 +81,12 @@ export async function mountFalling(hero, {reduce = false} = {}){
 
   function rain(target){
     const text = Array.from({length: 16}, () => pick(LETTERS)), len = 3 + (Math.random()*9|0);
-    if (target != null) return {x: gx + target*CW, col: -1, w: target, y: gy - 60 - Math.random()*Math.min(gy, 260), v: 3.2 + Math.random()*2.4, len, text};
+    if (target != null) return {x: gx + target*CW, col: -1, w: target, y: gy - 60 - Math.random()*Math.min(gy, 260), v: 7 + Math.random()*5, len, text};
     // columns that are still short of their tower are likelier to get the next stream
     let sum = 0; const want = goal.map((g, i) => { const d = Math.max(0, g - piles[i].length); sum += d; return d; });
     let col = (Math.random()*cols)|0;
     if (sum > 0){ let r = Math.random()*sum; for (let i = 0; i < cols; i++){ r -= want[i]; if (r <= 0){ col = i; break; } } }
-    return {x: col*CW, col, w: -1, y: -Math.random()*H*.7, v: 1.6 + Math.random()*2.2, len, text};
+    return {x: col*CW, col, w: -1, y: -Math.random()*H*.7, v: 5 + Math.random()*5, len, text};
   }
   function spawn(){
     const open = gpiles.map((p, w) => p.length ? w : -1).filter(w => w >= 0);
@@ -103,7 +103,11 @@ export async function mountFalling(hero, {reduce = false} = {}){
       if (s.w >= 0){                                   // aiming for the calendar
         const t = gpiles[s.w][0];
         if (!t){ s.w = -1; s.col = Math.round(s.x/CW); }
-        else if (s.y >= t.y){ t.ch = s.text[0]; t.flash = 1; gpiles[s.w].shift(); s.text.shift(); s.len--; s.y -= CH; if (s.len <= 0){ streams[i] = spawn(); continue; } }
+        else {
+          let n;   // fast streams can reach more than one day in a frame
+          while (s.len > 0 && (n = gpiles[s.w][0]) && s.y >= n.y){ n.ch = s.text[0]; n.flash = 1; gpiles[s.w].shift(); s.text.shift(); s.len--; s.y -= CH; }
+          if (s.len <= 0){ streams[i] = spawn(); continue; }
+        }
       }
       if (s.w < 0 && s.col >= 0 && s.col < cols){      // landing on the skyline, one character at a time
         const p = piles[s.col];
