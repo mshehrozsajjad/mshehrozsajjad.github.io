@@ -5,6 +5,7 @@ import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {SplitText} from 'gsap/SplitText';
 import {mountShelf} from './bookshelf.js';
+import {mountMenu} from './menu.js';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -115,6 +116,7 @@ if (marks) {
   document.fonts?.ready.then(stepAside);
 }
 
+mountMenu();   // the header and the burger's menu (menu.js)
 mountShelf($('#sides'));   // the pile of books, one on top at a time, and their contents (bookshelf.js; it deals them in itself)
 
 const mm = gsap.matchMedia();
