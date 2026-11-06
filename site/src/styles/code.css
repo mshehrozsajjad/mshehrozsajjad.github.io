@@ -7,7 +7,7 @@
 
 /* ---------- hero: the words, the 3D platform, and the terminal under both ---------- */
 .code-hero{min-height:0;padding-bottom:var(--sp-5)}
-.code-hero > .wrap:first-of-type{grid-template-columns:minmax(0,1fr);align-items:center}
+.code-hero > .wrap:first-of-type{grid-template-columns:minmax(0,1fr) minmax(0,430px);align-items:start;gap:var(--sp-5)}
 .code-side{position:relative;display:grid;place-items:center}
 .p3d{width:min(100%,440px);aspect-ratio:1;cursor:grab;touch-action:pan-y}
 .p3d.grab{cursor:grabbing}
@@ -53,14 +53,20 @@
 
 /* the sprite and the calendar the falling code builds */
 .gh{display:flex;align-items:flex-end;gap:14px;margin-top:var(--sp-4);max-width:780px}
-.gh-spr .sprite{--h:112px;display:block;height:var(--h);width:auto}
 .gh-grid{flex:1;min-width:0;height:96px}
 .code-hero .hero-copy{max-width:none}
 .code-hero .hero-copy > :is(h1,.lead,.hi-line){max-width:30ch}
 .code-hero .hero-copy > .lead{max-width:52ch}
 .gh-line{margin-top:var(--sp-2)}
-@media (max-width:760px){.gh-spr .sprite{--h:86px}.gh{gap:8px}}
 /* the hero fills the screen so the code has somewhere to pile up; the terminal follows it */
 .code-hero{min-height:calc(100svh - 90px);padding-bottom:var(--sp-6);justify-content:flex-start;padding-top:var(--sp-5)}
-.term-sec{position:relative;z-index:1;padding-bottom:var(--sp-5)}
-.term-sec .term{margin-top:0}
+
+/* the sprite stands on the terminal, top right, level with the headline */
+.code-side{position:relative;z-index:1;display:flex;flex-direction:column;align-items:stretch;margin-top:-56px}
+.term-spr{display:flex;justify-content:flex-end;padding-right:28px;margin-bottom:-3px;position:relative;z-index:2}
+.term-spr .sprite{--h:136px}
+.code-side .term{margin-top:0}
+.code-side .term-out{height:230px}
+.code-hero .hero-copy > :is(h1,.hi-line){max-width:none}
+@media (max-width:1000px){.code-hero > .wrap:first-of-type{grid-template-columns:minmax(0,1fr)}.code-side{max-width:560px;margin-top:var(--sp-3)}}
+@media (max-width:760px){.term-spr .sprite{--h:110px}.code-side .term-out{height:180px}}

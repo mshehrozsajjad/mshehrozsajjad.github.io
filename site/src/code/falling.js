@@ -21,7 +21,7 @@ function dayOf(start, i){ const d = new Date(start + 'T00:00:00Z'); d.setUTCDate
 
 export async function mountFalling(hero, {reduce = false} = {}){
   const box = hero.querySelector('#ghGrid'); if (!box) return;
-  const copy = hero.querySelector('.hero-copy');
+  const blocks = () => [...hero.querySelectorAll('.hero-copy > *, .code-side .term, .code-side .term-spr')];   // what the towers must stay under
   const data = await load(); if (!data) return;
   const {counts, start} = data, N = counts.length;
   const total = data.total ?? counts.reduce((a, b) => a + b, 0), week = counts.slice(-7).reduce((a, b) => a + b, 0);
@@ -62,7 +62,7 @@ export async function mountFalling(hero, {reduce = false} = {}){
     gpiles = Array.from({length: weeks}, (_, w) => cells.filter(c => c.w === w && counts[c.d] > 0 && !c.ch).sort((a, b) => b.r - a.r));
     // the skyline: one pile per column. Under the words it stays below them; in open space it may rise to 55% of the hero.
     cols = Math.ceil(W/CW);
-    const cb = copy.getBoundingClientRect(), kids = [...copy.children].map(k => k.getBoundingClientRect()).filter(r => r.height);
+    const kids = blocks().map(k => k.getBoundingClientRect()).filter(r => r.height);
     caps = Array.from({length: cols}, (_, i) => {
       const x0 = i*CW, x1 = x0 + CW;
       let floor = H*.45;                                                    // highest a pile may reach, from the top
