@@ -169,12 +169,7 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
   /* ---------- the wall: his hand runs both ways under the promise ---------- */
   $$('.wl-hand p').forEach((p, i) => gsap.fromTo(p, {xPercent: i % 2 ? -18 : 0}, {xPercent: i % 2 ? 0 : -18, ease: 'none',
     scrollTrigger: {trigger: '.wl', start: 'top bottom', end: 'bottom top', scrub: true}}));
-  gsap.from('.ft-wave', {yPercent: 100, duration: 1, ease: 'expo.out', scrollTrigger: {trigger: '.ft', start: 'top 85%'}});
-  // "build it" gets its underline once the promise has landed; the footer signs off as it comes up
-  ScrollTrigger.create({trigger: '.wl', start: 'top 55%', once: true, onEnter: () => $('.wl').classList.add('drawn')});
-  ScrollTrigger.create({trigger: '.ft-sign', start: 'top bottom', once: true, onEnter: () => $('.ft').classList.add('signed')});
   gsap.from(['.wl-a', '.wl-b'], {scale: 1.4, autoAlpha: 0, stagger: .15, duration: .9, ease: 'back.out(1.6)', scrollTrigger: {trigger: '.wl', start: 'top 55%'}});
-  gsap.from('.wl-photo', {yPercent: 30, autoAlpha: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: {trigger: '.wl', start: 'top 45%'}});
 
   // the hand font changes line lengths once it loads, so measure again
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
