@@ -230,8 +230,8 @@ main{overflow-x:clip}
    inverted and screened, so the paper becomes the dark page and the ink turns light blue. */
 .ft{position:relative;overflow:clip;color:var(--ink);font-size:var(--fs-body);display:flex;flex-direction:column}
 /* in the flow under the columns, pulled up so only its empty sky runs under them; the page shows through its paper */
-.ft-art{order:2;margin-top:-5vw;pointer-events:none}   /* no layer of its own, so the drawing blends with the page itself */
-.ft-film{display:block;width:100%;aspect-ratio:1268/570;object-fit:cover;object-position:20% 100%;mix-blend-mode:multiply;background:transparent}
+.ft-art{order:2;margin-top:-6vw;pointer-events:none}   /* no layer of its own, so the drawing blends with the page itself */
+.ft-film{display:block;width:100%;aspect-ratio:1278/484;object-fit:cover;object-position:20% 100%;mix-blend-mode:multiply;background:transparent}
 :root[data-theme="dark"] .ft-film{filter:invert(1) hue-rotate(180deg) saturate(1.4);mix-blend-mode:screen}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ft-film{filter:invert(1) hue-rotate(180deg) saturate(1.4);mix-blend-mode:screen}}
 
@@ -304,8 +304,8 @@ main{overflow-x:clip}
   .ft .wrap{padding:0 var(--gr) 0 var(--gl)}
   .ft .ft-in{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-4) var(--sp-3)}
   .ft-col:nth-of-type(3){grid-column:1 / -1}
-  .ft-film{height:300px;aspect-ratio:auto;object-position:14% 100%}
-  .ft-art{margin-top:-30px}
+  .ft-film{height:220px;aspect-ratio:auto;object-position:12% 100%}
+  .ft-art{margin-top:-24px}
   .ft .ft-base{justify-content:flex-start;gap:0 var(--sp-2)}
   .ft-base > *{padding:6px 0}
 }
