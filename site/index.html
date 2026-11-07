@@ -186,40 +186,61 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
      a little (a loop that blends into the page). IDs are the ones pages.js wires (copy, book, newsletter) -->
 <footer class="ft" id="contact" aria-labelledby="h-foot">
   <div class="wrap ft-in">
-    <div class="ft-head">
-      <p class="chap-l">05 / Say hi</p>
-      <h2 id="h-foot" class="ft-h">Say hi, <span class="it">I reply fast.</span></h2>
-    </div>
     <div class="ft-say">
-      <p class="ft-mail-row"><button class="ft-mail" type="button" id="copy" aria-label="Copy mshehrozsajjad@gmail.com">mshehrozsajjad@gmail.com <svg viewBox="0 0 256 256" aria-hidden="true"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></svg></button><span class="hand ft-hint" id="copy-hint">tap to copy</span></p>
-      <button class="btn ft-btn" type="button" id="book">Book a call <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button>
+      <p class="chap-l">05 / Say hi</p>
+      <h2 id="h-foot" class="ft-h">Stay close.</h2>
+      <p class="ft-lead">Building something and stuck? I’m happy to think it through with you, on a call or by mail.</p>
+      <div class="ft-acts">
+        <button class="btn ft-btn" type="button" id="book">Book a call <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button>
+        <span class="hand ft-or" aria-hidden="true">or send a postcard <svg viewBox="0 0 60 40"><path d="M4 30 C 20 34, 40 30, 54 12 M54 12 L 44 14 M54 12 L 54 23"/></svg></span>
+      </div>
       <p class="msg" id="book-msg" role="status"></p>
+      <div class="ft-nav">
+        <nav aria-label="Pages"><ul class="ft-links">
+          <li><a href="/code">Engineering</a></li><li><a href="/design">Design</a></li><li><a href="/ai">AI products</a></li><li><a href="/hardware">Hardware</a></li><li><a href="/story">The long story</a></li>
+        </ul></nav>
+        <ul class="ft-links ft-out" aria-label="Elsewhere">
+          <li><a href="https://www.linkedin.com/in/mshehrozsajjad/" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="https://www.instagram.com/mshehroz.sajjad/" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://github.com/mshehrozsajjad" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://www.tiktok.com/@mshehrozsajjad" target="_blank" rel="noopener">TikTok</a></li>
+        </ul>
+      </div>
     </div>
-    <nav class="ft-col" aria-labelledby="ft-pages">
-      <p class="ft-t" id="ft-pages">Pages</p>
-      <ul class="ft-links">
-        <li><a href="/code">Engineering</a></li>
-        <li><a href="/design">Design</a></li>
-        <li><a href="/ai">AI products</a></li>
-        <li><a href="/hardware">Hardware</a></li>
-        <li><a href="/story">The long story</a></li>
-      </ul>
-    </nav>
-    <div class="ft-col">
-      <p class="ft-t" id="ft-else">Elsewhere</p>
-      <ul class="ft-links ft-out" aria-labelledby="ft-else">
-        <li><a href="https://www.linkedin.com/in/mshehrozsajjad/" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href="https://www.instagram.com/mshehroz.sajjad/" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="https://github.com/mshehrozsajjad" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href="https://www.tiktok.com/@mshehrozsajjad" target="_blank" rel="noopener">TikTok</a></li>
-      </ul>
-    </div>
-    <form class="ft-col ft-nl" id="nl" novalidate>
-      <label class="ft-t" for="nl-email">When I ship</label>
-      <p class="ft-p">One email, only when there’s something new to hold or try.</p>
-      <div class="ft-field"><input id="nl-email" type="email" placeholder="you@domain.com" autocomplete="email"><button type="submit" aria-label="Sign up"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button></div>
-      <p class="msg" id="nl-msg" role="status"></p>
-    </form>
+    <!-- the postcard: the same card the role pages end on. His note on the left; on the right the stamp, his address
+         (tap to copy) and yours (the newsletter). Posting it stamps the card (home.js) -->
+    <article class="postcard ft-card">
+      <div class="pc-msg">
+        <p class="pc-k">MUNICH, <span class="ft-year">2026</span></p>
+        <p class="ft-note hand">One email when I ship something new. Nothing else, promise.</p>
+        <p class="ft-sig hand">— Shehroz</p>
+      </div>
+      <div class="pc-addr">
+        <div class="pc-stamp" aria-hidden="true">
+          <svg viewBox="0 0 72 88">
+            <defs>
+              <pattern id="ftPerf" x="-4" y="-4" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#fff"/><circle cx="4" cy="4" r="3" fill="#000"/></pattern>
+              <mask id="ftStampCut"><rect x="-4" y="-4" width="80" height="96" fill="#fff"/><rect x="-4" y="-4" width="80" height="8" fill="url(#ftPerf)"/><rect x="-4" y="84" width="80" height="8" fill="url(#ftPerf)"/><rect x="-4" y="-4" width="8" height="96" fill="url(#ftPerf)"/><rect x="68" y="-4" width="8" height="96" fill="url(#ftPerf)"/></mask>
+            </defs>
+            <g mask="url(#ftStampCut)"><rect class="field" width="72" height="88"/>
+              <rect class="cream" x="6" y="6" width="60" height="76" stroke-width="1" opacity=".75"/>
+              <path class="cream" stroke-width="1.1" d="M10 58 L20 44 L27 52 L38 34 L52 56 L62 46"/>
+              <path class="cream" stroke-width="1.1" d="M27 22 v-8 M24 18 h6 M33 24 v-10 M30 18 h6 M46 30 v-14 M44 20 h4"/>
+              <text class="val" x="36" y="76" text-anchor="middle">0.85</text></g>
+          </svg>
+          <svg class="ft-postmark" viewBox="0 0 160 80"><circle cx="40" cy="40" r="32" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="40" cy="40" r="25" fill="none" stroke="currentColor" stroke-width="1"/>
+            <text x="40" y="37" text-anchor="middle" fill="currentColor" style="font:700 10px var(--sans);letter-spacing:1px">POSTED</text><text x="40" y="50" text-anchor="middle" fill="currentColor" style="font:500 8px var(--mono);letter-spacing:1px" class="ft-pm-date">MUNICH</text>
+            <path d="M78 26 q10 -6 20 0 t20 0 t20 0 t20 0 M78 40 q10 -6 20 0 t20 0 t20 0 t20 0 M78 54 q10 -6 20 0 t20 0 t20 0 t20 0" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        </div>
+        <div class="pc-rows">
+          <div class="pc-from">
+            <div class="pc-row"><span class="pc-k" aria-hidden="true">FROM</span><button class="pc-mail" type="button" id="copy" aria-label="Copy mshehrozsajjad@gmail.com">mshehrozsajjad@gmail.com</button></div>
+            <p class="pc-hint"><span class="hand" id="copy-hint">tap to copy</span></p>
+          </div>
+          <form id="nl" novalidate>
+            <div class="pc-row"><label for="nl-email" class="sr">Your email, for one email when I ship something</label><span class="pc-k" aria-hidden="true">TO</span><input id="nl-email" type="email" placeholder="you@domain.com" autocomplete="email"><button class="pc-send" type="submit">Post it <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button></div>
+            <p class="msg" id="nl-msg" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </article>
   </div>
   <div class="ft-art" aria-hidden="true">
     <video class="ft-film" muted loop playsinline preload="none" poster="/assets/media/munich-alps-poster.webp" data-src="/assets/media/munich-alps.mp4" data-src-sm="/assets/media/munich-alps-sm.mp4"></video>

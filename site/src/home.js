@@ -200,3 +200,14 @@ if (film) {
     if (e.isIntersecting) film.play().catch(() => {}); else film.pause();
   }, {rootMargin: '300px 0px'}).observe(film);
 }
+
+/* ---------- the postcard: a valid address posts it (pages.js says what happens to it) ---------- */
+const card = $('.ft-card'), nlForm = $('#nl');
+if (card && nlForm) {
+  const day = new Intl.DateTimeFormat('en-GB', {day: '2-digit', month: 'short'}).format(new Date()).toUpperCase();
+  $('.ft-pm-date', card).textContent = day;
+  nlForm.addEventListener('submit', () => {
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($('#nl-email').value.trim());
+    card.classList.toggle('posted', ok);
+  });
+}
