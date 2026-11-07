@@ -182,57 +182,55 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 
 </main>
 
-<!-- the footer, made of the same parts as the sections above it: a chapter label, the address as the heading, four
-     columns under ink rules, the small print, and his name in the hello's letters running off the bottom.
-     IDs are the ones pages.js wires (copy, book, newsletter) -->
+<!-- the footer: quiet, on the same paper, and under it the view from Munich to the Alps drawn in his blue ink, moving
+     a little (a loop that blends into the page). IDs are the ones pages.js wires (copy, book, newsletter) -->
 <footer class="ft" id="contact" aria-labelledby="h-foot">
-  <div class="wrap">
-    <p class="chap-l">05 / Say hi</p>
-    <h2 id="h-foot" class="sr">Get in touch</h2>
-    <button class="ft-mail" type="button" id="copy" aria-label="Copy mshehrozsajjad@gmail.com">mshehrozsajjad<wbr>@gmail.com</button>
-    <p class="ft-hint"><span class="hand" id="copy-hint">tap to copy</span></p>
-    <div class="ft-cols">
-      <div class="ft-col">
-        <p class="ft-t">Book a call</p>
-        <p class="ft-p">Building something and stuck? I’m happy to think it through with you.</p>
-        <button class="btn ft-btn" type="button" id="book">Book a call <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button>
-        <p class="msg" id="book-msg" role="status"></p>
-      </div>
-      <form class="ft-col" id="nl" novalidate>
-        <label class="ft-t" for="nl-email">When I ship</label>
-        <p class="ft-p">One email, only when there’s something new to hold or try.</p>
-        <div class="ft-field"><input id="nl-email" type="email" placeholder="you@domain.com" autocomplete="email"><button type="submit">Send</button></div>
-        <p class="msg" id="nl-msg" role="status"></p>
-      </form>
-      <nav class="ft-col" aria-labelledby="ft-pages">
-        <p class="ft-t" id="ft-pages">Pages</p>
-        <ul class="ft-links">
-          <li><a href="/code"><span>01</span>Engineering</a></li>
-          <li><a href="/design"><span>02</span>Design</a></li>
-          <li><a href="/ai"><span>03</span>AI products</a></li>
-          <li><a href="/hardware"><span>04</span>Hardware</a></li>
-          <li><a href="/story"><span>05</span>The long story</a></li>
-        </ul>
-      </nav>
-      <div class="ft-col">
-        <p class="ft-t" id="ft-else">Elsewhere</p>
-        <ul class="ft-links ft-out" aria-labelledby="ft-else">
-          <li><a href="https://www.linkedin.com/in/mshehrozsajjad/" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://www.instagram.com/mshehroz.sajjad/" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="https://github.com/mshehrozsajjad" target="_blank" rel="noopener">GitHub</a></li>
-          <li><a href="https://www.tiktok.com/@mshehrozsajjad" target="_blank" rel="noopener">TikTok</a></li>
-        </ul>
-      </div>
+  <div class="wrap ft-in">
+    <div class="ft-head">
+      <p class="chap-l">05 / Say hi</p>
+      <h2 id="h-foot" class="ft-h">Say hi, <span class="it">I reply fast.</span></h2>
     </div>
-    <div class="ft-base">
-      <span>© 2026 Shehroz Sajjad</span>
-      <span class="ft-clock">Munich, <time id="ftClock">now</time></span>
-      <a href="/impressum">Impressum</a>
-      <a href="/datenschutz">Datenschutz</a>
-      <a class="ft-up" href="#top">Back to top <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a>
+    <div class="ft-say">
+      <p class="ft-mail-row"><button class="ft-mail" type="button" id="copy" aria-label="Copy mshehrozsajjad@gmail.com">mshehrozsajjad@gmail.com <svg viewBox="0 0 256 256" aria-hidden="true"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></svg></button><span class="hand ft-hint" id="copy-hint">tap to copy</span></p>
+      <button class="btn ft-btn" type="button" id="book">Book a call <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button>
+      <p class="msg" id="book-msg" role="status"></p>
     </div>
+    <nav class="ft-col" aria-labelledby="ft-pages">
+      <p class="ft-t" id="ft-pages">Pages</p>
+      <ul class="ft-links">
+        <li><a href="/code">Engineering</a></li>
+        <li><a href="/design">Design</a></li>
+        <li><a href="/ai">AI products</a></li>
+        <li><a href="/hardware">Hardware</a></li>
+        <li><a href="/story">The long story</a></li>
+      </ul>
+    </nav>
+    <div class="ft-col">
+      <p class="ft-t" id="ft-else">Elsewhere</p>
+      <ul class="ft-links ft-out" aria-labelledby="ft-else">
+        <li><a href="https://www.linkedin.com/in/mshehrozsajjad/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://www.instagram.com/mshehroz.sajjad/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://github.com/mshehrozsajjad" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.tiktok.com/@mshehrozsajjad" target="_blank" rel="noopener">TikTok</a></li>
+      </ul>
+    </div>
+    <form class="ft-col ft-nl" id="nl" novalidate>
+      <label class="ft-t" for="nl-email">When I ship</label>
+      <p class="ft-p">One email, only when there’s something new to hold or try.</p>
+      <div class="ft-field"><input id="nl-email" type="email" placeholder="you@domain.com" autocomplete="email"><button type="submit" aria-label="Sign up"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button></div>
+      <p class="msg" id="nl-msg" role="status"></p>
+    </form>
   </div>
-  <p class="ft-name" aria-hidden="true">Shehroz Sajjad</p>
+  <div class="ft-art" aria-hidden="true">
+    <video class="ft-film" muted loop playsinline preload="none" poster="/assets/media/munich-alps-poster.webp" data-src="/assets/media/munich-alps.mp4" data-src-sm="/assets/media/munich-alps-sm.mp4"></video>
+  </div>
+  <div class="wrap ft-base">
+    <span>© 2026 Shehroz Sajjad</span>
+    <span class="ft-clock">Munich, <time id="ftClock">now</time></span>
+    <a href="/impressum">Impressum</a>
+    <a href="/datenschutz">Datenschutz</a>
+    <a class="ft-up" href="#top">Back to top <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a>
+  </div>
 </footer>
 
 <!-- the menu: an ink circle opens out of the burger over everything; each side of him a giant line, his sprite at

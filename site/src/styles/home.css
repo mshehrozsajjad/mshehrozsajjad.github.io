@@ -224,47 +224,66 @@ main{overflow-x:clip}
 .wl-b{rotate:2deg;margin-top:-.02em}
 
 /* ---------- the footer ----------
-   Built from the parts of the sections above, on the same paper: the chapter label, the address as the heading in the
-   narrow capitals, four columns that open on an ink rule like "who to call", the small print with the time in Munich,
-   and his name in the hello's letters, faint and running off the bottom edge. */
+   Quiet, on the same paper as every section: a heading in the page's own pairing, the address with a copy button, the
+   call, and three short columns. Under it the view from Munich to the Alps in his blue ink, a loop that moves a little.
+   Its paper is pure white and it is multiplied onto the page, so the drawing sits on the page's own paper with no edge;
+   in dark mode it is inverted and screened, so the paper turns to the dark page and the ink turns light. */
 .ft{position:relative;overflow:clip;padding-top:var(--sp-6)}
-.ft .wrap{display:block;padding-block:0}  /* undo the shared footer row layout from ending.css */
-.ft-mail{display:block;padding:0;border:0;background:none;color:var(--ink);cursor:pointer;text-align:left;font-weight:700;font-stretch:75%;font-size:clamp(40px,7.6vw,128px);line-height:.88;letter-spacing:-.03em;overflow-wrap:anywhere;transition:color .25s var(--ease)}
-.ft-mail:hover,.ft-mail:focus-visible{color:var(--signal)}
-.ft-hint{margin-top:10px}
-.ft-hint .hand{font-size:28px;transform:rotate(-3deg)}
-
-.ft-cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-4) var(--sp-4);margin-top:var(--sp-5)}
-.ft-col{display:flex;flex-direction:column;align-items:flex-start;min-width:0;border-top:2px solid var(--ink);padding-top:10px}
-.ft-t{display:block;margin:0 0 8px;font:700 20px/1.1 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:.01em;color:var(--ink)}
-.ft-p{max-width:30ch;font-size:var(--fs-s);line-height:1.45;color:var(--muted)}
-.ft-btn{margin-top:var(--sp-2)}
+.ft{color:var(--ink);font-size:var(--fs-body)}
+.ft .wrap{padding-block:0}   /* the shared footer rules (ending.css) are for the other pages */
+.ft .ft-in{display:grid;flex-direction:row;grid-template-columns:minmax(0,1.6fr) repeat(2,minmax(0,.7fr)) minmax(0,1fr);gap:var(--sp-4) var(--sp-5);align-items:start}
+.ft-head{grid-column:1 / -1}
+.ft-h{font-size:var(--fs-h2)}
+.ft-mail-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px}
+.ft-mail{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;gap:10px;padding:6px 0;cursor:pointer;color:var(--ink);font:600 clamp(18px,1.5vw,22px)/1.2 var(--sans);letter-spacing:-.015em;
+  text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--ink) 30%,transparent);text-decoration-thickness:1px;text-underline-offset:6px;transition:color .2s,text-decoration-color .2s}
+.ft-mail svg{width:18px;height:18px;fill:currentColor;opacity:.55;transition:opacity .2s}
+.ft-mail:hover,.ft-mail:focus-visible{color:var(--signal);text-decoration-color:currentColor}
+.ft-mail:hover svg{opacity:1}
+.ft-mail:focus-visible{outline:2px solid var(--signal);outline-offset:4px}
+.ft-hint{font-size:24px;transform:rotate(-4deg)}
+.ft-btn{margin-top:var(--sp-3)}
 .ft-btn:hover .ar{transform:translateX(3px)}
-.ft-field{display:flex;align-items:center;gap:var(--sp-2);width:100%;margin-top:var(--sp-1);border-bottom:2px solid var(--ink)}
-.ft-field input{flex:1;min-width:0;height:46px;border:0;outline:0;background:none;color:var(--ink);font:500 var(--fs-body)/1 var(--sans)}
-.ft-field input::placeholder{color:var(--muted)}
-.ft-field button{min-height:44px;padding:0;border:0;background:none;color:var(--ink);font:700 var(--fs-body)/1 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
-.ft-field button:hover{color:var(--signal)}
-.ft-field:focus-within{border-color:var(--signal)}
 .ft .msg:not(:empty){margin-top:10px;font-size:var(--fs-s);color:var(--signal)}
-.ft-links{list-style:none;margin:0;padding:0;display:grid}
-.ft-links a{display:inline-flex;align-items:baseline;gap:10px;padding:5px 0;color:var(--ink);text-decoration:none;font:600 var(--fs-body)/1.2 var(--sans);letter-spacing:-.01em;transition:color .2s,translate .3s var(--ease)}
-.ft-links span{font:500 var(--fs-xs)/1 var(--mono);letter-spacing:.1em;color:var(--muted)}
-.ft-out a::after{content:"\2197";font-size:.8em;color:var(--muted)}
-.ft-links a:hover,.ft-links a:focus-visible{color:var(--signal);translate:4px 0}
 
-.ft-base{display:flex;flex-wrap:wrap;align-items:center;gap:0 var(--sp-3);margin-top:var(--sp-5);border-top:1px solid var(--line);font-size:var(--fs-xs);color:var(--muted)}
-.ft-base > *{padding:14px 0}
+.ft-col{display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding-top:6px}
+.ft-t{display:block;margin:0 0 12px;font:500 var(--fs-xs)/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.ft-p{font-size:var(--fs-s);line-height:1.45;color:var(--muted)}
+.ft-links{list-style:none;margin:0;padding:0;display:grid}
+.ft-links a{display:inline-flex;align-items:baseline;gap:6px;padding:5px 0;color:var(--ink);text-decoration:none;font:500 var(--fs-body)/1.2 var(--sans);letter-spacing:-.01em;transition:color .2s,translate .3s var(--ease)}
+.ft-out a::after{content:"\2197";font-size:.8em;color:var(--muted)}
+.ft-links a:hover,.ft-links a:focus-visible{color:var(--signal);translate:3px 0}
+.ft-field{display:flex;align-items:center;gap:var(--sp-2);width:100%;margin-top:var(--sp-2);border-bottom:1.5px solid var(--ink)}
+.ft-field input{flex:1;min-width:0;height:44px;border:0;outline:0;background:none;color:var(--ink);font:500 var(--fs-body)/1 var(--sans)}
+.ft-field input::placeholder{color:var(--muted)}
+.ft-field button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;background:none;color:var(--ink);cursor:pointer}
+.ft-field button .ar{width:16px;height:16px;transition:transform .2s}
+.ft-field button:hover{color:var(--signal)}
+.ft-field button:hover .ar{transform:translateX(3px)}
+.ft-field:focus-within{border-color:var(--signal)}
+
+/* the view: full width, its empty sky running up under the columns so there is no line where the drawing begins */
+.ft-art{position:relative;margin-top:calc(var(--sp-2) - 9vw);pointer-events:none}
+.ft-film{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;object-position:28% 100%;background:transparent;mix-blend-mode:multiply;filter:brightness(1.1);   /* paper to pure white, so it vanishes */
+ 
+  -webkit-mask:linear-gradient(transparent,#000 30%);mask:linear-gradient(transparent,#000 30%)}
+:root[data-theme="dark"] .ft-film{filter:brightness(1.1) invert(1) hue-rotate(180deg) saturate(1.3);mix-blend-mode:screen}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ft-film{filter:brightness(1.1) invert(1) hue-rotate(180deg) saturate(1.3);mix-blend-mode:screen}}
+
+/* the small print, on the paper under the drawing */
+.ft .ft-base{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:0 var(--sp-3);font-size:var(--fs-xs);color:var(--muted)}
+.ft-base > *{padding:16px 0}
 .ft-base a{color:inherit;text-decoration:none}
 .ft-base a:hover,.ft-base a:focus-visible{color:var(--ink);text-decoration:underline}
 .ft-clock{margin-right:auto}
 .ft-clock time{font-variant-numeric:tabular-nums}
 .ft-up{display:inline-flex;align-items:center;gap:6px}
 .ft-up .ar{width:13px;height:13px;rotate:180deg}
-
-/* his name in the hello's letters, as wide as the page, faint, its foot cut off by the bottom edge */
-.ft-name{display:block;height:.62em;overflow:clip;margin:var(--sp-4) 0 0;font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:14.6vw;line-height:.8;letter-spacing:-.035em;
-  white-space:nowrap;text-align:center;color:color-mix(in srgb,var(--ink) 8%,transparent);pointer-events:none;user-select:none}
+@media (max-width:1000px){
+  .ft .ft-in{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ft-say,.ft-nl{grid-column:1 / -1}
+  .ft-art{margin-top:calc(var(--sp-2) - 10vw)}
+}
 
 /* ---------- phones and tablets ---------- */
 @media (max-width:1000px){
@@ -296,9 +315,10 @@ main{overflow-x:clip}
   .wl-hand{font-size:40px}
   .wl-h{font-size:17vw}
   .ft .wrap{padding:0 var(--gr) 0 var(--gl)}
-  .ft-cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--sp-4) var(--sp-3)}
-  .ft-cols > :nth-child(-n+2){grid-column:1 / -1}
-  .ft-base{gap:0 var(--sp-2)}
+  .ft .ft-base{align-items:center}
+  .ft-film{aspect-ratio:4/3;object-position:22% 100%}
+  .ft-art{margin-top:calc(var(--sp-1) - 22vw)}
+  .ft .ft-base{gap:0 var(--sp-2)}
   .ft-base > *{padding:8px 0}
   .ft-up{margin-left:auto}
 }

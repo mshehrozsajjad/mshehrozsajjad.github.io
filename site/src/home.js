@@ -185,3 +185,18 @@ if (clock) {
   tick();
   setInterval(tick, 20000);
 }
+
+/* ---------- the footer's view: loaded only as it comes near, playing only while it's on screen ---------- */
+const film = $('.ft-film');
+if (film) {
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let loaded = false;
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting && !loaded && !still) {
+      loaded = true;
+      film.src = innerWidth <= 760 ? film.dataset.srcSm : film.dataset.src;
+    }
+    if (still || !loaded) return;
+    if (e.isIntersecting) film.play().catch(() => {}); else film.pause();
+  }, {rootMargin: '300px 0px'}).observe(film);
+}
