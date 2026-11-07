@@ -59,7 +59,7 @@ export function mountShelf(section, {onPick} = {}) {
     b.picking = false;
     b.outTo = 0;
     order = [b.i, ...order.filter(j => j !== b.i)];
-    books.forEach(x => x.li.classList.toggle('top', x.i === order[0]));
+    books.forEach(x => x.li.classList.toggle('is-top', x.i === order[0]));
     if (reduce) books.forEach(x => { x.d = order.indexOf(x.i); x.out = 0; });
     wake();
   }
@@ -159,7 +159,7 @@ export function mountShelf(section, {onPick} = {}) {
     frame = moving ? requestAnimationFrame(tick) : 0;
   }
 
-  books[0].li.classList.add('top');
+  books[0].li.classList.add('is-top');
   measure();
   new ResizeObserver(() => { measure(); wake(); }).observe(pile);
   wake();

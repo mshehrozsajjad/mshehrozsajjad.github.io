@@ -102,7 +102,7 @@ main{overflow-x:clip}
 .sd-wrap{width:100%;display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:var(--sp-5);align-items:center}
 .sd-h{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(44px,4.4vw,72px);line-height:.88;letter-spacing:-.02em;color:var(--signal)}
 .sd-h .it{text-transform:none;font-size:1.08em;letter-spacing:-.02em;color:var(--ink)}
-.sd-lead{margin-top:var(--sp-2);color:var(--muted)}
+.sd-lead{margin-top:var(--sp-2);color:var(--muted);text-wrap:balance}
 
 /* the contents: one line per side; the open one is blue, its rule drawn across, its insides unfolded */
 .sd-index{list-style:none;margin:var(--sp-3) 0 0;padding:0;border-bottom:1px solid var(--line)}
@@ -255,8 +255,8 @@ main{overflow-x:clip}
   scale:0;rotate:-30deg;transition:scale .5s var(--ease),rotate .6s var(--ease)}
 .stamp > svg{position:absolute;inset:6%;width:88%;height:88%;animation:stamp-turn 16s linear infinite}
 .stamp > .stamp-ar{position:static;width:30%;height:30%;fill:none;stroke:var(--signal);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;animation:none;transition:translate .4s var(--ease)}
-.books > li.top .stamp{scale:1;rotate:0deg;transition-delay:.25s}
-.books > li.top .book:hover .stamp-ar{translate:2px -2px}
+.books > li.is-top .stamp{scale:1;rotate:0deg;transition-delay:.25s}
+.books > li.is-top .book:hover .stamp-ar{translate:2px -2px}
 @keyframes stamp-turn{to{rotate:360deg}}
 @media (prefers-reduced-motion:reduce){.stamp > svg{animation:none}.stamp{transition:none}}
 
