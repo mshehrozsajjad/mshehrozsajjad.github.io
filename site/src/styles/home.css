@@ -143,19 +143,20 @@ main{overflow-x:clip}
 @keyframes stamp-down{0%{opacity:0;scale:1.7;rotate:-14deg}55%{opacity:.95;scale:.93;rotate:-5deg}75%{scale:1.02}100%{opacity:.9;scale:1;rotate:-6deg}}
 
 /* what's inside the open volume, under the lines: written on the card by hand, its film clipped to the corner */
-.lc-out{display:grid;padding-top:14px}
+.lc-out{display:grid;padding-top:18px}
 .lc-p{display:grid;grid-template-columns:minmax(0,1fr);align-items:start}
 .lc-k{grid-column:1 / -1;margin-bottom:6px;font:500 9px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;opacity:.62}
 .lc-list{list-style:none;margin:0;padding:0;font-size:var(--fs-s);line-height:28px;
   background:linear-gradient(transparent 27px,var(--rule) 27px) 0 0/100% 28px}   /* written on the card's own lines */
 .lc-list li{padding-left:.75em;text-indent:-.75em}   /* a long one wraps under its own words, not the dash */
 .lc-list li::before{content:"– ";opacity:.55}
-.lc-go{grid-column:1;justify-self:start;display:inline-flex;align-items:center;gap:8px;margin-top:10px;padding-bottom:6px;position:relative;color:var(--ink-c);text-decoration:none;
-  font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:17px;letter-spacing:.02em}
-.lc-go::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:currentColor;opacity:.75;-webkit-mask:var(--ul) center/100% 100% no-repeat;mask:var(--ul) center/100% 100% no-repeat}
-.lc-go{transition:color .2s}
-.lc-go:hover,.lc-go:focus-visible{color:var(--stamp)}
-.lc-go:hover .ar,.lc-go:focus-visible .ar{transform:translateX(3px)}
+/* the way in: the page's own black button, as wide as the card, naming the volume that's stamped. It's the one
+   thing to do here, so it's the strongest thing on the card */
+.lc-go{display:flex;justify-content:space-between;width:100%;min-height:58px;padding:0 24px;font-size:var(--fs-body)}
+.lc-go .ar{width:16px;height:16px;transition:transform .25s var(--ease)}
+.lc-go:hover .ar,.lc-go:focus-visible .ar{transform:translateX(4px)}
+.lc-go:hover{background:var(--signal);color:var(--on-signal)}
+.lc-row[aria-selected="true"] .lc-t{color:var(--signal)}
 /* one panel at a time (only once sides.js runs): they share a cell, so the card keeps its height as they swap */
 .sd.on .lc-p{grid-area:1 / 1;opacity:0;visibility:hidden;translate:0 6px;transition:opacity .3s,translate .45s var(--ease),visibility 0s .3s}
 .sd.on .lc-p.open{opacity:1;visibility:visible;translate:none;transition-delay:.08s,.08s,0s}
@@ -280,12 +281,7 @@ main{overflow-x:clip}
 .cv-t{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:16cqi;line-height:.86;letter-spacing:-.02em}
 .cv-d{max-width:64%;font-size:4.6cqi;line-height:1.35;opacity:.82}
 .cv-h{color:var(--ac);font-size:8cqi;transform:rotate(-5deg);width:max-content;max-width:60%}
-.cv-spr{position:absolute;right:4%;bottom:8%;height:42%}
-/* the work itself, through a window cut in the jacket: a thin pressed edge, the film behind it */
-.cv-film{display:block;width:56%;margin-top:calc(var(--cw) * .03);aspect-ratio:16/10;overflow:hidden;border-radius:2px;background:color-mix(in srgb,var(--fg) 12%,transparent);
-  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--fg) 35%,transparent),0 1px 0 rgba(255,255,255,.12),inset 0 2px 6px rgba(0,0,0,.35)}
-.cv-film video{display:block;width:100%;height:100%;object-fit:cover}
-.cover > .cv-film{position:relative;z-index:0}
+.cv-spr{position:absolute;right:5%;bottom:9%;height:50%}
 .cv-a{margin-top:auto;opacity:.7}
 .spine{--shade:.5}   /* the spine is the block's left side now, out of the light */
 .book:focus-visible{outline:none}
