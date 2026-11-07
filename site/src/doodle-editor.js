@@ -5,7 +5,7 @@ import {UNIT, anchorAt, anchorName, drawStroke, loadDoodles, pageKey} from './do
 import './styles/doodle-editor.css';
 
 const NS = 'http://www.w3.org/2000/svg';
-const COLORS = {signal: 'Blue', ink: 'Ink'};
+const COLORS = {signal: 'Blue', ink: 'Ink', pencil: 'Pencil'};
 const WIDTHS = {Fine: 3, Pen: 5, Marker: 9};   // on-screen pixels while drawing
 const MIN_STEP = 1.5;                           // drop points closer than this (stroke units) to keep paths small
 

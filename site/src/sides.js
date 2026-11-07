@@ -1,43 +1,49 @@
-// "Pick a side": the contents list and the fanned volumes, kept in step.
-//   The list says in plain words what each side is and who it's for; exactly one line is open at a time, showing what's
-//   inside, a short film from that side and the way in. Open a line and its book comes to the top; pick a book and its
-//   line opens. ↑ ↓ move along the list. Only the open line's film plays, and only while the section is on screen.
-//   Without the script every line stays open (home.css only folds them under .on), so nothing is hidden.
+// "Pick a side": the library card and the fanned volumes, kept in step.
+//   The card's four lines are tabs: each says which side it is and who it's for. The open one is stamped ON LOAN with
+//   today's date in its DATE DUE column, and the panel below shows what's inside it, a short film and the way in.
+//   Open a line and its book comes to the top; pick a book and its line opens. The arrow keys move along the lines.
+//   Only the open panel's film plays, and only while the section is on screen.
+//   Without the script every panel stays showing (home.css only stacks them under .on), so nothing is hidden.
 import {mountShelf} from './bookshelf.js';
+
+const today = new Intl.DateTimeFormat('en-GB', {day: '2-digit', month: 'short', year: 'numeric'});
 
 export function mountSides(section) {
   if (!section) return null;
-  const rows = [...section.querySelectorAll('.sx')].map(li => ({
-    li, btn: li.querySelector('.sx-btn'), panel: li.querySelector('.sx-p'), film: li.querySelector('.sx-film'),
-  }));
+  const tabs = [...section.querySelectorAll('.lc-row')];
+  const panels = tabs.map(t => section.querySelector(`#${t.getAttribute('aria-controls')}`));
+  const films = panels.map(p => p.querySelector('video'));
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let open = 0, inView = false;
 
-  const play = () => rows.forEach((r, i) => {
-    if (i === open && inView && !still) r.film.play().catch(() => {});
-    else r.film.pause();
+  section.querySelectorAll('[data-today]').forEach(d => { d.textContent = today.format(new Date()); });
+
+  const play = () => films.forEach((f, i) => {
+    if (i === open && inView && !still) f.play().catch(() => {});
+    else f.pause();
   });
   const show = i => {
     open = i;
-    rows.forEach((r, j) => {
-      r.li.classList.toggle('open', j === i);
-      r.btn.setAttribute('aria-expanded', j === i);
-      r.panel.inert = j !== i;   // a folded line's link stays out of the tab order
+    tabs.forEach((t, j) => {
+      t.setAttribute('aria-selected', j === i);
+      t.tabIndex = j === i ? 0 : -1;
+      panels[j].classList.toggle('open', j === i);
+      panels[j].inert = j !== i;   // a hidden panel's link stays out of the tab order
     });
     play();
   };
 
   const shelf = mountShelf(section, {onPick: show});
-  rows.forEach((r, i) => {
-    r.btn.addEventListener('click', () => { shelf.touch(); shelf.pick(i); });
-    r.btn.addEventListener('keydown', e => {
-      const step = {ArrowDown: 1, ArrowUp: -1}[e.key];
+  const choose = i => { shelf.touch(); shelf.pick(i); };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => choose(i));
+    t.addEventListener('keydown', e => {
+      const step = {ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1}[e.key];
       if (!step) return;
       e.preventDefault();
-      const next = (i + step + rows.length) % rows.length;
-      rows[next].btn.focus();
-      shelf.touch();
-      shelf.pick(next);
+      const next = (i + step + tabs.length) % tabs.length;
+      tabs[next].focus();
+      choose(next);
     });
   });
   new IntersectionObserver(([e]) => { inView = e.isIntersecting; play(); }, {threshold: .2}).observe(section);

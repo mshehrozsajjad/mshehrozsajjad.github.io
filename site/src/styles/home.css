@@ -99,42 +99,75 @@ main{overflow-x:clip}
    them, the one on top on the right; on phones they lie in a pile above the list. Each book is still a real block
    (spine, cover, page edge), so the one on top leans after the pointer. Without the script every line stays open. */
 .sd{position:relative;padding-block:var(--sp-5)}
-.sd-wrap{width:100%;display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:var(--sp-5);align-items:center}
+.sd-wrap{width:100%;display:grid;grid-template-columns:minmax(0,470px) minmax(0,1fr);gap:var(--sp-5);align-items:center}
 .sd-h{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(44px,4.4vw,72px);line-height:.88;letter-spacing:-.02em;color:var(--signal)}
 .sd-h .it{text-transform:none;font-size:1.08em;letter-spacing:-.02em;color:var(--ink)}
 .sd-lead{margin-top:var(--sp-2);color:var(--muted);text-wrap:balance}
 
-/* the contents: one line per side; the open one is blue, its rule drawn across, its insides unfolded */
-.sd-index{list-style:none;margin:var(--sp-3) 0 0;padding:0;border-bottom:1px solid var(--line)}
-.sx{position:relative;border-top:1px solid var(--line)}
-.sx::before{content:"";position:absolute;left:0;top:-1px;height:2px;width:100%;background:var(--signal);transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease)}
-.sx.open::before{transform:none}
-.sx-h{font:inherit;letter-spacing:0}
-.sx-btn{all:unset;box-sizing:border-box;display:grid;grid-template-columns:2.4em minmax(0,1fr) auto;align-items:baseline;column-gap:4px;width:100%;padding:14px 0 12px;cursor:pointer}
-.sx-btn:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
-.sx-n{font:500 var(--fs-xs)/1 var(--mono);letter-spacing:.08em;color:var(--muted);transition:color .3s}
-.sx-t{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(26px,2.3vw,34px);line-height:.95;letter-spacing:-.01em;transition:color .3s,translate .4s var(--ease)}
-.sx-why{grid-column:2 / -1;margin-top:5px;font-size:var(--fs-s);line-height:1.35;color:var(--muted)}
-/* a plus that turns into a cross when the line is open */
-.sx-btn::after{content:"";grid-column:3;grid-row:1;align-self:center;width:12px;height:12px;
-  background:linear-gradient(currentColor,currentColor) center/100% 1.5px no-repeat,linear-gradient(currentColor,currentColor) center/1.5px 100% no-repeat;transition:rotate .4s var(--ease),color .3s}
-.sx.open .sx-btn::after{rotate:45deg;color:var(--signal)}
-.sx-btn:hover .sx-t{translate:5px 0}
-.sx-btn:hover .sx-t,.sx.open .sx-t,.sx.open .sx-n{color:var(--signal)}
+/* the library card: a real card (tools/card-textures.py: its photographed rim as a 9-slice, its paper in the middle)
+   with a library's printing on it: a red double rule, faded blue lines, mono labels. The volumes are printed in the
+   books' own condensed face and everything else is typed, in carbon ink. Blue is kept for one thing, the rubber
+   stamp on the open line's DATE DUE. Any handwriting is his own pencil, added as doodles. It stays a cream card in
+   dark mode too, like the books, so everything on it uses the print colours. */
+.lc{--red:rgba(196,62,48,.62);--rule:rgba(58,92,190,.22);--ink-c:var(--print-ink);--stamp:#2A2ADB;
+  --type:'Courier Prime','Courier New',ui-monospace,monospace;   /* the typewriter */
+  --cols:26px minmax(0,104px) minmax(0,1fr) 88px;
+  position:relative;margin-top:var(--sp-3);padding:2px 4px 6px;color:var(--ink-c);rotate:-1deg;border:24px solid transparent;
+  filter:drop-shadow(0 1px 1px rgba(20,16,10,.18)) drop-shadow(0 18px 22px rgba(20,16,10,.2))}
+/* two layers: the paper's grain, reaching 10px short of the card's edge... */
+.lc::before{content:"";position:absolute;inset:-14px;z-index:-1;border-radius:8px;background:url(/assets/textures/card-grain.webp) 0 0/266px 256px}
+/* ... and over it the rim (the photo's edge, corners and fibres, 6px of them past the edge), fading out inwards */
+.lc::after{content:"";position:absolute;inset:-30px;pointer-events:none;border:30px solid transparent;border-image:url(/assets/textures/card-frame.webp) 66 / 30px stretch}
+.lc-head,.lc-cols{font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.lc-head{display:flex;justify-content:space-between;gap:12px;padding-bottom:9px;border-bottom:3px double var(--red);opacity:.85}
+.lc-cols{display:grid;grid-template-columns:var(--cols);column-gap:10px;padding:9px 0 7px;border-bottom:1px solid var(--red);font-size:9px;letter-spacing:.12em;opacity:.62}
+.lc-cols span:last-child{text-align:center}
+/* the lines: a faded blue rule under each, and the red column rule printed down after the volume numbers */
+.lc-rows{position:relative;display:grid}
+.lc-rows::before{content:"";position:absolute;top:-34px;bottom:0;left:31px;width:1px;background:var(--red);pointer-events:none}
+.lc-row{all:unset;box-sizing:border-box;position:relative;display:grid;grid-template-columns:var(--cols);column-gap:10px;align-items:center;min-height:54px;padding:8px 0;
+  border-bottom:1px solid var(--rule);cursor:pointer;transition:background-color .25s}
+@media (hover:hover){.lc-row:hover{background:rgba(42,42,219,.045)}.lc-row:hover .lc-t{translate:3px 0}}   /* not on touch, where hover sticks */
+.lc-row:focus-visible{outline:2px solid var(--stamp);outline-offset:-2px}
+.lc-n{font:500 11px/1 var(--mono);letter-spacing:.06em;opacity:.6}
+.lc-t{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:22px;line-height:.92;letter-spacing:-.005em;transition:translate .35s var(--ease)}
+/* typed: carbon ink that sits into the paper, slightly soft and not quite even, as a typewriter leaves it */
+.lc-for,.lc-list{font-family:var(--type);color:#2A2520;text-shadow:0 0 .6px rgba(42,37,32,.55)}
+.lc-for{font-size:13.5px;line-height:1.3;opacity:.92}
+/* the stamp: one real impression as the ink (stamp.webp), ON LOAN above its bar, today's date knocked out of the bar */
+.lc-stamp{position:absolute;right:-2px;top:50%;width:90px;aspect-ratio:480/361;translate:0 -50%;pointer-events:none;color:var(--stamp);mix-blend-mode:multiply;container-type:inline-size;
+  opacity:0;scale:1.5;rotate:-9deg;transition:opacity .2s,scale .2s}
+.lc-stamp::before{content:"";position:absolute;inset:0;background:currentColor;-webkit-mask:url(/assets/textures/stamp.webp) center/100% 100%;mask:url(/assets/textures/stamp.webp) center/100% 100%}
+.lc-stamp > span{position:absolute;left:0;right:0;text-align:center;text-transform:uppercase;white-space:nowrap}
+.ls-a{top:17%;font:700 13.9cqi/1 var(--sans);font-stretch:75%;letter-spacing:.08em}
+.ls-d{top:47.5%;font:700 8.3cqi/1 var(--mono);letter-spacing:.08em;color:#F1EADA}
+.ls-v{top:69%;font:500 7.8cqi/1 var(--mono);letter-spacing:.14em;opacity:.9}
+.lc-row[aria-selected="true"] .lc-stamp{opacity:.9;scale:1;rotate:-6deg;animation:stamp-down .42s cubic-bezier(.3,0,.2,1)}
+@keyframes stamp-down{0%{opacity:0;scale:1.7;rotate:-14deg}55%{opacity:.95;scale:.93;rotate:-5deg}75%{scale:1.02}100%{opacity:.9;scale:1;rotate:-6deg}}
 
-.sx-in{display:grid;grid-template-columns:124px minmax(0,1fr);gap:6px 18px;align-items:start;padding:6px 0 18px 2.4em}
-.sx-film{grid-row:span 2;display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--tint);border:5px solid var(--raised);border-radius:3px;rotate:-2.5deg;
-  box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 8%,transparent),0 16px 28px -18px rgba(20,16,10,.5)}
-.sx-list{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:var(--fs-s);line-height:1.35}
-.sx-list li{position:relative;padding-left:14px}
-.sx-list li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--signal)}
-.sx-go{justify-self:start;margin-top:4px;font-size:var(--fs-s)}
-/* folded (only once sides.js runs): every line but the open one shuts, and its insides rise in as it opens */
-.sd.on .sx-p{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}
-.sd.on .sx.open .sx-p{grid-template-rows:1fr}
-.sd.on .sx-p > .sx-in{min-height:0;overflow:hidden;opacity:0;translate:0 8px;padding-block:0;transition:opacity .3s,translate .5s var(--ease),padding .55s var(--ease)}
-.sd.on .sx.open .sx-p > .sx-in{opacity:1;translate:none;padding-block:6px 18px;transition-delay:.15s,.15s,0s}
-@media (prefers-reduced-motion:reduce){.sx::before,.sd.on .sx-p,.sd.on .sx-p > .sx-in{transition:none}}
+/* what's inside the open volume, under the lines: written on the card by hand, its film clipped to the corner */
+.lc-out{display:grid;padding-top:14px}
+.lc-p{display:grid;grid-template-columns:minmax(0,1fr) 116px;column-gap:16px;align-items:start}
+.lc-k{grid-column:1 / -1;margin-bottom:6px;font:500 9px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;opacity:.62}
+.lc-list{list-style:none;margin:0;padding:0;font-size:13.5px;line-height:24px;opacity:.92;
+  background:linear-gradient(transparent 23px,var(--rule) 23px) 0 0/100% 24px}   /* written on the card's own lines */
+.lc-list li{padding-left:.75em;text-indent:-.75em}   /* a long one wraps under its own words, not the dash */
+.lc-list li::before{content:"– ";opacity:.55}
+.lc-go{grid-column:1;justify-self:start;display:inline-flex;align-items:center;gap:8px;margin-top:10px;padding-bottom:6px;position:relative;color:var(--ink-c);text-decoration:none;
+  font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:17px;letter-spacing:.02em}
+.lc-go::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:currentColor;opacity:.75;-webkit-mask:var(--ul) center/100% 100% no-repeat;mask:var(--ul) center/100% 100% no-repeat}
+.lc-go{transition:color .2s}
+.lc-go:hover,.lc-go:focus-visible{color:var(--stamp)}
+.lc-go:hover .ar,.lc-go:focus-visible .ar{transform:translateX(3px)}
+.lc-film{grid-column:2;grid-row:2 / span 2;position:relative;margin:2px 0 0;rotate:3deg}
+.lc-film video{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#ddd6c6;border:5px solid #FCFAF5;border-radius:2px;
+  box-shadow:0 0 0 1px rgba(20,16,10,.08),0 10px 18px -10px rgba(20,16,10,.45)}
+.lc-clip{position:absolute;top:-12px;left:22px;width:64px;height:auto;rotate:90deg;transform-origin:0 50%;filter:drop-shadow(1px 2px 1px rgba(20,16,10,.35))}
+/* one panel at a time (only once sides.js runs): they share a cell, so the card keeps its height as they swap */
+.sd.on .lc-p{grid-area:1 / 1;opacity:0;visibility:hidden;translate:0 6px;transition:opacity .3s,translate .45s var(--ease),visibility 0s .3s}
+.sd.on .lc-p.open{opacity:1;visibility:visible;translate:none;transition-delay:.08s,.08s,0s}
+.sd:not(.on) .lc-p + .lc-p{margin-top:var(--sp-3)}
+@media (prefers-reduced-motion:reduce){.lc-stamp,.sd.on .lc-p{transition:none}.lc-row[aria-selected="true"] .lc-stamp{animation:none}}
 
 /* the hand note over the books: they can be picked too */
 .sd-pick{position:absolute;left:2%;top:-7%;z-index:20;font-size:clamp(26px,2.2vw,34px);transform:rotate(-5deg)}
@@ -146,12 +179,15 @@ main{overflow-x:clip}
   .bookshelf{margin-right:min(0px,calc((1120px - 100vw) / 2))}
 }
 /* short screens (a laptop at 720px): the same section, packed tighter so all four lines fit while it's held */
+@media (min-width:1001px) and (max-height:940px){
+  .sd-lead{display:none}
+}
 @media (min-width:1001px) and (max-height:820px){
   .sd{padding-block:48px 16px}
   .sd .chap-l{margin-bottom:var(--sp-2)}
   .sd-lead{display:none}
-  .sx-btn{padding:10px 0 8px}
-  .sx-why{margin-top:3px}
+  .lc{margin-top:var(--sp-2)}
+  .lc-row{min-height:48px;padding:6px 0}
 }
 /* phones and tablets: the title, then the pile, then the list */
 @media (max-width:1000px){
@@ -159,13 +195,24 @@ main{overflow-x:clip}
   .sd-side{display:contents}
   .sd-h{max-width:none}
   .bookshelf{order:1;margin-top:var(--sp-4)}
-  .sd-index{order:2}
+  .lc{order:2}
   .sd-pick{position:static;align-self:flex-start;margin-bottom:var(--sp-2)}
   .bookshelf{flex-direction:column;align-items:center}
 }
+/* phones: the title and who it's for stack in one column, the stamp keeps its own */
 @media (max-width:520px){
-  .sx-in{grid-template-columns:minmax(0,1fr);padding-left:2.4em}
-  .sx-film{grid-row:auto;width:min(220px,100%);rotate:-1.5deg}
+  .lc{--cols:20px minmax(0,1fr) 78px;border-width:20px;padding-inline:2px}
+  .lc-cols span:nth-child(3){display:none}
+  .lc-row{grid-template-rows:auto auto;row-gap:4px}
+  .lc-n{grid-row:1 / span 2}
+  .lc-for{grid-column:2;grid-row:2;font-size:13px}
+  .lc-stamp{grid-column:3;width:80px}
+  .lc-rows::before{left:25px}
+  .lc-head{font-size:8.5px;letter-spacing:.08em}
+  .lc-p{grid-template-columns:minmax(0,1fr) 54%;column-gap:10px}   /* the list full width, the link and the film side by side under it */
+  .lc-list{grid-column:1 / -1;font-size:13px}
+  .lc-go{grid-row:3;align-self:center}
+  .lc-film{grid-column:2;grid-row:3;margin:14px 2px 0 0}
 }
 
 /* the book's height, worked out once on the pile (so container units mean the shelf's width, not a cover's) */

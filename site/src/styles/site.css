@@ -9,6 +9,7 @@
 :root{
   --paper:#F8F5EC; --raised:#FCFAF5; --ink:#111113; --muted:#5C5C64; --line:#DDD8CC;
   --signal:#2D2BE0; --signal-soft:#E3E3FB; --on-signal:#FFFFFF;
+  --pencil:#5F5E62;   /* graphite, for his notes on paper things (the library card); the same in dark mode, like the card */
   --now-bg:#1B1B1D; --now-ink:#F3F3EF; --now-trail:#8E8CFF;
   /* the cream photo print, shared by the story's snapcards, the lab's piles and the postcard */
   --print:linear-gradient(160deg,#FBF7EE,#F1EADC); --print-ink:#2B2620; --print-signal:#2D2BE0;
