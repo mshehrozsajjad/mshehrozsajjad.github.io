@@ -135,7 +135,9 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
     .from(['.hx-copy', '.hx .call-wrap'], {y: 30, autoAlpha: 0, duration: 1, stagger: .1}, .9);
 
   const intro = $('.intro');
-  if (intro && !location.hash) playEntrance(intro, enter);
+  // a link straight to a part of the page skips the entrance; the top of the page (no hash, or #top / #h1) plays it
+  const deepLink = location.hash && !['#top', '#h1', '#main'].includes(location.hash);
+  if (intro && !deepLink) playEntrance(intro, enter);
   else {
     intro?.remove();
     enter.from('.hx-photo', {y: 80, autoAlpha: 0, duration: 1.4}, .25);
