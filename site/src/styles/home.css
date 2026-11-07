@@ -227,11 +227,11 @@ main{overflow-x:clip}
   translate:calc(2% + var(--lift,0) * 4%) calc(3% + var(--lift,0) * 7%);opacity:calc(1 - var(--lift,0) * .35)}
 
 /* a book's colours: board, ink, accent */
-/* one family: ink, his blue, a light periwinkle and a deep navy, fixed so they read the same in both themes */
+/* one print run in the page's two inks: black, his blue, a deeper cobalt and a midnight navy, fixed so they read the same in both themes */
 .b-ink{--bg:#141416;--fg:#F3F1EA;--ac:#8E8CFF}
 .b-blue{--bg:#2D2BE0;--fg:#FFFFFF;--ac:#FFFFFF}
-.b-print{--bg:#9C9BFF;--fg:#141416;--ac:#1E1CA8}
-.b-navy{--bg:#18185A;--fg:#F1F1EC;--ac:#9C9BFF}
+.b-print{--bg:#1F1D9E;--fg:#F3F1EA;--ac:#B9B8FF}
+.b-navy{--bg:#0F0F3D;--fg:#F1F1EC;--ac:#8E8CFF}
 
 .book{position:absolute;inset:0;display:block;color:var(--fg);text-decoration:none;perspective:1800px;cursor:pointer}
 /* face up: the block turned so the cover faces you, set back so the cover lies on the desk */
