@@ -230,7 +230,7 @@ main{overflow-x:clip}
    inverted and screened, so the paper becomes the dark page and the ink turns light blue. */
 .ft{position:relative;overflow:clip;color:var(--ink);font-size:var(--fs-body);display:flex;flex-direction:column}
 /* in the flow under the columns, pulled up so only its empty sky runs under them; the page shows through its paper */
-.ft-art{order:2;margin-top:-6vw;pointer-events:none}   /* no layer of its own, so the drawing blends with the page itself */
+.ft-art{order:2;margin-top:-25vw;pointer-events:none}   /* no layer of its own, so the drawing blends with the page itself */
 .ft-film{display:block;width:100%;aspect-ratio:1278/484;object-fit:cover;object-position:20% 100%;mix-blend-mode:multiply;background:transparent}
 :root[data-theme="dark"] .ft-film{filter:invert(1) hue-rotate(180deg) saturate(1.4);mix-blend-mode:screen}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ft-film{filter:invert(1) hue-rotate(180deg) saturate(1.4);mix-blend-mode:screen}}
@@ -264,7 +264,6 @@ main{overflow-x:clip}
 .ft-base > *{padding:10px 0}
 .ft-base a{color:inherit;text-decoration:none}
 .ft-base a:hover,.ft-base a:focus-visible{color:var(--ink);text-decoration:underline}
-.ft-base .ft-clock{margin-right:auto}
 .ft-clock time{font-variant-numeric:tabular-nums}
 @media (max-width:1000px){
   .ft .ft-in{grid-template-columns:repeat(3,minmax(0,1fr))}
