@@ -167,9 +167,9 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
 
   /* ---------- pick a side: on wide screens the section holds still and the volumes take turns on top as you scroll,
      so everyone sees all four. A pick by hand still works; the next quarter of scroll moves on from wherever it is ---------- */
-  if (conditions.wide && sides) {
+  if (sides) {   // phones too: there the section is one screen, so holding it is how the choice gets seen
     let turn = 0;
-    ScrollTrigger.create({trigger: '#sides', start: 'top top', end: '+=160%', pin: true, onUpdate: ({progress}) => {
+    ScrollTrigger.create({trigger: '#sides', start: 'top top', end: conditions.wide ? '+=160%' : '+=120%', pin: true, onUpdate: ({progress}) => {
       const i = Math.min(3, Math.floor(progress * 4));
       if (i !== turn) sides.pick(turn = i);
     }});
