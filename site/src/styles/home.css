@@ -211,14 +211,14 @@ main{overflow-x:clip}
 .fq-list p{color:var(--muted);max-width:48ch}
 
 /* ---------- the ending wall ----------
-   One idea: his hand, over and over, running both ways underneath (home.js) and fading out at the edges, and the
+   One idea: his hand, over and over, running both ways underneath as you scroll (home.js), and the
    promise stamped across it in his blue. */
-.wl{position:relative;overflow:clip;min-height:90svh;display:grid;align-items:center;padding-block:var(--sp-5)}
-.wl-hand{display:grid;gap:.1em;font:400 clamp(40px,5.2vw,84px)/1 var(--hand);color:color-mix(in srgb,var(--ink) 26%,transparent);white-space:nowrap;rotate:-4deg;margin-inline:-10vw;
-  -webkit-mask:linear-gradient(transparent,#000 16%,#000 84%,transparent);mask:linear-gradient(transparent,#000 16%,#000 84%,transparent)}
+.wl{position:relative;overflow:clip;min-height:100svh;display:grid;align-items:center;padding-block:var(--sp-5)}
+.wl-hand{display:grid;gap:.1em;font:400 clamp(40px,5.2vw,84px)/1 var(--hand);color:color-mix(in srgb,var(--ink) 55%,transparent);white-space:nowrap;rotate:-4deg;margin-inline:-10vw}
 .wl-hand p{will-change:transform}
 .wl-h{position:absolute;inset:0;z-index:2;display:grid;place-content:center;justify-items:center;padding:0 var(--gr) 0 var(--gl);text-align:center;pointer-events:none;
-  font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(56px,12vw,210px);line-height:.84;letter-spacing:-.03em;color:var(--signal)}
+  font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(56px,12vw,210px);line-height:.84;letter-spacing:-.03em;color:var(--signal);
+  -webkit-text-stroke:.09em var(--paper);paint-order:stroke fill}   /* a paper edge round each letter, so it reads over his hand */
 .wl-h > span{display:block}
 .wl-a{rotate:-3deg}
 .wl-b{rotate:2deg;margin-top:-.02em}
