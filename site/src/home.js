@@ -86,36 +86,6 @@ function playEntrance(intro, enter) {
   addEventListener('keydown', skip, {once: true});
 }
 
-/* ---------- noughts and crosses in his hand, scattered round the quote so the section isn't empty ----------
-   One per cell of a loose grid (so they spread evenly), nudged, sized and tilted by a fixed seed so every visit looks
-   the same. Any that would land on the quote or the signature step aside, re-checked whenever the layout changes. */
-const marks = $('.qt-marks');
-if (marks) {
-  const COLS = 8, ROWS = 5, CLEAR = 32;   // CLEAR: px kept free around the words
-  let seed = 11;
-  const rnd = () => (seed = seed * 16807 % 2147483647) / 2147483647;
-  for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
-    const m = document.createElement('span');
-    m.className = rnd() < .2 ? 'qt-mark hot' : 'qt-mark';
-    m.textContent = rnd() < .5 ? 'x' : 'o';
-    m.dataset.x = (c + .15 + rnd() * .7) / COLS;
-    m.dataset.y = (r + .15 + rnd() * .7) / ROWS;
-    m.style.cssText = `left:${m.dataset.x * 100}%;top:${m.dataset.y * 100}%;--s:${(.7 + rnd() * 1.1).toFixed(2)};--r:${Math.round(rnd() * 60 - 30)}deg`;
-    marks.appendChild(m);
-  }
-  const stepAside = () => {
-    const box = marks.getBoundingClientRect();
-    const words = ['.qt-text', '.qt-sign', '.qt .chap-l'].map(sel => $(sel).getBoundingClientRect());
-    $$('.qt-mark', marks).forEach(m => {
-      const x = box.left + m.dataset.x * box.width, y = box.top + m.dataset.y * box.height, pad = CLEAR + m.offsetHeight / 2;
-      m.classList.toggle('off', words.some(w => x > w.left - pad && x < w.right + pad && y > w.top - pad && y < w.bottom + pad));
-    });
-  };
-  stepAside();
-  new ResizeObserver(stepAside).observe(marks);
-  document.fonts?.ready.then(stepAside);
-}
-
 mountMenu();   // the header and the burger's menu (menu.js)
 const sides = mountSides($('#sides'));   // the contents list and the fanned books, kept in step (sides.js, bookshelf.js)
 
@@ -151,11 +121,11 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
     .to('.hx-note', {yPercent: -60, ease: 'none'}, 0);
 
   /* ---------- the short version writes itself as you scroll ---------- */
-  const quote = SplitText.create('.qt-text', {type: 'words, chars', charsClass: 'hc'});
+  const quote = SplitText.create('.qt-text', {type: 'words'});
   gsap.timeline({scrollTrigger: {trigger: '.qt-pin', start: conditions.wide ? 'top top' : 'top 70%', end: conditions.wide ? '+=110%' : 'bottom 60%', scrub: .6, pin: conditions.wide}})
-    .fromTo(quote.chars, {autoAlpha: .08}, {autoAlpha: 1, stagger: .04, ease: 'none'})
-    .from('.qt-mark', {scale: 0, autoAlpha: 0, duration: .3, ease: 'back.out(3)', stagger: {each: .1, from: 'random'}}, 0)
-    .from('.qt-sign', {autoAlpha: 0, x: -30, ease: 'power2.out', duration: .8});
+    .fromTo(quote.words, {autoAlpha: 0, y: '.12em'}, {autoAlpha: 1, y: 0, stagger: .12, duration: .3, ease: 'power2.out'})   // written in, word by word
+    .fromTo('.qt-u', {'--u': 0}, {'--u': 1, duration: .5, ease: 'power2.inOut'})   // then the phrase gets its underline
+    .from('.qt-sign', {autoAlpha: 0, x: -30, ease: 'power2.out', duration: .6});
 
   /* ---------- everything he does, each line sharp only while it passes the middle ---------- */
   $$('.ab-list li').forEach(li => {
