@@ -93,19 +93,80 @@ main{overflow-x:clip}
 .ab-list li{position:relative;z-index:1}
 .ab-photo{position:sticky;top:calc(50vh - 220px);float:right;width:auto;height:440px;margin:22vh -40px 0 0;opacity:.95;z-index:0;rotate:4deg}
 
-/* ---------- pick a side: the four volumes fanned out like a hand of cards, the title above ----------
-   Four paperbacks of one size, face up. On wide screens they fan out from a point below them, the one on top on the
-   right; on phones they lie in a pile, fanned up and to the right. Pick one (click or tap it, or ← →) and it is pulled
-   out and laid on top (bookshelf.js); the one on top opens its side. Each book is still a real block (spine, cover,
-   page edge), so the one on top leans after the pointer. Without the script they just lie there, every book a link. */
+/* ---------- pick a side: a contents list on the left, the four volumes fanned out on the right ----------
+   The list is the plain answer: each side, who it's for, and (open, one at a time) what's inside, a short film and the
+   way in. The books mirror it (bookshelf.js, kept in step by sides.js): on wide screens they fan out from a point below
+   them, the one on top on the right; on phones they lie in a pile above the list. Each book is still a real block
+   (spine, cover, page edge), so the one on top leans after the pointer. Without the script every line stays open. */
 .sd{position:relative;padding-block:var(--sp-5)}
-.sd-wrap{max-width:1440px}
-.sd-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;column-gap:var(--sp-4)}
-.sd-head .chap-l{grid-column:1 / -1}
-.sd-h{font-size:var(--fs-h2)}
-.sd-pick{font-size:clamp(28px,2.6vw,40px);transform:rotate(-4deg);margin:0 4% 0 0}
+.sd-wrap{width:100%;display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:var(--sp-5);align-items:center}
+.sd-h{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(44px,4.4vw,72px);line-height:.88;letter-spacing:-.02em;color:var(--signal)}
+.sd-h .it{text-transform:none;font-size:1.08em;letter-spacing:-.02em;color:var(--ink)}
+.sd-lead{margin-top:var(--sp-2);color:var(--muted)}
+
+/* the contents: one line per side; the open one is blue, its rule drawn across, its insides unfolded */
+.sd-index{list-style:none;margin:var(--sp-3) 0 0;padding:0;border-bottom:1px solid var(--line)}
+.sx{position:relative;border-top:1px solid var(--line)}
+.sx::before{content:"";position:absolute;left:0;top:-1px;height:2px;width:100%;background:var(--signal);transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease)}
+.sx.open::before{transform:none}
+.sx-h{font:inherit;letter-spacing:0}
+.sx-btn{all:unset;box-sizing:border-box;display:grid;grid-template-columns:2.4em minmax(0,1fr) auto;align-items:baseline;column-gap:4px;width:100%;padding:14px 0 12px;cursor:pointer}
+.sx-btn:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+.sx-n{font:500 var(--fs-xs)/1 var(--mono);letter-spacing:.08em;color:var(--muted);transition:color .3s}
+.sx-t{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(26px,2.3vw,34px);line-height:.95;letter-spacing:-.01em;transition:color .3s,translate .4s var(--ease)}
+.sx-why{grid-column:2 / -1;margin-top:5px;font-size:var(--fs-s);line-height:1.35;color:var(--muted)}
+/* a plus that turns into a cross when the line is open */
+.sx-btn::after{content:"";grid-column:3;grid-row:1;align-self:center;width:12px;height:12px;
+  background:linear-gradient(currentColor,currentColor) center/100% 1.5px no-repeat,linear-gradient(currentColor,currentColor) center/1.5px 100% no-repeat;transition:rotate .4s var(--ease),color .3s}
+.sx.open .sx-btn::after{rotate:45deg;color:var(--signal)}
+.sx-btn:hover .sx-t{translate:5px 0}
+.sx-btn:hover .sx-t,.sx.open .sx-t,.sx.open .sx-n{color:var(--signal)}
+
+.sx-in{display:grid;grid-template-columns:124px minmax(0,1fr);gap:6px 18px;align-items:start;padding:6px 0 18px 2.4em}
+.sx-film{grid-row:span 2;display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--tint);border:5px solid var(--raised);border-radius:3px;rotate:-2.5deg;
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 8%,transparent),0 16px 28px -18px rgba(20,16,10,.5)}
+.sx-list{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:var(--fs-s);line-height:1.35}
+.sx-list li{position:relative;padding-left:14px}
+.sx-list li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--signal)}
+.sx-go{justify-self:start;margin-top:4px;font-size:var(--fs-s)}
+/* folded (only once sides.js runs): every line but the open one shuts, and its insides rise in as it opens */
+.sd.on .sx-p{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}
+.sd.on .sx.open .sx-p{grid-template-rows:1fr}
+.sd.on .sx-p > .sx-in{min-height:0;overflow:hidden;opacity:0;translate:0 8px;padding-block:0;transition:opacity .3s,translate .5s var(--ease),padding .55s var(--ease)}
+.sd.on .sx.open .sx-p > .sx-in{opacity:1;translate:none;padding-block:6px 18px;transition-delay:.15s,.15s,0s}
+@media (prefers-reduced-motion:reduce){.sx::before,.sd.on .sx-p,.sd.on .sx-p > .sx-in{transition:none}}
+
+/* the hand note over the books: they can be picked too */
+.sd-pick{position:absolute;left:2%;top:-7%;z-index:20;font-size:clamp(26px,2.2vw,34px);transform:rotate(-5deg)}
 .sd-arr{display:inline-block;font-family:var(--sans);transform:translateY(4px)}
-@media (max-width:1000px){.sd-head{grid-template-columns:minmax(0,1fr)}.sd-pick{margin:var(--sp-2) 0 0}}
+
+/* wide: the section fills the screen (home.js holds it there while the volumes take turns) and the books bleed right */
+@media (min-width:1001px){
+  .sd{min-height:100svh;display:grid;align-items:center;padding-block:88px 32px}
+  .bookshelf{margin-right:min(0px,calc((1120px - 100vw) / 2))}
+}
+/* short screens (a laptop at 720px): the same section, packed tighter so all four lines fit while it's held */
+@media (min-width:1001px) and (max-height:820px){
+  .sd{padding-block:48px 16px}
+  .sd .chap-l{margin-bottom:var(--sp-2)}
+  .sd-lead{display:none}
+  .sx-btn{padding:10px 0 8px}
+  .sx-why{margin-top:3px}
+}
+/* phones and tablets: the title, then the pile, then the list */
+@media (max-width:1000px){
+  .sd-wrap{display:flex;flex-direction:column;align-items:stretch;gap:0}
+  .sd-side{display:contents}
+  .sd-h{max-width:none}
+  .bookshelf{order:1;margin-top:var(--sp-4)}
+  .sd-index{order:2}
+  .sd-pick{position:static;align-self:flex-start;margin-bottom:var(--sp-2)}
+  .bookshelf{flex-direction:column;align-items:center}
+}
+@media (max-width:520px){
+  .sx-in{grid-template-columns:minmax(0,1fr);padding-left:2.4em}
+  .sx-film{grid-row:auto;width:min(220px,100%);rotate:-1.5deg}
+}
 
 /* the book's height, worked out once on the pile (so container units mean the shelf's width, not a cover's) */
 @property --H{syntax:'<length>';inherits:true;initial-value:0px}
@@ -118,11 +179,10 @@ main{overflow-x:clip}
   transform:translate(calc(var(--d) * var(--dx) * var(--cw)),calc(var(--d) * var(--dy) * var(--H) * -1)) rotate(var(--r))}
 /* the fan: every book turns about one point below the hand, --step degrees apart, the top one furthest right */
 @media (min-width:1001px){
-  .books{--fan:1;--step:19;--R:.6;--H:min(56vh,calc(100cqi / 2.25),600px);width:100%;height:calc(var(--H) * 1.3)}
+  .books{--fan:1;--step:13;--R:.6;--H:min(60svh,calc(100cqi / 1.8),560px);width:100%;height:calc(var(--H) * 1.3)}
   .books > li{left:calc(50% - var(--cw) / 2);bottom:calc(var(--H) * .24);transform-origin:50% calc(100% + var(--H) * var(--R));
     transform:rotate(calc((1.5 - var(--d)) * var(--step) * 1deg + var(--r) * .25))}
 }
-.bookshelf{margin-top:var(--sp-4)}
 /* its shadow on the desk, deeper as it's lifted (--lift, from the script) */
 .books > li::before{content:"";position:absolute;inset:-4% -9% -12% -5%;pointer-events:none;border-radius:50%;
   background:radial-gradient(closest-side,rgba(17,17,19,.42),rgba(17,17,19,.16) 70%,transparent);
@@ -136,19 +196,23 @@ main{overflow-x:clip}
 
 .book{position:absolute;inset:0;display:block;color:var(--fg);text-decoration:none;perspective:1800px;cursor:pointer}
 /* face up: the block turned so the cover faces you, set back so the cover lies on the desk */
-.book-3d{position:absolute;left:50%;bottom:0;width:0;height:100%;transform-style:preserve-3d;will-change:transform;transform:translateZ(calc(var(--W) / -2)) rotateY(-90deg)}
+.book-3d{position:absolute;left:50%;bottom:0;width:0;height:100%;transform-style:preserve-3d;will-change:transform;transform:translateZ(calc(var(--W) / -2)) rotateY(-66deg)}   /* turned 24deg on its spine so the spine shows (TURN in bookshelf.js) */
 /* paperbacks, worn: real photos of a handled paperback (public/assets/textures, made by tools/book-textures.py).
    Aged but looked after: the photo's softly rounded outline (mask), a little bare paper where the print has rubbed
    (wear, on the colour), and the paper's grain and faint creases over everything, title included (detail, hard-light) */
 .spine,.cover{position:absolute;top:0;height:100%;backface-visibility:hidden;-webkit-mask:var(--mask) center/100% 100% no-repeat;mask:var(--mask) center/100% 100% no-repeat}
 .spine{--mask:url(/assets/textures/spine-mask.webp)}   /* the photo's outline: softly rounded, slightly uneven */
 .cover{--mask:url(/assets/textures/cover-mask.webp)}
+/* the hinge: each mask is stretched so its soft edge falls past the side where spine meets cover (the outer edges keep
+   their worn outline), and the spine reaches 1px round the corner, so no seam of the desk shows through the join */
+.spine{-webkit-mask-size:105% 100%;mask-size:105% 100%;-webkit-mask-position:left center;mask-position:left center}
+.cover{-webkit-mask-size:101% 100%;mask-size:101% 100%;-webkit-mask-position:right center;mask-position:right center}
 .spine::before,.cover::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:var(--detail) center/100% 100% no-repeat;mix-blend-mode:hard-light;opacity:.5}
 .spine::before{--detail:url(/assets/textures/spine-detail.webp)}
 .cover::before{--detail:url(/assets/textures/cover-detail.webp)}
 .spine::after,.cover::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:#000;opacity:var(--shade,0)}   /* the light */
 
-.spine{left:calc(var(--W) / -2);width:var(--W);transform:translateZ(calc(var(--cw) / 2));display:grid;grid-template-rows:auto 1fr auto;justify-items:center;align-items:center;padding:calc(var(--W) * .3) 0 calc(var(--W) * .26);border-radius:3px;overflow:hidden;
+.spine{left:calc(var(--W) / -2);width:calc(var(--W) + 1px);transform:translateZ(calc(var(--cw) / 2));display:grid;grid-template-rows:auto 1fr auto;justify-items:center;align-items:center;padding:calc(var(--W) * .3) 0 calc(var(--W) * .26);border-radius:3px;overflow:hidden;
   background:url(/assets/textures/spine-wear.webp) center/100% 100% no-repeat,
     linear-gradient(90deg,rgba(0,0,0,.2),transparent 9%,transparent 91%,rgba(0,0,0,.22)),
     linear-gradient(180deg,transparent 10%,var(--ac) 10% calc(10% + 2px),transparent 0 calc(90% - 2px),var(--ac) calc(90% - 2px) 90%,transparent 0),

@@ -2,21 +2,23 @@
 //   The hand: book 0 on top, furthest right; each one under it turned a step further left about a point below the
 //   hand. The pile: each one under the top a step up and to the right. Either way every title shows (home.css lays it
 //   out from --d, so without the script it still lies there, every book a link).
-//   Pick a book under the top one (click or tap it, ← →, or tab to it): it is pulled up out of the hand (or out to
-//   the side of the pile), laid on top once it's clear, and slides home while the others settle back a place.
-//   Click the book on top: its side opens in a new tab. A stamp on it says so.
+//   Pick a book under the top one (click or tap it, or pick its line in the contents list, sides.js): it is pulled up
+//   out of the hand (or out to the side of the pile), laid on top once it's clear, and slides home while the others
+//   settle back a place. Click the book on top: its side opens. A stamp on it says so.
+//   The books are out of the tab order; the contents list is the way in for keyboards and screen readers.
 //   Hover a book underneath and it peeks out of the pile; hover the top one and it lifts off the desk and leans after
 //   the pointer, its sheen sliding across the cover. Until you touch the pile, a book underneath peeks now and then.
 //   When the pile first comes into view the books are dealt onto the desk, bottom one first.
 // Every frame is a spring; with reduced motion everything snaps and nothing is dealt or nudged.
 const LEAN = 9;     // degrees the top book leans after the pointer, side to side
 const NOD = 6;      // ... and up and down
+const TURN = 24;    // degrees every book rests turned towards you on its spine, so a strip of spine shows (home.css matches it)
 const OUT = [.62, -.36];   // where a picked book is pulled to from the pile before it's laid on top, in its own width and height
 const PULL = .62;          // ... and how far up out of the hand, in its own height
 const SWAP_AT = .65;       // how far out it is (0..1) when it goes on top
 const NUDGE_EVERY = 2600;  // ms between peeks, until the pile is touched
 
-export function mountShelf(section) {
+export function mountShelf(section, {onPick} = {}) {
   const shelf = section?.querySelector('.bookshelf');
   if (!shelf) return;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -27,7 +29,6 @@ export function mountShelf(section) {
     const li = el.parentElement;
     return {
       i, el, li, block: el.querySelector('.book-3d'), cover: el.querySelector('.cover'),
-      name: el.querySelector('.cv-t').textContent, inside: el.dataset.inside,
       rot: parseFloat(li.style.getPropertyValue('--r')) || 0,
       // springs: depth in the pile, how far it's pulled out, how far from being dealt; and their speeds
       d: i, vd: 0, out: 0, vout: 0, outTo: 0, deal: reduce ? 0 : 1, vdeal: 0, dealTo: reduce ? 0 : 1,
@@ -35,7 +36,6 @@ export function mountShelf(section) {
     };
   });
   let order = books.map((_, i) => i);   // the pile, top first
-  let wanted = 0;                        // the last book asked for (the arrows step on from it)
   let touched = false, inView = false, frame = 0, last = 0, mx = 0, my = 0;
   let cw = 0, H = 0, dx = 0, dy = 0, fan = false, stepDeg = 0;
   const measure = () => {
@@ -47,7 +47,7 @@ export function mountShelf(section) {
 
   /* ---------- picking: pull it out, lay it on top, let the rest settle ---------- */
   function pick(i) {
-    wanted = i;
+    onPick?.(i);
     const b = books[i];
     if (order[0] === i || b.picking) return wake();
     if (reduce) return lay(b);
@@ -63,28 +63,18 @@ export function mountShelf(section) {
     if (reduce) books.forEach(x => { x.d = order.indexOf(x.i); x.out = 0; });
     wake();
   }
-  const step = d => pick((wanted + d + books.length) % books.length);
   function touch() { touched = true; }
 
-  /* ---------- the hands: clicks, keyboard focus, hover, keys ---------- */
+  /* ---------- the hands: clicks and hover ---------- */
   books.forEach(b => {
     b.el.addEventListener('click', e => {   // a book underneath comes to the top; the top one opens
       touch();
       if (order[0] !== b.i) { e.preventDefault(); pick(b.i); }
     });
-    // a click focuses too, so only keyboard focus picks a book (the click handles the mouse)
-    b.el.addEventListener('focus', () => { if (order[0] !== b.i && b.el.matches(':focus-visible')) { touch(); pick(b.i); } });
     b.el.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') { b.hover = true; touch(); wake(); } });
     b.el.addEventListener('pointerleave', () => { b.hover = false; wake(); });
   });
   pile.addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; wake(); });
-  section.addEventListener('keydown', e => {
-    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-    e.preventDefault();
-    touch();
-    step(e.key === 'ArrowRight' ? 1 : -1);
-    if (pile.contains(document.activeElement)) books[wanted].el.focus({preventScroll: true});
-  });
 
   /* ---------- dealt onto the desk the first time it's seen, then a book peeks now and then until touched ---------- */
   new IntersectionObserver(([e]) => {
@@ -162,7 +152,7 @@ export function mountShelf(section) {
       // the block: a peeking book slides up out of the hand or the pile; the top one rises towards you and leans
       const W = H * .17;
       b.block.style.transform = `translate3d(${(fan ? 0 : b.peek * cw * .05).toFixed(2)}px,${(-b.peek * H * (fan ? .1 : .07) - b.lift * H * .015).toFixed(2)}px,${(-W / 2 + b.lift * cw * .12).toFixed(2)}px) ` +
-        `rotateX(${b.ty.toFixed(3)}deg) rotateY(${(b.tx - 90).toFixed(3)}deg)`;
+        `rotateX(${b.ty.toFixed(3)}deg) rotateY(${(b.tx - 90 + TURN).toFixed(3)}deg)`;
       b.cover.style.setProperty('--shade', (Math.min(3, Math.max(0, b.d)) * .07).toFixed(3));   // deeper in the pile, a little darker
       b.cover.style.setProperty('--gx', `${50 + b.tx * 4}%`);   // the sheen slides with the lean
     });
@@ -173,4 +163,5 @@ export function mountShelf(section) {
   measure();
   new ResizeObserver(() => { measure(); wake(); }).observe(pile);
   wake();
+  return {pick, touch};
 }

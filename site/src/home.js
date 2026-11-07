@@ -4,7 +4,7 @@
 import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {SplitText} from 'gsap/SplitText';
-import {mountShelf} from './bookshelf.js';
+import {mountSides} from './sides.js';
 import {mountMenu} from './menu.js';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -117,7 +117,7 @@ if (marks) {
 }
 
 mountMenu();   // the header and the burger's menu (menu.js)
-mountShelf($('#sides'));   // the pile of books, one on top at a time, and their contents (bookshelf.js; it deals them in itself)
+const sides = mountSides($('#sides'));   // the contents list and the fanned books, kept in step (sides.js, bookshelf.js)
 
 const mm = gsap.matchMedia();
 const doodling = import.meta.env.DEV && new URLSearchParams(location.search).has('doodle');
@@ -164,6 +164,16 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
       .to(li, {duration: .6})
       .to(li, {filter: 'blur(10px)', autoAlpha: .18, ease: 'power1.in'});
   });
+
+  /* ---------- pick a side: on wide screens the section holds still and the volumes take turns on top as you scroll,
+     so everyone sees all four. A pick by hand still works; the next quarter of scroll moves on from wherever it is ---------- */
+  if (conditions.wide && sides) {
+    let turn = 0;
+    ScrollTrigger.create({trigger: '#sides', start: 'top top', end: '+=160%', pin: true, onUpdate: ({progress}) => {
+      const i = Math.min(3, Math.floor(progress * 4));
+      if (i !== turn) sides.pick(turn = i);
+    }});
+  }
 
   /* ---------- before you ask: the headline slams in ---------- */
   gsap.from('.fq-h', {xPercent: -12, autoAlpha: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: {trigger: '.fq-h', start: 'top 85%'}});

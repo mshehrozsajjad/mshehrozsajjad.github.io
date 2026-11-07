@@ -111,34 +111,69 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
   </div>
 </section>
 
-<!-- four sides, four pages -->
+<!-- four sides, four pages. A contents list on the left says plainly what each side is and who it's for; the four
+     volumes fanned out on the right mirror it (bookshelf.js). Pick either and both follow; on wide screens the section
+     holds still while the volumes take turns on top as you scroll (sides.js, home.js) -->
 <section class="sd" id="sides" aria-labelledby="h-sides">
-  <!-- the four volumes fanned out like a hand of cards under the title (a pile on phones). Pick one and it is pulled
-       out and laid on top; the one on top opens that side in a new tab (bookshelf.js) -->
   <div class="wrap sd-wrap">
-    <div class="sd-head">
+    <div class="sd-side">
       <p class="chap-l">03 / Pick a side</p>
       <h2 id="h-sides" class="sd-h">What are you <span class="it">here for?</span></h2>
-      <p class="hand sd-pick" aria-hidden="true">pick a card, any card <span class="sd-arr">↓</span></p>
+      <p class="sd-lead">Four sides of me, one book each. Pick yours.</p>
+      <ol class="sd-index">
+        <li class="sx">
+          <h3 class="sx-h"><button class="sx-btn" type="button" id="sx-b0" aria-expanded="true" aria-controls="sx-p0"><span class="sx-n">01</span><span class="sx-t">Engineering</span><span class="sx-why">If you need a platform built and owned</span></button></h3>
+          <div class="sx-p" id="sx-p0" role="region" aria-labelledby="sx-b0"><div class="sx-in">
+            <video class="sx-film" src="/assets/media/creator-platform.mp4" poster="/assets/media/creator-platform-poster.webp" muted loop playsinline preload="none" aria-label="The Beyond Presence creator platform"></video>
+            <ul class="sx-list"><li>Creator and call platforms at Beyond Presence</li><li>Before that, CTO of a 25-person studio</li><li>Open source for LiveKit and n8n</li></ul>
+            <a class="act sx-go" href="/code">Open Engineering <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>
+          </div></div>
+        </li>
+        <li class="sx">
+          <h3 class="sx-h"><button class="sx-btn" type="button" id="sx-b1" aria-expanded="false" aria-controls="sx-p1"><span class="sx-n">02</span><span class="sx-t">Design</span><span class="sx-why">If you need a brand, an interface or a film</span></button></h3>
+          <div class="sx-p" id="sx-p1" role="region" aria-labelledby="sx-b1"><div class="sx-in">
+            <video class="sx-film" src="/assets/media/myclosr-film.mp4" poster="/assets/media/myclosr-film-poster.webp" muted loop playsinline preload="none" aria-label="The myClosr launch film"></video>
+            <ul class="sx-list"><li>Brands and interfaces for my own products</li><li>Launch films, shot and edited myself</li><li>Posters and photography</li></ul>
+            <a class="act sx-go" href="/design">Open Design <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>
+          </div></div>
+        </li>
+        <li class="sx">
+          <h3 class="sx-h"><button class="sx-btn" type="button" id="sx-b2" aria-expanded="false" aria-controls="sx-p2"><span class="sx-n">03</span><span class="sx-t">AI products</span><span class="sx-why">If you want AI that real people pay for</span></button></h3>
+          <div class="sx-p" id="sx-p2" role="region" aria-labelledby="sx-b2"><div class="sx-in">
+            <video class="sx-film" src="/assets/media/vorsprech-film.mp4" poster="/assets/media/vorsprech-film-poster.webp" muted loop playsinline preload="none" aria-label="The Vorsprech launch film"></video>
+            <ul class="sx-list"><li>Four products live, from Slaptastic to Vorsprech</li><li>Sold to customers myself</li><li>RoomRush, and why I stopped it</li></ul>
+            <a class="act sx-go" href="/ai">Open AI products <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>
+          </div></div>
+        </li>
+        <li class="sx">
+          <h3 class="sx-h"><button class="sx-btn" type="button" id="sx-b3" aria-expanded="false" aria-controls="sx-p3"><span class="sx-n">04</span><span class="sx-t">Hardware</span><span class="sx-why">If you want to see AI leave the screen</span></button></h3>
+          <div class="sx-p" id="sx-p3" role="region" aria-labelledby="sx-b3"><div class="sx-in">
+            <video class="sx-film" src="/assets/media/yolk-film.mp4" poster="/assets/media/yolk-film-poster.webp" muted loop playsinline preload="none" aria-label="The Yolk launch film"></video>
+            <ul class="sx-list"><li>Yolk, the AI device that makes my calls</li><li>TARS, the desk robot</li><li>Software for a medical device</li></ul>
+            <a class="act sx-go" href="/hardware">Open Hardware <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>
+          </div></div>
+        </li>
+      </ol>
     </div>
     <div class="bookshelf">
+      <p class="hand sd-pick" aria-hidden="true">or pick a book <span class="sd-arr">↓</span></p>
       <ol class="books">
-        <li style="--d:0;--r:-2deg"><a class="book b-ink" href="/code" target="_blank" rel="noopener" data-inside="Beyond Presence’s creator and call platforms, my years as CTO of a 25-person studio, and open source for LiveKit and n8n." aria-label="Engineering: Platforms, real-time AI and the code under them. (opens in a new tab)">
+        <li style="--d:0;--r:-2deg"><a class="book b-ink" href="/code" tabindex="-1" aria-hidden="true">
           <span class="book-3d" aria-hidden="true">
             <span class="spine"><span class="sp-n">01</span><span class="sp-t">Engineering</span><span class="sp-a">S. Sajjad</span></span>
             <span class="cover"><span class="cv-n">Vol. 01</span><span class="cv-t">Engineering</span><span class="cv-d">Platforms, real-time AI and the code under them.</span><span class="hand cv-h">founding engineer, ex-CTO</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-think-anim.webp" alt="" width="199" height="484" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
           </span><span class="stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#i-stamp"/></svg><svg class="stamp-ar" viewBox="0 0 16 16"><use href="#i-ne"/></svg></span></a></li>
-        <li style="--d:1;--r:1.6deg"><a class="book b-blue" href="/design" target="_blank" rel="noopener" data-inside="Brands, interfaces and launch films for my own products, plus posters and photography." aria-label="Design: Brands, interfaces and films, made by the hands that build them. (opens in a new tab)">
+        <li style="--d:1;--r:1.6deg"><a class="book b-blue" href="/design" tabindex="-1" aria-hidden="true">
           <span class="book-3d" aria-hidden="true">
             <span class="spine"><span class="sp-n">02</span><span class="sp-t">Design</span><span class="sp-a">S. Sajjad</span></span>
             <span class="cover"><span class="cv-n">Vol. 02</span><span class="cv-t">Design</span><span class="cv-d">Brands, interfaces and films, made by the hands that build them.</span><span class="hand cv-h">where I started</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-draw-anim.webp" alt="" width="302" height="436" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
           </span><span class="stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#i-stamp"/></svg><svg class="stamp-ar" viewBox="0 0 16 16"><use href="#i-ne"/></svg></span></a></li>
-        <li style="--d:2;--r:-1.2deg"><a class="book b-print" href="/ai" target="_blank" rel="noopener" data-inside="Slaptastic, Vorsprech, myClosr and NPC Filter, all live, and RoomRush, with why I stopped it." aria-label="AI products: Applied AI, built on my own and put in front of real people. (opens in a new tab)">
+        <li style="--d:2;--r:-1.2deg"><a class="book b-print" href="/ai" tabindex="-1" aria-hidden="true">
           <span class="book-3d" aria-hidden="true">
             <span class="spine"><span class="sp-n">03</span><span class="sp-t">AI products</span><span class="sp-a">S. Sajjad</span></span>
             <span class="cover"><span class="cv-n">Vol. 03</span><span class="cv-t">AI products</span><span class="cv-d">Applied AI, built on my own and put in front of real people.</span><span class="hand cv-h">four of them live</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" width="248" height="481" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
           </span><span class="stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#i-stamp"/></svg><svg class="stamp-ar" viewBox="0 0 16 16"><use href="#i-ne"/></svg></span></a></li>
-        <li style="--d:3;--r:2.4deg"><a class="book b-navy" href="/hardware" target="_blank" rel="noopener" data-inside="Yolk, the AI device that makes my German phone calls, TARS the desk robot, and software for a medical device." aria-label="Hardware: Where the AI leaves the screen. (opens in a new tab)">
+        <li style="--d:3;--r:2.4deg"><a class="book b-navy" href="/hardware" tabindex="-1" aria-hidden="true">
           <span class="book-3d" aria-hidden="true">
             <span class="spine"><span class="sp-n">04</span><span class="sp-t">Hardware</span><span class="sp-a">S. Sajjad</span></span>
             <span class="cover"><span class="cv-n">Vol. 04</span><span class="cv-t">Hardware</span><span class="cv-d">Where the AI leaves the screen.</span><span class="hand cv-h">Yolk, TARS and more</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-solder-anim.webp" alt="" width="260" height="431" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
