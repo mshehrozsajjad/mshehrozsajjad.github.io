@@ -650,7 +650,7 @@ if (reduce) $$('video[autoplay]').forEach(v => { v.removeAttribute('autoplay'); 
 /* theme */
 try { const savedTheme = localStorage.getItem('site-theme'); if (['light','dark'].includes(savedTheme)) document.documentElement.dataset.theme = savedTheme; } catch (_) {}
 const th = () => document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-const label = () => $('#theme').textContent = th()==='dark' ? 'Light' : 'Dark';
+const label = () => $('#theme').setAttribute('aria-checked', th()==='dark');   // a switch: on is dark
 $('#theme').addEventListener('click', () => { document.documentElement.dataset.theme = th()==='dark' ? 'light' : 'dark'; try { localStorage.setItem('site-theme', th()); } catch (_) {} label(); });
 label();
 

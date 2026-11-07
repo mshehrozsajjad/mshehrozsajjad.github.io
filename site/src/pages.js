@@ -249,7 +249,7 @@ if (twin) $$('[data-open="agent"]').forEach(b => ['pointerenter', 'pointerdown',
 try { const t = localStorage.getItem('site-theme'); if (['light', 'dark'].includes(t)) root.dataset.theme = t; } catch (_) {}
 const th = () => root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 const themeBtn = $('#theme');
-if (themeBtn){ const label = () => themeBtn.textContent = th() === 'dark' ? 'Light' : 'Dark';
+if (themeBtn){ const label = () => themeBtn.setAttribute('aria-checked', th() === 'dark');   // a switch: on is dark
   themeBtn.addEventListener('click', () => { root.dataset.theme = th() === 'dark' ? 'light' : 'dark'; try { localStorage.setItem('site-theme', th()); } catch (_) {} label(); }); label(); }
 
 /* ---------- his doodles: played back, or drawn on the dev server with ?doodle; and his pen as the cursor ---------- */

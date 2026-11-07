@@ -5,6 +5,7 @@ import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {SplitText} from 'gsap/SplitText';
 import {mountShelf} from './bookshelf.js';
+import {mountMenu} from './menu.js';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -115,7 +116,8 @@ if (marks) {
   document.fonts?.ready.then(stepAside);
 }
 
-mountShelf($('#sides'));   // the shelf of books, one open at a time (bookshelf.js)
+mountMenu();   // the header and the burger's menu (menu.js)
+mountShelf($('#sides'));   // the pile of books, one on top at a time, and their contents (bookshelf.js; it deals them in itself)
 
 const mm = gsap.matchMedia();
 const doodling = import.meta.env.DEV && new URLSearchParams(location.search).has('doodle');
@@ -133,7 +135,9 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
     .from(['.hx-copy', '.hx .call-wrap'], {y: 30, autoAlpha: 0, duration: 1, stagger: .1}, .9);
 
   const intro = $('.intro');
-  if (intro && !location.hash) playEntrance(intro, enter);
+  // a link straight to a part of the page skips the entrance; the top of the page (no hash, or #top / #h1) plays it
+  const deepLink = location.hash && !['#top', '#h1', '#main'].includes(location.hash);
+  if (intro && !deepLink) playEntrance(intro, enter);
   else {
     intro?.remove();
     enter.from('.hx-photo', {y: 80, autoAlpha: 0, duration: 1.4}, .25);
@@ -161,20 +165,38 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
       .to(li, {filter: 'blur(10px)', autoAlpha: .18, ease: 'power1.in'});
   });
 
-  /* ---------- the four books drop onto the shelf, one after another ---------- */
-  gsap.from('.book', {y: -140, autoAlpha: 0, duration: 1, ease: 'bounce.out', stagger: .14,
-    clearProps: 'transform,opacity,visibility', scrollTrigger: {trigger: '.bookshelf', start: 'top 78%'}});
-
   /* ---------- before you ask: the headline slams in ---------- */
   gsap.from('.fq-h', {xPercent: -12, autoAlpha: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: {trigger: '.fq-h', start: 'top 85%'}});
 
   /* ---------- the wall: his hand runs both ways under the promise ---------- */
   $$('.wl-hand p').forEach((p, i) => gsap.fromTo(p, {xPercent: i % 2 ? -18 : 0}, {xPercent: i % 2 ? 0 : -18, ease: 'none',
     scrollTrigger: {trigger: '.wl', start: 'top bottom', end: 'bottom top', scrub: true}}));
-  gsap.from('.ft-wave', {yPercent: 100, duration: 1, ease: 'expo.out', scrollTrigger: {trigger: '.ft', start: 'top 85%'}});
   gsap.from(['.wl-a', '.wl-b'], {scale: 1.4, autoAlpha: 0, stagger: .15, duration: .9, ease: 'back.out(1.6)', scrollTrigger: {trigger: '.wl', start: 'top 55%'}});
-  gsap.from('.wl-photo', {yPercent: 30, autoAlpha: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: {trigger: '.wl', start: 'top 45%'}});
 
   // the hand font changes line lengths once it loads, so measure again
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
 });
+
+/* ---------- the footer's clock: the time where he is ---------- */
+const clock = $('#ftClock');
+if (clock) {
+  const fmt = new Intl.DateTimeFormat('en-GB', {timeZone: 'Europe/Berlin', hour: '2-digit', minute: '2-digit'});
+  const tick = () => { const d = new Date(); clock.textContent = fmt.format(d); clock.dateTime = d.toISOString(); };
+  tick();
+  setInterval(tick, 20000);
+}
+
+/* ---------- the footer's view: loaded only as it comes near, playing only while it's on screen ---------- */
+const film = $('.ft-film');
+if (film) {
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let loaded = false;
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting && !loaded && !still) {
+      loaded = true;
+      film.src = film.dataset.src;
+    }
+    if (still || !loaded) return;
+    if (e.isIntersecting) film.play().catch(() => {}); else film.pause();
+  }, {rootMargin: '300px 0px'}).observe(film);
+}

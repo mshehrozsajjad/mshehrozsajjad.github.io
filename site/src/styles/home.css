@@ -34,7 +34,7 @@ main{overflow-x:clip}
 .hx-h1{--hx:clamp(120px,min(25vw,44svh),460px);position:absolute;inset:0;margin:0;pointer-events:none}
 .hx-l{position:absolute;display:block;overflow:clip;padding:0 .03em}
 .hx-l1{right:calc(50% + 8vw);top:3%}
-.hx-l2{left:calc(50% + 14vw);top:38%}
+.hx-l2{left:calc(50% + 14vw);top:31%}
 .hx-in{display:block;font-weight:700;font-stretch:75%;font-size:var(--hx);line-height:.8;letter-spacing:-.035em;text-transform:uppercase;color:var(--signal);white-space:nowrap}
 .hx-in .hc{display:inline-block}
 .hx-fig{position:absolute;left:50%;bottom:0;margin:0;height:min(92%,880px);aspect-ratio:1049/1600;translate:-50% 0;z-index:2}
@@ -47,7 +47,14 @@ main{overflow-x:clip}
 .hx-copy{max-width:min(330px,calc(50vw - 300px))}
 .hx-copy .pitch{margin-top:10px;font-size:clamp(20px,1.8vw,26px);max-width:22ch}
 .hx-copy .hero-actions{margin-top:var(--sp-3);gap:var(--sp-2) var(--sp-3)}
-.hx .call{width:220px}
+/* the twin: a polaroid stuck on the poster, the same white edge as his cut-out, his note on the frame */
+.hx .call-wrap{justify-items:center;gap:0;padding:9px 9px 6px;background:var(--raised);border-radius:3px;rotate:4deg;translate:0 10px;
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 8%,transparent),0 22px 40px -22px rgba(20,16,10,.45);transition:rotate .5s var(--ease)}
+.hx .call-wrap:hover{rotate:1deg}
+.hx .call{width:184px;border-radius:2px;box-shadow:none}
+.hx .call-live{left:8px;top:8px}
+.hx .call-btn{left:0;right:0;min-height:0;padding:0 8px 9px 8px;line-height:1}   /* its words start where the chip's do */
+.hx .call-cap{margin:5px 0 1px;max-width:184px;font-size:22px;line-height:1;text-align:center;color:var(--ink)}
 
 /* ---------- the ticker ---------- */
 .ticker{position:relative;z-index:3;overflow:hidden;background:var(--ink);color:var(--paper);rotate:-1.2deg;margin:-6px -20px 0;padding:14px 0}
@@ -86,54 +93,40 @@ main{overflow-x:clip}
 .ab-list li{position:relative;z-index:1}
 .ab-photo{position:sticky;top:calc(50vh - 220px);float:right;width:auto;height:440px;margin:22vh -40px 0 0;opacity:.95;z-index:0;rotate:4deg}
 
-/* ---------- pick a side: a spread, the open book's story on the left and the shelf on the right ----------
-   Four volumes of one size. Each is a real block: the spine is its front face, the cover its side face, so turning it
-   (bookshelf.js) shows the cover the way a real book turns, each face darkening as it turns from the light.
-   Without the script the spines just stand there as links; touch screens get the covers in a swipeable row. */
+/* ---------- pick a side: the four volumes fanned out like a hand of cards, the title above ----------
+   Four paperbacks of one size, face up. On wide screens they fan out from a point below them, the one on top on the
+   right; on phones they lie in a pile, fanned up and to the right. Pick one (click or tap it, or ← →) and it is pulled
+   out and laid on top (bookshelf.js); the one on top opens its side. Each book is still a real block (spine, cover,
+   page edge), so the one on top leans after the pointer. Without the script they just lie there, every book a link. */
 .sd{position:relative;padding-block:var(--sp-5)}
-.sd-grid{max-width:1440px;display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(32px,4vw,80px);align-items:stretch}   /* a wider spread than the page's text width */
-.sd-side{display:flex;flex-direction:column;justify-content:space-between;gap:var(--sp-4);padding-bottom:18px}   /* ends on the plank's line */
+.sd-wrap{max-width:1440px}
+.sd-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;column-gap:var(--sp-4)}
+.sd-head .chap-l{grid-column:1 / -1}
 .sd-h{font-size:var(--fs-h2)}
-.sd-pick{display:block;margin-top:var(--sp-2);font-size:clamp(26px,2.2vw,34px);transform:rotate(-3deg)}
-.sd-arr{display:inline-block;font-family:var(--sans);transform:translateY(-2px)}
+.sd-pick{font-size:clamp(28px,2.6vw,40px);transform:rotate(-4deg);margin:0 4% 0 0}
+.sd-arr{display:inline-block;font-family:var(--sans);transform:translateY(4px)}
+@media (max-width:1000px){.sd-head{grid-template-columns:minmax(0,1fr)}.sd-pick{margin:var(--sp-2) 0 0}}
 
-/* the open book's story, set like "who to call": an ink rule, a narrow-caps name, a muted line, the underlined way in.
-   Before a book is open, a lead paragraph says what the shelf is */
-.shelf-cap{display:grid;gap:var(--sp-4)}
-.shelf-cap[hidden]{display:none}
-.sd-lead{color:var(--muted);max-width:40ch}
-.shelf-info{display:grid;justify-items:start;gap:8px;border-top:2px solid var(--ink);padding-top:12px}
-.sd:not(.sd-open) .shelf-info,.sd.sd-open .sd-lead{display:none}
-.shelf-n{font:500 var(--fs-xs)/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--signal)}
-.shelf-t{font:700 clamp(26px,2.2vw,34px)/1 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:.01em}
-.shelf-d{max-width:42ch;font-size:var(--fs-s);line-height:1.45;color:var(--muted)}
-.shelf-open{margin-top:8px}
-.shelf-info.swap > *{animation:shelf-swap .6s var(--ease) both}
-.shelf-info.swap > :nth-child(2){animation-delay:.04s}
-.shelf-info.swap > :nth-child(3){animation-delay:.08s}
-.shelf-info.swap > :nth-child(4){animation-delay:.12s}
-@keyframes shelf-swap{from{opacity:0;translate:0 10px}}
-.shelf-nav{display:flex;align-items:center;gap:14px;padding-top:var(--sp-3);border-top:2px solid var(--ink)}
-.shelf-arrow{flex:none;width:48px;height:48px;display:grid;place-items:center;border:2px solid var(--ink);border-radius:50%;background:none;color:var(--ink);cursor:pointer;transition:background .2s,color .2s}
-.shelf-arrow:hover{background:var(--ink);color:var(--paper)}
-.shelf-arrow svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.shelf-arrow[data-step="-1"] svg{rotate:180deg}
-.shelf-ticks{flex:1;display:flex;gap:6px}
-.shelf-ticks i{flex:1;height:3px;border-radius:2px;background:color-mix(in srgb,var(--ink) 18%,transparent);transition:background .3s}
-.shelf-ticks i.on{background:var(--signal)}
-.shelf-count{font:500 var(--fs-xs)/1 var(--mono);letter-spacing:.12em;font-variant-numeric:tabular-nums}
-@media (prefers-reduced-motion:reduce){.shelf-info.swap > *{animation:none}}
-
-/* the shelf: books stand on an ink plank that runs the width of the column */
-.bookshelf{position:relative;display:flex;flex-direction:column;justify-content:flex-end;container-type:inline-size}
-.bookshelf::after{content:"";display:block;height:18px;border-radius:1px 1px 3px 3px;
-  background:linear-gradient(180deg,color-mix(in srgb,var(--ink) 55%,var(--paper)) 0 3px,var(--ink) 3px,color-mix(in srgb,var(--ink) 85%,#000));
-  box-shadow:0 26px 30px -18px rgba(17,17,19,.5)}
-/* one size for every book, as tall as the screen allows and never wider than the column:
-   three spines (17% of the height each) and one open cover (70%) side by side */
-.books{--H:min(68vh,calc((100cqi - 40px) / 1.21),680px);--W:calc(var(--H) * .17);--cw:calc(var(--H) * .7);
-  list-style:none;margin:0;padding:0;display:flex;justify-content:center;align-items:flex-end;gap:10px;perspective:2400px;perspective-origin:50% 40%}
-.books li{display:flex;align-items:flex-end;transform-style:preserve-3d}
+/* the book's height, worked out once on the pile (so container units mean the shelf's width, not a cover's) */
+@property --H{syntax:'<length>';inherits:true;initial-value:0px}
+/* the pile: book d (0 on top) lies d steps up and to the right of the top one, a little askew (--r, its own) */
+.bookshelf{position:relative;display:flex;align-items:flex-end;justify-content:center;container-type:inline-size}
+.books{--dx:.3;--dy:.25;
+  --H:min(50vh,calc(100cqi / (.7 * (1 + 3 * var(--dx)))),620px);--W:calc(var(--H) * .17);--cw:calc(var(--H) * .7);
+  position:relative;list-style:none;margin:0;padding:0;width:calc(var(--cw) * (1 + 3 * var(--dx)));height:calc(var(--H) * (1 + 3 * var(--dy)))}
+.books > li{position:absolute;left:0;bottom:0;width:var(--cw);height:var(--H);z-index:calc(10 - var(--d));
+  transform:translate(calc(var(--d) * var(--dx) * var(--cw)),calc(var(--d) * var(--dy) * var(--H) * -1)) rotate(var(--r))}
+/* the fan: every book turns about one point below the hand, --step degrees apart, the top one furthest right */
+@media (min-width:1001px){
+  .books{--fan:1;--step:19;--R:.6;--H:min(56vh,calc(100cqi / 2.25),600px);width:100%;height:calc(var(--H) * 1.3)}
+  .books > li{left:calc(50% - var(--cw) / 2);bottom:calc(var(--H) * .24);transform-origin:50% calc(100% + var(--H) * var(--R));
+    transform:rotate(calc((1.5 - var(--d)) * var(--step) * 1deg + var(--r) * .25))}
+}
+.bookshelf{margin-top:var(--sp-4)}
+/* its shadow on the desk, deeper as it's lifted (--lift, from the script) */
+.books > li::before{content:"";position:absolute;inset:-4% -9% -12% -5%;pointer-events:none;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(17,17,19,.42),rgba(17,17,19,.16) 70%,transparent);
+  translate:calc(2% + var(--lift,0) * 4%) calc(3% + var(--lift,0) * 7%);opacity:calc(1 - var(--lift,0) * .35)}
 
 /* a book's colours: board, ink, accent */
 .b-ink{--bg:var(--ink);--fg:var(--paper);--ac:color-mix(in srgb,var(--signal) 55%,var(--fg))}
@@ -141,10 +134,9 @@ main{overflow-x:clip}
 .b-print{--bg:var(--print);--fg:var(--print-ink);--ac:var(--print-signal)}
 .b-navy{--bg:color-mix(in srgb,var(--signal) 38%,#0b0b1a);--fg:#F1F1EC;--ac:#9C9BFF}
 
-.book{position:relative;display:block;flex:none;width:var(--W);height:var(--H);color:var(--fg);text-decoration:none;transform-style:preserve-3d}
-.book::after{content:"";position:absolute;left:-6%;right:-6%;bottom:-7px;height:14px;pointer-events:none;border-radius:50%;
-  background:radial-gradient(closest-side,rgba(17,17,19,.42),transparent)}   /* where it meets the shelf */
-.book-3d{position:absolute;left:50%;bottom:0;width:0;height:100%;transform-style:preserve-3d;will-change:transform;transform:translateZ(calc(var(--cw) / -2))}   /* set back half its depth: the spine stands on the plank's front edge */
+.book{position:absolute;inset:0;display:block;color:var(--fg);text-decoration:none;perspective:1800px;cursor:pointer}
+/* face up: the block turned so the cover faces you, set back so the cover lies on the desk */
+.book-3d{position:absolute;left:50%;bottom:0;width:0;height:100%;transform-style:preserve-3d;will-change:transform;transform:translateZ(calc(var(--W) / -2)) rotateY(-90deg)}
 /* paperbacks, worn: real photos of a handled paperback (public/assets/textures, made by tools/book-textures.py).
    Aged but looked after: the photo's softly rounded outline (mask), a little bare paper where the print has rubbed
    (wear, on the colour), and the paper's grain and faint creases over everything, title included (detail, hard-light) */
@@ -170,9 +162,9 @@ main{overflow-x:clip}
 
 /* the cover: side face. Printed card with the pressed score line a paperback has by its spine, worn whiter corners,
    a soft vignette and a sheen that slides with the tilt */
-.cover{left:calc(var(--cw) / -2);width:var(--cw);transform:rotateY(90deg) translateZ(calc(var(--W) / 2));display:flex;flex-direction:column;gap:3cqi;padding:7cqi 7cqi 6cqi 9cqi;border-radius:2px 4px 4px 2px;overflow:hidden;container-type:inline-size;
+.cover{left:calc(var(--cw) / -2);width:var(--cw);transform:rotateY(90deg) translateZ(calc(var(--W) / 2));display:flex;flex-direction:column;gap:calc(var(--cw) * 0.03);padding:calc(var(--cw) * 0.07) calc(var(--cw) * 0.07) calc(var(--cw) * 0.06) calc(var(--cw) * 0.09);border-radius:2px 4px 4px 2px;overflow:hidden;container-type:inline-size;
   background:linear-gradient(115deg,transparent calc(var(--gx,40%) - 20%),rgba(255,255,255,.14) var(--gx,40%),transparent calc(var(--gx,40%) + 20%)),
-    linear-gradient(90deg,rgba(0,0,0,.2),transparent 2.2cqi,transparent 3.6cqi,rgba(0,0,0,.22) 3.6cqi 3.9cqi,rgba(255,255,255,.16) 3.9cqi 4.3cqi,transparent 4.3cqi),
+    linear-gradient(90deg,rgba(0,0,0,.2),transparent calc(var(--cw) * 0.022),transparent calc(var(--cw) * 0.036),rgba(0,0,0,.22) calc(var(--cw) * 0.036) calc(var(--cw) * 0.039),rgba(255,255,255,.16) calc(var(--cw) * 0.039) calc(var(--cw) * 0.043),transparent calc(var(--cw) * 0.043)),
     url(/assets/textures/cover-wear.webp) center/100% 100% no-repeat,
     radial-gradient(ellipse at 55% 45%,transparent 55%,rgba(0,0,0,.14)),
     var(--bg);
@@ -189,28 +181,25 @@ main{overflow-x:clip}
 .cv-h{color:var(--ac);font-size:8cqi;transform:rotate(-5deg);width:max-content;max-width:60%}
 .cv-spr{position:absolute;right:5%;bottom:9%;height:50%}
 .cv-a{margin-top:auto;opacity:.7}
-.book:not(.open){cursor:pointer}
+.spine{--shade:.5}   /* the spine is the block's left side now, out of the light */
 .book:focus-visible{outline:none}
-.book:focus-visible .spine,.book:focus-visible .cover{outline:2px solid var(--signal);outline-offset:4px}
+.book:focus-visible .cover{outline:2px solid var(--signal);outline-offset:4px}
 
-/* tablets and small laptops: one column, the shelf centred between the heading and the story */
+/* the stamp on the book on top: a ring of "open the book", turning, so it's clear the top one opens */
+.stamp{position:absolute;bottom:7%;right:-12%;z-index:3;width:31%;aspect-ratio:1;display:grid;place-items:center;border-radius:50%;
+  background:var(--paper);color:var(--ink);box-shadow:0 0 0 1.5px var(--ink),0 14px 26px -12px rgba(17,17,19,.55);
+  scale:0;rotate:-30deg;transition:scale .5s var(--ease),rotate .6s var(--ease)}
+.stamp > svg{position:absolute;inset:6%;width:88%;height:88%;animation:stamp-turn 16s linear infinite}
+.stamp > .stamp-ar{position:static;width:30%;height:30%;fill:none;stroke:var(--signal);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;animation:none;transition:translate .4s var(--ease)}
+.books > li.top .stamp{scale:1;rotate:0deg;transition-delay:.25s}
+.books > li.top .book:hover .stamp-ar{translate:2px -2px}
+@keyframes stamp-turn{to{rotate:360deg}}
+@media (prefers-reduced-motion:reduce){.stamp > svg{animation:none}.stamp{transition:none}}
+
+/* phones and tablets: a steeper, narrower pile */
 @media (max-width:1000px){
-  .sd-grid{grid-template-columns:minmax(0,1fr)}
-  .sd-side{display:contents}
-  .sd-head{order:0}
-  .bookshelf{order:1}
-  .shelf-cap{order:2}
-  .books{justify-content:center;--H:min(56vh,calc((100cqi - 40px) / 1.21),520px)}
-  .sd-arr{display:none}
-}
-/* touch screens: no hover or pointer to turn a book, so the covers face out in a row you swipe */
-@media (hover:none),(pointer:coarse){
-  .books{--H:min(380px,100cqi);gap:16px;justify-content:flex-start;padding:0 0 18px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;perspective:none}
-  .books::-webkit-scrollbar{display:none}
-  .book{width:var(--cw);scroll-snap-align:start}
-  .book::after{display:none}
-  .book-3d{transform:rotateY(-90deg)}
-  .shelf-cap{display:none}
+  .books{--dx:.14;--dy:.21;--H:min(56svh,calc(100cqi / (.7 * (1 + 3 * var(--dx)))),520px)}
+  .stamp{right:-5%}
 }
 
 /* ---------- before you ask ---------- */
@@ -221,48 +210,67 @@ main{overflow-x:clip}
 .fq-list h3{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(28px,2.6vw,40px);line-height:.95;letter-spacing:-.01em}
 .fq-list p{color:var(--muted);max-width:48ch}
 
-/* ---------- the ending wall ---------- */
-.wl{position:relative;overflow:clip;padding-block:var(--sp-5);min-height:100svh;display:grid;align-items:center}
+/* ---------- the ending wall ----------
+   One idea: his hand, over and over, running both ways underneath as you scroll (home.js), and the
+   promise stamped across it in his blue. */
+.wl{position:relative;overflow:clip;min-height:100svh;display:grid;align-items:center;padding-block:var(--sp-5)}
 .wl-hand{display:grid;gap:.1em;font:400 clamp(40px,5.2vw,84px)/1 var(--hand);color:color-mix(in srgb,var(--ink) 55%,transparent);white-space:nowrap;rotate:-4deg;margin-inline:-10vw}
 .wl-hand p{will-change:transform}
-.wl-h{position:absolute;inset:0;z-index:2;display:grid;place-content:center;justify-items:center;padding-right:min(26vw,400px);text-align:center;pointer-events:none;font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(56px,10vw,180px);line-height:.84;letter-spacing:-.03em;color:var(--signal)}
-.wl-h span{display:block;padding:.04em .14em;background:var(--paper)}
+.wl-h{position:absolute;inset:0;z-index:2;display:grid;place-content:center;justify-items:center;padding:0 var(--gr) 0 var(--gl);text-align:center;pointer-events:none;
+  font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(56px,12vw,210px);line-height:.84;letter-spacing:-.03em;color:var(--signal);
+  -webkit-text-stroke:.09em var(--paper);paint-order:stroke fill}   /* a paper edge round each letter, so it reads over his hand */
+.wl-h > span{display:block}
 .wl-a{rotate:-3deg}
 .wl-b{rotate:2deg;margin-top:-.02em}
-.wl-photo{position:absolute;right:max(2vw,calc(50% - 640px));bottom:0;z-index:3;height:min(70%,560px);width:auto}
 
-/* ---------- the ending: one ink block ----------
-   --now-bg/--now-ink are the site's inverted pair, so it is ink on paper in light mode and paper on ink in dark */
-.ft{position:relative;margin-top:120px;background:var(--now-bg);color:var(--now-ink);padding:var(--sp-6) 0 var(--sp-3)}
-.ft .wrap{display:block;padding-block:0}  /* undo the shared footer row layout from ending.css */
-.ft ::selection{background:var(--now-trail);color:var(--now-bg)}
-.ft-wave{position:absolute;left:max(var(--gl),calc(50% - 560px));bottom:100%;line-height:0}
-.ft-wave .sprite{--h:150px}
-.ft-hi{position:absolute;left:100%;top:10px;font-size:28px;color:var(--ink);transform:rotate(-8deg);white-space:nowrap}
-.ft-chap{font:500 var(--fs-xs)/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:color-mix(in srgb,var(--now-ink) 60%,transparent);margin-bottom:var(--sp-3)}
-.ft-mail{display:block;padding:0;border:0;background:none;color:inherit;cursor:pointer;text-align:left;font-weight:700;font-stretch:75%;font-size:clamp(40px,8.6vw,150px);line-height:.9;letter-spacing:-.03em;overflow-wrap:anywhere;transition:color .25s var(--ease)}
-.ft-mail:hover,.ft-mail:focus-visible{color:var(--now-trail)}
-.ft-hint{margin-top:8px}
-.ft-hint .hand{color:var(--now-trail);font-size:28px;transform:rotate(-3deg)}
-.ft-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-5);margin-top:var(--sp-5);padding-top:var(--sp-4);border-top:1px solid color-mix(in srgb,var(--now-ink) 22%,transparent)}
-.ft-book p:first-child,.ft-nl label{display:block;max-width:34ch;color:color-mix(in srgb,var(--now-ink) 72%,transparent)}
-.ft-btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;margin-top:var(--sp-2);padding:0 26px;border:0;border-radius:999px;background:var(--now-ink);color:var(--now-bg);font:600 var(--fs-s)/1 var(--sans);cursor:pointer;transition:transform .16s ease-out}
-.ft-btn:hover .ar{transform:translateX(3px)}
-.ft-btn:active{transform:scale(.97)}
-.ft-field{display:flex;align-items:center;gap:var(--sp-2);margin-top:var(--sp-2);border-bottom:2px solid currentColor}
-.ft-field input{flex:1;min-width:0;height:52px;border:0;outline:0;background:none;color:inherit;font:500 var(--fs-body)/1 var(--sans)}
-.ft-field input::placeholder{color:color-mix(in srgb,var(--now-ink) 45%,transparent)}
-.ft-field button{min-height:44px;padding:0;border:0;background:none;color:inherit;font:700 var(--fs-body)/1 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
-.ft-field:focus-within{border-color:var(--now-trail)}
-.ft .msg:not(:empty){margin-top:10px;font-size:var(--fs-s);color:var(--now-trail)}
-.ft-social{list-style:none;margin:var(--sp-5) 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px clamp(20px,3vw,48px)}
-.ft-social a{display:inline-block;color:inherit;text-decoration:none;font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(32px,4.4vw,72px);line-height:1;letter-spacing:-.02em;transition:color .2s,translate .3s var(--ease)}
-.ft-social a::after{content:" \2197";font-size:.5em;vertical-align:.6em;opacity:.5}
-.ft-social a:hover,.ft-social a:focus-visible{color:var(--now-trail);translate:0 -3px}
-.ft-legal{display:flex;flex-wrap:wrap;gap:4px var(--sp-3);margin-top:var(--sp-5);font-size:var(--fs-xs);color:color-mix(in srgb,var(--now-ink) 60%,transparent)}
-.ft-legal a{color:inherit;text-decoration:none;padding:12px 0}
-.ft-legal span{padding:12px 0;margin-right:auto}
-.ft-legal a:hover,.ft-legal a:focus-visible{color:var(--now-ink);text-decoration:underline}
+/* ---------- the footer ----------
+   Quiet type over the view from Munich to the Alps. The drawing is the section's background, anchored to its foot at
+   full width; its empty sky holds the columns, set small and calm like an editorial colophon. The loop's paper is
+   pure white and multiplied onto the page, so it sits on the page's own paper with no edge; in dark mode it is
+   inverted and screened, so the paper becomes the dark page and the ink turns light blue. */
+.ft{position:relative;overflow:clip;color:var(--ink);font-size:var(--fs-body);display:flex;flex-direction:column}
+/* in the flow under the columns, pulled up so only its empty sky runs under them; the page shows through its paper */
+.ft-art{order:2;margin-top:-6vw;pointer-events:none}   /* no layer of its own, so the drawing blends with the page itself */
+.ft-film{display:block;width:100%;aspect-ratio:1278/484;object-fit:cover;object-position:20% 100%;mix-blend-mode:multiply;background:transparent}
+:root[data-theme="dark"] .ft-film{filter:invert(1) hue-rotate(180deg) saturate(1.4);mix-blend-mode:screen}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ft-film{filter:invert(1) hue-rotate(180deg) saturate(1.4);mix-blend-mode:screen}}
+
+.ft .wrap{padding-block:0}   /* the shared footer rules (ending.css) are for the other pages */
+.ft .ft-in{display:grid;flex-direction:row;grid-template-columns:minmax(0,1.25fr) minmax(0,.62fr) minmax(0,.62fr) minmax(0,1fr) minmax(0,1.05fr);gap:var(--sp-4) var(--sp-4);align-items:start;
+  width:100%;padding-top:var(--sp-6);position:relative;z-index:1;order:1}
+.ft-brand .mark{color:var(--ink)}
+.ft-line{margin-top:var(--sp-2);max-width:20ch;font:400 clamp(18px,1.5vw,22px)/1.35 var(--sans);letter-spacing:-.01em;color:var(--muted)}
+.ft-line .it{color:var(--ink)}
+.ft-col{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.ft-t{display:block;margin:6px 0 12px;font:500 var(--fs-xs)/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.ft-t::after{content:"";display:block;width:22px;height:1px;margin-top:12px;background:currentColor}
+.ft-links{list-style:none;margin:0;padding:0;display:grid}
+.ft-links a,.ft-a{all:unset;box-sizing:border-box;display:inline-block;padding:4px 0;cursor:pointer;color:var(--ink);font:400 var(--fs-s)/1.3 var(--sans);transition:color .2s}
+.ft-links a:hover,.ft-links a:focus-visible,.ft-a:hover,.ft-a:focus-visible{color:var(--signal)}
+.ft-a:focus-visible,.ft-links a:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
+.ft-hint{display:block;margin:-2px 0 4px;font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.ft-p{font-size:var(--fs-s);line-height:1.4;color:var(--muted)}
+.ft-field{display:flex;align-items:center;width:100%;margin-top:12px;border:1px solid var(--ink)}
+.ft-field input{flex:1;min-width:0;height:42px;padding:0 12px;border:0;outline:0;background:none;color:var(--ink);font:400 var(--fs-s)/1 var(--sans)}
+.ft-field input::placeholder{color:var(--muted)}
+.ft-field button{display:grid;place-items:center;width:42px;height:42px;padding:0;border:0;border-left:1px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;transition:background-color .2s}
+.ft-field button .ar{width:15px;height:15px;transition:transform .2s}
+.ft-field button:hover{background:var(--signal)}
+.ft-field button:hover .ar{transform:translateX(2px)}
+.ft-field:focus-within{border-color:var(--signal)}
+.ft .msg:not(:empty){margin-top:8px;font-size:var(--fs-xs);line-height:1.4;color:var(--signal)}
+
+.ft .ft-base{grid-column:1 / -1;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:flex-end;gap:0 var(--sp-3);margin-top:var(--sp-2);font-size:var(--fs-xs);color:var(--muted)}
+.ft-base > *{padding:10px 0}
+.ft-base a{color:inherit;text-decoration:none}
+.ft-base a:hover,.ft-base a:focus-visible{color:var(--ink);text-decoration:underline}
+.ft-base .ft-clock{margin-right:auto}
+.ft-clock time{font-variant-numeric:tabular-nums}
+@media (max-width:1000px){
+  .ft .ft-in{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .ft-brand,.ft-nl{grid-column:1 / -1}
+  .ft-nl{max-width:420px}
+}
 
 /* ---------- phones and tablets ---------- */
 @media (max-width:1000px){
@@ -270,33 +278,34 @@ main{overflow-x:clip}
   .ab-stick{position:static}
   .ab-list{padding:var(--sp-4) 0}
   .ab-photo{display:none}
-  .wl-photo{height:42%}
 }
 @media (max-width:760px){
-  .hx{height:auto;min-height:0;display:block;overflow:visible}
-  .hx-h1{--hx:38vw;position:relative;inset:auto;display:grid;padding-top:var(--sp-3)}
+  /* a poster: HEL over LO down the left, him in front of them on the right, his note by his side */
+  .hx{height:auto;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);overflow:visible}
+  .hx-h1,.hx-fig,.hx-note{grid-area:1 / 1}
+  .hx-h1{--hx:44vw;position:relative;inset:auto;display:grid;justify-items:start;align-content:start;padding:var(--sp-2) 0 0 calc(var(--gl) - .05em)}
   .hx-l{position:static}
-  .hx-l1{justify-self:start;margin-left:calc(var(--gl) - .03em)}
-  .hx-l2{justify-self:end;margin:-.04em calc(var(--gr) - .03em) 0 0}
-  .hx-fig{position:relative;left:auto;translate:none;height:auto;width:72vw;margin:-34vw auto 0}
-  .hx-note{position:relative;top:auto;left:auto;display:block;width:max-content;margin:14px auto 0;font-size:30px;text-align:center;transform:rotate(-4deg)}
-  .hx-note svg{display:none}
+  .hx-l2{margin-top:-.02em}
+  .hx-fig{position:relative;left:auto;translate:none;justify-self:end;height:auto;width:63vw;margin:20vw -3vw 0 0}
+  .hx-note{position:relative;z-index:3;top:auto;left:auto;align-self:end;justify-self:start;margin:0 0 10vw var(--gl);font-size:min(26px,6.8vw);transform:rotate(-6deg)}
+  .hx-note svg{display:block;right:auto;left:62%;top:calc(100% - 4px);width:46px;transform:rotate(-20deg)}
   .hx-foot{display:grid;gap:var(--sp-3);padding:var(--sp-3) var(--gr) var(--sp-5) var(--gl)}
   .hx-copy{max-width:none}
-  .call-wrap{justify-items:start}
+  .hx-copy .hero-actions{margin-top:var(--sp-3)}
+  .hx .call-wrap{display:none}   /* the floating button is the way to the twin on a phone */
   .ticker{margin-inline:-10px}
   .qt-pin{min-height:80svh;padding-block:var(--sp-5)}
   .qt-sign{margin-left:0;font-size:26px}
   .ab-proof{grid-template-columns:minmax(0,1fr)}
   .fq-list{grid-template-columns:minmax(0,1fr)}
-  .wl{display:flex;flex-direction:column;min-height:0;padding-block:var(--sp-5) 0}
-  .wl-h{order:-1;position:relative;inset:auto;padding:0 0 var(--sp-3);font-size:13vw}
-  .wl-hand{padding-bottom:var(--sp-5)}
-  .wl-photo{height:36%;right:-6vw}
-  .ft{margin-top:100px}
+  .wl{min-height:70svh}
+  .wl-hand{font-size:40px}
+  .wl-h{font-size:17vw}
   .ft .wrap{padding:0 var(--gr) 0 var(--gl)}
-  .ft-row{grid-template-columns:minmax(0,1fr);gap:var(--sp-4)}
-  .ft-wave .sprite{--h:110px}
-  .ft-hi{font-size:22px}
-  .ft-legal span{flex-basis:100%}
+  .ft .ft-in{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-4) var(--sp-3)}
+  .ft-col:nth-of-type(3){grid-column:1 / -1}
+  .ft-film{height:220px;aspect-ratio:auto;object-position:12% 100%}
+  .ft-art{margin-top:-24px}
+  .ft .ft-base{justify-content:flex-start;gap:0 var(--sp-2)}
+  .ft-base > *{padding:6px 0}
 }

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="/src/styles/grain.css">
 <link rel="stylesheet" href="/src/styles/pages.css">
 <link rel="stylesheet" href="/src/styles/home.css">
+<link rel="stylesheet" href="/src/styles/menu.css">
 <link rel="preload" href="/fonts/shehroz-hand.woff2" as="font" type="font/woff2" crossorigin>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('js');
 // the entrance's safety net: if home.js never started it, take the cover away
@@ -23,6 +24,7 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-ne" viewBox="0 0 16 16"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6"/></symbol>
   <symbol id="i-down" viewBox="0 0 16 16"><path d="M8 3v10M3.5 8.5 8 13l4.5-4.5"/></symbol>
+  <symbol id="i-stamp" viewBox="0 0 100 100"><path id="stamp-ring" d="M50 50m-38 0a38 38 0 1 1 76 0a38 38 0 1 1-76 0" fill="none"/><text fill="currentColor" style="font:500 9.6px var(--mono);letter-spacing:1.9px;text-transform:uppercase"><textPath href="#stamp-ring">open the book · open the book · </textPath></text></symbol>
   <symbol id="i-right" viewBox="0 0 16 16"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5"/></symbol>
 </svg>
 <!-- the entrance (home.js): a film-title cut through his four sides, then a letterbox opens across his sunglasses
@@ -31,11 +33,11 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 <a class="skip-link" href="#h1">Skip to content</a>
 <main id="main">
 
-<header class="top c">
+<header class="top c" id="top">
   <div class="wrap">
     <a class="mark" href="/" aria-label="Shehroz Sajjad, home">Shehroz Sajjad <span class="dot hit"></span></a>
-    <nav class="nav" aria-label="Main"><a href="/code" aria-label="Engineering"><span class="nl">Engineering</span><span class="ns" aria-hidden="true">Code</span></a><i>/</i><a href="/design" aria-label="Design"><span class="nl">Design</span><span class="ns" aria-hidden="true">Design</span></a><i>/</i><a href="/ai" aria-label="AI products"><span class="nl">AI products</span><span class="ns" aria-hidden="true">AI</span></a><i>/</i><a href="/hardware" aria-label="Hardware"><span class="nl">Hardware</span><span class="ns" aria-hidden="true">Hardware</span></a></nav>
-    <button class="theme" id="theme" type="button">Dark</button>
+    <button class="theme" id="theme" type="button" role="switch" aria-checked="false" aria-label="Dark mode"><svg class="th-sun" viewBox="0 0 256 256" aria-hidden="true"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/></svg><svg class="th-moon" viewBox="0 0 256 256" aria-hidden="true"><path d="M233.54,142.23a8,8,0,0,0-8-2,88.08,88.08,0,0,1-109.8-109.8,8,8,0,0,0-10-10,104.84,104.84,0,0,0-52.91,37A104,104,0,0,0,136,224a103.09,103.09,0,0,0,62.52-20.88,104.84,104.84,0,0,0,37-52.91A8,8,0,0,0,233.54,142.23ZM188.9,190.34A88,88,0,0,1,65.66,67.11a89,89,0,0,1,31.4-26A106,106,0,0,0,96,56,104.11,104.11,0,0,0,200,160a106,106,0,0,0,14.92-1.06A89,89,0,0,1,188.9,190.34Z"/></svg><span class="th-knob" aria-hidden="true"><svg class="th-sun" viewBox="0 0 256 256" aria-hidden="true"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm8,24a64,64,0,1,0,64,64A64.07,64.07,0,0,0,128,64ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/></svg><svg class="th-moon" viewBox="0 0 256 256" aria-hidden="true"><path d="M235.54,150.21a104.84,104.84,0,0,1-37,52.91A104,104,0,0,1,32,120,103.09,103.09,0,0,1,52.88,57.48a104.84,104.84,0,0,1,52.91-37,8,8,0,0,1,10,10,88.08,88.08,0,0,0,109.8,109.8,8,8,0,0,1,10,10Z"/></svg></span></button>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu"><i></i><i></i></button>
   </div>
 </header>
 
@@ -54,7 +56,7 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
     <div class="hx-copy">
       <p class="kicker">Founding engineer · Munich</p>
       <p class="pitch">I sit with the customer, own the platform, and ship what they need, <span class="dd" data-doodle="underline">fast.</span></p>
-      <div class="hero-actions"><a class="btn" href="#sides">See the work <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a><button class="act" type="button" data-open="agent">Talk to my AI twin <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button></div>
+      <div class="hero-actions"><a class="btn" href="#sides">See the work <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a></div>
     </div>
     <div class="call-wrap">
       <div class="call">
@@ -62,7 +64,7 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
         <span class="call-live"><i aria-hidden="true"></i>Live</span>
         <button class="call-btn" type="button" data-open="agent">Talk to my AI twin <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button>
       </div>
-      <p class="call-cap">Answers from my own notes.</p>
+      <p class="call-cap hand">my AI twin, live</p>
     </div>
   </div>
 </section>
@@ -111,53 +113,36 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 
 <!-- four sides, four pages -->
 <section class="sd" id="sides" aria-labelledby="h-sides">
-  <!-- a spread: the open book's story on the left, the shelf on the right. Each side of him is a volume; one stands open,
-       a spine turns open when clicked, and the open cover takes you to that side in a new tab (bookshelf.js) -->
-  <div class="wrap sd-grid">
-    <div class="sd-side">
-      <div class="sd-head">
-        <p class="chap-l">03 / Pick a side</p>
-        <h2 id="h-sides" class="sd-h">What are you <span class="it">here for?</span></h2>
-        <p class="hand sd-pick" aria-hidden="true">pull one off the shelf <span class="sd-arr">→</span></p>
-      </div>
-      <div class="shelf-cap" hidden>
-        <p class="sd-lead">Four volumes, one for each side of my work. Pull one off the shelf to see what’s inside.</p>
-        <div class="shelf-info" aria-live="polite">
-          <p class="shelf-n"></p>
-          <p class="shelf-t"></p>
-          <p class="shelf-d"></p>
-          <a class="act shelf-open" href="/code" target="_blank" rel="noopener">Open the book <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a>
-        </div>
-        <div class="shelf-nav">
-          <button class="shelf-arrow" type="button" data-step="-1" aria-label="Previous book"><svg aria-hidden="true"><use href="#i-right"/></svg></button>
-          <span class="shelf-ticks" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-          <span class="shelf-count" aria-hidden="true"></span>
-          <button class="shelf-arrow" type="button" data-step="1" aria-label="Next book"><svg aria-hidden="true"><use href="#i-right"/></svg></button>
-        </div>
-      </div>
+  <!-- the four volumes fanned out like a hand of cards under the title (a pile on phones). Pick one and it is pulled
+       out and laid on top; the one on top opens that side in a new tab (bookshelf.js) -->
+  <div class="wrap sd-wrap">
+    <div class="sd-head">
+      <p class="chap-l">03 / Pick a side</p>
+      <h2 id="h-sides" class="sd-h">What are you <span class="it">here for?</span></h2>
+      <p class="hand sd-pick" aria-hidden="true">pick a card, any card <span class="sd-arr">↓</span></p>
     </div>
     <div class="bookshelf">
       <ol class="books">
-        <li><a class="book b-ink" href="/code" target="_blank" rel="noopener" data-inside="Beyond Presence’s creator and call platforms, my years as CTO of a 25-person studio, and open source for LiveKit and n8n." aria-label="Engineering: Platforms, real-time AI and the code under them. (opens in a new tab)">
+        <li style="--d:0;--r:-2deg"><a class="book b-ink" href="/code" target="_blank" rel="noopener" data-inside="Beyond Presence’s creator and call platforms, my years as CTO of a 25-person studio, and open source for LiveKit and n8n." aria-label="Engineering: Platforms, real-time AI and the code under them. (opens in a new tab)">
           <span class="book-3d" aria-hidden="true">
             <span class="spine"><span class="sp-n">01</span><span class="sp-t">Engineering</span><span class="sp-a">S. Sajjad</span></span>
             <span class="cover"><span class="cv-n">Vol. 01</span><span class="cv-t">Engineering</span><span class="cv-d">Platforms, real-time AI and the code under them.</span><span class="hand cv-h">founding engineer, ex-CTO</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-think-anim.webp" alt="" width="199" height="484" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
-          </span></a></li>
-        <li><a class="book b-blue" href="/design" target="_blank" rel="noopener" data-inside="Brands, interfaces and launch films for my own products, plus posters and photography." aria-label="Design: Brands, interfaces and films, made by the hands that build them. (opens in a new tab)">
+          </span><span class="stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#i-stamp"/></svg><svg class="stamp-ar" viewBox="0 0 16 16"><use href="#i-ne"/></svg></span></a></li>
+        <li style="--d:1;--r:1.6deg"><a class="book b-blue" href="/design" target="_blank" rel="noopener" data-inside="Brands, interfaces and launch films for my own products, plus posters and photography." aria-label="Design: Brands, interfaces and films, made by the hands that build them. (opens in a new tab)">
           <span class="book-3d" aria-hidden="true">
             <span class="spine"><span class="sp-n">02</span><span class="sp-t">Design</span><span class="sp-a">S. Sajjad</span></span>
             <span class="cover"><span class="cv-n">Vol. 02</span><span class="cv-t">Design</span><span class="cv-d">Brands, interfaces and films, made by the hands that build them.</span><span class="hand cv-h">where I started</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-draw-anim.webp" alt="" width="302" height="436" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
-          </span></a></li>
-        <li><a class="book b-print" href="/ai" target="_blank" rel="noopener" data-inside="Slaptastic, Vorsprech, myClosr and NPC Filter, all live, and RoomRush, with why I stopped it." aria-label="AI products: Applied AI, built on my own and put in front of real people. (opens in a new tab)">
+          </span><span class="stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#i-stamp"/></svg><svg class="stamp-ar" viewBox="0 0 16 16"><use href="#i-ne"/></svg></span></a></li>
+        <li style="--d:2;--r:-1.2deg"><a class="book b-print" href="/ai" target="_blank" rel="noopener" data-inside="Slaptastic, Vorsprech, myClosr and NPC Filter, all live, and RoomRush, with why I stopped it." aria-label="AI products: Applied AI, built on my own and put in front of real people. (opens in a new tab)">
           <span class="book-3d" aria-hidden="true">
             <span class="spine"><span class="sp-n">03</span><span class="sp-t">AI products</span><span class="sp-a">S. Sajjad</span></span>
             <span class="cover"><span class="cv-n">Vol. 03</span><span class="cv-t">AI products</span><span class="cv-d">Applied AI, built on my own and put in front of real people.</span><span class="hand cv-h">four of them live</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" width="248" height="481" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
-          </span></a></li>
-        <li><a class="book b-navy" href="/hardware" target="_blank" rel="noopener" data-inside="Yolk, the AI device that makes my German phone calls, TARS the desk robot, and software for a medical device." aria-label="Hardware: Where the AI leaves the screen. (opens in a new tab)">
+          </span><span class="stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#i-stamp"/></svg><svg class="stamp-ar" viewBox="0 0 16 16"><use href="#i-ne"/></svg></span></a></li>
+        <li style="--d:3;--r:2.4deg"><a class="book b-navy" href="/hardware" target="_blank" rel="noopener" data-inside="Yolk, the AI device that makes my German phone calls, TARS the desk robot, and software for a medical device." aria-label="Hardware: Where the AI leaves the screen. (opens in a new tab)">
           <span class="book-3d" aria-hidden="true">
             <span class="spine"><span class="sp-n">04</span><span class="sp-t">Hardware</span><span class="sp-a">S. Sajjad</span></span>
             <span class="cover"><span class="cv-n">Vol. 04</span><span class="cv-t">Hardware</span><span class="cv-d">Where the AI leaves the screen.</span><span class="hand cv-h">Yolk, TARS and more</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-solder-anim.webp" alt="" width="260" height="431" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
-          </span></a></li>
+          </span><span class="stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#i-stamp"/></svg><svg class="stamp-ar" viewBox="0 0 16 16"><use href="#i-ne"/></svg></span></a></li>
       </ol>
     </div>
   </div>
@@ -178,7 +163,7 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
   </div>
 </section>
 
-<!-- the ending: his hand, over and over, and a big promise across it -->
+<!-- the ending: his hand, over and over, and the promise across it. One idea, nothing else -->
 <section class="wl" aria-labelledby="h-wl">
   <div class="wl-hand" aria-hidden="true">
     <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
@@ -187,42 +172,87 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
     <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
     <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
     <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
   </div>
   <h2 id="h-wl" class="wl-h"><span class="wl-a">Got an idea?</span> <span class="wl-b">Let’s build&nbsp;it.</span></h2>
-  <img class="wl-photo" data-anchor="stride-photo" src="/assets/photos/shehroz-stride-sm.webp" width="626" height="900" alt="" aria-hidden="true" loading="lazy">
 </section>
 
 </main>
 
-<!-- the ending: one ink block, the same weight as the poster above it. IDs are the ones pages.js wires (copy, book, newsletter) -->
+<!-- the footer: quiet type over the view from Munich to the Alps, drawn in his blue ink and moving a little. The drawing
+     is the section's background; its empty sky holds the columns. IDs are the ones pages.js wires (copy, book, newsletter) -->
 <footer class="ft" id="contact" aria-labelledby="h-foot">
-  <div class="ft-wave" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" width="248" height="481"><span class="ft-hi hand">say hi!</span></div>
-  <div class="wrap">
-    <p class="ft-chap">05 / Say hi</p>
-    <h2 id="h-foot" class="sr">Get in touch</h2>
-    <button class="ft-mail" type="button" id="copy" aria-label="Copy mshehrozsajjad@gmail.com">mshehrozsajjad<wbr>@gmail.com</button>
-    <p class="ft-hint"><span class="hand" id="copy-hint">tap to copy</span></p>
-    <div class="ft-row">
-      <div class="ft-book">
-        <p>Building something and stuck? I’m happy to think it through with you.</p>
-        <button class="ft-btn" type="button" id="book">Book a call <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button>
-        <p class="msg" id="book-msg" role="status"></p>
-      </div>
-      <form class="ft-nl" id="nl" novalidate>
-        <label for="nl-email">One email when I ship something.</label>
-        <div class="ft-field"><input id="nl-email" type="email" placeholder="you@domain.com" autocomplete="email"><button type="submit">Send</button></div>
-        <p class="msg" id="nl-msg" role="status"></p>
-      </form>
+  <div class="ft-art" aria-hidden="true">
+    <video class="ft-film" muted loop playsinline preload="none" poster="/assets/media/munich-alps-poster.webp" data-src="/assets/media/munich-alps.mp4"></video>
+  </div>
+  <div class="wrap ft-in">
+    <div class="ft-brand">
+      <a class="mark" href="#top">Shehroz Sajjad <span class="dot hit"></span></a>
+      <h2 id="h-foot" class="ft-line">Founding engineer in Munich. <span class="it">Let’s build something.</span></h2>
     </div>
-    <ul class="ft-social" aria-label="Elsewhere">
-      <li><a href="https://www.linkedin.com/in/mshehrozsajjad/" target="_blank" rel="noopener">LinkedIn</a></li>
-      <li><a href="https://www.instagram.com/mshehroz.sajjad/" target="_blank" rel="noopener">Instagram</a></li>
-      <li><a href="https://github.com/mshehrozsajjad" target="_blank" rel="noopener">GitHub</a></li>
-      <li><a href="https://www.tiktok.com/@mshehrozsajjad" target="_blank" rel="noopener">TikTok</a></li>
-    </ul>
-    <p class="ft-legal"><span>© 2026 Shehroz Sajjad, Munich</span><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a><a href="/story">The long story</a></p>
+    <nav class="ft-col" aria-labelledby="ft-pages">
+      <p class="ft-t" id="ft-pages">Pages</p>
+      <ul class="ft-links">
+        <li><a href="/code">Engineering</a></li><li><a href="/design">Design</a></li><li><a href="/ai">AI products</a></li><li><a href="/hardware">Hardware</a></li><li><a href="/story">The long story</a></li>
+      </ul>
+    </nav>
+    <div class="ft-col">
+      <p class="ft-t" id="ft-else">Elsewhere</p>
+      <ul class="ft-links" aria-labelledby="ft-else">
+        <li><a href="https://www.linkedin.com/in/mshehrozsajjad/" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="https://www.instagram.com/mshehroz.sajjad/" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://github.com/mshehrozsajjad" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://www.tiktok.com/@mshehrozsajjad" target="_blank" rel="noopener">TikTok</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <p class="ft-t">Say hi</p>
+      <ul class="ft-links">
+        <li><button class="ft-a" type="button" id="copy" aria-label="Copy mshehrozsajjad@gmail.com">mshehrozsajjad@gmail.com</button><span class="ft-hint" id="copy-hint" aria-live="polite">tap to copy</span></li>
+        <li><button class="ft-a" type="button" id="book">Book a call</button></li>
+      </ul>
+      <p class="msg" id="book-msg" role="status"></p>
+    </div>
+    <form class="ft-col ft-nl" id="nl" novalidate>
+      <label class="ft-t" for="nl-email">Newsletter</label>
+      <p class="ft-p">One email when I ship something new.</p>
+      <div class="ft-field"><input id="nl-email" type="email" placeholder="Your email" autocomplete="email"><button type="submit" aria-label="Sign up"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button></div>
+      <p class="msg" id="nl-msg" role="status"></p>
+    </form>
+    <div class="ft-base">
+      <span>© 2026 Shehroz Sajjad</span>
+      <span class="ft-clock">Munich, <time id="ftClock">now</time></span>
+      <a href="/impressum">Impressum</a>
+      <a href="/datenschutz">Datenschutz</a>
+    </div>
   </div>
 </footer>
+
+<!-- the menu: an ink circle opens out of the burger over everything; each side of him a giant line, his sprite at
+     work beside the one you point at (menu.js) -->
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+  <nav class="menu-in" aria-label="Main">
+    <ol class="menu-list">
+      <li><a href="/" aria-current="page" data-spr="wave" data-bg="var(--paper)" data-fg="var(--ink)" data-say="the short version"><span class="ml-n">00</span><span class="ml-t">Home</span></a></li>
+      <li><a href="/code" data-spr="think" data-bg="#111113" data-fg="#F8F5EC" data-say="founding engineer, ex-CTO"><span class="ml-n">01</span><span class="ml-t">Engineering</span></a></li>
+      <li><a href="/design" data-spr="draw" data-bg="#2D2BE0" data-fg="#FFFFFF" data-say="where I started"><span class="ml-n">02</span><span class="ml-t">Design</span></a></li>
+      <li><a href="/ai" data-spr="wave" data-bg="#F1EADC" data-fg="#2B2620" data-say="four of them live"><span class="ml-n">03</span><span class="ml-t">AI products</span></a></li>
+      <li><a href="/hardware" data-spr="solder" data-bg="#1a1a5c" data-fg="#F1F1EC" data-say="Yolk, TARS and more"><span class="ml-n">04</span><span class="ml-t">Hardware</span></a></li>
+      <li><a href="/story" data-spr="camera" data-bg="#F8F5EC" data-fg="#111113" data-say="from Photoshop to now"><span class="ml-n">05</span><span class="ml-t">The long story</span></a></li>
+    </ol>
+    <figure class="menu-card" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" width="248" height="481"><figcaption class="hand">the short version</figcaption></figure>
+    <div class="menu-foot">
+      <a class="menu-mail" href="mailto:mshehrozsajjad@gmail.com">mshehrozsajjad@gmail.com</a>
+      <button class="menu-twin" type="button" data-open="agent">Talk to my AI twin <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button>
+      <ul class="menu-social" aria-label="Elsewhere">
+        <li><a href="https://www.linkedin.com/in/mshehrozsajjad/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://www.instagram.com/mshehroz.sajjad/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://github.com/mshehrozsajjad" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.tiktok.com/@mshehrozsajjad" target="_blank" rel="noopener">TikTok</a></li>
+      </ul>
+    </div>
+  </nav>
+</div>
 
 <button class="fab" id="fab" type="button" data-open="agent"><span class="fab-face" aria-hidden="true"><video src="/assets/media/twin-wave-thumb.mp4" poster="/assets/media/twin-wave-poster.webp" muted loop playsinline preload="none"></video><i></i></span>Ask my AI self</button>
 <button class="fab-tip hand" id="fabTip" type="button" data-open="agent" tabindex="-1" aria-hidden="true"></button>
