@@ -164,8 +164,9 @@ main{overflow-x:clip}
 @media (prefers-reduced-motion:reduce){.lc-stamp,.sd.on .lc-p{transition:none}.lc-row[aria-selected="true"] .lc-stamp{animation:none}}
 
 /* the hand note over the books: they can be picked too */
-.sd-pick{position:absolute;left:2%;top:-7%;z-index:20;font-size:clamp(26px,2.2vw,34px);transform:rotate(-5deg)}
-.sd-arr{display:inline-block;font-family:var(--sans);transform:translateY(4px)}
+/* his note, written like the hello's: in ink, tilted, its drawn arrow curving down to the card's button */
+.sd-pick{position:absolute;left:9%;bottom:-9%;z-index:20;font-size:clamp(30px,2.6vw,42px);line-height:1;color:var(--ink);transform:rotate(-5deg)}
+.sd-pick svg{position:absolute;right:calc(100% + 6px);top:-14%;width:clamp(56px,4.6vw,78px);height:auto;transform:scale(-1,-1) rotate(-8deg)}   /* the hello's arrow, turned to curve back up to the button */
 
 /* wide: the section fills the screen (home.js holds it there while the volumes take turns) and the books bleed right */
 @media (min-width:1001px){
@@ -190,7 +191,8 @@ main{overflow-x:clip}
   .sd-h{max-width:none}
   .bookshelf{order:1;margin-top:var(--sp-4)}
   .lc{order:2}
-  .sd-pick{position:static;align-self:flex-start;margin-bottom:var(--sp-2)}
+  .sd-pick{position:relative;left:auto;bottom:auto;order:2;align-self:flex-start;margin:var(--sp-3) 0 var(--sp-5) var(--sp-2);font-size:30px}
+  .sd-pick svg{right:auto;left:70%;top:calc(100% - 8px);width:52px;transform:rotate(55deg)}   /* down to the card */
   .bookshelf{flex-direction:column;align-items:center}
 }
 /* phones: the title and who it's for stack in one column, the stamp keeps its own */
