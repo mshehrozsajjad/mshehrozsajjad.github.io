@@ -69,13 +69,21 @@ main{overflow-x:clip}
 .qt{position:relative}
 .qt-pin{min-height:100svh;display:grid;align-items:center;padding-block:var(--sp-6)}
 .qt-pin > .wrap{width:100%}
-.qt-text{font:400 clamp(38px,5.8vw,100px)/1.06 var(--hand);letter-spacing:0;color:var(--ink);max-width:18em;text-wrap:pretty}
+.qt-text{font:400 clamp(38px,5.8vw,100px)/1.06 var(--hand);letter-spacing:0;color:var(--ink);max-width:13em;text-wrap:pretty}
 .qt-text .hc{display:inline-block}
 .qt-u{position:relative;display:inline-block;white-space:nowrap;color:var(--signal)}   /* one line, so the underline runs under all of it */
 .qt-u::after{content:"";position:absolute;left:-2%;right:-2%;bottom:-.1em;height:.22em;background:var(--signal);
   --qul:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 6' preserveAspectRatio='none'%3E%3Cpath d='M1 3.5 C 7 1, 13 5.5, 23 2.5' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");-webkit-mask:var(--qul) center/100% 100% no-repeat;mask:var(--qul) center/100% 100% no-repeat;transform-origin:left;transform:scaleX(var(--u,1))}   /* a heavier stroke than the links' */
-.qt-sign{display:block;margin:var(--sp-4) 0 0 auto;width:max-content;font-size:clamp(34px,3.2vw,52px);color:var(--signal);transform:rotate(-5deg)}
-.qt-sign::before{content:"— ";color:var(--ink)}
+.qt-sign{display:block;margin:var(--sp-4) 0 0 auto;width:max-content;font-size:clamp(28px,2.6vw,40px);color:var(--ink);transform:rotate(-4deg)}
+.qt-sign::before{content:"";display:inline-block;width:46px;height:2px;margin:0 14px .3em 0;background:currentColor;vertical-align:middle}
+/* noughts and crosses in his hand, small and faint, settled into the paper around the quote (home.js places them and
+   hides any that would touch the words) */
+.qt-pin{position:relative}
+.qt-pin > .wrap{position:relative;z-index:1}
+.qt-marks{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.qt-mark{position:absolute;font:400 calc(var(--s) * clamp(16px,1.5vw,26px))/1 var(--hand);color:color-mix(in srgb,var(--ink) 16%,transparent);translate:-50% -50%;rotate:var(--r)}
+.qt-mark.hot{color:color-mix(in srgb,var(--signal) 32%,transparent)}
+.qt-mark.off{display:none}
 
 /* ---------- who to call ---------- */
 .ab{position:relative;padding-block:var(--sp-6)}
