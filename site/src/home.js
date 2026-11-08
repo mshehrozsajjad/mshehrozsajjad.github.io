@@ -91,16 +91,17 @@ function playEntrance(intro, enter) {
    the same. Any that would land on the quote or the signature step aside, re-checked whenever the layout changes. */
 const marks = $('.qt-marks');
 if (marks) {
-  const COLS = 8, ROWS = 5, CLEAR = 32;   // CLEAR: px kept free around the words
+  const COLS = 5, ROWS = 3, CLEAR = 32;   // a sparse scatter, a dozen or so; CLEAR: px kept free around the words
   let seed = 11;
   const rnd = () => (seed = seed * 16807 % 2147483647) / 2147483647;
   for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
     const m = document.createElement('span');
-    m.className = rnd() < .2 ? 'qt-mark hot' : 'qt-mark';
+    m.className = rnd() < .5 ? 'qt-mark hot' : 'qt-mark';
+    m.style.setProperty('--beat', `${(rnd() * 1.6).toFixed(2)}s`);   // each jiggles on its own beat
     m.textContent = rnd() < .5 ? 'x' : 'o';
     m.dataset.x = (c + .15 + rnd() * .7) / COLS;
     m.dataset.y = (r + .15 + rnd() * .7) / ROWS;
-    m.style.cssText = `left:${m.dataset.x * 100}%;top:${m.dataset.y * 100}%;--s:${(.7 + rnd() * 1.1).toFixed(2)};--r:${Math.round(rnd() * 60 - 30)}deg`;
+    m.style.cssText += `left:${m.dataset.x * 100}%;top:${m.dataset.y * 100}%;--s:${(.8 + rnd() * .5).toFixed(2)};--r:${Math.round(rnd() * 60 - 30)}deg`;
     marks.appendChild(m);
   }
   const stepAside = () => {

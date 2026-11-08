@@ -81,8 +81,12 @@ main{overflow-x:clip}
 .qt-pin{position:relative}
 .qt-pin > .wrap{position:relative;z-index:1}
 .qt-marks{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.qt-mark{position:absolute;font:400 calc(var(--s) * clamp(16px,1.5vw,26px))/1 var(--hand);color:color-mix(in srgb,var(--ink) 16%,transparent);translate:-50% -50%;rotate:var(--r)}
-.qt-mark.hot{color:color-mix(in srgb,var(--signal) 32%,transparent)}
+.qt-mark{position:absolute;font:400 calc(var(--s) * clamp(22px,2.2vw,36px))/1 var(--hand);color:var(--ink);translate:-50% -50%;rotate:var(--r);
+  animation:qt-jig 1.6s steps(1) var(--beat,0s) infinite}
+.qt-mark.hot{color:var(--signal)}
+/* drawn by hand, so they never sit quite still: a small hop between three poses, like a few frames of animation */
+@keyframes qt-jig{0%{transform:none}33%{transform:translate(1px,-1px) rotate(4deg)}66%{transform:translate(-1px,1px) rotate(-3deg)}}
+@media (prefers-reduced-motion:reduce){.qt-mark{animation:none}}
 .qt-mark.off{display:none}
 
 /* ---------- who to call ---------- */
