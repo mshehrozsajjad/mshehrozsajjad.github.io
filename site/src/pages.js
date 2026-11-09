@@ -101,16 +101,46 @@ function frame(){
 }
 /* ---------- the floating "ask my AI self": his live face, a wave when it arrives, and a few teasers in his hand ---------- */
 const fab = $('#fab'), tip = $('#fabTip');
-const TIPS = ['psst, I’m live. ask me anything', 'ask me what I’m building', 'yes, it’s really me. well, AI me'];
+const TIPS = ['psst, I’m live'];   // said once, beside the floating print (never on phones, where it would cover the text)
 const TIP_SECONDS = 4.5, TIP_EVERY = 20;   // each teaser stays a few seconds; at most one per TIP_EVERY seconds
 let fabOn = false, tipsShown = 0, tipTimer = 0, engaged = false;
+// On the homepage the floating print is the hero's polaroid followed down the page: it flies from where the hero's card
+// is (or just above the screen, once that's far up) into the corner, shrinking as it goes, and flies back on the way up.
+const heroTwin = $('.hx .tw');
+const FLIGHT = 700;
+let flight = 0;
+// Driven frame by frame, aimed at where the hero's card is *now*, so it lands exactly on it however the page scrolls
+// during the flight (or, with the card far above, comes from just above the screen).
+function fly(on){
+  if (reduce || !heroTwin || !heroTwin.getBoundingClientRect().width) return false;   // phones hide the card: the plain slide
+  cancelAnimationFrame(flight);
+  fab.style.transition = 'none';
+  fab.style.transform = fab.style.rotate = '';
+  fab.classList.add('show');
+  if (on) heroTwin.style.visibility = 'hidden';   // one print: it lifts off the hero and lands back on it
+  const f = fab.getBoundingClientRect(), fx = f.left + f.width / 2, fy = f.top + f.height / 2;
+  const t0 = performance.now(), ease = t => t < .5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
+  const step = now => {
+    const p = Math.min(1, (now - t0) / FLIGHT), k = on ? 1 - ease(p) : ease(p);   // k: 1 at the hero, 0 in the corner
+    const h = heroTwin.getBoundingClientRect();
+    const dx = h.left + h.width / 2 - fx, dy = Math.max(h.top + h.height / 2, -h.height / 2) - fy;
+    fab.style.transform = `translate(${dx * k}px, ${dy * k}px) scale(${1 + (h.width / f.width - 1) * k})`;
+    fab.style.rotate = `${-4 + 8 * k}deg`;
+    if (p < 1) { flight = requestAnimationFrame(step); return; }
+    fab.style.transform = fab.style.rotate = '';
+    if (!on){ fab.classList.remove('show'); heroTwin.style.visibility = ''; }
+    requestAnimationFrame(() => { fab.style.transition = ''; });
+  };
+  flight = requestAnimationFrame(step);
+  return true;
+}
 function fabShow(on){
   if (!fab || on === fabOn) return;
   fabOn = on;
-  fab.classList.toggle('show', on);
+  if (!fly(on)) fab.classList.toggle('show', on);
   if (!on){ clearTimeout(tipTimer); tip?.classList.remove('on'); return; }
   if (!reduce){ fab.classList.remove('hello'); void fab.offsetWidth; fab.classList.add('hello'); }   // restart the wave
-  if (tip && !engaged && tipsShown < TIPS.length) tipTimer = setTimeout(teaser, 1200);
+  if (tip && !engaged && !phone() && tipsShown < TIPS.length) tipTimer = setTimeout(teaser, 1200);
 }
 function teaser(){
   if (!fabOn || engaged || tipsShown >= TIPS.length) return;

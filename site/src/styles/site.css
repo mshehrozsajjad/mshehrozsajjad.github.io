@@ -9,6 +9,7 @@
 :root{
   --paper:#F8F5EC; --raised:#FCFAF5; --ink:#111113; --muted:#5C5C64; --line:#DDD8CC;
   --signal:#2D2BE0; --signal-soft:#E3E3FB; --on-signal:#FFFFFF;
+  --pencil:#5F5E62;   /* graphite, for his notes on paper things (the library card); the same in dark mode, like the card */
   --now-bg:#1B1B1D; --now-ink:#F3F3EF; --now-trail:#8E8CFF;
   /* the cream photo print, shared by the story's snapcards, the lab's piles and the postcard */
   --print:linear-gradient(160deg,#FBF7EE,#F1EADC); --print-ink:#2B2620; --print-signal:#2D2BE0;
@@ -486,9 +487,9 @@ main{position:relative;overflow-x:clip}
 .fab-tip{position:fixed;right:calc(22px + env(safe-area-inset-right,0px));bottom:calc(92px + env(safe-area-inset-bottom,0px));z-index:40;max-width:min(260px,calc(100vw - 44px));padding:10px 16px 12px;border:1px solid var(--line);border-radius:18px 18px 4px 18px;background:var(--raised);color:var(--ink);font-size:24px;line-height:1.1;text-align:left;cursor:pointer;box-shadow:0 14px 30px -18px rgba(17,17,19,.45);transform:translateY(10px) scale(.6);transform-origin:100% 100%;opacity:0;pointer-events:none;transition:transform .45s cubic-bezier(.34,1.56,.64,1),opacity .2s}
 .fab-tip.on{transform:none;opacity:1;pointer-events:auto}
 @media (prefers-reduced-motion:reduce){.fab-face i::after{animation:none}.fab-tip{transition:opacity .2s}}
-.drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);z-index:70;background:var(--raised);border-left:1px solid var(--line);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .4s var(--ease);padding:calc(20px + env(safe-area-inset-top,0px)) calc(22px + env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) 22px;visibility:hidden}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);z-index:170;background:var(--raised);border-left:1px solid var(--line);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .4s var(--ease);padding:calc(20px + env(safe-area-inset-top,0px)) calc(22px + env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) 22px;visibility:hidden}
 .drawer.open{transform:none;visibility:visible}
-.scrim{position:fixed;inset:0;z-index:65;background:rgba(17,17,19,.35);opacity:0;pointer-events:none;transition:opacity .3s}
+.scrim{position:fixed;inset:0;z-index:160;background:rgba(17,17,19,.35);opacity:0;pointer-events:none;transition:opacity .3s}
 .scrim.open{opacity:1;pointer-events:auto}
 .d-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .x{width:44px;padding:0;font-size:18px;line-height:1}
@@ -509,7 +510,7 @@ main{position:relative;overflow-x:clip}
 .d-loader i:nth-child(2){animation-delay:.6s}
 .d-loader i:nth-child(3){animation-delay:1.2s}
 @keyframes d-ring{0%{transform:scale(.2);opacity:1}100%{transform:scale(1.25);opacity:0}}
-[data-call=ended] .d-loader,[data-call=error] .d-loader{display:none}
+[data-call=ended] .d-loader,[data-call=error] .d-loader,[data-call=waiting] .d-loader{display:none}
 @media (prefers-reduced-motion:reduce){.d-loader i{animation:none;opacity:.6;transform:scale(.8)}}
 .d-sound{position:absolute;left:50%;top:50%;translate:-50% -50%;min-height:44px;padding:0 18px;border:0;border-radius:999px;background:var(--signal);color:var(--on-signal);font:600 var(--fs-s)/1 var(--sans);cursor:pointer}
 .d-live{position:absolute;left:12px;top:12px;margin:0;padding:7px 11px;border-radius:999px;background:color-mix(in srgb,var(--ink) 72%,transparent);color:var(--paper);font:600 var(--fs-xs)/1 var(--sans);font-variant-numeric:tabular-nums}
@@ -532,6 +533,7 @@ main{position:relative;overflow-x:clip}
 .d-form{display:flex;gap:var(--sp-1);margin-top:14px;border:1px solid var(--line);border-radius:999px;padding:4px;background:var(--paper)}
 .d-form input{flex:1;min-width:0;border:0;background:none;color:var(--ink);font:500 var(--fs-s)/1 var(--sans);padding:0 14px}
 .d-form .btn{min-height:40px;padding:0 20px}
+.drawer .q:disabled,.d-form :disabled{opacity:.45;cursor:not-allowed}   /* resting while the twin is away (twin-drawer.js) */
 .arch{list-style:none;margin:var(--sp-2) 0 0;padding:0;overflow:auto;flex:1}
 .arch li{padding:12px 0;border-top:1px solid var(--line);display:grid;gap:2px}
 .arch li b{font-weight:600;letter-spacing:-.02em}

@@ -1,0 +1,129 @@
+/* ===== The twin's call: the homepage drawer, in the page's own language =====
+   A sheet of the page's paper. The heading in the page's pairing (narrow capitals, the serif for the warm word), the
+   call itself as a print like the hero's polaroid, his questions as ruled lines like the library card, and the twin's
+   answers written in his hand. What you type sits right, small and typed. One line of small print, no paragraph.
+   The live parts (screen, clock, mic, sound) are wired by twin-drawer.js; the base drawer and scrim are in site.css. */
+
+.twd{width:min(460px,100%);padding:calc(18px + env(safe-area-inset-top,0px)) calc(26px + env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) 26px;
+  background:var(--paper);border-left:0;box-shadow:-30px 0 60px -30px rgba(17,17,19,.35)}
+
+/* the head: the heading and a round close, on one line */
+.twd-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.twd-x{all:unset;box-sizing:border-box;flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;cursor:pointer;color:var(--ink);
+  box-shadow:inset 0 0 0 1px var(--line);transition:background-color .2s,box-shadow .2s,rotate .35s var(--ease)}
+.twd-x svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.twd-x:hover{box-shadow:inset 0 0 0 1px var(--ink);rotate:90deg}
+.twd-x:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+.twd-h{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:40px;line-height:.9;letter-spacing:-.02em;color:var(--signal)}
+.twd-h .it{text-transform:none;font-size:1.08em;letter-spacing:-.02em;color:var(--ink)}
+
+/* the call, as a print: a white edge, a slight tilt, his note written under it. White in both themes, like the hero's */
+.twd-print{margin:18px 0 0;padding:8px 8px 0;background:#FCFAF5;border-radius:3px;rotate:-1deg;
+  box-shadow:0 0 0 1px rgba(20,16,10,.08),0 20px 34px -20px rgba(20,16,10,.5)}
+.twd .d-ph{margin:0;aspect-ratio:4/3;border-radius:2px}
+.twd-cap{display:block;padding:7px 2px 8px;font-size:21px;line-height:1;color:#141416;transform:none;text-align:center}
+
+/* the screen while there's no twin: his waving still, dimmed, under the ringing loader and what's happening */
+.twd .d-screen{background:url(/assets/media/twin-wave-poster.webp) center 30%/cover;gap:12px;font:500 var(--fs-s)/1.3 var(--sans)}
+.twd-wait{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.twd .d-screen::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(12,12,16,.55),rgba(12,12,16,.75))}   /* dimmed, so the words read */
+.twd .d-screen > :not(video){position:relative;z-index:1}
+.twd .d-loader i{border-color:#C9C8FF}
+.twd-again{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;min-height:42px;padding:0 18px;border-radius:2px;cursor:pointer;background:#FCFAF5;color:#141416;
+  font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:17px;letter-spacing:.02em;transition:background-color .2s,color .2s}
+.twd-again:hover{background:#2D2BE0;color:#fff}
+.twd-again:focus-visible{outline:2px solid #C9C8FF;outline-offset:3px}
+.twd-mail{color:#E3E2DA;font-size:var(--fs-xs);text-underline-offset:3px}
+.twd-mail:hover{color:#fff}
+.twd .d-call [hidden]{display:none}
+/* the clock, on the film: a small dark chip like the hero's LIVE */
+.twd .d-live{left:8px;top:8px;padding:6px 9px;border-radius:999px;background:rgba(10,10,12,.58);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  color:#fff;font:600 11px/1 var(--sans);letter-spacing:.03em;font-variant-numeric:tabular-nums}
+/* the call's controls, on the film like the clock: small round icon chips, bottom right */
+.twd-ctl{position:absolute;right:8px;bottom:8px;z-index:2;display:flex;gap:6px}
+.twd-ctl:not(:has(> :not([hidden]))){display:none}
+.twd-ctl [hidden]{display:none}
+.twd-ic{all:unset;box-sizing:border-box;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;cursor:pointer;
+  background:rgba(10,10,12,.58);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);color:#fff;transition:background-color .2s,scale .2s var(--ease)}
+.twd-ic svg{width:15px;height:15px;fill:currentColor}
+.twd-ic:hover{background:rgba(10,10,12,.8);scale:1.06}
+.twd-ic:active{scale:.94}
+.twd-ic:focus-visible{outline:2px solid #C9C8FF;outline-offset:2px}
+.twd .d-mic .i-on,.twd .d-mic[aria-pressed="true"] .i-off{display:none}
+.twd .d-mic[aria-pressed="true"] .i-on{display:block}
+.twd .twd-ic.d-mic[aria-pressed="true"]{background:#2D2BE0}
+.twd .twd-ic{position:static;min-height:0;padding:0}
+.twd-hang{background:rgba(229,72,77,.92)}
+.twd-hang:hover{background:#CE2C31}
+.twd .d-sound{background:#2D2BE0;color:#fff;border-radius:2px;font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:16px;letter-spacing:.02em}
+
+/* the small print: one line */
+.twd-note{margin-top:16px;font:500 10px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* the questions: ruled lines, each with the way-in arrow, the title leaning in blue when pointed at */
+.twd-qs{display:grid;gap:0;margin-top:10px;border-top:2px solid var(--ink)}
+.twd .q{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:46px;padding:0 2px;border-bottom:1px solid var(--line);
+  cursor:pointer;color:var(--ink);font:500 var(--fs-s)/1.25 var(--sans);transition:color .2s,padding .3s var(--ease)}
+.twd .q::after{content:"\2192";color:var(--muted);transition:translate .3s var(--ease),color .2s}
+.twd .q:hover,.twd .q:focus-visible{color:var(--signal);padding-left:6px}
+.twd .q:hover::after,.twd .q:focus-visible::after{translate:3px 0;color:var(--signal)}
+.twd .q:focus-visible{outline:2px solid var(--signal);outline-offset:-2px}
+.twd .q:disabled{color:var(--muted);opacity:.5;cursor:not-allowed;padding-left:2px}
+/* once talking, the lines give the room to the conversation: a row of small labels you can still tap */
+.twd.talking .twd-qs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-inline:-26px;padding:10px 26px 2px;border-top:0}
+.twd.talking .twd-qs::-webkit-scrollbar{display:none}
+.twd.talking .q{flex:none;min-height:34px;padding:0 11px;border:1px solid var(--line);border-radius:2px;font-size:var(--fs-xs)}
+.twd.talking .q::after{display:none}
+.twd.talking .q:hover{padding-left:11px;border-color:var(--signal)}
+
+/* the conversation, set to be read: the twin in the page's sans under a TWIN label, you on the right under YOU */
+.twd .log{gap:16px;margin-top:14px;padding-right:2px}
+.twd .log .ai{font:400 var(--fs-body)/1.5 var(--sans);color:var(--ink);max-width:100%}
+.twd .log .ai::before{content:"twin";display:block;margin-bottom:4px;font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--signal)}
+.twd .log .me{align-self:flex-end;max-width:85%;padding:0;background:none;border-radius:0;color:var(--ink);font:500 var(--fs-s)/1.4 var(--sans);text-align:right}
+.twd .log .me::before{content:"you";display:block;margin-bottom:3px;font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.twd .log .note{font:500 10px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* asking: a ruled line, and the square ink button the card uses */
+.twd-form{display:flex;align-items:stretch;margin-top:14px;padding:0;border:0;border-radius:0;background:none;box-shadow:inset 0 -1.5px 0 var(--ink)}
+.twd-form input{flex:1;min-width:0;height:48px;padding:0 2px;border:0;outline:0;background:none;color:var(--ink);font:500 var(--fs-body)/1 var(--sans)}
+.twd-form input::placeholder{color:var(--muted)}
+.twd-form button{display:grid;place-items:center;width:48px;margin-bottom:1.5px;border:0;border-radius:2px;cursor:pointer;background:var(--ink);color:var(--paper);transition:background-color .2s}
+.twd-form button .ar{width:16px;height:16px;transition:transform .25s var(--ease)}
+.twd-form button:hover{background:var(--signal);color:var(--on-signal)}
+.twd-form button:hover .ar{transform:translateX(2px)}
+.twd-form:focus-within{box-shadow:inset 0 -2px 0 var(--signal)}
+.twd-form :disabled{opacity:.45;cursor:not-allowed}
+
+@media (max-width:520px){
+  .twd{padding-inline:20px}
+  .twd-h{font-size:38px}
+  .twd.talking .twd-qs{margin-inline:-20px;padding-inline:20px}
+}
+@media (prefers-reduced-motion:reduce){.twd-x,.twd .q,.twd .q::after{transition:none}}
+/* a line still being heard (your speech) or spoken (the twin's): faint until it settles */
+.twd .log .me.guess{opacity:.5}
+
+/* ---------- the floating twin (homepage): the hero's polaroid in miniature ----------
+   A small white print of him waving with the live dot, captioned once in his hand, tilted like the hero's. It
+   straightens and lifts when pointed at. Its one teaser is a handwritten note beside it, with a drawn arrow. */
+.tw-fab{display:grid;justify-items:center;gap:0;min-height:0;padding:5px 5px 0;border-radius:3px;background:#FCFAF5;color:#141416;rotate:-4deg;
+  box-shadow:0 0 0 1px rgba(20,16,10,.08),0 18px 30px -16px rgba(20,16,10,.5);transition:transform .35s var(--ease),rotate .4s var(--ease),box-shadow .4s}
+.tw-fab:hover,.tw-fab:focus-visible{rotate:0deg;box-shadow:0 0 0 1px rgba(20,16,10,.1),0 24px 36px -16px rgba(20,16,10,.55)}
+.tw-fab:focus-visible{outline:2px solid var(--signal);outline-offset:4px}
+.tw-fab .fab-face{width:76px;height:57px;border-radius:2px;overflow:hidden;background:url(/assets/media/twin-wave-poster.webp) center 30%/cover}   /* never blank, even before the loop loads */
+.tw-fab .fab-face video{border-radius:0;box-shadow:none}
+.tw-fab .fab-face i{display:none}   /* the small print stays clean; LIVE is said on the hero's card and in the call */
+.tw-fab-cap{display:block;padding:3px 0 5px;font-size:17px;line-height:1;color:#141416;transform:none}
+.tw-fab ~ .fab-tip{right:calc(118px + env(safe-area-inset-right,0px));bottom:calc(46px + env(safe-area-inset-bottom,0px));max-width:none;padding:0 46px 0 0;border:0;border-radius:0;
+  background:none;box-shadow:none;color:var(--ink);font-size:26px;white-space:nowrap;transform:translateX(10px) rotate(-4deg);transform-origin:100% 50%}
+.tw-fab ~ .fab-tip.on{transform:rotate(-4deg)}
+.tw-fab ~ .fab-tip::after{content:"";position:absolute;right:0;top:2px;width:40px;height:26px;background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 26'%3E%3Cpath d='M3 6 C 14 4, 26 8, 35 18 M35 18 L 26 17 M35 18 L 34 9' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 26'%3E%3Cpath d='M3 6 C 14 4, 26 8, 35 18 M35 18 L 26 17 M35 18 L 34 9' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+@media (max-width:760px){
+  .tw-fab .fab-face{width:62px;height:47px}
+  .tw-fab-cap{font-size:15px}
+  .tw-fab ~ .fab-tip{display:none}
+}
+@media (prefers-reduced-motion:reduce){.tw-fab{transition:transform .35s var(--ease)}}

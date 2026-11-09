@@ -4,7 +4,7 @@
 import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {SplitText} from 'gsap/SplitText';
-import {mountShelf} from './bookshelf.js';
+import {mountSides} from './sides.js';
 import {mountMenu} from './menu.js';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -91,16 +91,17 @@ function playEntrance(intro, enter) {
    the same. Any that would land on the quote or the signature step aside, re-checked whenever the layout changes. */
 const marks = $('.qt-marks');
 if (marks) {
-  const COLS = 8, ROWS = 5, CLEAR = 32;   // CLEAR: px kept free around the words
+  const COLS = 5, ROWS = 3, CLEAR = 32;   // a sparse scatter, a dozen or so; CLEAR: px kept free around the words
   let seed = 11;
   const rnd = () => (seed = seed * 16807 % 2147483647) / 2147483647;
   for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
     const m = document.createElement('span');
-    m.className = rnd() < .2 ? 'qt-mark hot' : 'qt-mark';
+    m.className = rnd() < .5 ? 'qt-mark hot' : 'qt-mark';
+    m.style.setProperty('--beat', `${(rnd() * 1.6).toFixed(2)}s`);   // each jiggles on its own beat
     m.textContent = rnd() < .5 ? 'x' : 'o';
     m.dataset.x = (c + .15 + rnd() * .7) / COLS;
     m.dataset.y = (r + .15 + rnd() * .7) / ROWS;
-    m.style.cssText = `left:${m.dataset.x * 100}%;top:${m.dataset.y * 100}%;--s:${(.7 + rnd() * 1.1).toFixed(2)};--r:${Math.round(rnd() * 60 - 30)}deg`;
+    m.style.cssText += `left:${m.dataset.x * 100}%;top:${m.dataset.y * 100}%;--s:${(.8 + rnd() * .5).toFixed(2)};--r:${Math.round(rnd() * 60 - 30)}deg`;
     marks.appendChild(m);
   }
   const stepAside = () => {
@@ -117,7 +118,7 @@ if (marks) {
 }
 
 mountMenu();   // the header and the burger's menu (menu.js)
-mountShelf($('#sides'));   // the pile of books, one on top at a time, and their contents (bookshelf.js; it deals them in itself)
+const sides = mountSides($('#sides'));   // the contents list and the fanned books, kept in step (sides.js, bookshelf.js)
 
 const mm = gsap.matchMedia();
 const doodling = import.meta.env.DEV && new URLSearchParams(location.search).has('doodle');
@@ -132,7 +133,7 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
     .from('.hx-l1', {x: toMiddle('right'), duration: 1.4, ease: 'expo.inOut'}, 0)
     .from('.hx-l2', {x: toMiddle('left'), duration: 1.4, ease: 'expo.inOut'}, 0)
     .from('.hx-note', {autoAlpha: 0, rotate: -16, y: 20, duration: .9}, 1.1)
-    .from(['.hx-copy', '.hx .call-wrap'], {y: 30, autoAlpha: 0, duration: 1, stagger: .1}, .9);
+    .from(['.hx-copy', '.hx .tw'], {y: 30, autoAlpha: 0, duration: 1, stagger: .1, clearProps: 'transform,translate,rotate,scale,opacity,visibility'}, .9);   // hand the twin's tilt and hover back to the CSS
 
   const intro = $('.intro');
   // a link straight to a part of the page skips the entrance; the top of the page (no hash, or #top / #h1) plays it
@@ -151,11 +152,12 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
     .to('.hx-note', {yPercent: -60, ease: 'none'}, 0);
 
   /* ---------- the short version writes itself as you scroll ---------- */
-  const quote = SplitText.create('.qt-text', {type: 'words, chars', charsClass: 'hc'});
+  const quote = SplitText.create('.qt-text', {type: 'words'});
   gsap.timeline({scrollTrigger: {trigger: '.qt-pin', start: conditions.wide ? 'top top' : 'top 70%', end: conditions.wide ? '+=110%' : 'bottom 60%', scrub: .6, pin: conditions.wide}})
-    .fromTo(quote.chars, {autoAlpha: .08}, {autoAlpha: 1, stagger: .04, ease: 'none'})
-    .from('.qt-mark', {scale: 0, autoAlpha: 0, duration: .3, ease: 'back.out(3)', stagger: {each: .1, from: 'random'}}, 0)
-    .from('.qt-sign', {autoAlpha: 0, x: -30, ease: 'power2.out', duration: .8});
+    .fromTo(quote.words, {autoAlpha: 0, y: '.12em'}, {autoAlpha: 1, y: 0, stagger: .12, duration: .3, ease: 'power2.out'})   // written in, word by word
+    .fromTo('.qt-u', {'--u': 0}, {'--u': 1, duration: .5, ease: 'power2.inOut'})   // then the phrase gets its underline
+    .from('.qt-mark', {scale: 0, autoAlpha: 0, duration: .3, ease: 'back.out(3)', stagger: {each: .05, from: 'random'}}, 0)
+    .from('.qt-sign', {autoAlpha: 0, x: -30, ease: 'power2.out', duration: .6});
 
   /* ---------- everything he does, each line sharp only while it passes the middle ---------- */
   $$('.ab-list li').forEach(li => {
@@ -164,6 +166,16 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
       .to(li, {duration: .6})
       .to(li, {filter: 'blur(10px)', autoAlpha: .18, ease: 'power1.in'});
   });
+
+  /* ---------- pick a side: on wide screens the section holds still and the volumes take turns on top as you scroll,
+     so everyone sees all four. A pick by hand still works; the next quarter of scroll moves on from wherever it is ---------- */
+  if (sides) {   // phones too: there the section is one screen, so holding it is how the choice gets seen
+    let turn = 0;
+    ScrollTrigger.create({trigger: '#sides', start: 'top top', end: conditions.wide ? '+=160%' : '+=120%', pin: true, onUpdate: ({progress}) => {
+      const i = Math.min(3, Math.floor(progress * 4));
+      if (i !== turn) sides.pick(turn = i);
+    }});
+  }
 
   /* ---------- before you ask: the headline slams in ---------- */
   gsap.from('.fq-h', {xPercent: -12, autoAlpha: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: {trigger: '.fq-h', start: 'top 85%'}});

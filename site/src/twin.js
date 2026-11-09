@@ -5,6 +5,7 @@ import {Room, RoomEvent, Track} from 'livekit-client';
 
 export const MAX_SECONDS = 180;   // a call ends on its own after three minutes
 const READY_FALLBACK = 30;
+const PICKUP = 15;   // seconds to get a room and connect to it before giving up
 
 /**
  * Starts a call. Call it straight from a click: audio playback may only be unlocked inside a user gesture.
@@ -13,9 +14,11 @@ const READY_FALLBACK = 30;
  * onSoundBlocked: (blocked) when the browser refuses to play the twin's voice until the visitor taps, and when it allows it
  * onEnd:        () once the call is over, whoever ended it
  * Resolves to {ready, send(text), mic(on), unmute(), end()} once connected; `ready` settles when the twin is listening.
- * Rejects with an Error whose .code is 'busy' | 'wait' | 'unavailable' | 'error' (and .retry, in seconds, for 'wait').
+ * signal:       aborts the call while it's being set up (the drawer was closed)
+ * Rejects with an Error whose .code is 'busy' | 'wait' | 'unavailable' | 'timeout' | 'cancelled' | 'error'
+ * (and .retry, in seconds, for 'wait').
  */
-export async function startCall({video, onCaption, onSoundBlocked, onEnd}) {
+export async function startCall({video, onCaption, onSoundBlocked, onEnd, signal}) {
   const room = new Room({adaptiveStream: true, dynacast: true});
   room.startAudio().catch(() => {});   // inside the click, before any await
   const sounds = new Set();
@@ -37,19 +40,41 @@ export async function startCall({video, onCaption, onSoundBlocked, onEnd}) {
   });
 
   // the twin's words (and the visitor's, when they speak) arrive as text streams that grow while the line is spoken
+  // Speech recognition sends a sentence as a run of short streams, each a fresh guess at the whole sentence so far,
+  // all with the same lk.segment_id; only the one marked lk.transcription_final is the settled sentence. So a line is
+  // keyed by its segment, each stream replaces its text, and it's final only when marked so (or, with no mark at all,
+  // when its one stream ends, as the twin's own lines do).
   room.registerTextStreamHandler('lk.transcription', async (reader, from) => {
-    const line = {id: reader.info.attributes?.['lk.segment_id'] || reader.info.id, text: '', mine: from.identity === room.localParticipant.identity};
+    const attrs = reader.info.attributes || {};
+    const marked = 'lk.transcription_final' in attrs;
+    const line = {id: attrs['lk.segment_id'] || reader.info.id, text: '', mine: from.identity === room.localParticipant.identity};
     if (!line.mine) markReady();
     try {
       for await (const delta of reader) { line.text += delta; onCaption({...line, final: false}); }
     } catch (_) { /* a cut-off line keeps what arrived */ }
-    onCaption({...line, final: true});
+    onCaption({...line, final: marked ? attrs['lk.transcription_final'] === 'true' : true});
   });
 
-  const res = await fetch('/api/twin', {method: 'POST'});
-  const body = await res.json().catch(() => ({}));
-  if (!res.ok) throw Object.assign(new Error(`twin: ${body.error || res.status}`), {code: body.error || 'error', retry: body.retry});
-  await room.connect(body.url, body.token);
+  // getting a room and joining it may take PICKUP seconds at most, and stops at once if the drawer is closed
+  const stop = new AbortController();
+  let why = 'timeout';
+  const timer = setTimeout(() => stop.abort(), PICKUP * 1000);
+  const cancel = () => { why = 'cancelled'; stop.abort(); };
+  signal?.addEventListener('abort', cancel, {once: true});
+  const fail = code => Object.assign(new Error(`twin: ${code}`), {code});
+  const stopped = new Promise((_, no) => stop.signal.addEventListener('abort', () => no(fail(why)), {once: true}));
+  try {
+    const res = await Promise.race([fetch('/api/twin', {method: 'POST', signal: stop.signal}), stopped]);
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) throw Object.assign(fail(body.error || 'error'), {retry: body.retry});
+    await Promise.race([room.connect(body.url, body.token), stopped]);
+  } catch (e) {
+    room.disconnect();
+    throw e.code ? e : fail(stop.signal.aborted ? why : 'error');
+  } finally {
+    clearTimeout(timer);
+    signal?.removeEventListener('abort', cancel);
+  }
   setTimeout(markReady, READY_FALLBACK * 1000);
   if (!room.canPlaybackAudio) onSoundBlocked(true);
 

@@ -306,7 +306,7 @@ const ARCH = [
  ['Beyond Presence n8n node','The only verified n8n integration in the AI avatar category.','Published'],
  ['cureVision','Custom software on custom hardware, ML on the device.','Product'],
  ['Keyhole','Legacy platform components rebuilt in React.','Product'],
- ['CodeJunkie','Co-founded and ran as CTO. 25 people.','Company']];
+ ['CodeJunkie','Co-founded an award-winning agency.','Company']];
 $('#archList').innerHTML = ARCH.map(a => `<li><em>${esc(a[2])}</em><b>${esc(a[0])}</b><span>${esc(a[1])}</span></li>`).join('');
 
 /* ================= TRAIL ================= */
@@ -619,7 +619,7 @@ const A = {
   make:{t:"Yolk, my own AI device with an e-paper screen and a dial, which makes my German phone calls. And TARS, a 3D-printed desk robot running my avatar locally.", go:['Show me', () => labOpen('hardware','yolk')]},
   saas:{t:"myClosr, Slaptastic, Vorsprech and NPC Filter are live. RoomRush got 50 signups in its first 10 minutes, but the unit economics didn't hold, so I stopped it.", go:['Open the lab', () => labOpen('software','roomrush')]},
   oss:{t:"reels-in-code, the LiveKit JS plugin for Beyond Presence avatars, and free n8n workflows for using Beyond Presence.", go:['Show me', () => labOpen('opensource','reels')]},
-  story:{t:"Design work in my first semester, then my own apps, then CodeJunkie, which I co-founded and ran as CTO with 25 people. Then product work at Keyhole, a top German car company and cureVision, and Beyond Presence at pre-seed, before there was a product.", go:['Walk the story', () => go('#story')]},
+  story:{t:"Design work in my first semester, then my own apps, then CodeJunkie, the award-winning agency I co-founded. Then product work at Keyhole, a top German car company and cureVision, and Beyond Presence at pre-seed, before there was a product.", go:['Walk the story', () => go('#story')]},
   hire:{t:"Book a call or email me at mshehrozsajjad@gmail.com. Tell me what you're building and where it's stuck.", go:['Book a call', () => go('#contact')]},
   none:{t:"I don't know that one, and I only answer from what I've confirmed. Email me at mshehrozsajjad@gmail.com.", go:null}
 };

@@ -12,7 +12,7 @@ const page = p => resolve(import.meta.dirname, p);
 // so only well-formed strokes are written.
 const DOODLES = page('public/doodles.json');
 const isStroke = s => s && typeof s.a === 'string' && s.a.length < 80 && typeof s.d === 'string' && /^[MLQ0-9 .-]+$/.test(s.d)
-  && Number.isFinite(s.w) && ['signal', 'ink'].includes(s.c);
+  && Number.isFinite(s.w) && ['signal', 'ink', 'pencil'].includes(s.c);
 const isPageSave = d => d && /^\/[a-z-]*$/.test(d.page) && Array.isArray(d.strokes) && d.strokes.every(isStroke);
 const readDoodles = () => { try { return JSON.parse(readFileSync(DOODLES, 'utf8')); } catch (_) { return {}; } };
 const doodleSaver = {

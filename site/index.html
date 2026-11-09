@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="/src/styles/pages.css">
 <link rel="stylesheet" href="/src/styles/home.css">
 <link rel="stylesheet" href="/src/styles/menu.css">
+<link rel="stylesheet" href="/src/styles/twin.css">
 <link rel="preload" href="/fonts/shehroz-hand.woff2" as="font" type="font/woff2" crossorigin>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('js');
 // the entrance's safety net: if home.js never started it, take the cover away
@@ -58,20 +59,22 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
       <p class="pitch">I sit with the customer, own the platform, and ship what they need, <span class="dd" data-doodle="underline">fast.</span></p>
       <div class="hero-actions"><a class="btn" href="#sides">See the work <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a></div>
     </div>
-    <div class="call-wrap">
-      <div class="call">
-        <video class="twin" id="heroTwin" src="/assets/media/twin-wave.mp4" poster="/assets/media/twin-wave-poster.webp" autoplay muted loop playsinline aria-label="My AI twin, waving"></video>
-        <span class="call-live"><i aria-hidden="true"></i>Live</span>
-        <button class="call-btn" type="button" data-open="agent">Talk to my AI twin <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button>
-      </div>
-      <p class="call-cap hand">my AI twin, live</p>
-    </div>
+    <!-- the twin: one polaroid, all of it one button. Its film waves on a loop; the phone in the corner and the caption
+         say what pressing it does -->
+    <button class="tw" type="button" data-open="agent" aria-label="Talk to my AI twin, live now">
+      <span class="tw-film">
+        <video id="heroTwin" src="/assets/media/twin-wave.mp4" poster="/assets/media/twin-wave-poster.webp" autoplay muted loop playsinline aria-hidden="true"></video>
+        <span class="tw-live" aria-hidden="true"><i></i>Live</span>
+        <span class="tw-call" aria-hidden="true"><svg viewBox="0 0 256 256"><path d="M231.88,175.08A56.26,56.26,0,0,1,176,224C96.6,224,32,159.4,32,80A56.26,56.26,0,0,1,80.92,24.12a16,16,0,0,1,16.62,9.52l21.12,47.15,0,.12A16,16,0,0,1,117.39,96c-.18.27-.37.52-.57.77L96,121.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,231.88,175.08Z"/></svg></span>
+      </span>
+      <span class="tw-cap hand" aria-hidden="true">talk to my AI twin</span>
+    </button>
   </div>
 </section>
 
 <div class="ticker" aria-hidden="true"><div class="ticker-in">
-  <span>Founding engineer at Beyond Presence</span><i>✦</i><span>CTO of a 25-person studio</span><i>✦</i><span>Four products live</span><i>✦</i><span>Yolk, my own AI device</span><i>✦</i><span>Open source for LiveKit and n8n</span><i>✦</i>
-  <span>Founding engineer at Beyond Presence</span><i>✦</i><span>CTO of a 25-person studio</span><i>✦</i><span>Four products live</span><i>✦</i><span>Yolk, my own AI device</span><i>✦</i><span>Open source for LiveKit and n8n</span><i>✦</i>
+  <span>Founding engineer at Beyond Presence</span><i>✦</i><span>Co-founder of an award-winning agency</span><i>✦</i><span>Four products live</span><i>✦</i><span>Yolk, my own AI device</span><i>✦</i><span>Open-source contributions</span><i>✦</i>
+  <span>Founding engineer at Beyond Presence</span><i>✦</i><span>Co-founder of an award-winning agency</span><i>✦</i><span>Four products live</span><i>✦</i><span>Yolk, my own AI device</span><i>✦</i><span>Open-source contributions</span><i>✦</i>
 </div></div>
 
 <!-- the short version, in his hand, written out as you scroll -->
@@ -80,7 +83,7 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
     <div class="qt-marks" aria-hidden="true"></div>
     <div class="wrap">
       <p class="chap-l">01 / The short version</p>
-      <h2 id="h-pitch" class="qt-text">Most useful when a customer is waiting and the answer doesn’t exist yet.</h2>
+      <h2 id="h-pitch" class="qt-text">Most useful when a customer is waiting and the answer <span class="qt-u">doesn’t exist yet.</span></h2>
       <p class="qt-sign hand">Shehroz, on most days</p>
     </div>
   </div>
@@ -93,9 +96,9 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
       <div class="ab-stick">
         <p class="chap-l">02 / Who to call</p>
         <h2 id="h-ab" class="ab-h">Tight deadlines are where I do my best&nbsp;work.</h2>
-        <p class="ab-lead">At Beyond Presence I own the platform behind the product, frontend and backend, and I’m in the customer meetings where what we build next gets decided. Before that I ran tech as CTO of a 25-person studio. On the side I take my own ideas from a name and a brand to paying customers.</p>
+        <p class="ab-lead">At Beyond Presence I own the platform behind the product, frontend and backend, and I’m in the customer meetings where what we build next gets decided. Before that I co-founded an award-winning agency. On the side I take my own ideas from a name and a brand to paying customers.</p>
         <dl class="ab-proof">
-          <div><dt>CodeJunkie</dt><dd>Co-founded it in my final semester and ran tech as CTO. 25 people, clients worldwide.</dd></div>
+          <div><dt>CodeJunkie</dt><dd>Co-founded it in my final semester. An award-winning agency with clients worldwide.</dd></div>
           <div><dt>Beyond Presence</dt><dd>Founding engineer since pre-seed, before there was a product.</dd></div>
           <div><dt>My own products</dt><dd>myClosr, Slaptastic, Vorsprech and NPC Filter are live. I sell them myself.</dd></div>
           <div><dt>My own device</dt><dd>Yolk, an AI device I designed, makes my phone calls in German.</dd></div>
@@ -111,34 +114,74 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
   </div>
 </section>
 
-<!-- four sides, four pages -->
+<!-- four sides, four pages. A contents list on the left says plainly what each side is and who it's for; the four
+     volumes fanned out on the right mirror it (bookshelf.js). Pick either and both follow; on wide screens the section
+     holds still while the volumes take turns on top as you scroll (sides.js, home.js) -->
 <section class="sd" id="sides" aria-labelledby="h-sides">
-  <!-- the four volumes fanned out like a hand of cards under the title (a pile on phones). Pick one and it is pulled
-       out and laid on top; the one on top opens that side in a new tab (bookshelf.js) -->
   <div class="wrap sd-wrap">
-    <div class="sd-head">
+    <div class="sd-side">
       <p class="chap-l">03 / Pick a side</p>
       <h2 id="h-sides" class="sd-h">What are you <span class="it">here for?</span></h2>
-      <p class="hand sd-pick" aria-hidden="true">pick a card, any card <span class="sd-arr">↓</span></p>
+      <p class="sd-lead">Four sides of me, one book each. Pick yours.</p>
+      <!-- the library card: each side a typed line on it, who it's for, the open one stamped ON LOAN with today's date
+           in the DATE DUE column, and what's inside it below (sides.js keeps it in step with the books). His own
+           pencil notes on it are doodles anchored to "library-card" (doodle-editor.js) -->
+      <div class="lc" data-anchor="library-card">
+        <p class="lc-head" aria-hidden="true"><span>Shehroz Sajjad</span><span>Collected works · 4 vols.</span></p>
+        <p class="lc-cols" aria-hidden="true"><span>Vol.</span><span>Title</span><span>For readers who…</span><span>Date due</span></p>
+        <div class="lc-rows" role="tablist" aria-label="The four sides" aria-orientation="vertical">
+          <button class="lc-row" type="button" role="tab" id="sx-b0" aria-selected="true" aria-controls="sx-p0">
+            <span class="lc-n">01</span><span class="lc-t">Engineering</span><span class="lc-for"><span class="sr">for readers who </span>need a platform built and owned</span>
+            <span class="lc-stamp" aria-hidden="true"><span class="ls-a">On loan</span><span class="ls-d" data-today>07 Nov 2026</span><span class="ls-v">Vol. 01</span></span>
+          </button>
+          <button class="lc-row" type="button" role="tab" id="sx-b1" aria-selected="false" aria-controls="sx-p1" tabindex="-1">
+            <span class="lc-n">02</span><span class="lc-t">Design</span><span class="lc-for"><span class="sr">for readers who </span>need a brand, an interface or a film</span>
+            <span class="lc-stamp" aria-hidden="true"><span class="ls-a">On loan</span><span class="ls-d" data-today>07 Nov 2026</span><span class="ls-v">Vol. 02</span></span>
+          </button>
+          <button class="lc-row" type="button" role="tab" id="sx-b2" aria-selected="false" aria-controls="sx-p2" tabindex="-1">
+            <span class="lc-n">03</span><span class="lc-t">AI products</span><span class="lc-for"><span class="sr">for readers who </span>want AI that real people pay for</span>
+            <span class="lc-stamp" aria-hidden="true"><span class="ls-a">On loan</span><span class="ls-d" data-today>07 Nov 2026</span><span class="ls-v">Vol. 03</span></span>
+          </button>
+          <button class="lc-row" type="button" role="tab" id="sx-b3" aria-selected="false" aria-controls="sx-p3" tabindex="-1">
+            <span class="lc-n">04</span><span class="lc-t">Hardware</span><span class="lc-for"><span class="sr">for readers who </span>want to see AI leave the screen</span>
+            <span class="lc-stamp" aria-hidden="true"><span class="ls-a">On loan</span><span class="ls-d" data-today>07 Nov 2026</span><span class="ls-v">Vol. 04</span></span>
+          </button>
+        </div>
+        <div class="lc-out">
+          <div class="lc-p" role="tabpanel" id="sx-p0" aria-labelledby="sx-b0">
+            <a class="btn lc-go" href="/code">See my engineering work <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>
+          </div>
+          <div class="lc-p" role="tabpanel" id="sx-p1" aria-labelledby="sx-b1">
+            <a class="btn lc-go" href="/design">See my design work <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>
+          </div>
+          <div class="lc-p" role="tabpanel" id="sx-p2" aria-labelledby="sx-b2">
+            <a class="btn lc-go" href="/ai">See the AI products I built <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>
+          </div>
+          <div class="lc-p" role="tabpanel" id="sx-p3" aria-labelledby="sx-b3">
+            <a class="btn lc-go" href="/hardware">See the hardware I built <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="bookshelf">
+      <p class="hand sd-pick" aria-hidden="true">pick one,<br>then open it<svg viewBox="0 0 60 40"><path d="M4 6 C 22 6, 44 14, 54 34 M54 34 L 44 30 M54 34 L 56 23"/></svg></p>
       <ol class="books">
-        <li style="--d:0;--r:-2deg"><a class="book b-ink" href="/code" target="_blank" rel="noopener" data-inside="Beyond Presence’s creator and call platforms, my years as CTO of a 25-person studio, and open source for LiveKit and n8n." aria-label="Engineering: Platforms, real-time AI and the code under them. (opens in a new tab)">
+        <li style="--d:0;--r:-2deg"><a class="book b-ink" href="/code" tabindex="-1" aria-hidden="true">
           <span class="book-3d" aria-hidden="true">
             <span class="spine"><span class="sp-n">01</span><span class="sp-t">Engineering</span><span class="sp-a">S. Sajjad</span></span>
-            <span class="cover"><span class="cv-n">Vol. 01</span><span class="cv-t">Engineering</span><span class="cv-d">Platforms, real-time AI and the code under them.</span><span class="hand cv-h">founding engineer, ex-CTO</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-think-anim.webp" alt="" width="199" height="484" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
+            <span class="cover"><span class="cv-n">Vol. 01</span><span class="cv-t">Engineering</span><span class="cv-d">Platforms, real-time AI and the code under them.</span><span class="hand cv-h">founding engineer, co-founder</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-think-anim.webp" alt="" width="199" height="484" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
           </span><span class="stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#i-stamp"/></svg><svg class="stamp-ar" viewBox="0 0 16 16"><use href="#i-ne"/></svg></span></a></li>
-        <li style="--d:1;--r:1.6deg"><a class="book b-blue" href="/design" target="_blank" rel="noopener" data-inside="Brands, interfaces and launch films for my own products, plus posters and photography." aria-label="Design: Brands, interfaces and films, made by the hands that build them. (opens in a new tab)">
+        <li style="--d:1;--r:1.6deg"><a class="book b-blue" href="/design" tabindex="-1" aria-hidden="true">
           <span class="book-3d" aria-hidden="true">
             <span class="spine"><span class="sp-n">02</span><span class="sp-t">Design</span><span class="sp-a">S. Sajjad</span></span>
             <span class="cover"><span class="cv-n">Vol. 02</span><span class="cv-t">Design</span><span class="cv-d">Brands, interfaces and films, made by the hands that build them.</span><span class="hand cv-h">where I started</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-draw-anim.webp" alt="" width="302" height="436" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
           </span><span class="stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#i-stamp"/></svg><svg class="stamp-ar" viewBox="0 0 16 16"><use href="#i-ne"/></svg></span></a></li>
-        <li style="--d:2;--r:-1.2deg"><a class="book b-print" href="/ai" target="_blank" rel="noopener" data-inside="Slaptastic, Vorsprech, myClosr and NPC Filter, all live, and RoomRush, with why I stopped it." aria-label="AI products: Applied AI, built on my own and put in front of real people. (opens in a new tab)">
+        <li style="--d:2;--r:-1.2deg"><a class="book b-print" href="/ai" tabindex="-1" aria-hidden="true">
           <span class="book-3d" aria-hidden="true">
             <span class="spine"><span class="sp-n">03</span><span class="sp-t">AI products</span><span class="sp-a">S. Sajjad</span></span>
             <span class="cover"><span class="cv-n">Vol. 03</span><span class="cv-t">AI products</span><span class="cv-d">Applied AI, built on my own and put in front of real people.</span><span class="hand cv-h">four of them live</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" width="248" height="481" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
           </span><span class="stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#i-stamp"/></svg><svg class="stamp-ar" viewBox="0 0 16 16"><use href="#i-ne"/></svg></span></a></li>
-        <li style="--d:3;--r:2.4deg"><a class="book b-navy" href="/hardware" target="_blank" rel="noopener" data-inside="Yolk, the AI device that makes my German phone calls, TARS the desk robot, and software for a medical device." aria-label="Hardware: Where the AI leaves the screen. (opens in a new tab)">
+        <li style="--d:3;--r:2.4deg"><a class="book b-navy" href="/hardware" tabindex="-1" aria-hidden="true">
           <span class="book-3d" aria-hidden="true">
             <span class="spine"><span class="sp-n">04</span><span class="sp-t">Hardware</span><span class="sp-a">S. Sajjad</span></span>
             <span class="cover"><span class="cv-n">Vol. 04</span><span class="cv-t">Hardware</span><span class="cv-d">Where the AI leaves the screen.</span><span class="hand cv-h">Yolk, TARS and more</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-solder-anim.webp" alt="" width="260" height="431" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
@@ -234,10 +277,10 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
   <nav class="menu-in" aria-label="Main">
     <ol class="menu-list">
       <li><a href="/" aria-current="page" data-spr="wave" data-bg="var(--paper)" data-fg="var(--ink)" data-say="the short version"><span class="ml-n">00</span><span class="ml-t">Home</span></a></li>
-      <li><a href="/code" data-spr="think" data-bg="#111113" data-fg="#F8F5EC" data-say="founding engineer, ex-CTO"><span class="ml-n">01</span><span class="ml-t">Engineering</span></a></li>
+      <li><a href="/code" data-spr="think" data-bg="#111113" data-fg="#F8F5EC" data-say="founding engineer, co-founder"><span class="ml-n">01</span><span class="ml-t">Engineering</span></a></li>
       <li><a href="/design" data-spr="draw" data-bg="#2D2BE0" data-fg="#FFFFFF" data-say="where I started"><span class="ml-n">02</span><span class="ml-t">Design</span></a></li>
-      <li><a href="/ai" data-spr="wave" data-bg="#F1EADC" data-fg="#2B2620" data-say="four of them live"><span class="ml-n">03</span><span class="ml-t">AI products</span></a></li>
-      <li><a href="/hardware" data-spr="solder" data-bg="#1a1a5c" data-fg="#F1F1EC" data-say="Yolk, TARS and more"><span class="ml-n">04</span><span class="ml-t">Hardware</span></a></li>
+      <li><a href="/ai" data-spr="wave" data-bg="#1F1D9E" data-fg="#F3F1EA" data-say="four of them live"><span class="ml-n">03</span><span class="ml-t">AI products</span></a></li>
+      <li><a href="/hardware" data-spr="solder" data-bg="#0F0F3D" data-fg="#F1F1EC" data-say="Yolk, TARS and more"><span class="ml-n">04</span><span class="ml-t">Hardware</span></a></li>
       <li><a href="/story" data-spr="camera" data-bg="#F8F5EC" data-fg="#111113" data-say="from Photoshop to now"><span class="ml-n">05</span><span class="ml-t">The long story</span></a></li>
     </ol>
     <figure class="menu-card" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" width="248" height="481"><figcaption class="hand">the short version</figcaption></figure>
@@ -254,29 +297,40 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
   </nav>
 </div>
 
-<button class="fab" id="fab" type="button" data-open="agent"><span class="fab-face" aria-hidden="true"><video src="/assets/media/twin-wave-thumb.mp4" poster="/assets/media/twin-wave-poster.webp" muted loop playsinline preload="none"></video><i></i></span>Ask my AI self</button>
+<!-- the floating twin: the hero's polaroid in miniature, there once the hero has scrolled away -->
+<button class="fab tw-fab" id="fab" type="button" data-open="agent" aria-label="Talk to my AI twin, live now"><span class="fab-face" aria-hidden="true"><video src="/assets/media/twin-wave-thumb.mp4" poster="/assets/media/twin-wave-poster.webp" muted loop playsinline preload="metadata"></video><i></i></span><span class="tw-fab-cap hand" aria-hidden="true">AI twin</span></button>
 <button class="fab-tip hand" id="fabTip" type="button" data-open="agent" tabindex="-1" aria-hidden="true"></button>
 <div class="scrim" id="scrim"></div>
-<aside role="dialog" aria-modal="true" class="drawer" id="agent" aria-label="Talk to my AI twin" aria-hidden="true">
-  <div class="d-head"><p class="kicker">Talk to my AI twin</p><button class="x" type="button" data-close aria-label="Close">×</button></div>
-  <div class="d-ph d-call">
-    <video class="twin" id="twinVideo" muted autoplay playsinline aria-label="My AI twin, live"></video>
-    <div class="d-screen" id="twinScreen" role="status"><span class="d-loader" aria-hidden="true"><i></i><i></i><i></i></span><p id="twinScreenText">Calling my twin…</p><button class="btn" id="twinAgain" type="button" hidden>Call again</button></div>
-    <p class="d-live" id="twinLive" hidden></p>
-    <button class="d-sound" id="twinSound" type="button" hidden>Tap for sound</button>
-    <button class="d-mic" id="twinMic" type="button" aria-pressed="false" hidden>Use my mic</button>
+<!-- the twin's call (twin-drawer.js): a sheet of the page's paper, the call as a print, his questions as ruled lines,
+     the twin's answers in his hand. Its look is in twin.css; the ids are the ones twin-drawer.js wires -->
+<aside role="dialog" aria-modal="true" class="drawer twd" id="agent" aria-labelledby="twd-h" aria-hidden="true">
+  <div class="twd-head">
+    <h2 id="twd-h" class="twd-h">Talk to my <span class="it">AI twin</span></h2>
+    <button class="twd-x" type="button" data-close aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5 12.5 12.5M12.5 3.5 3.5 12.5"/></svg></button>
   </div>
-  <p class="d-note">A live AI version of me that answers from my notes, and can get things wrong. Type or tap a question; your mic stays off unless you turn it on. Calls end after three minutes.</p>
-  <div class="qs">
+  <figure class="twd-print">
+    <div class="d-ph d-call">
+      <video class="twin" id="twinVideo" muted autoplay playsinline aria-label="My AI twin, live"></video>
+      <div class="d-screen" id="twinScreen" role="status"><video class="twd-wait" id="twinWait" src="/assets/media/twin-wave.mp4" poster="/assets/media/twin-wave-poster.webp" muted loop playsinline preload="none" aria-hidden="true"></video><span class="d-loader" aria-hidden="true"><i></i><i></i><i></i></span><p id="twinScreenText">Calling my twin…</p><button class="twd-again" id="twinAgain" type="button" hidden>Call again</button><a class="twd-mail" id="twinMail" href="mailto:mshehrozsajjad@gmail.com" hidden>or email the real me</a></div>
+      <p class="d-live" id="twinLive" hidden></p>
+      <button class="d-sound" id="twinSound" type="button" hidden>Tap for sound</button>
+      <!-- the call's controls, on the film like the clock: icon only, bottom right -->
+      <div class="twd-ctl">
+        <button class="d-mic twd-ic" id="twinMic" type="button" aria-pressed="false" aria-label="Turn my mic on" hidden><svg class="i-off" viewBox="0 0 256 256" aria-hidden="true"><path d="M213.38,229.92a8,8,0,0,1-11.3-.54l-30.92-34A78.83,78.83,0,0,1,136,207.59V240a8,8,0,0,1-16,0V207.6A80.11,80.11,0,0,1,48,128a8,8,0,0,1,16,0,64.07,64.07,0,0,0,64,64,63.41,63.41,0,0,0,32.21-8.68l-11.1-12.2A48,48,0,0,1,80,128V95.09L42.08,53.38A8,8,0,0,1,53.92,42.62l160,176A8,8,0,0,1,213.38,229.92Zm-24.19-63.13a7.88,7.88,0,0,0,3.51.82,8,8,0,0,0,7.19-4.49A79.16,79.16,0,0,0,208,128a8,8,0,0,0-16,0,63.32,63.32,0,0,1-6.48,28.09A8,8,0,0,0,189.19,166.79Zm-27.33-29.22A8,8,0,0,0,175.74,133a49.49,49.49,0,0,0,.26-5V64A48,48,0,0,0,84,44.87a8,8,0,0,0,1.41,8.57Z"/></svg><svg class="i-on" viewBox="0 0 256 256" aria-hidden="true"><path d="M80,128V64a48,48,0,0,1,96,0v64a48,48,0,0,1-96,0Zm128,0a8,8,0,0,0-16,0,64,64,0,0,1-128,0,8,8,0,0,0-16,0,80.11,80.11,0,0,0,72,79.6V240a8,8,0,0,0,16,0V207.6A80.11,80.11,0,0,0,208,128Z"/></svg></button>
+        <button class="d-end twd-ic twd-hang" id="twinEnd" type="button" aria-label="End call" hidden><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M236.28,161.84a16,16,0,0,1-18.38,5.06l-49-17.39-.29-.11a16,16,0,0,1-9.72-11.59l-6.21-29.75h0a76.52,76.52,0,0,0-49.68.11l-5.9,29.52a16,16,0,0,1-9.75,11.73l-.29.11-49,17.37A15.8,15.8,0,0,1,32.35,168a16,16,0,0,1-12.63-6.14c-17.23-22.22-15.3-51.71,4.69-71.71,56.15-56.17,151-56.17,207.18,0h0C251.58,110.13,253.51,139.62,236.28,161.84ZM216,192H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg></button>
+      </div>
+    </div>
+    <figcaption class="twd-cap hand">answers from my notes</figcaption>
+  </figure>
+  <p class="d-note twd-note">It’s AI, so it can get things wrong.</p>
+  <div class="qs twd-qs">
     <button class="q" type="button">What are you working on now?</button>
     <button class="q" type="button">Which of your products are live?</button>
     <button class="q" type="button">What have you built that I can hold?</button>
-    <button class="q" type="button">Do you design too?</button>
-    <button class="q" type="button">What have you open-sourced?</button>
     <button class="q" type="button">Can we work together?</button>
   </div>
   <div class="log" id="log" aria-live="polite"></div>
-  <form class="d-form" id="askForm" autocomplete="off"><label for="askInput" class="sr">Your question</label><input id="askInput" placeholder="Ask me anything…"><button class="btn" type="submit">Ask</button></form>
+  <form class="d-form twd-form" id="askForm" autocomplete="off"><label for="askInput" class="sr">Your question</label><input id="askInput" placeholder="Ask me anything…"><button type="submit" aria-label="Ask"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button></form>
 </aside>
 <script type="module" src="/src/pages.js"></script>
 <script type="module" src="/src/home.js"></script>

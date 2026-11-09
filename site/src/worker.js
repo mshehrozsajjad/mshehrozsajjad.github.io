@@ -26,8 +26,9 @@ async function contributions(ctx){
 /* /api/twin: starts a live call with Shehroz's AI twin (a Beyond Presence managed agent).
    The browser never sees the API key: the worker asks Beyond Presence for a LiveKit room and hands back only the room's
    address and a join token. Basic protection against bots: the request has to come from this site, and each visitor can
-   start one call every COOLDOWN seconds. Settings: BEY_API_KEY (secret), BEY_AGENT_ID and BEY_API_URL (wrangler.jsonc). */
-const COOLDOWN = 30;
+   start CALLS calls (each one a billed session) in any WINDOW seconds, so hanging up and calling straight back works,
+   but a script can't run up the bill. Settings: BEY_API_KEY (secret), BEY_AGENT_ID and BEY_API_URL (wrangler.jsonc). */
+const CALLS = 4, WINDOW = 600;
 const BEY_ERRORS = {402: 'unavailable', 429: 'busy'};   // plan limit reached, too many calls at once
 async function twin(request, env){
   if (request.method !== 'POST') return Response.json({error: 'method'}, {status: 405});
@@ -35,8 +36,12 @@ async function twin(request, env){
   if (!origin || new URL(origin).host !== new URL(request.url).host) return Response.json({error: 'forbidden'}, {status: 403});
   if (!env.BEY_API_KEY || !env.BEY_AGENT_ID) return Response.json({error: 'unavailable'}, {status: 503});
 
+  // this visitor's calls in the current window: {n, start}
   const cache = caches.default, key = new Request(`https://cache.internal/twin/${encodeURIComponent(request.headers.get('cf-connecting-ip') || 'local')}`);
-  if (await cache.match(key)) return Response.json({error: 'wait', retry: COOLDOWN}, {status: 429});
+  const now = Date.now();
+  let tally = await (await cache.match(key))?.json().catch(() => null);
+  if (!tally || now - tally.start >= WINDOW * 1000) tally = {n: 0, start: now};
+  if (tally.n >= CALLS) return Response.json({error: 'wait', retry: Math.ceil((tally.start + WINDOW * 1000 - now) / 1000)}, {status: 429});
 
   let res;
   try {
@@ -54,7 +59,9 @@ async function twin(request, env){
     return Response.json({error: BEY_ERRORS[res.status] || 'error'}, {status: 502});
   }
   const room = await res.json();
-  await cache.put(key, new Response('1', {headers: {'cache-control': `max-age=${COOLDOWN}`}}));
+  tally.n += 1;   // counted only once a call was really made
+  const left = Math.ceil((tally.start + WINDOW * 1000 - now) / 1000);
+  await cache.put(key, Response.json(tally, {headers: {'cache-control': `max-age=${left}`}}));
   return Response.json({url: room.livekit_url, token: room.livekit_token}, {headers: {'cache-control': 'no-store'}});
 }
 
