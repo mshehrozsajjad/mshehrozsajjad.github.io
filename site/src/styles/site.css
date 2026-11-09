@@ -510,7 +510,7 @@ main{position:relative;overflow-x:clip}
 .d-loader i:nth-child(2){animation-delay:.6s}
 .d-loader i:nth-child(3){animation-delay:1.2s}
 @keyframes d-ring{0%{transform:scale(.2);opacity:1}100%{transform:scale(1.25);opacity:0}}
-[data-call=ended] .d-loader,[data-call=error] .d-loader{display:none}
+[data-call=ended] .d-loader,[data-call=error] .d-loader,[data-call=waiting] .d-loader{display:none}
 @media (prefers-reduced-motion:reduce){.d-loader i{animation:none;opacity:.6;transform:scale(.8)}}
 .d-sound{position:absolute;left:50%;top:50%;translate:-50% -50%;min-height:44px;padding:0 18px;border:0;border-radius:999px;background:var(--signal);color:var(--on-signal);font:600 var(--fs-s)/1 var(--sans);cursor:pointer}
 .d-live{position:absolute;left:12px;top:12px;margin:0;padding:7px 11px;border-radius:999px;background:color-mix(in srgb,var(--ink) 72%,transparent);color:var(--paper);font:600 var(--fs-xs)/1 var(--sans);font-variant-numeric:tabular-nums}

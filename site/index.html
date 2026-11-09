@@ -311,7 +311,7 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
   <figure class="twd-print">
     <div class="d-ph d-call">
       <video class="twin" id="twinVideo" muted autoplay playsinline aria-label="My AI twin, live"></video>
-      <div class="d-screen" id="twinScreen" role="status"><span class="d-loader" aria-hidden="true"><i></i><i></i><i></i></span><p id="twinScreenText">Calling my twin…</p><button class="twd-again" id="twinAgain" type="button" hidden>Call again</button><a class="twd-mail" id="twinMail" href="mailto:mshehrozsajjad@gmail.com" hidden>or email the real me</a></div>
+      <div class="d-screen" id="twinScreen" role="status"><video class="twd-wait" id="twinWait" src="/assets/media/twin-wave.mp4" poster="/assets/media/twin-wave-poster.webp" muted loop playsinline preload="none" aria-hidden="true"></video><span class="d-loader" aria-hidden="true"><i></i><i></i><i></i></span><p id="twinScreenText">Calling my twin…</p><button class="twd-again" id="twinAgain" type="button" hidden>Call again</button><a class="twd-mail" id="twinMail" href="mailto:mshehrozsajjad@gmail.com" hidden>or email the real me</a></div>
       <p class="d-live" id="twinLive" hidden></p>
       <button class="d-sound" id="twinSound" type="button" hidden>Tap for sound</button>
       <button class="d-mic" id="twinMic" type="button" aria-pressed="false" hidden>Use my mic</button>
