@@ -38,7 +38,7 @@ export function mountTwin(drawer) {
     again.hidden = !['ended', 'error'].includes(state);
     again.textContent = state === 'error' ? 'Try again' : 'Call again';
     if (mail) mail.hidden = state !== 'error';
-    if (endBtn) endBtn.hidden = !['calling', 'waiting', 'live'].includes(state);   // a call being made, waited for or under way can be hung up
+    if (endBtn) endBtn.hidden = !['calling', 'live'].includes(state);   // a call being made or under way can be hung up
     // behind the screen, his waving loop plays while there's no twin to show
     if (waitFilm) { if (state !== 'live' && isOpen && !stillMotion) waitFilm.play().catch(() => {}); else waitFilm.pause(); }   // the way to the real him, said once, on the screen
     micBtn.hidden = state !== 'live';
@@ -84,8 +84,7 @@ export function mountTwin(drawer) {
     call = null;
     listening = false;
     queue = [];
-    micBtn.setAttribute('aria-pressed', 'false');
-    micBtn.textContent = 'Use my mic';
+    setMic(false);
     const why = failed;
     failed = '';
     if (!isOpen) return;
@@ -145,12 +144,14 @@ export function mountTwin(drawer) {
         starting = null;
         if (!isOpen || e.code === 'cancelled') return;
         if (e.code === 'wait') {   // a call was started only seconds ago: say so, count down, then call by itself
+          // a few calls in a row from here: say how long until the next, and let them call when it's time
           let secs = e.retry || 10;
-          const say = () => { screenText.textContent = `You called a moment ago. Calling again in ${secs}s…`; };
+          const mmss = s => s >= 60 ? `${Math.ceil(s / 60)} min` : `${s}s`;
+          const say = () => { screenText.textContent = `That’s a few calls in a row. You can call again in ${mmss(secs)}.`; };
           show('waiting');
           say();
           clearInterval(waitTick);
-          waitTick = setInterval(() => { secs -= 1; if (secs > 0) say(); else { clearInterval(waitTick); begin(false); } }, 1000);
+          waitTick = setInterval(() => { secs -= 1; if (secs > 0) say(); else { clearInterval(waitTick); show('ended', 'You can call again now.'); } }, 1000);
           return;
         }
         queue = [];
@@ -182,13 +183,19 @@ export function mountTwin(drawer) {
     show('ended', 'The call ended.');
   }
 
+  function setMic(on) {
+    micBtn.setAttribute('aria-pressed', String(on));
+    micBtn.setAttribute('aria-label', on ? 'Turn my mic off' : 'Turn my mic on');
+    const l = micBtn.querySelector('.twd-l');
+    if (l) l.textContent = on ? 'Mic on' : 'Mic off';
+  }
+
   async function toggleMic() {
     if (!call) return;
     const on = micBtn.getAttribute('aria-pressed') !== 'true';
     try {
       await call.mic(on);
-      micBtn.setAttribute('aria-pressed', String(on));
-      micBtn.textContent = on ? 'Mic on' : 'Use my mic';
+      setMic(on);
     } catch (_) {
       note('I couldn’t use your mic. You can still type your questions.');
     }
