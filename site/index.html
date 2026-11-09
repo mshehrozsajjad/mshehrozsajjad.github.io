@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="/src/styles/pages.css">
 <link rel="stylesheet" href="/src/styles/home.css">
 <link rel="stylesheet" href="/src/styles/menu.css">
+<link rel="stylesheet" href="/src/styles/twin.css">
 <link rel="preload" href="/fonts/shehroz-hand.woff2" as="font" type="font/woff2" crossorigin>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('js');
 // the entrance's safety net: if home.js never started it, take the cover away
@@ -299,26 +300,33 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 <button class="fab" id="fab" type="button" data-open="agent"><span class="fab-face" aria-hidden="true"><video src="/assets/media/twin-wave-thumb.mp4" poster="/assets/media/twin-wave-poster.webp" muted loop playsinline preload="none"></video><i></i></span>Ask my AI self</button>
 <button class="fab-tip hand" id="fabTip" type="button" data-open="agent" tabindex="-1" aria-hidden="true"></button>
 <div class="scrim" id="scrim"></div>
-<aside role="dialog" aria-modal="true" class="drawer" id="agent" aria-label="Talk to my AI twin" aria-hidden="true">
-  <div class="d-head"><p class="kicker">Talk to my AI twin</p><button class="x" type="button" data-close aria-label="Close">×</button></div>
-  <div class="d-ph d-call">
-    <video class="twin" id="twinVideo" muted autoplay playsinline aria-label="My AI twin, live"></video>
-    <div class="d-screen" id="twinScreen" role="status"><span class="d-loader" aria-hidden="true"><i></i><i></i><i></i></span><p id="twinScreenText">Calling my twin…</p><button class="btn" id="twinAgain" type="button" hidden>Call again</button></div>
-    <p class="d-live" id="twinLive" hidden></p>
-    <button class="d-sound" id="twinSound" type="button" hidden>Tap for sound</button>
-    <button class="d-mic" id="twinMic" type="button" aria-pressed="false" hidden>Use my mic</button>
+<!-- the twin's call (twin-drawer.js): a sheet of the page's paper, the call as a print, his questions as ruled lines,
+     the twin's answers in his hand. Its look is in twin.css; the ids are the ones twin-drawer.js wires -->
+<aside role="dialog" aria-modal="true" class="drawer twd" id="agent" aria-labelledby="twd-h" aria-hidden="true">
+  <div class="twd-head">
+    <p class="chap-l">Live call · up to 3 min</p>
+    <button class="twd-x" type="button" data-close aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5 12.5 12.5M12.5 3.5 3.5 12.5"/></svg></button>
   </div>
-  <p class="d-note">A live AI version of me that answers from my notes, and can get things wrong. Type or tap a question; your mic stays off unless you turn it on. Calls end after three minutes.</p>
-  <div class="qs">
+  <h2 id="twd-h" class="twd-h">Talk to my <span class="it">AI twin</span></h2>
+  <figure class="twd-print">
+    <div class="d-ph d-call">
+      <video class="twin" id="twinVideo" muted autoplay playsinline aria-label="My AI twin, live"></video>
+      <div class="d-screen" id="twinScreen" role="status"><span class="d-loader" aria-hidden="true"><i></i><i></i><i></i></span><p id="twinScreenText">Calling my twin…</p><button class="twd-again" id="twinAgain" type="button" hidden>Call again</button><a class="twd-mail" id="twinMail" href="mailto:mshehrozsajjad@gmail.com" hidden>or email the real me</a></div>
+      <p class="d-live" id="twinLive" hidden></p>
+      <button class="d-sound" id="twinSound" type="button" hidden>Tap for sound</button>
+      <button class="d-mic" id="twinMic" type="button" aria-pressed="false" hidden>Use my mic</button>
+    </div>
+    <figcaption class="twd-cap hand">answers from my notes</figcaption>
+  </figure>
+  <p class="d-note twd-note">It’s AI, so it can get things wrong · mic stays off</p>
+  <div class="qs twd-qs">
     <button class="q" type="button">What are you working on now?</button>
     <button class="q" type="button">Which of your products are live?</button>
     <button class="q" type="button">What have you built that I can hold?</button>
-    <button class="q" type="button">Do you design too?</button>
-    <button class="q" type="button">What have you open-sourced?</button>
     <button class="q" type="button">Can we work together?</button>
   </div>
   <div class="log" id="log" aria-live="polite"></div>
-  <form class="d-form" id="askForm" autocomplete="off"><label for="askInput" class="sr">Your question</label><input id="askInput" placeholder="Ask me anything…"><button class="btn" type="submit">Ask</button></form>
+  <form class="d-form twd-form" id="askForm" autocomplete="off"><label for="askInput" class="sr">Your question</label><input id="askInput" placeholder="Ask me anything…"><button type="submit" aria-label="Ask"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button></form>
 </aside>
 <script type="module" src="/src/pages.js"></script>
 <script type="module" src="/src/home.js"></script>

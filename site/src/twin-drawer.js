@@ -14,7 +14,7 @@ const SHOW_UP = 45;   // seconds after connecting for the twin's video to appear
 export function mountTwin(drawer) {
   const $ = s => drawer.querySelector(s);
   const log = $('#log'), video = $('#twinVideo'), live = $('#twinLive'), micBtn = $('#twinMic'), input = $('#askInput');
-  const screen = $('#twinScreen'), screenText = $('#twinScreenText'), again = $('#twinAgain'), soundBtn = $('#twinSound');
+  const screen = $('#twinScreen'), screenText = $('#twinScreenText'), again = $('#twinAgain'), soundBtn = $('#twinSound'), mail = $('#twinMail');
   let twin = null;       // the twin.js module (fetched ahead, on the first hover or focus of a "talk to my twin" button)
   let isOpen = false;
   let call = null;       // the call in progress
@@ -35,6 +35,7 @@ export function mountTwin(drawer) {
     screenText.textContent = text;
     again.hidden = !['ended', 'error'].includes(state);
     again.textContent = state === 'error' ? 'Try again' : 'Call again';
+    if (mail) mail.hidden = state !== 'error';   // the way to the real him, said once, on the screen
     micBtn.hidden = state !== 'live';
     if (state !== 'live') { live.hidden = true; soundBtn.hidden = true; }
     if (state === 'live') clearTimeout(showUp);
@@ -83,7 +84,7 @@ export function mountTwin(drawer) {
     const why = failed;
     failed = '';
     if (!isOpen) return;
-    if (why) { show('error', WHY[why]); note(WHY[why], true); }
+    if (why) show('error', WHY[why]);
     else show('ended', timeUp ? 'That’s the three minutes.' : 'The call ended.');
   }
 
@@ -135,7 +136,6 @@ export function mountTwin(drawer) {
         }
         queue = [];
         show('error', WHY[e.code] || WHY.error);
-        note(WHY[e.code] || WHY.error, true);
       });
     return starting;
   }
