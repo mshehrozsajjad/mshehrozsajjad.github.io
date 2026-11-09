@@ -14,7 +14,7 @@ const SHOW_UP = 45;   // seconds after connecting for the twin's video to appear
 export function mountTwin(drawer) {
   const $ = s => drawer.querySelector(s);
   const log = $('#log'), video = $('#twinVideo'), live = $('#twinLive'), micBtn = $('#twinMic'), input = $('#askInput');
-  const screen = $('#twinScreen'), screenText = $('#twinScreenText'), again = $('#twinAgain'), soundBtn = $('#twinSound'), mail = $('#twinMail');
+  const screen = $('#twinScreen'), screenText = $('#twinScreenText'), again = $('#twinAgain'), soundBtn = $('#twinSound'), mail = $('#twinMail'), endBtn = $('#twinEnd');
   let twin = null;       // the twin.js module (fetched ahead, on the first hover or focus of a "talk to my twin" button)
   let isOpen = false;
   let call = null;       // the call in progress
@@ -35,7 +35,8 @@ export function mountTwin(drawer) {
     screenText.textContent = text;
     again.hidden = !['ended', 'error'].includes(state);
     again.textContent = state === 'error' ? 'Try again' : 'Call again';
-    if (mail) mail.hidden = state !== 'error';   // the way to the real him, said once, on the screen
+    if (mail) mail.hidden = state !== 'error';
+    if (endBtn) endBtn.hidden = !['calling', 'live'].includes(state);   // a call being made or under way can be hung up   // the way to the real him, said once, on the screen
     micBtn.hidden = state !== 'live';
     if (state !== 'live') { live.hidden = true; soundBtn.hidden = true; }
     if (state === 'live') clearTimeout(showUp);
@@ -96,9 +97,17 @@ export function mountTwin(drawer) {
   }
 
   // Starts a call, or joins the one being set up. Best run inside a click: audio may only be unlocked there.
-  function begin() {
+  // Each call starts with no memory of the last, so a fresh call starts with a clean page too (a retry of the same
+  // attempt keeps what was asked).
+  function fresh() {
+    log.replaceChildren();
+    lines.clear();
+    drawer.classList.remove('talking');
+  }
+  function begin(clean = true) {
     if (call || starting || !isOpen) return starting;
     clearTimeout(retry);
+    if (clean) fresh();
     show('calling', 'Calling my twin…');
     const mine = ++attempt, abort = hangUp = new AbortController();
     const dial = () => twin.startCall({video, onCaption: caption, onEnd: ended, onSoundBlocked: b => { soundBtn.hidden = !b; }, signal: abort.signal});
@@ -131,7 +140,7 @@ export function mountTwin(drawer) {
         if (!isOpen || e.code === 'cancelled') return;
         if (e.code === 'wait') {   // the last call was only seconds ago: wait it out instead of failing
           show('calling', 'Calling my twin…');
-          retry = setTimeout(begin, (e.retry || 10) * 1000);
+          retry = setTimeout(() => begin(false), (e.retry || 10) * 1000);
           return;
         }
         queue = [];
@@ -143,10 +152,23 @@ export function mountTwin(drawer) {
   function ask(text) {
     text = text.trim();
     if (!text) return;
+    if (!call && !starting) begin();   // no call: this question starts a new one (and a clean page) first
     drawer.classList.add('talking');   // the conversation takes the room the intro and the question list had
     bubble(text, 'me');
     if (listening) call.send(text);
-    else { queue.push(text); begin(); }
+    else queue.push(text);
+  }
+
+  // hanging up: a call under way ends as usual; one still being made is dropped
+  function hangup() {
+    if (call) return call.end();
+    clearTimeout(retry);
+    hangUp?.abort();
+    hangUp = null;
+    starting = null;
+    attempt++;
+    queue = [];
+    show('ended', 'The call ended.');
   }
 
   async function toggleMic() {
@@ -164,7 +186,8 @@ export function mountTwin(drawer) {
   drawer.querySelectorAll('.q').forEach(b => b.addEventListener('click', () => ask(b.textContent)));
   $('#askForm').addEventListener('submit', e => { e.preventDefault(); ask(input.value); input.value = ''; });
   micBtn.addEventListener('click', toggleMic);
-  again.addEventListener('click', begin);
+  again.addEventListener('click', () => begin());
+  endBtn?.addEventListener('click', hangup);
   soundBtn.addEventListener('click', () => call?.unmute().then(() => { soundBtn.hidden = true; }).catch(() => {}));
   addEventListener('pagehide', () => call?.end());
 
