@@ -1,5 +1,5 @@
 /* Film grain over the whole page, the way npcfilter.com does it: a tiled noise layer at low opacity.
-   Fixed so it stays still while the page moves. Above content, below the fab (40) and drawers (70). */
+   Fixed so it stays still while the page moves. Above content, below the fab (40) and drawers (170). */
 body::after{content:"";position:fixed;inset:0;z-index:30;pointer-events:none;background:url("/grain.svg") repeat;opacity:var(--grain,.12)}
 :root[data-theme="dark"]{--grain:.1}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--grain:.1}}

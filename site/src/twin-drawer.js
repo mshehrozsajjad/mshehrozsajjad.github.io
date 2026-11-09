@@ -7,7 +7,9 @@ const WHY = {   // what to say when a call can't start, by the code /api/twin an
   busy: 'My twin is in another call right now.',
   unavailable: 'My twin is offline at the moment.',
   error: 'I couldn’t reach my twin just now.',
+  timeout: 'My twin didn’t pick up.',
 };
+const SHOW_UP = 45;   // seconds after connecting for the twin's video to appear before the call counts as failed
 
 export function mountTwin(drawer) {
   const $ = s => drawer.querySelector(s);
@@ -20,6 +22,10 @@ export function mountTwin(drawer) {
   let listening = false; // the twin has joined and hears what is sent
   let queue = [];        // questions asked before the twin was listening
   let left = 0, clock = 0, retry = 0;
+  let attempt = 0;       // which call attempt is current, so a stale one that finishes late is ignored
+  let hangUp = null;     // aborts the attempt being set up
+  let failed = '';       // why the current call is being ended as a failure, if it is
+  let showUp = 0;
   const lines = new Map();   // caption id -> its bubble, so a line grows in place while it's spoken
 
   /* ---------- what the video area shows: a loader, the twin, or why there is no twin ---------- */
@@ -31,6 +37,12 @@ export function mountTwin(drawer) {
     again.textContent = state === 'error' ? 'Try again' : 'Call again';
     micBtn.hidden = state !== 'live';
     if (state !== 'live') { live.hidden = true; soundBtn.hidden = true; }
+    if (state === 'live') clearTimeout(showUp);
+    // with no twin to answer, the questions rest until "Try again" (an ended call restarts on the next question)
+    const off = state === 'error';
+    drawer.querySelectorAll('.q, #askForm button').forEach(b => { b.disabled = off; });
+    input.disabled = off;
+    input.placeholder = off ? 'My twin is away. Try again above.' : 'Ask me anything…';
   }
   const mmss = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
   const showClock = () => { live.textContent = `● Live · ${mmss(Math.max(left, 0))}`; live.hidden = false; };
@@ -62,12 +74,17 @@ export function mountTwin(drawer) {
   function ended() {
     const timeUp = left <= 0;
     clearInterval(clock);
+    clearTimeout(showUp);
     call = null;
     listening = false;
     queue = [];
     micBtn.setAttribute('aria-pressed', 'false');
     micBtn.textContent = 'Use my mic';
-    if (isOpen) show('ended', timeUp ? 'That’s the three minutes.' : 'The call ended.');
+    const why = failed;
+    failed = '';
+    if (!isOpen) return;
+    if (why) { show('error', WHY[why]); note(WHY[why], true); }
+    else show('ended', timeUp ? 'That’s the three minutes.' : 'The call ended.');
   }
 
   function tick() {
@@ -82,11 +99,13 @@ export function mountTwin(drawer) {
     if (call || starting || !isOpen) return starting;
     clearTimeout(retry);
     show('calling', 'Calling my twin…');
-    const dial = () => twin.startCall({video, onCaption: caption, onEnd: ended, onSoundBlocked: b => { soundBtn.hidden = !b; }});
+    const mine = ++attempt, abort = hangUp = new AbortController();
+    const dial = () => twin.startCall({video, onCaption: caption, onEnd: ended, onSoundBlocked: b => { soundBtn.hidden = !b; }, signal: abort.signal});
     // with the code already here the call starts inside the click (Safari only unlocks sound there); otherwise
     // it starts once the code arrives, and if the browser then blocks the twin's voice, "Tap for sound" appears
     starting = (twin ? dial() : import('./twin.js').then(m => { twin = m; return dial(); }))
       .then(c => {
+        if (mine !== attempt) return c.end();   // a newer attempt took over
         starting = null;   // connected: from here on it's `call`, so a reopen during the twin's ~15s join isn't stuck
         if (!isOpen) return c.end();   // closed while it was connecting
         call = c;
@@ -94,6 +113,9 @@ export function mountTwin(drawer) {
         clearInterval(clock);
         clock = setInterval(tick, 1000);
         screenText.textContent = 'My twin is joining…';
+        // connected, but the twin never showed: end it as a failure rather than wait on a black screen
+        clearTimeout(showUp);
+        showUp = setTimeout(() => { if (call === c && drawer.dataset.call !== 'live') { failed = 'timeout'; c.end(); } }, SHOW_UP * 1000);
         c.ready.then(() => {
           if (call !== c) return;   // this call already ended
           listening = true;
@@ -103,8 +125,9 @@ export function mountTwin(drawer) {
         });
       })
       .catch(e => {
+        if (mine !== attempt) return;   // a newer attempt took over
         starting = null;
-        if (!isOpen) return;
+        if (!isOpen || e.code === 'cancelled') return;
         if (e.code === 'wait') {   // the last call was only seconds ago: wait it out instead of failing
           show('calling', 'Calling my twin…');
           retry = setTimeout(begin, (e.retry || 10) * 1000);
@@ -148,6 +171,7 @@ export function mountTwin(drawer) {
   return {
     warm() { if (!twin) import('./twin.js').then(m => { twin = m; }); },   // fetch the call code before the click
     open() { isOpen = true; begin(); },   // from the click that opened the drawer
-    close() { isOpen = false; clearTimeout(retry); call?.end(); },
+    // closing hangs up: a call being set up is dropped, so the next open dials afresh
+    close() { isOpen = false; clearTimeout(retry); hangUp?.abort(); hangUp = null; starting = null; attempt++; call?.end(); },
   };
 }
