@@ -121,7 +121,7 @@ main{overflow-x:clip}
    stamp on the open line's DATE DUE. Any handwriting is his own pencil, added as doodles. It stays a cream card in
    dark mode too, like the books, so everything on it uses the print colours. */
 .lc{--red:color-mix(in srgb,var(--signal) 42%,transparent);--rule:var(--line);--ink-c:var(--ink);--stamp:var(--signal);
-  --cols:26px minmax(0,104px) minmax(0,1fr) 88px;
+  --cols:26px minmax(0,118px) minmax(0,1fr) 88px;
   position:relative;margin-top:var(--sp-3);padding:22px 26px 24px;color:var(--ink-c);rotate:-1deg;
   background:var(--raised);border-radius:3px;box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 8%,transparent),0 22px 40px -22px rgba(20,16,10,.45)}
 .lc-head,.lc-cols{font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
@@ -133,7 +133,7 @@ main{overflow-x:clip}
 .lc-rows::before{content:"";position:absolute;top:-34px;bottom:0;left:31px;width:1px;background:var(--red);pointer-events:none}
 .lc-row{all:unset;box-sizing:border-box;position:relative;display:grid;grid-template-columns:var(--cols);column-gap:10px;align-items:center;min-height:54px;padding:8px 0;
   border-bottom:1px solid var(--rule);cursor:pointer;transition:background-color .25s}
-@media (hover:hover){.lc-row:hover{background:rgba(42,42,219,.045)}.lc-row:hover .lc-t{translate:3px 0}}   /* not on touch, where hover sticks */
+@media (hover:hover){.lc-row:hover .lc-t{translate:4px 0;color:var(--signal)}}   /* no fill: the title just leans in, in blue */   /* not on touch, where hover sticks */
 .lc-row:focus-visible{outline:2px solid var(--stamp);outline-offset:-2px}
 .lc-n{font:500 11px/1 var(--mono);letter-spacing:.06em;opacity:.6}
 .lc-t{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:22px;line-height:.92;letter-spacing:-.005em;transition:translate .35s var(--ease)}
@@ -161,12 +161,13 @@ main{overflow-x:clip}
   background:linear-gradient(transparent 27px,var(--rule) 27px) 0 0/100% 28px}   /* written on the card's own lines */
 .lc-list li{padding-left:.75em;text-indent:-.75em}   /* a long one wraps under its own words, not the dash */
 .lc-list li::before{content:"– ";opacity:.55}
-/* the way in: the page's own black button, as wide as the card, naming the volume that's stamped. It's the one
-   thing to do here, so it's the strongest thing on the card */
-.lc-go{display:flex;justify-content:space-between;width:100%;min-height:58px;padding:0 24px;font-size:var(--fs-body)}
+/* the way in: a label set like the card's own titles, in a ruled ink box squared to the card, not an app pill.
+   It names the stamped volume, and fills with his blue when pointed at */
+.lc-go{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:54px;padding:0 18px;border-radius:2px;
+  font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:20px;letter-spacing:.02em;box-shadow:inset 0 0 0 1px var(--ink)}
 .lc-go .ar{width:16px;height:16px;transition:transform .25s var(--ease)}
 .lc-go:hover .ar,.lc-go:focus-visible .ar{transform:translateX(4px)}
-.lc-go:hover{background:var(--signal);color:var(--on-signal)}
+.lc-go:hover{background:var(--signal);color:var(--on-signal);box-shadow:inset 0 0 0 1px var(--signal)}
 .lc-row[aria-selected="true"] .lc-t{color:var(--signal)}
 /* one panel at a time (only once sides.js runs): they share a cell, so the card keeps its height as they swap */
 .sd.on .lc-p{grid-area:1 / 1;opacity:0;visibility:hidden;translate:0 6px;transition:opacity .3s,translate .45s var(--ease),visibility 0s .3s}
@@ -438,7 +439,8 @@ main{overflow-x:clip}
   .lc-t{font-size:20px}
   .lc-stamp{width:70px}
   .lc-out{padding-top:12px}
-  .lc-go{min-height:52px}
+  .lc-go{min-height:48px;font-size:18px}
+  .lc-stamp{width:62px;right:2px}
 }
 /* short phones (an iPhone SE): a smaller fan and tighter card, so the button still lands in the screen */
 @media (max-width:760px) and (max-height:740px){
