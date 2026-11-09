@@ -133,7 +133,7 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
     .from('.hx-l1', {x: toMiddle('right'), duration: 1.4, ease: 'expo.inOut'}, 0)
     .from('.hx-l2', {x: toMiddle('left'), duration: 1.4, ease: 'expo.inOut'}, 0)
     .from('.hx-note', {autoAlpha: 0, rotate: -16, y: 20, duration: .9}, 1.1)
-    .from(['.hx-copy', '.hx .call-wrap'], {y: 30, autoAlpha: 0, duration: 1, stagger: .1}, .9);
+    .from(['.hx-copy', '.hx .tw'], {y: 30, autoAlpha: 0, duration: 1, stagger: .1, clearProps: 'transform,translate,rotate,scale,opacity,visibility'}, .9);   // hand the twin's tilt and hover back to the CSS
 
   const intro = $('.intro');
   // a link straight to a part of the page skips the entrance; the top of the page (no hash, or #top / #h1) plays it

@@ -58,14 +58,16 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
       <p class="pitch">I sit with the customer, own the platform, and ship what they need, <span class="dd" data-doodle="underline">fast.</span></p>
       <div class="hero-actions"><a class="btn" href="#sides">See the work <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a></div>
     </div>
-    <div class="call-wrap">
-      <div class="call">
-        <video class="twin" id="heroTwin" src="/assets/media/twin-wave.mp4" poster="/assets/media/twin-wave-poster.webp" autoplay muted loop playsinline aria-label="My AI twin, waving"></video>
-        <span class="call-live"><i aria-hidden="true"></i>Live</span>
-        <button class="call-btn" type="button" data-open="agent">Talk to my AI twin <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button>
-      </div>
-      <p class="call-cap hand">my AI twin, live</p>
-    </div>
+    <!-- the twin: one polaroid, all of it one button. Its film waves on a loop; the phone in the corner and the caption
+         say what pressing it does -->
+    <button class="tw" type="button" data-open="agent" aria-label="Talk to my AI twin, live now">
+      <span class="tw-film">
+        <video id="heroTwin" src="/assets/media/twin-wave.mp4" poster="/assets/media/twin-wave-poster.webp" autoplay muted loop playsinline aria-hidden="true"></video>
+        <span class="tw-live" aria-hidden="true"><i></i>Live</span>
+        <span class="tw-call" aria-hidden="true"><svg viewBox="0 0 256 256"><path d="M231.88,175.08A56.26,56.26,0,0,1,176,224C96.6,224,32,159.4,32,80A56.26,56.26,0,0,1,80.92,24.12a16,16,0,0,1,16.62,9.52l21.12,47.15,0,.12A16,16,0,0,1,117.39,96c-.18.27-.37.52-.57.77L96,121.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,231.88,175.08Z"/></svg></span>
+      </span>
+      <span class="tw-cap hand" aria-hidden="true">talk to my AI twin</span>
+    </button>
   </div>
 </section>
 

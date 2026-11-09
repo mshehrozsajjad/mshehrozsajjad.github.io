@@ -47,14 +47,28 @@ main{overflow-x:clip}
 .hx-copy{max-width:min(330px,calc(50vw - 300px))}
 .hx-copy .pitch{margin-top:10px;font-size:clamp(20px,1.8vw,26px);max-width:22ch}
 .hx-copy .hero-actions{margin-top:var(--sp-3);gap:var(--sp-2) var(--sp-3)}
-/* the twin: a polaroid stuck on the poster, the same white edge as his cut-out, his note on the frame */
-.hx .call-wrap{justify-items:center;gap:0;padding:9px 9px 6px;background:var(--raised);border-radius:3px;rotate:4deg;translate:0 10px;
-  box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 8%,transparent),0 22px 40px -22px rgba(20,16,10,.45);transition:rotate .5s var(--ease)}
-.hx .call-wrap:hover{rotate:1deg}
-.hx .call{width:184px;border-radius:2px;box-shadow:none}
-.hx .call-live{left:8px;top:8px}
-.hx .call-btn{left:0;right:0;min-height:0;padding:0 8px 9px 8px;line-height:1}   /* its words start where the chip's do */
-.hx .call-cap{margin:5px 0 1px;max-width:184px;font-size:22px;line-height:1;text-align:center;color:var(--ink)}
+/* the twin: a polaroid stuck on the poster, the same white edge as his cut-out, and all of it one button. Pointed at,
+   it straightens and lifts, the film leans in and the phone in the corner turns his blue */
+.tw{all:unset;box-sizing:border-box;position:relative;display:grid;justify-items:center;width:204px;padding:9px 9px 0;cursor:pointer;
+  background:#FCFAF5;color:#141416;border-radius:3px;rotate:4deg;translate:0 -18px;   /* a print: white in both themes */
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 8%,transparent),0 22px 40px -22px rgba(20,16,10,.45);
+  transition:rotate .5s var(--ease),translate .5s var(--ease),box-shadow .5s var(--ease)}
+.tw:hover,.tw:focus-visible{rotate:0deg;translate:0 -24px;box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 10%,transparent),0 30px 50px -22px rgba(20,16,10,.5)}
+.tw:focus-visible{outline:2px solid var(--signal);outline-offset:4px}
+.tw:active{translate:0 -20px}
+.tw-film{position:relative;display:block;width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:2px;background:#d9d4c8}
+.tw-film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;transition:scale .7s var(--ease)}
+.tw:hover .tw-film video{scale:1.05}
+.tw-live{position:absolute;left:7px;top:7px;display:inline-flex;align-items:center;gap:5px;padding:4px 8px;border-radius:999px;background:rgba(10,10,12,.55);color:#fff;
+  font:600 10px/1 var(--sans);letter-spacing:.04em;text-transform:uppercase;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.tw-live i{width:6px;height:6px;border-radius:50%;background:#8E8CFF;box-shadow:0 0 0 0 rgba(142,140,255,.7);animation:tw-pulse 1.8s ease-out infinite}
+@keyframes tw-pulse{70%{box-shadow:0 0 0 6px rgba(142,140,255,0)}100%{box-shadow:0 0 0 0 rgba(142,140,255,0)}}
+.tw-call{position:absolute;right:7px;bottom:7px;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#FCFAF5;color:#141416;
+  box-shadow:0 4px 10px -4px rgba(0,0,0,.45);transition:background-color .3s,color .3s,scale .4s var(--ease)}
+.tw-call svg{width:15px;height:15px;fill:currentColor}
+.tw:hover .tw-call,.tw:focus-visible .tw-call{background:#2D2BE0;color:#fff;scale:1.12}
+.tw-cap{display:block;padding:7px 0 9px;font-size:23px;line-height:1;color:#141416;transform:none}
+@media (prefers-reduced-motion:reduce){.tw,.tw-film video,.tw-call{transition:none}.tw-live i{animation:none}}
 
 /* ---------- the ticker ---------- */
 .ticker{position:relative;z-index:3;overflow:hidden;background:var(--ink);color:var(--paper);rotate:-1.2deg;margin:-6px -20px 0;padding:14px 0}
@@ -406,7 +420,7 @@ main{overflow-x:clip}
   .hx-foot{display:grid;gap:var(--sp-3);padding:var(--sp-3) var(--gr) var(--sp-5) var(--gl)}
   .hx-copy{max-width:none}
   .hx-copy .hero-actions{margin-top:var(--sp-3)}
-  .hx .call-wrap{display:none}   /* the floating button is the way to the twin on a phone */
+  .hx .tw{display:none}   /* the floating button is the way to the twin on a phone */
   .ticker{margin-inline:-10px}
   .qt-pin{min-height:80svh;padding-block:var(--sp-5)}
   .qt-sign{margin-left:0;font-size:26px}
