@@ -39,25 +39,22 @@
 /* the clock, on the film: a small dark chip like the hero's LIVE */
 .twd .d-live{left:8px;top:8px;padding:6px 9px;border-radius:999px;background:rgba(10,10,12,.58);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
   color:#fff;font:600 11px/1 var(--sans);letter-spacing:.03em;font-variant-numeric:tabular-nums}
-/* the call's controls: two round buttons centred under the print, each named under it, as a phone shows them.
-   End is the one red thing on the site, because a hang-up has to be found at a glance */
-.twd-ctl{display:flex;justify-content:center;gap:28px;margin-top:16px}
+/* the call's controls, on the film like the clock: small round icon chips, bottom right */
+.twd-ctl{position:absolute;right:8px;bottom:8px;z-index:2;display:flex;gap:6px}
 .twd-ctl:not(:has(> :not([hidden]))){display:none}
 .twd-ctl [hidden]{display:none}
-.twd-round{all:unset;box-sizing:border-box;position:static;display:grid;justify-items:center;gap:6px;cursor:pointer;color:var(--ink);-webkit-tap-highlight-color:transparent}
-.twd-round > svg{box-sizing:border-box;width:56px;height:56px;padding:16px;border-radius:50%;fill:currentColor;background:var(--paper);box-shadow:inset 0 0 0 1.5px var(--ink);
-  transition:background-color .2s,color .2s,box-shadow .2s,scale .25s var(--ease)}
-.twd-l{font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.twd-round:hover > svg{scale:1.06}
-.twd-round:active > svg{scale:.94}
-.twd-round:focus-visible > svg{outline:2px solid var(--signal);outline-offset:3px}
+.twd-ic{all:unset;box-sizing:border-box;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;cursor:pointer;
+  background:rgba(10,10,12,.58);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);color:#fff;transition:background-color .2s,scale .2s var(--ease)}
+.twd-ic svg{width:15px;height:15px;fill:currentColor}
+.twd-ic:hover{background:rgba(10,10,12,.8);scale:1.06}
+.twd-ic:active{scale:.94}
+.twd-ic:focus-visible{outline:2px solid #C9C8FF;outline-offset:2px}
 .twd .d-mic .i-on,.twd .d-mic[aria-pressed="true"] .i-off{display:none}
 .twd .d-mic[aria-pressed="true"] .i-on{display:block}
-.twd .d-mic[aria-pressed="true"] > svg{background:var(--signal);color:#fff;box-shadow:inset 0 0 0 1.5px var(--signal)}
-.twd .d-mic[aria-pressed="true"] .twd-l{color:var(--signal)}
-.twd .twd-round[aria-pressed]{background:none;padding:0;min-height:0;border-radius:0}   /* the base .d-mic fill (site.css) is for the old pill */
-.twd-hang > svg{background:#E5484D;color:#fff;box-shadow:none}
-.twd-hang:hover > svg{background:#CE2C31}
+.twd .twd-ic.d-mic[aria-pressed="true"]{background:#2D2BE0}
+.twd .twd-ic{position:static;min-height:0;padding:0}
+.twd-hang{background:rgba(229,72,77,.92)}
+.twd-hang:hover{background:#CE2C31}
 .twd .d-sound{background:#2D2BE0;color:#fff;border-radius:2px;font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:16px;letter-spacing:.02em}
 
 /* the small print: one line */

@@ -186,8 +186,7 @@ export function mountTwin(drawer) {
   function setMic(on) {
     micBtn.setAttribute('aria-pressed', String(on));
     micBtn.setAttribute('aria-label', on ? 'Turn my mic off' : 'Turn my mic on');
-    const l = micBtn.querySelector('.twd-l');
-    if (l) l.textContent = on ? 'Mic on' : 'Mic off';
+    micBtn.title = on ? 'Mic on' : 'Mic off';
   }
 
   async function toggleMic() {
