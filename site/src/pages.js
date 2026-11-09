@@ -104,10 +104,34 @@ const fab = $('#fab'), tip = $('#fabTip');
 const TIPS = ['psst, I’m live'];   // said once, beside the floating print (never on phones, where it would cover the text)
 const TIP_SECONDS = 4.5, TIP_EVERY = 20;   // each teaser stays a few seconds; at most one per TIP_EVERY seconds
 let fabOn = false, tipsShown = 0, tipTimer = 0, engaged = false;
+// On the homepage the floating print is the hero's polaroid followed down the page: it flies from where the hero's card
+// is (or just above the screen, once that's far up) into the corner, shrinking as it goes, and flies back on the way up.
+const heroTwin = $('.hx .tw');
+let flying = null;
+function fly(on){
+  const h = heroTwin?.getBoundingClientRect();
+  if (reduce || !h || !h.width) return false;   // no card to fly from (phones hide it): the plain slide
+  flying?.cancel();
+  fab.style.transition = 'none';
+  fab.classList.add('show');
+  if (on) heroTwin.style.visibility = 'hidden';   // one print: it lifts off the hero and lands back on it
+  const f = fab.getBoundingClientRect();
+  const cx = h.left + h.width / 2 - (f.left + f.width / 2);
+  const cy = Math.max(h.top + h.height / 2, -h.height / 2) - (f.top + f.height / 2);
+  const from = {transform: `translate(${cx}px, ${cy}px) scale(${h.width / f.width})`, rotate: '4deg'};
+  const to = {transform: 'none', rotate: '-4deg'};
+  flying = fab.animate(on ? [from, to] : [to, from], {duration: 750, easing: 'cubic-bezier(.65,0,.2,1)', fill: on ? 'none' : 'forwards'});
+  flying.onfinish = () => {
+    flying = null;
+    if (!on){ fab.classList.remove('show'); heroTwin.style.visibility = ''; }
+    requestAnimationFrame(() => { fab.getAnimations().forEach(a => a.cancel()); fab.style.transition = ''; });
+  };
+  return true;
+}
 function fabShow(on){
   if (!fab || on === fabOn) return;
   fabOn = on;
-  fab.classList.toggle('show', on);
+  if (!fly(on)) fab.classList.toggle('show', on);
   if (!on){ clearTimeout(tipTimer); tip?.classList.remove('on'); return; }
   if (!reduce){ fab.classList.remove('hello'); void fab.offsetWidth; fab.classList.add('hello'); }   // restart the wave
   if (tip && !engaged && !phone() && tipsShown < TIPS.length) tipTimer = setTimeout(teaser, 1200);
