@@ -107,25 +107,31 @@ let fabOn = false, tipsShown = 0, tipTimer = 0, engaged = false;
 // On the homepage the floating print is the hero's polaroid followed down the page: it flies from where the hero's card
 // is (or just above the screen, once that's far up) into the corner, shrinking as it goes, and flies back on the way up.
 const heroTwin = $('.hx .tw');
-let flying = null;
+const FLIGHT = 700;
+let flight = 0;
+// Driven frame by frame, aimed at where the hero's card is *now*, so it lands exactly on it however the page scrolls
+// during the flight (or, with the card far above, comes from just above the screen).
 function fly(on){
-  const h = heroTwin?.getBoundingClientRect();
-  if (reduce || !h || !h.width) return false;   // no card to fly from (phones hide it): the plain slide
-  flying?.cancel();
+  if (reduce || !heroTwin || !heroTwin.getBoundingClientRect().width) return false;   // phones hide the card: the plain slide
+  cancelAnimationFrame(flight);
   fab.style.transition = 'none';
+  fab.style.transform = fab.style.rotate = '';
   fab.classList.add('show');
   if (on) heroTwin.style.visibility = 'hidden';   // one print: it lifts off the hero and lands back on it
-  const f = fab.getBoundingClientRect();
-  const cx = h.left + h.width / 2 - (f.left + f.width / 2);
-  const cy = Math.max(h.top + h.height / 2, -h.height / 2) - (f.top + f.height / 2);
-  const from = {transform: `translate(${cx}px, ${cy}px) scale(${h.width / f.width})`, rotate: '4deg'};
-  const to = {transform: 'none', rotate: '-4deg'};
-  flying = fab.animate(on ? [from, to] : [to, from], {duration: 750, easing: 'cubic-bezier(.65,0,.2,1)', fill: on ? 'none' : 'forwards'});
-  flying.onfinish = () => {
-    flying = null;
+  const f = fab.getBoundingClientRect(), fx = f.left + f.width / 2, fy = f.top + f.height / 2;
+  const t0 = performance.now(), ease = t => t < .5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
+  const step = now => {
+    const p = Math.min(1, (now - t0) / FLIGHT), k = on ? 1 - ease(p) : ease(p);   // k: 1 at the hero, 0 in the corner
+    const h = heroTwin.getBoundingClientRect();
+    const dx = h.left + h.width / 2 - fx, dy = Math.max(h.top + h.height / 2, -h.height / 2) - fy;
+    fab.style.transform = `translate(${dx * k}px, ${dy * k}px) scale(${1 + (h.width / f.width - 1) * k})`;
+    fab.style.rotate = `${-4 + 8 * k}deg`;
+    if (p < 1) { flight = requestAnimationFrame(step); return; }
+    fab.style.transform = fab.style.rotate = '';
     if (!on){ fab.classList.remove('show'); heroTwin.style.visibility = ''; }
-    requestAnimationFrame(() => { fab.getAnimations().forEach(a => a.cancel()); fab.style.transition = ''; });
+    requestAnimationFrame(() => { fab.style.transition = ''; });
   };
+  flight = requestAnimationFrame(step);
   return true;
 }
 function fabShow(on){
