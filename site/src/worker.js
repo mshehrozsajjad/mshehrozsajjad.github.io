@@ -26,7 +26,9 @@ async function contributions(ctx){
 /* /api/twin: starts a live call with Shehroz's AI twin (a Beyond Presence managed agent).
    The browser never sees the API key: the worker asks Beyond Presence for a LiveKit room and hands back only the room's
    address and a join token. Basic protection against bots: the request has to come from this site, and each visitor can
-   start one call every COOLDOWN seconds. Settings: BEY_API_KEY (secret), BEY_AGENT_ID and BEY_API_URL (wrangler.jsonc). */
+   start one new call (one billed session) every COOLDOWN seconds. Calling again inside that window hands back the room
+   just made, so a visitor who hung up and called straight back rejoins it; the browser falls back to a countdown if
+   the twin has already left it. Settings: BEY_API_KEY (secret), BEY_AGENT_ID and BEY_API_URL (wrangler.jsonc). */
 const COOLDOWN = 30;
 const BEY_ERRORS = {402: 'unavailable', 429: 'busy'};   // plan limit reached, too many calls at once
 async function twin(request, env){
@@ -36,7 +38,13 @@ async function twin(request, env){
   if (!env.BEY_API_KEY || !env.BEY_AGENT_ID) return Response.json({error: 'unavailable'}, {status: 503});
 
   const cache = caches.default, key = new Request(`https://cache.internal/twin/${encodeURIComponent(request.headers.get('cf-connecting-ip') || 'local')}`);
-  if (await cache.match(key)) return Response.json({error: 'wait', retry: COOLDOWN}, {status: 429});
+  const last = await cache.match(key);
+  if (last){
+    const prev = await last.json().catch(() => null);
+    const retry = Math.max(1, Math.ceil(COOLDOWN - (Date.now() - (prev?.at || 0)) / 1000));
+    if (prev?.url && prev?.token) return Response.json({url: prev.url, token: prev.token, rejoin: true, retry}, {headers: {'cache-control': 'no-store'}});
+    return Response.json({error: 'wait', retry}, {status: 429});
+  }
 
   let res;
   try {
@@ -54,7 +62,8 @@ async function twin(request, env){
     return Response.json({error: BEY_ERRORS[res.status] || 'error'}, {status: 502});
   }
   const room = await res.json();
-  await cache.put(key, new Response('1', {headers: {'cache-control': `max-age=${COOLDOWN}`}}));
+  // remembered for the cooldown, so calling straight back rejoins this room (only this visitor's address can ask for it)
+  await cache.put(key, Response.json({url: room.livekit_url, token: room.livekit_token, at: Date.now()}, {headers: {'cache-control': `max-age=${COOLDOWN}`}}));
   return Response.json({url: room.livekit_url, token: room.livekit_token}, {headers: {'cache-control': 'no-store'}});
 }
 

@@ -37,17 +37,20 @@
 .twd-mail{color:#E3E2DA;font-size:var(--fs-xs);text-underline-offset:3px}
 .twd-mail:hover{color:#fff}
 .twd .d-call [hidden]{display:none}
-/* on the film: the clock and the mic, as small dark chips like the hero's LIVE */
-.twd .d-live,.twd .d-mic{background:rgba(10,10,12,.58);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);color:#fff;font:600 11px/1 var(--sans);letter-spacing:.03em;border-radius:999px}
-.twd .d-live{left:8px;top:8px;padding:6px 9px}
-.twd .d-mic{right:8px;bottom:8px;min-height:34px;padding:0 12px}
-.twd .d-mic[aria-pressed="true"]{background:#2D2BE0}
-/* hanging up: above the calling screen too, so a call can be stopped before it connects */
-.d-end{position:absolute;left:8px;bottom:8px;z-index:2;display:inline-flex;align-items:center;gap:7px;min-height:34px;padding:0 12px 0 10px;border:0;border-radius:999px;cursor:pointer;
-  background:#FCFAF5;color:#141416;font:600 11px/1 var(--sans);letter-spacing:.03em;box-shadow:0 4px 10px -4px rgba(0,0,0,.45);transition:background-color .2s,color .2s}
-.d-end svg{width:13px;height:13px;fill:currentColor;rotate:135deg}   /* the receiver, put down */
-.d-end:hover{background:#141416;color:#fff}
-.d-end:focus-visible{outline:2px solid #C9C8FF;outline-offset:2px}
+/* the call's controls, under the print: the clock in the mono, the mic and End call as the card's square labels */
+.twd-bar{display:flex;align-items:center;gap:8px;margin-top:14px}
+.twd-bar:not(:has(> :not([hidden]))){display:none}   /* nothing to show: no gap left behind */
+.twd-bar [hidden]{display:none}
+.twd .d-live{position:static;margin:0;padding:0;background:none;color:var(--ink);font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;font-variant-numeric:tabular-nums}
+.twd-btn{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;min-height:36px;padding:0 13px;border-radius:2px;cursor:pointer;
+  box-shadow:inset 0 0 0 1px var(--ink);color:var(--ink);font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:15px;letter-spacing:.03em;transition:background-color .2s,color .2s,box-shadow .2s}
+.twd-bar .d-mic{margin-left:auto}
+.twd-bar .d-mic[hidden] + .d-end{margin-left:auto}
+.twd-btn:hover{box-shadow:inset 0 0 0 1px var(--signal);color:var(--signal)}
+.twd-btn:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+.twd .d-mic[aria-pressed="true"]{background:var(--signal);color:var(--on-signal);box-shadow:inset 0 0 0 1px var(--signal)}
+.twd-btn-ink{background:var(--ink);color:var(--paper)}
+.twd-btn-ink:hover{background:var(--signal);color:var(--on-signal);box-shadow:inset 0 0 0 1px var(--signal)}
 .twd .d-sound{background:#2D2BE0;color:#fff;border-radius:2px;font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:16px;letter-spacing:.02em}
 
 /* the small print: one line */

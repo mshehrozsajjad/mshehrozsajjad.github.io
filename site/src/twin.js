@@ -6,6 +6,7 @@ import {Room, RoomEvent, Track} from 'livekit-client';
 export const MAX_SECONDS = 180;   // a call ends on its own after three minutes
 const READY_FALLBACK = 30;
 const PICKUP = 15;   // seconds to get a room and connect to it before giving up
+const STILL_THERE = 4;   // on a rejoin, seconds to find the twin in the room before counting down instead
 
 /**
  * Starts a call. Call it straight from a click: audio playback may only be unlocked inside a user gesture.
@@ -18,6 +19,16 @@ const PICKUP = 15;   // seconds to get a room and connect to it before giving up
  * Rejects with an Error whose .code is 'busy' | 'wait' | 'unavailable' | 'timeout' | 'cancelled' | 'error'
  * (and .retry, in seconds, for 'wait').
  */
+// a rejoined room is only useful if the twin is still in it
+function twinInRoom(room) {
+  if (room.remoteParticipants.size) return Promise.resolve(true);
+  return new Promise(yes => {
+    const t = setTimeout(() => { room.off(RoomEvent.ParticipantConnected, seen); yes(false); }, STILL_THERE * 1000);
+    const seen = () => { clearTimeout(t); room.off(RoomEvent.ParticipantConnected, seen); yes(true); };
+    room.on(RoomEvent.ParticipantConnected, seen);
+  });
+}
+
 export async function startCall({video, onCaption, onSoundBlocked, onEnd, signal}) {
   const room = new Room({adaptiveStream: true, dynacast: true});
   room.startAudio().catch(() => {});   // inside the click, before any await
@@ -62,6 +73,7 @@ export async function startCall({video, onCaption, onSoundBlocked, onEnd, signal
     const body = await res.json().catch(() => ({}));
     if (!res.ok) throw Object.assign(fail(body.error || 'error'), {retry: body.retry});
     await Promise.race([room.connect(body.url, body.token), stopped]);
+    if (body.rejoin && !(await twinInRoom(room))) throw Object.assign(fail('wait'), {retry: body.retry});
   } catch (e) {
     room.disconnect();
     throw e.code ? e : fail(stop.signal.aborted ? why : 'error');
