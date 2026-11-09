@@ -101,3 +101,5 @@
   .twd.talking .twd-qs{margin-inline:-20px;padding-inline:20px}
 }
 @media (prefers-reduced-motion:reduce){.twd-x,.twd .q,.twd .q::after{transition:none}}
+/* a line still being heard (your speech) or spoken (the twin's): faint until it settles */
+.twd .log .me.guess{opacity:.5}

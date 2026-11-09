@@ -72,6 +72,7 @@ export function mountTwin(drawer) {
     let p = lines.get(id);
     if (!p) { p = bubble('', mine ? 'me' : 'ai'); lines.set(id, p); }
     p.textContent = text;
+    p.classList.toggle('guess', !final);   // still being heard or spoken: shown faint until it settles
     log.scrollTop = 1e6;
     if (final) lines.delete(id);
   }

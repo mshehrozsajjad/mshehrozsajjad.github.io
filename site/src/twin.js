@@ -40,13 +40,19 @@ export async function startCall({video, onCaption, onSoundBlocked, onEnd, signal
   });
 
   // the twin's words (and the visitor's, when they speak) arrive as text streams that grow while the line is spoken
+  // Speech recognition sends a sentence as a run of short streams, each a fresh guess at the whole sentence so far,
+  // all with the same lk.segment_id; only the one marked lk.transcription_final is the settled sentence. So a line is
+  // keyed by its segment, each stream replaces its text, and it's final only when marked so (or, with no mark at all,
+  // when its one stream ends, as the twin's own lines do).
   room.registerTextStreamHandler('lk.transcription', async (reader, from) => {
-    const line = {id: reader.info.attributes?.['lk.segment_id'] || reader.info.id, text: '', mine: from.identity === room.localParticipant.identity};
+    const attrs = reader.info.attributes || {};
+    const marked = 'lk.transcription_final' in attrs;
+    const line = {id: attrs['lk.segment_id'] || reader.info.id, text: '', mine: from.identity === room.localParticipant.identity};
     if (!line.mine) markReady();
     try {
       for await (const delta of reader) { line.text += delta; onCaption({...line, final: false}); }
     } catch (_) { /* a cut-off line keeps what arrived */ }
-    onCaption({...line, final: true});
+    onCaption({...line, final: marked ? attrs['lk.transcription_final'] === 'true' : true});
   });
 
   // getting a room and joining it may take PICKUP seconds at most, and stops at once if the drawer is closed
