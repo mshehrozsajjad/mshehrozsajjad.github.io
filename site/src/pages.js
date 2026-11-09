@@ -101,7 +101,7 @@ function frame(){
 }
 /* ---------- the floating "ask my AI self": his live face, a wave when it arrives, and a few teasers in his hand ---------- */
 const fab = $('#fab'), tip = $('#fabTip');
-const TIPS = ['psst, I’m live. ask me anything', 'ask me what I’m building', 'yes, it’s really me. well, AI me'];
+const TIPS = ['psst, I’m live'];   // said once, beside the floating print (never on phones, where it would cover the text)
 const TIP_SECONDS = 4.5, TIP_EVERY = 20;   // each teaser stays a few seconds; at most one per TIP_EVERY seconds
 let fabOn = false, tipsShown = 0, tipTimer = 0, engaged = false;
 function fabShow(on){
@@ -110,7 +110,7 @@ function fabShow(on){
   fab.classList.toggle('show', on);
   if (!on){ clearTimeout(tipTimer); tip?.classList.remove('on'); return; }
   if (!reduce){ fab.classList.remove('hello'); void fab.offsetWidth; fab.classList.add('hello'); }   // restart the wave
-  if (tip && !engaged && tipsShown < TIPS.length) tipTimer = setTimeout(teaser, 1200);
+  if (tip && !engaged && !phone() && tipsShown < TIPS.length) tipTimer = setTimeout(teaser, 1200);
 }
 function teaser(){
   if (!fabOn || engaged || tipsShown >= TIPS.length) return;

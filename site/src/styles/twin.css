@@ -103,3 +103,28 @@
 @media (prefers-reduced-motion:reduce){.twd-x,.twd .q,.twd .q::after{transition:none}}
 /* a line still being heard (your speech) or spoken (the twin's): faint until it settles */
 .twd .log .me.guess{opacity:.5}
+
+/* ---------- the floating twin (homepage): the hero's polaroid in miniature ----------
+   A small white print of him waving with the live dot, captioned once in his hand, tilted like the hero's. It
+   straightens and lifts when pointed at. Its one teaser is a handwritten note beside it, with a drawn arrow. */
+.tw-fab{display:grid;justify-items:center;gap:0;min-height:0;padding:5px 5px 0;border-radius:3px;background:#FCFAF5;color:#141416;rotate:-4deg;
+  box-shadow:0 0 0 1px rgba(20,16,10,.08),0 18px 30px -16px rgba(20,16,10,.5);transition:transform .35s var(--ease),rotate .4s var(--ease),box-shadow .4s}
+.tw-fab:hover,.tw-fab:focus-visible{rotate:0deg;box-shadow:0 0 0 1px rgba(20,16,10,.1),0 24px 36px -16px rgba(20,16,10,.55)}
+.tw-fab:focus-visible{outline:2px solid var(--signal);outline-offset:4px}
+.tw-fab .fab-face{width:76px;height:57px;border-radius:2px;overflow:hidden}
+.tw-fab .fab-face video{border-radius:0;box-shadow:none}
+.tw-fab .fab-face i{left:5px;top:5px;right:auto;bottom:auto;width:8px;height:8px;background:#8E8CFF;box-shadow:0 0 0 2px rgba(10,10,12,.45)}
+.tw-fab .fab-face i::after{background:#8E8CFF}
+.tw-fab-cap{display:block;padding:3px 0 5px;font-size:17px;line-height:1;color:#141416;transform:none}
+.tw-fab ~ .fab-tip{right:calc(118px + env(safe-area-inset-right,0px));bottom:calc(46px + env(safe-area-inset-bottom,0px));max-width:none;padding:0 46px 0 0;border:0;border-radius:0;
+  background:none;box-shadow:none;color:var(--ink);font-size:26px;white-space:nowrap;transform:translateX(10px) rotate(-4deg);transform-origin:100% 50%}
+.tw-fab ~ .fab-tip.on{transform:rotate(-4deg)}
+.tw-fab ~ .fab-tip::after{content:"";position:absolute;right:0;top:2px;width:40px;height:26px;background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 26'%3E%3Cpath d='M3 6 C 14 4, 26 8, 35 18 M35 18 L 26 17 M35 18 L 34 9' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 26'%3E%3Cpath d='M3 6 C 14 4, 26 8, 35 18 M35 18 L 26 17 M35 18 L 34 9' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+@media (max-width:760px){
+  .tw-fab .fab-face{width:62px;height:47px}
+  .tw-fab-cap{font-size:15px}
+  .tw-fab ~ .fab-tip{display:none}
+}
+@media (prefers-reduced-motion:reduce){.tw-fab{transition:transform .35s var(--ease)}}
