@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="How Shehroz Sajjad built a TARS robot: his first soldering, a walk worked out by Claude, his own avatar for a face, and a stack that runs locally on a Mac.">
+<title>TARS · Shehroz Sajjad</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=JetBrains+Mono:wght@500&family=Instrument+Sans:wdth,wght@75..100,400..700&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="/src/styles/site.css">
+<link rel="stylesheet" href="/src/styles/ending.css">
+<link rel="stylesheet" href="/src/styles/grain.css">
+<link rel="stylesheet" href="/src/styles/pages.css">
+<link rel="stylesheet" href="/src/styles/menu.css">
+<link rel="stylesheet" href="/src/styles/twin.css">
+<link rel="stylesheet" href="/src/styles/shell.css">
+<link rel="stylesheet" href="/src/styles/story-page.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-ne" viewBox="0 0 16 16"><path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6"/></symbol>
+  <symbol id="i-down" viewBox="0 0 16 16"><path d="M8 3v10M3.5 8.5 8 13l4.5-4.5"/></symbol>
+  <symbol id="i-right" viewBox="0 0 16 16"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5"/></symbol>
+</svg>
+<a class="skip-link" href="#h1">Skip to content</a>
+<main id="main">
+<svg id="trail" aria-hidden="true"><path id="pMain" style="stroke:var(--signal);stroke-width:2"/></svg>
+
+<!--shell:header-->
+
+<!-- the humor setting (story.js): under 50% the page swaps to its dry copy (.hm-dry), from 90% his asides appear (.hm-max); .hm-mid is the 50 to 89% headline -->
+<section class="hero p-hero sub st-hero" aria-labelledby="h1">
+  <div class="wrap">
+    <div class="c hero-copy">
+      <p class="hi-line"><span class="hand">hi <span data-who>stranger</span>,</span> a build story<span data-if-co hidden>, for the team at <span data-co></span></span>.</p>
+      <h1 id="h1" tabindex="-1"><span class="hm-mid">I built a robot. Then I gave it <span class="st-hw dd" data-doodle="underline">my face.</span></span><span class="hm-dry">A 3D-printed robot with a real-time avatar face.</span><span class="hm-max">I built a robot. It got <span class="st-hw">the better hair.</span></span></h1>
+      <p class="lead"><span class="hm-fun">TARS is the sarcastic robot from Interstellar. Mine is smaller, falls over more, and looks a lot like me. Its humor is set to 75%. Turn the dial down if you only want the facts.</span><span class="hm-dry">A 3D-printed TARS robot with a motion sensor I soldered in, a walk worked out by Claude, a Beyond Presence avatar for a face, and a stack that runs locally on a Mac.</span> <span class="hand hm-max">100%? brave.</span></p>
+      <div class="hero-actions"><a class="btn" href="#confession">Read the story <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a><a class="act" href="#contact">Book a call <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></div>
+    </div>
+    <div class="hero-side st-dial c" role="group" aria-labelledby="humorLbl">
+      <!-- the robot itself (tars-model.js), standing on its own control panel -->
+      <div class="st-stage" data-tars role="img" aria-label="A 3D model of my TARS, with my avatar on its screen. Drag to turn it."></div>
+      <div class="st-dial-row"><p class="st-dial-k" id="humorLbl">Humor setting</p><output class="st-dial-n" for="humor" data-humor-out>75%</output></div>
+      <input class="st-range" id="humor" data-humor-dial type="range" min="0" max="100" step="5" value="75" aria-labelledby="humorLbl">
+      <div class="st-scale" aria-hidden="true"><span>dry</span><span>cheeky</span><span>no filter</span></div>
+      <p class="hand st-dial-hint" aria-hidden="true">drag the dial. or the robot.</p>
+    </div>
+  </div>
+  <span class="way wd" data-o="2" data-v style="left:var(--gut);top:calc(100% - 40px)"></span>
+</section>
+
+<!-- the same setting, small, following the reader down the page -->
+<div class="dial" role="group" aria-label="How this page is written">
+  <label for="humorPill">Humor</label>
+  <input id="humorPill" data-humor-dial type="range" min="0" max="100" step="5" value="75">
+  <output for="humorPill" data-humor-out>75%</output>
+  <span class="dial-say" data-humor-say aria-hidden="true"></span>
+</div>
+
+<section class="ch" id="confession" aria-labelledby="h-confession">
+  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">01 / The confession</div></div>
+  <div class="wrap">
+    <span class="way" data-o="3" data-v style="left:-24px;top:0"></span>
+    <div class="st-body c">
+      <span class="dot" data-o="4" data-v></span>
+      <figure class="st-solder" data-reveal aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-solder-anim.webp" alt="" width="260" height="431"></figure>
+      <h2 id="h-confession" data-reveal="words">Two years of AI. Zero minutes of <span class="it">soldering.</span></h2>
+      <div class="st-text">
+        <p data-reveal><span class="hm-fun">I had spent two years building with AI, all of it safely behind a screen. Then I wanted to try hardware. I started from an open-source TARS with a 3D-printed body, added my own ideas for how it moves and what it senses, and held a soldering iron for the first time in my life.</span><span class="hm-dry">Two years into building with AI, I wanted to try hardware. Base: an open-source TARS project with a 3D-printed body. Added: my own ideas for motion and extra sensors.</span></p>
+        <p data-reveal><span class="hm-fun">The motion sensor went in. Nobody had warned it.</span><span class="hm-dry">I soldered in a motion sensor. It was my first time using a soldering iron.</span></p>
+        <!-- the credit the project asks for (its ATTRIBUTION.md); the 3D model on this page is made from its CAD -->
+        <p class="st-credit" data-reveal>Built on <a href="https://github.com/TARS-AI-Community/TARS-AI" target="_blank" rel="noopener">TARS-AI</a>, an open-source community project, and so is the 3D model on this page. Based on the mechanical puppet designs by Christopher Nolan, Nathan Crowley and the production team who first brought TARS to life in <i>Interstellar</i>; miniaturised CAD by Charlie Diaz, with modifications by the TARS-AI Community (CC BY-NC 4.0). Mine is a fan-made build.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="falling" aria-labelledby="h-falling">
+  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">02 / The walk</div></div>
+  <div class="wrap">
+    <span class="way" data-o="10" data-v style="left:-24px;top:0"></span>
+    <article class="wk c">
+      <span class="dot" data-o="11" data-v></span>
+      <div class="wk-media" data-reveal="print" style="--r:-1.5deg"><div class="m-film tall"><video src="/assets/media/tars-falling.mp4" poster="/assets/media/tars-falling-poster.webp" muted loop playsinline preload="none" aria-label="TARS falling, then walking"></video></div></div>
+      <div class="wk-text">
+        <h2 id="h-falling" data-reveal="words"><span class="st-fall">It fell over.</span> <span class="it st-lot">A lot.</span></h2>
+        <p data-reveal><span class="hm-fun">Walking on two slabs is harder than the film makes it look. So TARS taught itself to walk. Well, Claude did the experimenting. TARS did the falling.</span><span class="hm-dry">It kept falling over when it walked. Claude experimented with the motion until it found a walk that stays up.</span></p>
+        <p data-reveal><span class="hm-fun">Many tries later it walks, and it stays up.</span><span class="hm-dry">Result: it walks without falling.</span></p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="ch" id="face" aria-labelledby="h-face">
+  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">03 / The face</div></div>
+  <div class="wrap">
+    <span class="way" data-o="20" data-v style="left:-24px;top:0"></span>
+    <article class="wk flip c">
+      <span class="dot" data-o="21" data-v></span>
+      <div class="wk-media" data-reveal="print" style="--r:1.5deg"><div class="m-film tall"><video src="/assets/media/tars-my-face.mp4" poster="/assets/media/tars-my-face-poster.webp" muted loop playsinline preload="none" aria-label="TARS with my avatar face"></video></div></div>
+      <div class="wk-text">
+        <h2 id="h-face" data-reveal="words">Sci-fi promised robots <span class="it">with faces.</span></h2>
+        <p data-reveal><span class="hm-fun">My day job is real-time avatars at Beyond Presence. So mine got an actual human face, and the nearest human was me. Yes, it is slightly unsettling. No, I’m not sorry.</span><span class="hm-dry">The face is a Beyond Presence real-time avatar of me, driven by an agent. It uses our avatar technology and what I learned building agents.</span> <span class="hand hm-max">handsome robot, no?</span></p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="ch" id="bill" aria-labelledby="h-bill">
+  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">04 / The bill</div></div>
+  <div class="wrap">
+    <span class="way" data-o="30" data-v style="left:-24px;top:0"></span>
+    <div class="st-body st-split c">
+      <span class="dot" data-o="31" data-v></span>
+      <div>
+        <h2 id="h-bill" data-reveal="words">Then the bill <span class="it">arrived.</span></h2>
+        <div class="st-text">
+          <p data-reveal><span class="hm-fun">A robot that is always on is a robot that is always billing you. Keeping it running was super expensive, and the avatar was the hardest, priciest part. So the goal changed: run everything on my Mac, for free.</span><span class="hm-dry">Keeping it running all the time was expensive. The avatar was the hardest and costliest part. New goal: run the whole stack locally, at no cost.</span> <span class="hand hm-max">my wallet says hi</span></p>
+          <p data-reveal><span class="hm-fun">Free, private, and offline where it counts. One piece still phones home. Nobody’s perfect. It can also control my appliances, which is either convenient or the first act of a film.</span><span class="hm-dry">Everything else runs locally on a Mac, free and private. It can also control home appliances.</span></p>
+        </div>
+      </div>
+      <!-- the new bill, printed line by line when it comes into view; --i is the line's turn -->
+      <div class="st-receipt" data-reveal="print">
+        <ul aria-label="Where each part runs now">
+          <li class="rc-head" aria-hidden="true">TARS / running costs</li>
+          <li style="--i:1"><b>Face<small>on the Mac</small></b><i>free</i></li>
+          <li style="--i:2"><b>Voice<small>on the Mac</small></b><i>free</i></li>
+          <li style="--i:3"><b>LLM<small>on the Mac</small></b><i>free</i></li>
+          <li class="cloud" style="--i:4"><b>Speech-to-text<small>in the cloud</small></b><i>still billing</i></li>
+          <li class="rc-total" style="--i:5"><b>Total</b><span>€0.00*</span></li>
+          <li class="rc-note" style="--i:7">*almost</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="impact" aria-labelledby="h-impact">
+  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">05 / Impact</div></div>
+  <div class="wrap">
+    <span class="way" data-o="40" data-v style="left:-24px;top:0"></span>
+    <div class="st-body c">
+      <span class="dot" data-o="41" data-v></span>
+      <h2 id="h-impact" data-reveal="words">A robot on my desk, <span class="it">a lot of strangers in my inbox.</span></h2>
+      <div class="st-text">
+        <p data-reveal><span class="hm-fun">I posted the build on LinkedIn. It travelled further than anything I had posted before.</span><span class="hm-dry">The LinkedIn post about the build is my most-read post.</span></p>
+      </div>
+      <dl class="nums st-nums" data-reveal><div><dt>15,492</dt><dd>impressions on LinkedIn</dd></div><div><dt>134</dt><dd>reactions</dd></div><div><dt>33</dt><dd>comments</dd></div></dl>
+      <p class="wk-taught st-taught" data-reveal><span>What it proved at work</span>Our Beyond Presence avatar model is efficient enough to run on a local machine, fully offline. That opens up a lot for on-prem setups.</p>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="learnt" aria-labelledby="h-learnt">
+  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">06 / What I learnt</div></div>
+  <div class="wrap">
+    <span class="way" data-o="50" data-v style="left:-24px;top:0"></span>
+    <div class="st-body c">
+      <h2 id="h-learnt" data-reveal="words">What I <span class="it">learnt.</span></h2>
+      <ol class="tl st-learnt">
+        <li data-reveal><span class="dot" data-o="51" data-v></span><h3>Always-on changes the maths.</h3><p>A demo is cheap. A thing that runs all day is not. The bill is what pushed me to the better design.</p></li>
+        <li data-reveal><span class="dot" data-o="52" data-v></span><h3>The edge is closer than it looks.</h3><p>The part I assumed needed a data centre, the avatar, runs on the Mac on my desk.</p></li>
+        <li data-reveal><span class="dot" data-o="53" data-v></span><h3>You can start hardware without knowing hardware.</h3><p>Begin with an open-source project, and let an AI run the experiments.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="ch others" aria-labelledby="h-others">
+  <div class="wrap">
+    <span class="way" data-o="80" data-v style="left:-24px;top:0"></span>
+    <h2 id="h-others" class="c" data-reveal="words">More from <span class="it">the same hands.</span></h2>
+    <div class="doors three c"><a class="door sm" href="/code"><span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-think-anim.webp" alt="" aria-hidden="true" width="199" height="484"></span><span class="door-t"><b>Engineering</b><span>Platforms, real-time AI and the code under them.</span></span><span class="door-go" aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></a><a class="door sm" href="/design"><span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-draw-anim.webp" alt="" aria-hidden="true" width="302" height="436"></span><span class="door-t"><b>Design</b><span>Brands, interfaces and films, made by the hands that build them.</span></span><span class="door-go" aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></a><a class="door sm" href="/ai"><span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" aria-hidden="true" width="248" height="481"></span><span class="door-t"><b>AI products</b><span>Applied AI, built on my own and put in front of real people.</span></span><span class="door-go" aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></a></div>
+    <p class="long c" data-reveal>Or go back to <a class="act" href="/hardware">the rest of the hardware <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>.</p>
+  </div>
+</section>
+
+</main>
+
+<!--shell:footer-->
+<!--shell:menu-->
+<!--shell:twin-->
+<script type="module" src="/src/story.js"></script>
+<script type="module" src="/src/tars-model.js"></script>
+<script type="module" src="/src/pages.js"></script>
+</body>
+</html>

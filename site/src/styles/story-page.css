@@ -1,0 +1,119 @@
+/* ===== A build story (/tars, and the stories that follow it) =====
+   The paper, type, line and work rows come from site.css and pages.css. This file adds what a story needs:
+   the handwritten word of its headline, a column of prose, the humor dial with the voices it switches between,
+   and the few places where the page acts out what it says (a heading that falls over, a bill that prints). */
+
+/* the one handwritten word of the headline */
+.st-hw{display:inline-block;font:400 1.18em/1 var(--hand);letter-spacing:0;color:var(--signal);transform:rotate(-3deg)}
+
+/* a chapter told in words only */
+.st-body{position:relative}
+.st-body > .dot{top:14px}
+.st-body h2,.wk-text h2{max-width:18ch;transition:rotate .5s var(--ease)}
+.wk-text h2{font-size:var(--fs-h3);line-height:var(--lh-h3);letter-spacing:var(--ls-h3)}
+.st-text{display:grid;gap:var(--sp-2);margin-top:var(--sp-3);max-width:58ch;font-size:var(--fs-lead);color:var(--muted)}
+/* him at the soldering iron, in the empty half of chapter 01 */
+.st-solder{position:absolute;right:4%;top:0;margin:0;line-height:0}
+.st-solder .sprite{--h:clamp(220px,24vw,300px)}
+
+.st-nums{max-width:820px;margin-top:var(--sp-4)}
+.st-nums dt{font-size:clamp(24px,5.4vw,72px);color:var(--signal)}
+.st-taught{margin-top:var(--sp-4);font-size:var(--fs-body)}
+.st-learnt{margin-top:var(--sp-4)}
+
+/* ---------- the humor dial (story.js) ----------
+   Without the script the page reads at 75% and both dials stay away. */
+:root{--humor:.75}
+.hm-dry,.hm-max,.dial,:root:not(.has-dial) .st-dial{display:none}
+[data-humor="dry"] :is(.hm-fun,.hm-mid),[data-humor="max"] .hm-mid{display:none}
+[data-humor="dry"] .hm-dry,[data-humor="max"] h1 .hm-max{display:inline}
+[data-humor="max"] .hm-max{display:inline-block;margin-left:6px}
+[data-humor="max"] h1 .hm-max{margin:0}
+.hm-live :is(.hm-fun,.hm-mid,.hm-dry,.hm-max){animation:hm-in .4s var(--ease)}
+@keyframes hm-in{from{opacity:0;filter:blur(6px)}}
+
+/* the exact value: his blue drains to grey below 75%. --sig0 is the theme's own blue, read one level up so the mix is not circular */
+body{--sig0:var(--signal)}
+.has-dial :is(main,footer){--signal:color-mix(in srgb,var(--sig0) calc(min(var(--humor)/.75,1)*100%),var(--muted))}
+/* no filter: the headings lean, one way then the other */
+[data-humor="max"] .ch:nth-of-type(odd) :is(.st-body h2,.wk-text h2){rotate:-1.6deg}
+[data-humor="max"] .ch:nth-of-type(even) :is(.st-body h2,.wk-text h2){rotate:1.2deg}
+
+/* the hero's half of the page: the robot (tars-model.js), standing on its control panel: the readout, and a track wide enough to play with */
+.st-hero > .wrap{grid-template-columns:minmax(0,1fr) clamp(280px,34vw,400px)}
+.st-dial{align-items:stretch;justify-content:center;gap:var(--sp-2)}
+.st-stage{position:relative;height:clamp(240px,36vh,340px)}
+.st-stage::after{content:"";position:absolute;left:18%;right:18%;bottom:2px;height:14px;z-index:-1;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--ink) 30%,transparent),transparent)}   /* the floor under it */
+.st-stage canvas{display:block;width:100%;height:100%;touch-action:pan-y;cursor:grab}
+.st-stage canvas:active{cursor:grabbing}
+.st-dial-row{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--sp-2)}
+.st-dial-k,.st-scale{font:500 var(--fs-xs)/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.st-dial-n{display:block;font:600 clamp(48px,5vw,72px)/.9 var(--sans);letter-spacing:-.06em;font-variant-numeric:tabular-nums;color:var(--signal);
+  transform-origin:100% 100%;scale:calc(.8 + var(--humor)*.2);transition:rotate .5s var(--ease),color .3s}
+[data-humor="max"] .st-dial-n{rotate:-4deg}
+.st-credit{font-size:var(--fs-s);line-height:1.5}
+.st-credit a{color:var(--ink);text-decoration:underline;text-underline-offset:.2em}
+.st-range{-webkit-appearance:none;appearance:none;width:100%;height:44px;margin:0;background:none;cursor:grab}
+.st-range:active{cursor:grabbing}
+.st-range::-webkit-slider-runnable-track{height:10px;border-radius:99px;background:linear-gradient(90deg,var(--signal) calc(var(--humor)*100%),var(--line) 0)}
+.st-range::-moz-range-track{height:10px;border-radius:99px;background:linear-gradient(90deg,var(--signal) calc(var(--humor)*100%),var(--line) 0)}
+.st-range::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;margin-top:-12px;border-radius:50%;background:var(--ink);border:3px solid var(--paper);box-shadow:0 0 0 2px var(--signal),0 8px 16px -6px rgba(0,0,0,.5);transition:scale .16s ease-out}
+.st-range::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:var(--ink);border:3px solid var(--paper);box-shadow:0 0 0 2px var(--signal),0 8px 16px -6px rgba(0,0,0,.5)}
+.st-range:active::-webkit-slider-thumb{scale:1.14}
+.st-scale{display:flex;justify-content:space-between;letter-spacing:.1em}
+.st-dial-hint{align-self:flex-start;margin-top:var(--sp-1);transform:rotate(-3deg);transition:opacity .4s}
+.hm-live .st-dial-hint{opacity:0}
+
+/* the small one follows the reader from the end of the hero; the one other place mono is used, because it is the robot's readout.
+   The negative margin gives back the room it takes, so the chapters keep their rhythm. */
+.has-dial .dial{position:sticky;top:calc(12px + env(safe-area-inset-top,0px));z-index:30;display:flex;align-items:center;gap:10px;width:max-content;max-width:calc(100% - var(--gl) - var(--gr));
+  margin:var(--sp-3) var(--gr) calc(-44px - var(--sp-3)) auto;padding:0 16px;min-height:44px;border:1px solid var(--line);border-radius:999px;background:var(--raised);
+  box-shadow:0 14px 30px -20px color-mix(in srgb,var(--ink) 60%,transparent);font:500 var(--fs-xs)/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.dial input{width:120px;margin:0;accent-color:var(--signal);cursor:pointer}
+.dial output{min-width:4ch;color:var(--ink);font-variant-numeric:tabular-nums}
+.dial-say{padding-left:10px;border-left:1px solid var(--line);font:400 var(--fs-hand-s)/1 var(--hand);letter-spacing:.02em;text-transform:none;color:var(--signal)}
+
+/* ---------- 02: "It fell over." does. It tips flat on its back, lies there a beat, and gets up; "A lot." waits for it ---------- */
+.st-fall{display:inline-block;transform-origin:50% 100%}
+.js [data-reveal=words].shown .st-fall{animation:st-fall 2.6s both}
+.js [data-reveal=words].shown .st-lot .w{transition-delay:2.3s}
+@keyframes st-fall{
+  0%,30%{transform:none;animation-timing-function:ease-in}
+  42%{transform:perspective(600px) rotateX(86deg)}
+  47%{transform:perspective(600px) rotateX(72deg)}
+  52%,74%{transform:perspective(600px) rotateX(86deg);animation-timing-function:cubic-bezier(.3,1.4,.5,1)}
+  100%{transform:none}
+}
+
+/* ---------- 04: the new bill. A paper receipt (cream in both themes, mono like any till), printed line by line ---------- */
+.st-split{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:var(--sp-5);align-items:center}
+.st-receipt{--r:2deg;filter:drop-shadow(0 18px 22px rgba(40,30,10,.28));transform:rotate(var(--r));transition:transform .5s var(--ease)}
+[data-humor="dry"] .st-receipt{--r:0deg}
+.st-receipt ul{list-style:none;margin:0;padding:22px 20px 30px;background:var(--print);color:var(--print-ink);font:500 var(--fs-xs)/1.3 var(--mono);
+  -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%;mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%}
+.st-receipt li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px dashed color-mix(in srgb,var(--print-ink) 30%,transparent)}
+.st-receipt .rc-head{justify-content:center;letter-spacing:.14em;text-transform:uppercase}
+.st-receipt b{font-weight:500}
+.st-receipt small{display:block;margin-top:3px;font-size:11px;color:color-mix(in srgb,var(--print-ink) 60%,transparent)}
+/* the rubber stamps */
+.st-receipt i{flex:none;padding:5px 7px;border:1.5px solid currentColor;border-radius:4px;font:600 10px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--print-signal);rotate:-5deg}
+.st-receipt .cloud i{color:color-mix(in srgb,var(--print-ink) 62%,transparent);rotate:4deg}
+.st-receipt .rc-total{border-bottom:0;font-size:var(--fs-body);font-weight:600}
+.st-receipt .rc-total b{font-weight:600}
+.st-receipt .rc-note{justify-content:flex-end;padding:0;border:0;font:400 var(--fs-hand)/1 var(--hand);color:var(--print-signal);rotate:-4deg}
+.js .st-receipt li{transition:opacity .01s linear calc(.5s + var(--i,0)*.22s)}
+.js .st-receipt i{transition:opacity .12s linear calc(1.9s + var(--i,0)*.14s),scale .3s cubic-bezier(.3,1.6,.5,1) calc(1.9s + var(--i,0)*.14s)}
+.js .st-receipt:not(.shown) :is(li,i){opacity:0}
+.js .st-receipt:not(.shown) i{scale:1.8}
+
+@media (max-width:900px){
+  .st-solder{display:none}
+  .st-split{grid-template-columns:minmax(0,1fr);gap:var(--sp-4)}
+  .st-receipt{max-width:300px}
+}
+@media (max-width:760px){
+  .st-hero > .wrap{grid-template-columns:minmax(0,1fr)}
+  .st-dial{flex-direction:column;align-items:stretch;min-height:0}
+  .dial-say{display:none}
+  .dial input{width:96px}
+}
