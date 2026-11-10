@@ -118,6 +118,17 @@ if (marks) {
 
 const sides = mountSides($('#sides'));   // the contents list and the fanned books, kept in step (sides.js, bookshelf.js)
 
+/* ---------- who to call: the print shows the work behind a line, when it's pointed at or (below) passes the middle ---------- */
+const print = $('.ab-print');
+function showWork(a) {
+  const img = $('img', print);
+  if (img.getAttribute('src') === a.dataset.img) return;
+  img.src = a.dataset.img;
+  $('figcaption', print).textContent = a.dataset.say;
+  print.classList.remove('swap'); void print.offsetWidth; print.classList.add('swap');
+}
+$$('.ab-list a').forEach(a => ['pointerenter', 'focus'].forEach(ev => a.addEventListener(ev, () => showWork(a))));
+
 const mm = gsap.matchMedia();
 const doodling = import.meta.env.DEV && new URLSearchParams(location.search).has('doodle');
 mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions}) => {
@@ -163,6 +174,7 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
       .fromTo(li, {filter: 'blur(10px)', autoAlpha: .18}, {filter: 'blur(0px)', autoAlpha: 1, ease: 'power1.out'})
       .to(li, {duration: .6})
       .to(li, {filter: 'blur(10px)', autoAlpha: .18, ease: 'power1.in'});
+    ScrollTrigger.create({trigger: li, start: 'top center', end: 'bottom center', onToggle: self => self.isActive && showWork($('a', li))});
   });
 
   /* ---------- pick a side: on wide screens the section holds still and the volumes take turns on top as you scroll,

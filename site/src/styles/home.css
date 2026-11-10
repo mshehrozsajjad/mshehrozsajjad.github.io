@@ -107,14 +107,24 @@ main{overflow-x:clip}
 .ab-stick{position:sticky;top:12vh}
 .ab-h{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(44px,5vw,76px);line-height:.9;letter-spacing:-.02em;color:var(--signal);max-width:11ch}
 .ab-lead{margin-top:var(--sp-3);color:var(--muted);max-width:44ch}
-.ab-proof{margin:var(--sp-4) 0 0;display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3)}
-.ab-proof div{border-top:2px solid var(--ink);padding-top:10px}
-.ab-proof dt{font:700 20px/1.1 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:.01em}
-.ab-proof dd{margin:6px 0 0;font-size:var(--fs-s);line-height:1.45;color:var(--muted)}
+/* the proof: a band across the foot of the section, set big enough to be read first */
+.ab-proof{margin:var(--sp-5) auto 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-3) var(--sp-4)}
+.ab-proof div{border-top:2px solid var(--ink);padding-top:12px}
+.ab-proof dt{font:700 clamp(24px,2.2vw,32px)/1 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:.005em}
+.ab-proof dd{margin:8px 0 0;line-height:1.45;color:var(--muted)}
+/* the print: the work behind whichever line is sharp, under the lead so it never sits on the words */
+.ab-print{width:min(320px,36vh);margin:var(--sp-4) 0 0 6px;padding:9px 9px 0;background:#FCFAF5;border-radius:3px;rotate:-3deg;   /* a print: white in both themes */
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 8%,transparent),0 22px 40px -22px rgba(20,16,10,.45)}
+.ab-print img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;border-radius:2px;background:#d9d4c8}
+.ab-print figcaption{display:block;padding:7px 0 9px;font-size:23px;line-height:1;color:#141416;text-align:center;transform:none}
+.ab-print.swap{animation:ab-swap .5s var(--ease)}
+@keyframes ab-swap{from{rotate:1deg;scale:.95}}
+@media (prefers-reduced-motion:reduce){.ab-print.swap{animation:none}}
 .ab-list-wrap{position:relative}
-.ab-list{list-style:none;margin:0;padding:22vh 0 30vh;display:grid;gap:.04em;font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(40px,5.6vw,100px);line-height:.92;letter-spacing:-.02em;white-space:nowrap}
+.ab-list{list-style:none;margin:0;padding:40vh 0 30vh;display:grid;gap:.04em;font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(40px,5.6vw,100px);line-height:.92;letter-spacing:-.02em;white-space:nowrap}
 .ab-list li{position:relative;z-index:1}
-.ab-photo{position:sticky;top:calc(50vh - 220px);float:right;width:auto;height:440px;margin:22vh -40px 0 0;opacity:.95;z-index:0;rotate:4deg}
+.ab-list a{color:inherit;text-decoration:none;transition:color .2s}
+.ab-list a:hover,.ab-list a:focus-visible{color:var(--signal)}
 
 /* ---------- pick a side: a contents list on the left, the four volumes fanned out on the right ----------
    The list is the plain answer: each side, who it's for, and (open, one at a time) what's inside, a short film and the
@@ -331,24 +341,43 @@ main{overflow-x:clip}
 
 /* ---------- before you ask ---------- */
 .fq{position:relative;padding-block:var(--sp-6)}
-.fq-h{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:var(--fs-poster);line-height:.84;letter-spacing:-.025em;color:var(--signal)}
-.fq-list{list-style:none;margin:var(--sp-5) 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-4) var(--sp-5)}
-.fq-list li{display:grid;gap:8px;align-content:start}
-.fq-list h3{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(28px,2.6vw,40px);line-height:.95;letter-spacing:-.01em}
-.fq-list p{color:var(--muted);max-width:48ch}
+.fq-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:var(--sp-5);align-items:center}
+.fq-h{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(44px,4.4vw,72px);line-height:.88;letter-spacing:-.02em;color:var(--signal)}
+.fq-h .it{text-transform:none;font-size:1.08em;letter-spacing:-.02em;color:var(--ink)}
+.fq-lead{margin-top:var(--sp-2);max-width:34ch;color:var(--muted)}
+/* the hero's polaroid again, bigger: the same button, the same call */
+.fq-tw{width:min(320px,100%);margin-top:var(--sp-4);rotate:-3deg;translate:none}
+.fq-tw:hover,.fq-tw:focus-visible{translate:0 -6px}
+.fq-tw:active{translate:0 -2px}
+.fq-tw .tw-cap{font-size:30px;padding:10px 0 12px}
+/* the questions: ruled lines like the library card's; pointed at, one leans in, in his blue */
+.fq-list{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+.fq-q{all:unset;box-sizing:border-box;display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:baseline;gap:10px;width:100%;padding:20px 2px;border-bottom:1px solid var(--line);cursor:pointer;
+  transition:color .2s,padding .35s var(--ease)}
+.fq-t{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(26px,2.6vw,40px);line-height:.95;letter-spacing:-.01em}
+.fq-q .ar{align-self:center;width:18px;height:18px;color:var(--muted)}
+.fq-q:hover,.fq-q:focus-visible{color:var(--signal);padding-left:12px}
+.fq-q:hover .ar,.fq-q:focus-visible .ar{color:var(--signal);transform:translate(2px,-2px)}
+.fq-q:focus-visible{outline:2px solid var(--signal);outline-offset:-2px}
+@media (prefers-reduced-motion:reduce){.fq-q{transition:none}}
 
 /* ---------- the ending wall ----------
    One idea: his hand, over and over, running both ways underneath as you scroll (home.js), and the
    promise stamped across it in his blue. */
-.wl{position:relative;overflow:clip;min-height:100svh;display:grid;align-items:center;padding-block:var(--sp-5)}
-.wl-hand{display:grid;gap:.1em;font:400 clamp(40px,5.2vw,84px)/1 var(--hand);color:color-mix(in srgb,var(--ink) 55%,transparent);white-space:nowrap;rotate:-4deg;margin-inline:-10vw}
+.wl{position:relative;overflow:clip;display:grid;align-items:center;padding-block:var(--sp-5)}
+.wl-hand{display:grid;gap:.1em;font:400 clamp(40px,5.2vw,84px)/1 var(--hand);color:color-mix(in srgb,var(--ink) 28%,transparent);white-space:nowrap;rotate:-4deg;margin-inline:-10vw}
 .wl-hand p{will-change:transform}
-.wl-h{position:absolute;inset:0;z-index:2;display:grid;place-content:center;justify-items:center;padding:0 var(--gr) 0 var(--gl);text-align:center;pointer-events:none;
-  font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(56px,12vw,210px);line-height:.84;letter-spacing:-.03em;color:var(--signal);
+.wl-in{position:absolute;inset:0;z-index:2;display:grid;place-content:center;justify-items:center;gap:var(--sp-4);padding:0 var(--gr) 0 var(--gl);text-align:center;pointer-events:none}
+.wl-h{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(56px,12vw,210px);line-height:.84;letter-spacing:-.03em;color:var(--signal);
   -webkit-text-stroke:.09em var(--paper);paint-order:stroke fill}   /* a paper edge round each letter, so it reads over his hand */
 .wl-h > span{display:block}
 .wl-a{rotate:-3deg}
 .wl-b{rotate:2deg;margin-top:-.02em}
+/* what to do about it: two big pills on the paper, the first in ink */
+.wl-acts{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--sp-2);pointer-events:auto}
+.wl-btn{min-height:64px;padding:0 34px;font-size:20px;box-shadow:0 0 0 6px var(--paper)}
+.wl-btn:hover{background:var(--signal);color:var(--on-signal)}
+.wl-2{background:var(--paper);color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink),0 0 0 6px var(--paper)}
 
 
 /* ---------- phones and tablets ---------- */
@@ -356,7 +385,8 @@ main{overflow-x:clip}
   .ab-grid{grid-template-columns:minmax(0,1fr)}
   .ab-stick{position:static}
   .ab-list{padding:var(--sp-4) 0}
-  .ab-photo{display:none}
+  .ab-proof{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fq-grid{grid-template-columns:minmax(0,1fr);gap:var(--sp-4)}
 }
 @media (max-width:760px){
   /* a poster: HEL over LO down the left, him in front of them on the right, his note by his side */
@@ -376,8 +406,7 @@ main{overflow-x:clip}
   .qt-pin{min-height:80svh;padding-block:var(--sp-5)}
   .qt-sign{margin-left:0;font-size:26px}
   .ab-proof{grid-template-columns:minmax(0,1fr)}
-  .fq-list{grid-template-columns:minmax(0,1fr)}
-  .wl{min-height:70svh}
+  .wl-btn{min-height:56px;padding:0 26px;font-size:17px}
   .wl-hand{font-size:40px}
   .wl-h{font-size:17vw}
 }

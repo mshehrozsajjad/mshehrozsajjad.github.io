@@ -92,21 +92,30 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
         <p class="chap-l">02 / Who to call</p>
         <h2 id="h-ab" class="ab-h">Tight deadlines are where I do my best&nbsp;work.</h2>
         <p class="ab-lead">At Beyond Presence I own the platform behind the product, frontend and backend, and I’m in the customer meetings where what we build next gets decided. Before that I co-founded an award-winning agency. On the side I take my own ideas from a name and a brand to paying customers.</p>
-        <dl class="ab-proof">
-          <div><dt>CodeJunkie</dt><dd>Co-founded it in my final semester. An award-winning agency with clients worldwide.</dd></div>
-          <div><dt>Beyond Presence</dt><dd>Founding engineer since pre-seed, before there was a product.</dd></div>
-          <div><dt>My own products</dt><dd>myClosr, Slaptastic, Vorsprech and NPC Filter are live. I sell them myself.</dd></div>
-          <div><dt>My own device</dt><dd>Yolk, an AI device I designed, makes my phone calls in German.</dd></div>
-        </dl>
+        <!-- the work behind whichever line is sharp (home.js swaps it), as a print -->
+        <figure class="ab-print" aria-hidden="true"><img src="/assets/media/creator-platform-poster.webp" alt="" width="640" height="480" loading="lazy"><figcaption class="hand">the creator platform</figcaption></figure>
       </div>
     </div>
     <div class="ab-list-wrap">
-      <img class="ab-photo" src="/assets/photos/shehroz-lean-sm.webp" width="459" height="900" alt="" aria-hidden="true" loading="lazy">
       <ul class="ab-list" aria-label="What I do">
-        <li>Platforms</li><li>Real-time AI</li><li>Frontend</li><li>Backend</li><li>Product design</li><li>Brands</li><li>Launch films</li><li>Hardware</li><li>Getting it sold</li>
+        <li><a href="/code" data-img="/assets/media/creator-platform-poster.webp" data-say="the creator platform">Platforms</a></li>
+        <li><a href="/code" data-img="/assets/media/external-meeting.webp" data-say="an avatar in the meeting">Real-time AI</a></li>
+        <li><a href="/code" data-img="/assets/shots/npcfilter.webp" data-say="NPC Filter">Frontend</a></li>
+        <li><a href="/code" data-img="/assets/media/kiosk-poster.webp" data-say="our kiosk">Backend</a></li>
+        <li><a href="/design" data-img="/assets/design/ui-closr-cta.webp" data-say="myClosr">Product design</a></li>
+        <li><a href="/design" data-img="/assets/shots/slaptastic.webp" data-say="Slaptastic">Brands</a></li>
+        <li><a href="/design" data-img="/assets/media/npc-film-poster.webp" data-say="the NPC Filter film">Launch films</a></li>
+        <li><a href="/hardware" data-img="/assets/media/yolk-device.webp" data-say="Yolk">Hardware</a></li>
+        <li><a href="/ai" data-img="/assets/shots/roomrush.webp" data-say="RoomRush">Getting it sold</a></li>
       </ul>
     </div>
   </div>
+  <dl class="ab-proof wrap">
+    <div><dt>CodeJunkie</dt><dd>Co-founded it in my final semester. An award-winning agency with clients worldwide.</dd></div>
+    <div><dt>Beyond Presence</dt><dd>Founding engineer since pre-seed, before there was a product.</dd></div>
+    <div><dt>My own products</dt><dd>myClosr, Slaptastic, Vorsprech and NPC Filter are live. I sell them myself.</dd></div>
+    <div><dt>My own device</dt><dd>Yolk, an AI device I designed, makes my phone calls in German.</dd></div>
+  </dl>
 </section>
 
 <!-- four sides, four pages. A contents list on the left says plainly what each side is and who it's for; the four
@@ -186,17 +195,30 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
   </div>
 </section>
 
+<!-- before you ask: the questions go to the twin. Each line opens the call and asks it (pages.js, data-ask); the short
+     written answers stay in the page for screen readers and search -->
 <section class="fq" aria-labelledby="h-faq">
-  <div class="wrap">
-    <p class="chap-l">04 / Before you ask</p>
-    <h2 id="h-faq" class="fq-h">Before you ask…</h2>
+  <div class="wrap fq-grid">
+    <div class="fq-side">
+      <p class="chap-l">04 / Before you ask</p>
+      <h2 id="h-faq" class="fq-h">Before you ask, <span class="it">ask my twin.</span></h2>
+      <p class="fq-lead">A live AI version of me that answers from my own notes. Pick a question and it picks up.</p>
+      <button class="tw fq-tw" type="button" data-open="agent" aria-label="Talk to my AI twin, live now">
+        <span class="tw-film">
+          <video src="/assets/media/twin-wave.mp4" poster="/assets/media/twin-wave-poster.webp" muted loop playsinline preload="none" aria-hidden="true"></video>
+          <span class="tw-live" aria-hidden="true"><i></i>Live</span>
+          <span class="tw-call" aria-hidden="true"><svg viewBox="0 0 256 256"><path d="M231.88,175.08A56.26,56.26,0,0,1,176,224C96.6,224,32,159.4,32,80A56.26,56.26,0,0,1,80.92,24.12a16,16,0,0,1,16.62,9.52l21.12,47.15,0,.12A16,16,0,0,1,117.39,96c-.18.27-.37.52-.57.77L96,121.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,231.88,175.08Z"/></svg></span>
+        </span>
+        <span class="tw-cap hand" aria-hidden="true">or ask me anything</span>
+      </button>
+    </div>
     <ol class="fq-list">
-      <li><span class="qa-n">01</span><h3>Where are you?</h3><p>Munich, Germany.</p></li>
-      <li><span class="qa-n">02</span><h3>What do you do right now?</h3><p>Founding engineer at Beyond Presence. I own the creator and call platforms behind our real-time avatars, frontend and backend, and I’m in the customer meetings turning what they need into something working, fast.</p></li>
-      <li><span class="qa-n">03</span><h3>What are you best at?</h3><p>Getting from a customer’s problem to something working, fast. Tight deadlines are where I do my best work.</p></li>
-      <li><span class="qa-n">04</span><h3>Designer or engineer?</h3><p>Both, usually on the same product. Then I help it reach people.</p></li>
-      <li><span class="qa-n">05</span><h3>Is the twin really you?</h3><p>It answers from my own notes, with preset answers for now. For the real me, book a call or write.</p></li>
-      <li><span class="qa-n">06</span><h3>Everything in one place?</h3><p>Yes. <a class="act" href="/story">The long story <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a> walks through all of it, from Photoshop to now.</p></li>
+      <li><button class="fq-q" type="button" data-ask="Where are you based?"><span class="qa-n">01</span><span class="fq-t">Where are you?</span><svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button><p class="sr">Munich, Germany.</p></li>
+      <li><button class="fq-q" type="button" data-ask="What do you do right now?"><span class="qa-n">02</span><span class="fq-t">What do you do right now?</span><svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button><p class="sr">Founding engineer at Beyond Presence. I own the creator and call platforms behind our real-time avatars, frontend and backend, and I’m in the customer meetings turning what they need into something working, fast.</p></li>
+      <li><button class="fq-q" type="button" data-ask="What are you best at?"><span class="qa-n">03</span><span class="fq-t">What are you best at?</span><svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button><p class="sr">Getting from a customer’s problem to something working, fast. Tight deadlines are where I do my best work.</p></li>
+      <li><button class="fq-q" type="button" data-ask="Are you a designer or an engineer?"><span class="qa-n">04</span><span class="fq-t">Designer or engineer?</span><svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button><p class="sr">Both, usually on the same product. Then I help it reach people.</p></li>
+      <li><button class="fq-q" type="button" data-ask="Can we work together?"><span class="qa-n">05</span><span class="fq-t">Can we work together?</span><svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button><p class="sr">Yes. Email me or book a call.</p></li>
+      <li><a class="fq-q" href="/story"><span class="qa-n">06</span><span class="fq-t">Everything in one place?</span><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a><p class="sr">Yes. The long story walks through all of it, from Photoshop to now.</p></li>
     </ol>
   </div>
 </section>
@@ -204,18 +226,17 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 <!-- the ending: his hand, over and over, and the promise across it. One idea, nothing else -->
 <section class="wl" aria-labelledby="h-wl">
   <div class="wl-hand" aria-hidden="true">
-    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
-    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
-    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
-    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
-    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
-    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
-    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
-    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
-    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
-    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it,</p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, </p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, </p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, </p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, </p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, </p>
+    <p>let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, let’s build it, </p>
   </div>
-  <h2 id="h-wl" class="wl-h"><span class="wl-a">Got an idea?</span> <span class="wl-b">Let’s build&nbsp;it.</span></h2>
+  <div class="wl-in">
+    <h2 id="h-wl" class="wl-h"><span class="wl-a">Got an idea?</span> <span class="wl-b">Let’s build&nbsp;it.</span></h2>
+    <div class="wl-acts"><a class="btn wl-btn" href="mailto:mshehrozsajjad@gmail.com">Email me <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a><button class="btn wl-btn wl-2" type="button" data-open="agent">Talk to my twin first</button></div>
+  </div>
 </section>
 
 </main>

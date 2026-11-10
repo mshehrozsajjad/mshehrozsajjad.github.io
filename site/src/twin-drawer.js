@@ -211,7 +211,8 @@ export function mountTwin(drawer) {
 
   return {
     warm() { if (!twin) import('./twin.js').then(m => { twin = m; }); },   // fetch the call code before the click
-    open() { isOpen = true; begin(); },   // from the click that opened the drawer
+    open() { isOpen = true; begin(); },
+    ask,   // a question put from the page (data-ask), after open()   // from the click that opened the drawer
     // closing hangs up: a call being set up is dropped, so the next open dials afresh
     close() { isOpen = false; clearTimeout(retry); clearInterval(waitTick); waitFilm?.pause(); hangUp?.abort(); hangUp = null; starting = null; attempt++; call?.end(); },
   };

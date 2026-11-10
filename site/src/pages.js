@@ -153,7 +153,7 @@ function teaser(){
   }, TIP_SECONDS * 1000);
 }
 // once they've opened the twin, the nudging stops
-$$('[data-open="agent"]').forEach(b => b.addEventListener('click', () => { engaged = true; clearTimeout(tipTimer); tip?.classList.remove('on'); }));
+$$('[data-open="agent"], [data-ask]').forEach(b => b.addEventListener('click', () => { engaged = true; clearTimeout(tipTimer); tip?.classList.remove('on'); }));
 
 function req(){ if (!ticking){ ticking = true; requestAnimationFrame(frame); } }
 addEventListener('scroll', req, {passive: true});
@@ -269,12 +269,13 @@ if (copy) copy.addEventListener('click', async () => {
 const scrim = $('#scrim'); let lastFocus = null;
 function openD(id){ const d = $('#' + id); if (!d) return; if (id === 'agent') twin?.open(); lastFocus = document.activeElement; d.classList.add('open'); d.setAttribute('aria-hidden', 'false'); scrim.classList.add('open'); main.inert = true; document.body.style.overflow = 'hidden'; setTimeout(() => ($('#askInput') || $('.x', d)).focus(), 60); }
 function closeD(restore){ twin?.close(); $$('.drawer.open').forEach(d => { d.classList.remove('open'); d.setAttribute('aria-hidden', 'true'); }); if (scrim) scrim.classList.remove('open'); main.inert = false; document.body.style.overflow = ''; if (restore && lastFocus && lastFocus.focus) lastFocus.focus(); }
-document.addEventListener('click', e => { const t = e.target.closest('button, a'); if (!t) return; if (t.dataset.open){ openD(t.dataset.open); } else if (t.hasAttribute('data-close')) closeD(true); });
+document.addEventListener('click', e => { const t = e.target.closest('button, a'); if (!t) return; if (t.dataset.ask){ openD('agent'); twin?.ask(t.dataset.ask); }   // a question on the page: call the twin and ask it
+  else if (t.dataset.open){ openD(t.dataset.open); } else if (t.hasAttribute('data-close')) closeD(true); });
 if (scrim) scrim.addEventListener('click', () => closeD(true));
 addEventListener('keydown', e => { if (e.key === 'Escape' && $('.drawer.open')) closeD(true); });
 const twin = $('#agent') ? mountTwin($('#agent')) : null;   // the live AI twin (twin-drawer.js)
 // fetch the call code as soon as someone heads for a "talk to my twin" button, so the call can start inside their click
-if (twin) $$('[data-open="agent"]').forEach(b => ['pointerenter', 'pointerdown', 'focus'].forEach(ev => b.addEventListener(ev, twin.warm, {once: true})));
+if (twin) $$('[data-open="agent"], [data-ask]').forEach(b => ['pointerenter', 'pointerdown', 'focus'].forEach(ev => b.addEventListener(ev, twin.warm, {once: true})));
 
 /* ---------- theme ---------- */
 try { const t = localStorage.getItem('site-theme'); if (['light', 'dark'].includes(t)) root.dataset.theme = t; } catch (_) {}
