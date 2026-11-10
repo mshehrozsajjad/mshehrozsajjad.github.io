@@ -115,10 +115,10 @@
 .tw-fab .fab-face video{border-radius:0;box-shadow:none}
 .tw-fab .fab-face i{display:none}   /* the small print stays clean; LIVE is said on the hero's card and in the call */
 .tw-fab-cap{display:block;padding:3px 0 5px;font-size:17px;line-height:1;color:#141416;transform:none}
-.tw-fab ~ .fab-tip{right:calc(118px + env(safe-area-inset-right,0px));bottom:calc(46px + env(safe-area-inset-bottom,0px));max-width:none;padding:0 46px 0 0;border:0;border-radius:0;
-  background:none;box-shadow:none;color:var(--ink);font-size:26px;white-space:nowrap;transform:translateX(10px) rotate(-4deg);transform-origin:100% 50%}
+.tw-fab ~ .fab-tip{right:calc(118px + env(safe-area-inset-right,0px));bottom:calc(46px + env(safe-area-inset-bottom,0px));max-width:none;padding:6px 54px 8px 12px;border:0;border-radius:3px;
+  background:var(--paper);box-shadow:none;color:var(--ink);font-size:26px;white-space:nowrap;transform:translateX(10px) rotate(-4deg);transform-origin:100% 50%}
 .tw-fab ~ .fab-tip.on{transform:rotate(-4deg)}
-.tw-fab ~ .fab-tip::after{content:"";position:absolute;right:0;top:2px;width:40px;height:26px;background:currentColor;
+.tw-fab ~ .fab-tip::after{content:"";position:absolute;right:8px;top:8px;width:40px;height:26px;background:currentColor;
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 26'%3E%3Cpath d='M3 6 C 14 4, 26 8, 35 18 M35 18 L 26 17 M35 18 L 34 9' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
   mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 26'%3E%3Cpath d='M3 6 C 14 4, 26 8, 35 18 M35 18 L 26 17 M35 18 L 34 9' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
 @media (max-width:760px){

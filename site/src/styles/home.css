@@ -18,6 +18,7 @@ main{overflow-x:clip}
    Shown only when the head script added .js (motion allowed); home.js plays it and removes it.
    If home.js never starts, the head script removes it after 4s so the page is never stuck behind it. */
 .intro{display:none}
+.seen .intro{display:none!important}   /* back from another page of the site */
 .js .intro{display:grid;place-items:center;position:fixed;inset:0;z-index:200;cursor:pointer;background:#0c0c0e}
 /* the letterbox: two black bars meeting at his eye line (--cy, set by home.js) */
 .intro-bar{position:absolute;left:0;right:0;background:#0c0c0e;visibility:hidden}
@@ -44,6 +45,7 @@ main{overflow-x:clip}
 .hx-foot{grid-row:2;position:relative;z-index:3;display:flex;align-items:flex-end;justify-content:space-between;gap:var(--sp-4);padding:0 max(var(--gr),calc(50% - 560px)) var(--sp-4) max(var(--gl),calc(50% - 560px))}
 .hx-copy{max-width:min(330px,calc(50vw - 300px))}
 .hx-copy .pitch{margin-top:10px;font-size:clamp(20px,1.8vw,26px);max-width:22ch}
+.hx-role{margin-top:10px;font:500 var(--fs-xs)/1.3 var(--sans);color:var(--muted)}
 .hx-copy .hero-actions{margin-top:var(--sp-3);gap:var(--sp-2) var(--sp-3)}
 /* the twin: a polaroid stuck on the poster, the same white edge as his cut-out, and all of it one button. Pointed at,
    it straightens and lifts, the film leans in and the phone in the corner turns his blue */
@@ -105,7 +107,8 @@ main{overflow-x:clip}
 .ab{position:relative;padding-block:var(--sp-6)}
 .ab-grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:var(--sp-5)}
 .ab-stick{position:sticky;top:12vh}
-.ab-h{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(44px,5vw,76px);line-height:.9;letter-spacing:-.02em;color:var(--signal);max-width:11ch}
+.ab-h{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(44px,5vw,76px);line-height:.9;letter-spacing:-.02em;color:var(--ink);max-width:11ch}
+.hl{color:var(--signal)}
 .ab-lead{margin-top:var(--sp-3);color:var(--muted);max-width:44ch}
 /* the proof: a band across the foot of the section, set big enough to be read first */
 .ab-proof{margin:var(--sp-5) auto 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-3) var(--sp-4)}
@@ -126,6 +129,41 @@ main{overflow-x:clip}
 .ab-list a{color:inherit;text-decoration:none;transition:color .2s}
 .ab-list a:hover,.ab-list a:focus-visible{color:var(--signal)}
 
+/* ---------- the stories: one card, the build cut out like a sticker and its headline; his note says what's coming ---------- */
+.sy{position:relative;padding-block:var(--sp-6) var(--sp-5)}
+.sy-in{position:relative}
+.sy-card{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--sp-5);align-items:center;color:inherit;text-decoration:none}
+/* the robot cut out like him in the hero: a white die-cut edge, a soft shadow, his note pointing at the screen */
+.sy-fig{position:relative;width:min(380px,36vw);margin:0;rotate:-3deg;transition:rotate .5s var(--ease),translate .5s var(--ease)}
+.sy-cut{display:block;width:100%;height:auto;filter:drop-shadow(0 18px 30px rgba(20,16,10,.22))}
+.sy-note{position:absolute;left:66%;top:-13%;font-size:clamp(24px,2.1vw,34px);line-height:1;color:var(--ink);white-space:nowrap;transform:rotate(7deg)}
+.sy-note svg{position:absolute;right:calc(100% + 4px);top:40%;width:clamp(44px,3.6vw,62px);height:auto;transform:scaleX(-1) rotate(30deg)}   /* down to the screen */
+.sy-text{display:grid;justify-items:start;gap:var(--sp-2)}
+.sy-h{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(44px,6.4vw,112px);line-height:.86;letter-spacing:-.025em;max-width:11ch}
+.sy-card:hover .sy-fig,.sy-card:focus-visible .sy-fig{rotate:0deg;translate:0 -6px}
+.sy-card:hover .act .ar,.sy-card:focus-visible .act .ar{transform:translateX(3px)}
+.sy-card:focus-visible{outline:2px solid var(--signal);outline-offset:8px}
+.sy-more{position:absolute;right:0;bottom:-6px;font-size:clamp(26px,2.3vw,36px);line-height:1;color:var(--ink);transform:rotate(-4deg);text-align:right}
+@media (max-width:760px){
+  .sy-card{grid-template-columns:minmax(0,1fr);gap:var(--sp-3)}
+  .sy-fig{width:min(260px,72%);margin-top:var(--sp-3)}
+  .sy-note{left:34%;top:-15%;font-size:22px}
+  .sy-more{position:static;margin-top:var(--sp-4);text-align:left}
+}
+@media (prefers-reduced-motion:reduce){.sy-fig{transition:none}}
+
+/* ---------- the readers: the number at poster size in his blue, the rest in ink, his note pointing at the way in ---------- */
+.rd{position:relative;padding-block:var(--sp-5) var(--sp-6)}
+.rd-in{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:var(--sp-5);align-items:end}
+.rd-h{display:grid;font-weight:700;font-stretch:75%;text-transform:uppercase}
+.rd-n{font-size:var(--fs-poster);line-height:.8;letter-spacing:-.03em;color:var(--signal);font-variant-numeric:tabular-nums;margin-left:-.03em}
+.rd-t{margin-top:.35em;font-size:clamp(26px,2.6vw,40px);line-height:.95;letter-spacing:-.01em;max-width:15ch}
+.rd-side{display:grid;gap:var(--sp-4);justify-items:start}
+.rd-note{position:relative;font-size:clamp(28px,2.4vw,38px);line-height:1;color:var(--ink);transform:rotate(-4deg);pointer-events:auto}
+.rd-note svg{position:absolute;left:calc(100% - 8px);top:55%;width:clamp(48px,4vw,68px);height:auto;transform:rotate(38deg)}   /* down to the button */
+.rd-go{max-width:360px}
+@media (max-width:1000px){.rd-in{grid-template-columns:minmax(0,1fr);gap:var(--sp-4)}}
+
 /* ---------- pick a side: a contents list on the left, the four volumes fanned out on the right ----------
    The list is the plain answer: each side, who it's for, and (open, one at a time) what's inside, a short film and the
    way in. The books mirror it (bookshelf.js, kept in step by sides.js): on wide screens they fan out from a point below
@@ -133,8 +171,8 @@ main{overflow-x:clip}
    (spine, cover, page edge), so the one on top leans after the pointer. Without the script every line stays open. */
 .sd{position:relative;padding-block:var(--sp-5)}
 .sd-wrap{width:100%;display:grid;grid-template-columns:minmax(0,470px) minmax(0,1fr);gap:var(--sp-5);align-items:center}
-.sd-h{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(44px,4.4vw,72px);line-height:.88;letter-spacing:-.02em;color:var(--signal)}
-.sd-h .it{text-transform:none;font-size:1.08em;letter-spacing:-.02em;color:var(--ink)}
+.sd-h{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(44px,4.4vw,72px);line-height:.88;letter-spacing:-.02em;color:var(--ink)}
+.sd-h .it{text-transform:none;font-size:1.08em;letter-spacing:-.02em;color:var(--signal)}
 .sd-lead{margin-top:var(--sp-2);color:var(--muted);text-wrap:balance}
 
 /* the library card: a real card (tools/card-textures.py: its photographed rim as a 9-slice, its paper in the middle)
@@ -143,12 +181,12 @@ main{overflow-x:clip}
    stamp on the open line's DATE DUE. Any handwriting is his own pencil, added as doodles. It stays a cream card in
    dark mode too, like the books, so everything on it uses the print colours. */
 .lc{--red:color-mix(in srgb,var(--signal) 42%,transparent);--rule:var(--line);--ink-c:var(--ink);--stamp:var(--signal);
-  --cols:26px minmax(0,118px) minmax(0,1fr) 88px;
+  --cols:26px minmax(0,138px) minmax(0,1fr) 88px;
   position:relative;margin-top:var(--sp-3);padding:22px 26px 24px;color:var(--ink-c);rotate:-1deg;
   background:var(--raised);border-radius:3px;box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 8%,transparent),0 22px 40px -22px rgba(20,16,10,.45)}
-.lc-head,.lc-cols{font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.lc-head,.lc-cols{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
 .lc-head{display:flex;justify-content:space-between;gap:12px;padding-bottom:9px;border-bottom:3px double var(--red);opacity:.85}
-.lc-cols{display:grid;grid-template-columns:var(--cols);column-gap:10px;padding:9px 0 7px;border-bottom:1px solid var(--red);font-size:9px;letter-spacing:.12em;opacity:.62}
+.lc-cols{display:grid;grid-template-columns:var(--cols);column-gap:10px;padding:9px 0 7px;border-bottom:1px solid var(--red);letter-spacing:.1em;opacity:.7}
 .lc-cols span:last-child{text-align:center}
 /* the lines: a faded blue rule under each, and the red column rule printed down after the volume numbers */
 .lc-rows{position:relative;display:grid}
@@ -236,7 +274,7 @@ main{overflow-x:clip}
   .lc-for{grid-column:2;grid-row:2;font-size:13px}
   .lc-stamp{grid-column:3;width:80px}
   .lc-rows::before{left:25px}
-  .lc-head{font-size:8.5px;letter-spacing:.08em}
+  .lc-head{font-size:9.5px;letter-spacing:.06em}
   .lc-list{grid-column:1 / -1;font-size:13px}
 }
 
@@ -342,8 +380,8 @@ main{overflow-x:clip}
 /* ---------- before you ask ---------- */
 .fq{position:relative;padding-block:var(--sp-6)}
 .fq-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:var(--sp-5);align-items:center}
-.fq-h{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(44px,4.4vw,72px);line-height:.88;letter-spacing:-.02em;color:var(--signal)}
-.fq-h .it{text-transform:none;font-size:1.08em;letter-spacing:-.02em;color:var(--ink)}
+.fq-h{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:clamp(44px,4.4vw,72px);line-height:.88;letter-spacing:-.02em;color:var(--ink)}
+.fq-h .it{text-transform:none;font-size:1.08em;letter-spacing:-.02em;color:var(--signal)}
 .fq-lead{margin-top:var(--sp-2);max-width:34ch;color:var(--muted)}
 /* the hero's polaroid again, bigger: the same button, the same call */
 .fq-tw{width:min(320px,100%);margin-top:var(--sp-4);rotate:-3deg;translate:none}

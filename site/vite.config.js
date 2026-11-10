@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import { cloudflare } from '@cloudflare/vite-plugin';
-import { resolve } from 'node:path';
+import { resolve, relative } from 'node:path';
 import { readFileSync, writeFileSync } from 'node:fs';
 
 // one page per audience: the pitch at /, a page per kind of work, and the long story kept at /story.
@@ -42,11 +42,49 @@ const doodleSaver = {
 };
 // The shell every page shares (header, menu, twin, footer) lives once in src/shell/*.html; a page asks for a piece with
 // <!--shell:name-->. Done before Vite reads the page, so the pieces' assets are handled like the page's own.
+const include = html => html.replace(/<!--shell:([a-z]+)-->/g, (_, name) => readFileSync(page(`src/shell/${name}.html`), 'utf8'));
+
+// What search engines and link previews read, written once for every page from the page's own <title> and
+// description: the canonical address, the Open Graph and Twitter card (one share image, public/og.jpg, made by
+// tools/og.html), and on the home page who he is as schema.org data. public/sitemap.xml lists the same addresses.
+const SITE = 'https://shehrozsajjad.com';
+const PERSON = {
+  '@context': 'https://schema.org', '@type': 'Person', name: 'Shehroz Sajjad', url: `${SITE}/`, image: `${SITE}/og.jpg`,
+  jobTitle: 'Founding engineer', worksFor: {'@type': 'Organization', name: 'Beyond Presence'},
+  address: {'@type': 'PostalAddress', addressLocality: 'Munich', addressCountry: 'DE'},
+  sameAs: ['https://www.linkedin.com/in/mshehrozsajjad/', 'https://github.com/mshehrozsajjad', 'https://www.instagram.com/mshehroz.sajjad/',
+    'https://www.tiktok.com/@mshehrozsajjad', 'https://substack.com/@mshehrozsajjad'],
+};
+// the arriving half of the turn between pages (pages.js starts it, shell.css draws it): the page begins under a sheet
+// of the colour the last page left behind
+const TURNED = `<script>try{var c=sessionStorage.getItem('turn');if(c){sessionStorage.removeItem('turn');document.documentElement.style.setProperty('--turn',c);document.documentElement.classList.add('turned')}}catch(e){}</script>`;
+function seo(html, path) {
+  const pick = re => (html.match(re) || [])[1] || '';
+  const title = pick(/<title>([^<]*)<\/title>/), about = pick(/<meta name="description" content="([^"]*)">/);
+  const where = path.replace(/index\.html$/, '').replace(/\/?$/, '/'), url = SITE + where;
+  const tags = [
+    `<link rel="canonical" href="${url}">`,
+    '<meta property="og:type" content="website">',
+    '<meta property="og:site_name" content="Shehroz Sajjad">',
+    `<meta property="og:title" content="${title}">`,
+    `<meta property="og:description" content="${about}">`,
+    `<meta property="og:url" content="${url}">`,
+    `<meta property="og:image" content="${SITE}/og.jpg">`,
+    '<meta property="og:image:width" content="1200">',
+    '<meta property="og:image:height" content="630">',
+    '<meta property="og:image:alt" content="Shehroz Sajjad in front of the word HELLO. One person, whole product.">',
+    '<meta name="twitter:card" content="summary_large_image">',
+    '<meta name="theme-color" content="#F8F5EC">',
+    where === '/' ? `<script type="application/ld+json">${JSON.stringify(PERSON)}</script>` : '',
+    TURNED,
+  ].filter(Boolean).join('\n');
+  return html.replace('</title>', `</title>\n${tags}`);
+}
 const shell = {
   name: 'shell-include',
   transformIndexHtml: {
     order: 'pre',
-    handler: html => html.replace(/<!--shell:([a-z]+)-->/g, (_, name) => readFileSync(page(`src/shell/${name}.html`), 'utf8')),
+    handler: (html, ctx) => seo(include(html), `/${relative(import.meta.dirname, ctx.filename)}`),   // ctx.path is a disk path on the dev server
   },
 };
 export default defineConfig(({command}) => ({
@@ -68,6 +106,7 @@ export default defineConfig(({command}) => ({
             ai: page('ai/index.html'),
             hardware: page('hardware/index.html'),
             story: page('story/index.html'),
+            tars: page('tars/index.html'),
           },
         },
       },

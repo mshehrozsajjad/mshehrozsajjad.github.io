@@ -97,11 +97,12 @@ function frame(){
   }
   nodes.forEach(n => n.el.classList.toggle('hit', reduce || atEnd || n.y <= readY));
   reveal.check(atEnd);
-  fabShow(scrollY > innerHeight*.7);
+  fabShow(scrollY > innerHeight*.7 && !onScreen(bigTwin));   // not beside the twin section's own, bigger print
   if (!reduce && busy) req();
 }
 /* ---------- the floating "ask my AI self": his live face, a wave when it arrives, and a few teasers in his hand ---------- */
-const fab = $('#fab'), tip = $('#fabTip');
+const fab = $('#fab'), tip = $('#fabTip'), bigTwin = $('.fq-tw');
+const onScreen = el => { if (!el) return false; const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
 const TIPS = ['psst, I’m live'];   // said once, beside the floating print (never on phones, where it would cover the text)
 const TIP_SECONDS = 4.5, TIP_EVERY = 20;   // each teaser stays a few seconds; at most one per TIP_EVERY seconds
 let fabOn = false, tipsShown = 0, tipTimer = 0, engaged = false;
@@ -308,6 +309,30 @@ if (film) {
     if (e.isIntersecting) film.play().catch(() => {}); else film.pause();
   }, {rootMargin: '300px 0px'}).observe(film);
 }
+
+/* ---------- the turn between pages: cover this one in the colour of the next, then go (shell.css) ---------- */
+const at = p => p.replace(/\/$/, '');
+if (!reduce) document.addEventListener('click', e => {
+  const a = e.target.closest('a[href]');
+  // not ours: already handled (a book that only comes to the top), a new tab, another site, a file, this same page
+  if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target || a.hasAttribute('download')
+    || a.origin !== location.origin || at(a.pathname) === at(location.pathname)) return;
+  e.preventDefault();
+  const own = a.dataset.bg || getComputedStyle(a).getPropertyValue('--bg').trim();   // a menu line's colour, or a book's
+  const colour = own && !own.startsWith('var(') ? own : getComputedStyle(root).getPropertyValue('--ink').trim();
+  try { sessionStorage.setItem('turn', colour); } catch (_) {}
+  const sheet = document.createElement('div');
+  sheet.className = 'turn';
+  sheet.style.setProperty('--turn', colour);
+  document.body.append(sheet);
+  let gone = false;
+  const go = () => { if (!gone) { gone = true; location.href = a.href; } };
+  if (getComputedStyle(sheet).animationName === 'none') return go();   // a page without the shell's styles (shell.css): just go
+  sheet.addEventListener('animationend', go);
+  setTimeout(go, 700);   // if the animation never reports back
+});
+// back to a page kept in memory: its sheet is still over it
+addEventListener('pageshow', e => { if (e.persisted) document.querySelectorAll('.turn').forEach(s => s.remove()); });
 
 /* ---------- his doodles: played back, or drawn on the dev server with ?doodle; and his pen as the cursor ---------- */
 if (import.meta.env.DEV && new URLSearchParams(location.search).has('doodle')) import('./doodle-editor.js');   // keeps its crosshair

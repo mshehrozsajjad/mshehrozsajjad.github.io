@@ -26,6 +26,8 @@
 /* the shell's two headlines look the same on every page, whatever that page does to its own h2 and accent word */
 .twd .twd-h{font-family:var(--sans);font-weight:700;letter-spacing:-.02em}
 .ft .ft-line .it,.twd .twd-h .it{font-family:var(--serif);font-style:italic;font-weight:400;background:none;padding:0;color:var(--ink)}
+.twd .twd-h{color:var(--ink)}
+.twd .twd-h .it{color:var(--signal)}   /* the page's rule: ink, the one phrase in his blue */
 .ft-col{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
 .ft-t{display:block;margin:6px 0 12px;font:500 var(--fs-xs)/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .ft-t::after{content:"";display:block;width:22px;height:1px;margin-top:12px;background:currentColor}
@@ -35,14 +37,8 @@
 .ft-a:focus-visible,.ft-links a:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
 .ft-hint{display:block;margin:-2px 0 4px;font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .ft-p{font-size:var(--fs-s);line-height:1.4;color:var(--muted)}
-.ft-field{display:flex;align-items:center;width:100%;margin-top:12px;border:1px solid var(--ink)}
-.ft-field input{flex:1;min-width:0;height:42px;padding:0 12px;border:0;outline:0;background:none;color:var(--ink);font:400 var(--fs-s)/1 var(--sans)}
-.ft-field input::placeholder{color:var(--muted)}
-.ft-field button{display:grid;place-items:center;width:42px;height:42px;padding:0;border:0;border-left:1px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;transition:background-color .2s}
-.ft-field button .ar{width:15px;height:15px;transition:transform .2s}
-.ft-field button:hover{background:var(--signal)}
-.ft-field button:hover .ar{transform:translateX(2px)}
-.ft-field:focus-within{border-color:var(--signal)}
+.ft-sub{margin-top:12px;min-height:42px;padding:0 14px;border-radius:2px;font-size:var(--fs-xs);white-space:nowrap}
+.ft-sub:hover{background:var(--signal);color:var(--on-signal)}
 .ft .msg:not(:empty){margin-top:8px;font-size:var(--fs-xs);line-height:1.4;color:var(--signal)}
 
 .ft .ft-base{grid-column:1 / -1;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:flex-end;gap:0 var(--sp-3);margin-top:var(--sp-2);font-size:var(--fs-xs);color:var(--muted)}
@@ -65,10 +61,13 @@
   .ft-base > *{padding:6px 0}
 }
 
-/* ---------- the turn between pages: the next one wipes in from the right, like a page turned ---------- */
-@view-transition{navigation:auto}
-::view-transition-old(root){animation:vt-out .6s cubic-bezier(.76,0,.2,1) both}
-::view-transition-new(root){animation:vt-in .6s cubic-bezier(.76,0,.2,1) both}
-@keyframes vt-out{to{translate:-8% 0;opacity:.5}}
-@keyframes vt-in{from{clip-path:inset(0 0 0 100%)}}
-@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
+/* ---------- the turn between pages (pages.js) ----------
+   Leaving: a sheet in the colour of where you're going (a book's cover, a menu line's) wipes over the page from the
+   right, and the next page is asked for once it's covered. Arriving: the head script (vite.config.js) finds the colour
+   left behind and the page starts under the same sheet, which carries on off to the left. */
+.turn,.turned::after{content:"";position:fixed;inset:0;z-index:1000;background:var(--turn,var(--ink));pointer-events:none}
+.turn{animation:turn-in .45s cubic-bezier(.76,0,.2,1) both}
+.turned::after{animation:turn-out .6s cubic-bezier(.76,0,.2,1) .05s both}
+@keyframes turn-in{from{clip-path:inset(0 0 0 100%)}to{clip-path:inset(0)}}
+@keyframes turn-out{from{clip-path:inset(0)}to{clip-path:inset(0 100% 0 0)}}
+@media (prefers-reduced-motion:reduce){.turn,.turned::after{display:none}}   /* with no animation the sheet would never leave */

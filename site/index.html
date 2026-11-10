@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Shehroz Sajjad, founding engineer in Munich. He owns the platform, sits with the customer, and ships what they need, fast.">
-<title>Shehroz Sajjad · Founding engineer</title>
+<meta name="description" content="I’m Shehroz Sajjad, a founding engineer in Munich. I name, design, build, film and sell whole products myself. Sometimes I solder them too.">
+<title>Shehroz Sajjad · One person, whole product</title>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="/src/styles/twin.css">
 <link rel="preload" href="/fonts/shehroz-hand.woff2" as="font" type="font/woff2" crossorigin>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('js');
+// the entrance plays on every arrival and reload; only coming back from another page of the site (a link or the back button) skips it
+try{var n=performance.getEntriesByType('navigation')[0];if(n&&(n.type==='back_forward'||(n.type!=='reload'&&document.referrer.indexOf(location.origin)===0)))document.documentElement.classList.add('seen')}catch(e){}
 // the entrance's safety net: if home.js never started it, take the cover away
 setTimeout(function(){if(!document.documentElement.classList.contains('intro-on')){var i=document.querySelector('.intro');if(i)i.remove()}},4000)}</script>
 </head>
@@ -50,8 +52,9 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
   <p class="hx-note hand" aria-hidden="true">hi, <span data-who>stranger</span>!<br>i’m Shehroz<svg viewBox="0 0 60 40"><path d="M4 6 C 22 6, 44 14, 54 34 M54 34 L 44 30 M54 34 L 56 23"/></svg></p>
   <div class="hx-foot">
     <div class="hx-copy">
-      <p class="kicker">Founding engineer · Munich</p>
-      <p class="pitch">I sit with the customer, own the platform, and ship what they need, <span class="dd" data-doodle="underline">fast.</span></p>
+      <p class="kicker">One person, whole product</p>
+      <p class="pitch">I name it, design it, build it, film it and sell it. Sometimes I also <span class="dd" data-doodle="underline">solder it.</span></p>
+      <p class="hx-role">Founding engineer at Beyond Presence · Munich</p>
       <div class="hero-actions"><a class="btn" href="#sides">See the work <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a></div>
     </div>
     <!-- the twin: one polaroid, all of it one button. Its film waves on a loop; the phone in the corner and the caption
@@ -68,8 +71,8 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 </section>
 
 <div class="ticker" aria-hidden="true"><div class="ticker-in">
-  <span>Founding engineer at Beyond Presence</span><i>✦</i><span>Co-founder of an award-winning agency</span><i>✦</i><span>Four products live</span><i>✦</i><span>Yolk, my own AI device</span><i>✦</i><span>Open-source contributions</span><i>✦</i>
-  <span>Founding engineer at Beyond Presence</span><i>✦</i><span>Co-founder of an award-winning agency</span><i>✦</i><span>Four products live</span><i>✦</i><span>Yolk, my own AI device</span><i>✦</i><span>Open-source contributions</span><i>✦</i>
+  <span>Founding engineer at Beyond Presence</span><i>✦</i><span>Co-founder of an award-winning agency</span><i>✦</i><span>Four products live</span><i>✦</i><span>Designed my own AI device</span><i>✦</i><span>Built a robot with my face</span><i>✦</i>
+  <span>Founding engineer at Beyond Presence</span><i>✦</i><span>Co-founder of an award-winning agency</span><i>✦</i><span>Four products live</span><i>✦</i><span>Designed my own AI device</span><i>✦</i><span>Built a robot with my face</span><i>✦</i>
 </div></div>
 
 <!-- the short version, in his hand, written out as you scroll -->
@@ -90,23 +93,21 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
     <div class="ab-side">
       <div class="ab-stick">
         <p class="chap-l">02 / Who to call</p>
-        <h2 id="h-ab" class="ab-h">Tight deadlines are where I do my best&nbsp;work.</h2>
+        <h2 id="h-ab" class="ab-h">One person. Every stage of <span class="hl">the&nbsp;product.</span></h2>
         <p class="ab-lead">At Beyond Presence I own the platform behind the product, frontend and backend, and I’m in the customer meetings where what we build next gets decided. Before that I co-founded an award-winning agency. On the side I take my own ideas from a name and a brand to paying customers.</p>
         <!-- the work behind whichever line is sharp (home.js swaps it), as a print -->
-        <figure class="ab-print" aria-hidden="true"><img src="/assets/media/creator-platform-poster.webp" alt="" width="640" height="480" loading="lazy"><figcaption class="hand">the creator platform</figcaption></figure>
+        <figure class="ab-print" aria-hidden="true"><img src="/assets/shots/npcfilter.webp" alt="" width="800" height="500" loading="lazy"><figcaption class="hand">NPC Filter</figcaption></figure>
       </div>
     </div>
     <div class="ab-list-wrap">
-      <ul class="ab-list" aria-label="What I do">
-        <li><a href="/code" data-img="/assets/media/creator-platform-poster.webp" data-say="the creator platform">Platforms</a></li>
-        <li><a href="/code" data-img="/assets/media/external-meeting.webp" data-say="an avatar in the meeting">Real-time AI</a></li>
-        <li><a href="/code" data-img="/assets/shots/npcfilter.webp" data-say="NPC Filter">Frontend</a></li>
-        <li><a href="/code" data-img="/assets/media/kiosk-poster.webp" data-say="our kiosk">Backend</a></li>
-        <li><a href="/design" data-img="/assets/design/ui-closr-cta.webp" data-say="myClosr">Product design</a></li>
-        <li><a href="/design" data-img="/assets/shots/slaptastic.webp" data-say="Slaptastic">Brands</a></li>
-        <li><a href="/design" data-img="/assets/media/npc-film-poster.webp" data-say="the NPC Filter film">Launch films</a></li>
-        <li><a href="/hardware" data-img="/assets/media/yolk-device.webp" data-say="Yolk">Hardware</a></li>
-        <li><a href="/ai" data-img="/assets/shots/roomrush.webp" data-say="RoomRush">Getting it sold</a></li>
+      <ul class="ab-list" aria-label="What I do, in the order a product needs it">
+        <li><a href="/design" data-img="/assets/shots/npcfilter.webp" data-say="NPC Filter">Name it</a></li>
+        <li><a href="/design" data-img="/assets/shots/slaptastic.webp" data-say="Slaptastic">Brand it</a></li>
+        <li><a href="/design" data-img="/assets/design/ui-closr-cta.webp" data-say="myClosr">Design it</a></li>
+        <li><a href="/code" data-img="/assets/media/creator-platform-poster.webp" data-say="the creator platform">Build it</a></li>
+        <li><a href="/design" data-img="/assets/media/npc-film-poster.webp" data-say="the NPC Filter film">Film it</a></li>
+        <li><a href="/ai" data-img="/assets/shots/roomrush.webp" data-say="RoomRush">Sell it</a></li>
+        <li><a href="/hardware" data-img="/assets/media/yolk-device.webp" data-say="Yolk">Put it in a box</a></li>
       </ul>
     </div>
   </div>
@@ -114,8 +115,25 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
     <div><dt>CodeJunkie</dt><dd>Co-founded it in my final semester. An award-winning agency with clients worldwide.</dd></div>
     <div><dt>Beyond Presence</dt><dd>Founding engineer since pre-seed, before there was a product.</dd></div>
     <div><dt>My own products</dt><dd>myClosr, Slaptastic, Vorsprech and NPC Filter are live. I sell them myself.</dd></div>
-    <div><dt>My own device</dt><dd>Yolk, an AI device I designed, makes my phone calls in German.</dd></div>
+    <div><dt>My own hardware</dt><dd>Yolk, a pocket e-paper device for my AI agent. I designed its enclosure and wrote its firmware on Meta’s open-source Muse gadget SDK.</dd></div>
   </dl>
+</section>
+
+<!-- the stories: a build told properly, one card each. It starts with one and grows -->
+<section class="sy" aria-labelledby="h-sy">
+  <div class="wrap sy-in">
+    <p class="chap-l">03 / The stories</p>
+    <h2 id="h-sy" class="sr">Stories</h2>
+    <a class="sy-card" href="/tars">
+      <figure class="sy-fig" aria-hidden="true"><img class="sy-cut" src="/assets/photos/tars-face.webp" alt="" width="1808" height="1715" loading="lazy"><figcaption class="hand sy-note">yes, that’s my face<svg viewBox="0 0 60 40"><path d="M4 6 C 22 6, 44 14, 54 34 M54 34 L 44 30 M54 34 L 56 23"/></svg></figcaption></figure>
+      <span class="sy-text">
+        <span class="kicker">TARS · a robot, running fully local</span>
+        <span class="sy-h">I built a robot. Then I gave it <span class="hl">my&nbsp;face.</span></span>
+        <span class="act">Read the story <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span>
+      </span>
+    </a>
+    <p class="hand sy-more" aria-hidden="true">next up: Yolk,<br>then the comment filter</p>
+  </div>
 </section>
 
 <!-- four sides, four pages. A contents list on the left says plainly what each side is and who it's for; the four
@@ -124,7 +142,7 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 <section class="sd" id="sides" aria-labelledby="h-sides">
   <div class="wrap sd-wrap">
     <div class="sd-side">
-      <p class="chap-l">03 / Pick a side</p>
+      <p class="chap-l">04 / Pick a side</p>
       <h2 id="h-sides" class="sd-h">What are you <span class="it">here for?</span></h2>
       <p class="sd-lead">Four sides of me, one book each. Pick yours.</p>
       <!-- the library card: each side a typed line on it, who it's for, the open one stamped ON LOAN with today's date
@@ -135,7 +153,7 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
         <p class="lc-cols" aria-hidden="true"><span>Vol.</span><span>Title</span><span>For readers who…</span><span>Date due</span></p>
         <div class="lc-rows" role="tablist" aria-label="The four sides" aria-orientation="vertical">
           <button class="lc-row" type="button" role="tab" id="sx-b0" aria-selected="true" aria-controls="sx-p0">
-            <span class="lc-n">01</span><span class="lc-t">Engineering</span><span class="lc-for"><span class="sr">for readers who </span>need a platform built and owned</span>
+            <span class="lc-n">01</span><span class="lc-t">AI engineering</span><span class="lc-for"><span class="sr">for readers who </span>want to see my main work</span>
             <span class="lc-stamp" aria-hidden="true"><span class="ls-a">On loan</span><span class="ls-d" data-today>07 Nov 2026</span><span class="ls-v">Vol. 01</span></span>
           </button>
           <button class="lc-row" type="button" role="tab" id="sx-b1" aria-selected="false" aria-controls="sx-p1" tabindex="-1">
@@ -143,7 +161,7 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
             <span class="lc-stamp" aria-hidden="true"><span class="ls-a">On loan</span><span class="ls-d" data-today>07 Nov 2026</span><span class="ls-v">Vol. 02</span></span>
           </button>
           <button class="lc-row" type="button" role="tab" id="sx-b2" aria-selected="false" aria-controls="sx-p2" tabindex="-1">
-            <span class="lc-n">03</span><span class="lc-t">AI products</span><span class="lc-for"><span class="sr">for readers who </span>want AI that real people pay for</span>
+            <span class="lc-n">03</span><span class="lc-t">Side projects</span><span class="lc-for"><span class="sr">for readers who </span>want to see what I ship on my own</span>
             <span class="lc-stamp" aria-hidden="true"><span class="ls-a">On loan</span><span class="ls-d" data-today>07 Nov 2026</span><span class="ls-v">Vol. 03</span></span>
           </button>
           <button class="lc-row" type="button" role="tab" id="sx-b3" aria-selected="false" aria-controls="sx-p3" tabindex="-1">
@@ -153,13 +171,13 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
         </div>
         <div class="lc-out">
           <div class="lc-p" role="tabpanel" id="sx-p0" aria-labelledby="sx-b0">
-            <a class="btn lc-go" href="/code">See my engineering work <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>
+            <a class="btn lc-go" href="/code">See my main work <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>
           </div>
           <div class="lc-p" role="tabpanel" id="sx-p1" aria-labelledby="sx-b1">
             <a class="btn lc-go" href="/design">See my design work <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>
           </div>
           <div class="lc-p" role="tabpanel" id="sx-p2" aria-labelledby="sx-b2">
-            <a class="btn lc-go" href="/ai">See the AI products I built <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>
+            <a class="btn lc-go" href="/ai">See my side projects <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>
           </div>
           <div class="lc-p" role="tabpanel" id="sx-p3" aria-labelledby="sx-b3">
             <a class="btn lc-go" href="/hardware">See the hardware I built <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>
@@ -172,8 +190,8 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
       <ol class="books">
         <li style="--d:0;--r:-2deg"><a class="book b-ink" href="/code" tabindex="-1" aria-hidden="true">
           <span class="book-3d" aria-hidden="true">
-            <span class="spine"><span class="sp-n">01</span><span class="sp-t">Engineering</span><span class="sp-a">S. Sajjad</span></span>
-            <span class="cover"><span class="cv-n">Vol. 01</span><span class="cv-t">Engineering</span><span class="cv-d">Platforms, real-time AI and the code under them.</span><span class="hand cv-h">founding engineer, co-founder</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-think-anim.webp" alt="" width="199" height="484" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
+            <span class="spine"><span class="sp-n">01</span><span class="sp-t">AI engineering</span><span class="sp-a">S. Sajjad</span></span>
+            <span class="cover"><span class="cv-n">Vol. 01</span><span class="cv-t">AI engineering</span><span class="cv-d">My main work: the platform behind real-time AI avatars.</span><span class="hand cv-h">founding engineer, co-founder</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-think-anim.webp" alt="" width="199" height="484" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
           </span><span class="stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#i-stamp"/></svg><svg class="stamp-ar" viewBox="0 0 16 16"><use href="#i-ne"/></svg></span></a></li>
         <li style="--d:1;--r:1.6deg"><a class="book b-blue" href="/design" tabindex="-1" aria-hidden="true">
           <span class="book-3d" aria-hidden="true">
@@ -182,8 +200,8 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
           </span><span class="stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#i-stamp"/></svg><svg class="stamp-ar" viewBox="0 0 16 16"><use href="#i-ne"/></svg></span></a></li>
         <li style="--d:2;--r:-1.2deg"><a class="book b-print" href="/ai" tabindex="-1" aria-hidden="true">
           <span class="book-3d" aria-hidden="true">
-            <span class="spine"><span class="sp-n">03</span><span class="sp-t">AI products</span><span class="sp-a">S. Sajjad</span></span>
-            <span class="cover"><span class="cv-n">Vol. 03</span><span class="cv-t">AI products</span><span class="cv-d">Applied AI, built on my own and put in front of real people.</span><span class="hand cv-h">four of them live</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" width="248" height="481" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
+            <span class="spine"><span class="sp-n">03</span><span class="sp-t">Side projects</span><span class="sp-a">S. Sajjad</span></span>
+            <span class="cover"><span class="cv-n">Vol. 03</span><span class="cv-t">Side projects</span><span class="cv-d">AI products I build and sell on the side.</span><span class="hand cv-h">four of them live</span><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" width="248" height="481" loading="lazy"><span class="cv-a">Shehroz Sajjad</span></span>
           </span><span class="stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#i-stamp"/></svg><svg class="stamp-ar" viewBox="0 0 16 16"><use href="#i-ne"/></svg></span></a></li>
         <li style="--d:3;--r:2.4deg"><a class="book b-navy" href="/hardware" tabindex="-1" aria-hidden="true">
           <span class="book-3d" aria-hidden="true">
@@ -195,12 +213,23 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
   </div>
 </section>
 
+<!-- the readers: one line with a real number, and the newsletter -->
+<section class="rd" aria-labelledby="h-rd">
+  <div class="wrap rd-in">
+    <h2 id="h-rd" class="rd-h"><span class="rd-n" data-count="15492">15,492</span> <span class="rd-t">times the robot post was&nbsp;seen.</span></h2>
+    <div class="rd-side">
+      <p class="hand rd-note">the next build goes to<br>the newsletter first<svg viewBox="0 0 60 40"><path d="M4 6 C 22 6, 44 14, 54 34 M54 34 L 44 30 M54 34 L 56 23"/></svg></p>
+      <a class="btn lc-go rd-go" href="https://substack.com/@mshehrozsajjad" target="_blank" rel="noopener">Subscribe on Substack <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a>
+    </div>
+  </div>
+</section>
+
 <!-- before you ask: the questions go to the twin. Each line opens the call and asks it (pages.js, data-ask); the short
      written answers stay in the page for screen readers and search -->
 <section class="fq" aria-labelledby="h-faq">
   <div class="wrap fq-grid">
     <div class="fq-side">
-      <p class="chap-l">04 / Before you ask</p>
+      <p class="chap-l">05 / Before you ask</p>
       <h2 id="h-faq" class="fq-h">Before you ask, <span class="it">ask my twin.</span></h2>
       <p class="fq-lead">A live AI version of me that answers from my own notes. Pick a question and it picks up.</p>
       <button class="tw fq-tw" type="button" data-open="agent" aria-label="Talk to my AI twin, live now">
@@ -213,11 +242,11 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
       </button>
     </div>
     <ol class="fq-list">
-      <li><button class="fq-q" type="button" data-ask="Where are you based?"><span class="qa-n">01</span><span class="fq-t">Where are you?</span><svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button><p class="sr">Munich, Germany.</p></li>
-      <li><button class="fq-q" type="button" data-ask="What do you do right now?"><span class="qa-n">02</span><span class="fq-t">What do you do right now?</span><svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button><p class="sr">Founding engineer at Beyond Presence. I own the creator and call platforms behind our real-time avatars, frontend and backend, and I’m in the customer meetings turning what they need into something working, fast.</p></li>
-      <li><button class="fq-q" type="button" data-ask="What are you best at?"><span class="qa-n">03</span><span class="fq-t">What are you best at?</span><svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button><p class="sr">Getting from a customer’s problem to something working, fast. Tight deadlines are where I do my best work.</p></li>
-      <li><button class="fq-q" type="button" data-ask="Are you a designer or an engineer?"><span class="qa-n">04</span><span class="fq-t">Designer or engineer?</span><svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button><p class="sr">Both, usually on the same product. Then I help it reach people.</p></li>
-      <li><button class="fq-q" type="button" data-ask="Can we work together?"><span class="qa-n">05</span><span class="fq-t">Can we work together?</span><svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button><p class="sr">Yes. Email me or book a call.</p></li>
+      <li><button class="fq-q" type="button" data-ask="What would you build for us in two weeks?"><span class="qa-n">01</span><span class="fq-t">What would you build for us in two weeks?</span><svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button></li>
+      <li><button class="fq-q" type="button" data-ask="What would you tell me not to build?"><span class="qa-n">02</span><span class="fq-t">What would you tell me not to build?</span><svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button></li>
+      <li><button class="fq-q" type="button" data-ask="Are you a designer or an engineer?"><span class="qa-n">03</span><span class="fq-t">Designer or engineer?</span><svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button><p class="sr">Both, usually on the same product. Then I help it reach people.</p></li>
+      <li><button class="fq-q" type="button" data-ask="How did you design your own device, Yolk?"><span class="qa-n">04</span><span class="fq-t">How did you design your own device?</span><svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button></li>
+      <li><button class="fq-q" type="button" data-ask="Can we work together?"><span class="qa-n">05</span><span class="fq-t">Can we work together?</span><svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button><p class="sr">Yes. Book a call or email me.</p></li>
       <li><a class="fq-q" href="/story"><span class="qa-n">06</span><span class="fq-t">Everything in one place?</span><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a><p class="sr">Yes. The long story walks through all of it, from Photoshop to now.</p></li>
     </ol>
   </div>
@@ -235,7 +264,7 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
   </div>
   <div class="wl-in">
     <h2 id="h-wl" class="wl-h"><span class="wl-a">Got an idea?</span> <span class="wl-b">Let’s build&nbsp;it.</span></h2>
-    <div class="wl-acts"><a class="btn wl-btn" href="mailto:mshehrozsajjad@gmail.com">Email me <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a><button class="btn wl-btn wl-2" type="button" data-open="agent">Talk to my twin first</button></div>
+    <div class="wl-acts"><a class="btn wl-btn" href="https://cal.com/mshehrozsajjad" target="_blank" rel="noopener">Book a call <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a><a class="btn wl-btn wl-2" href="mailto:mshehrozsajjad@gmail.com">Email me</a></div>
   </div>
 </section>
 

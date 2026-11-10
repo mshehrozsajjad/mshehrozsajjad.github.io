@@ -147,7 +147,8 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
   const intro = $('.intro');
   // a link straight to a part of the page skips the entrance; the top of the page (no hash, or #top / #h1) plays it
   const deepLink = location.hash && !['#top', '#h1', '#main'].includes(location.hash);
-  if (intro && !deepLink) playEntrance(intro, enter);
+  const seen = document.documentElement.classList.contains('seen');   // back from another page of the site (the head script)
+  if (intro && !deepLink && !seen) playEntrance(intro, enter);
   else {
     intro?.remove();
     enter.from('.hx-photo', {y: 80, autoAlpha: 0, duration: 1.4}, .25);
@@ -162,7 +163,7 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
 
   /* ---------- the short version writes itself as you scroll ---------- */
   const quote = SplitText.create('.qt-text', {type: 'words'});
-  gsap.timeline({scrollTrigger: {trigger: '.qt-pin', start: conditions.wide ? 'top top' : 'top 70%', end: conditions.wide ? '+=110%' : 'bottom 60%', scrub: .6, pin: conditions.wide}})
+  gsap.timeline({scrollTrigger: {trigger: '.qt-pin', start: conditions.wide ? 'top top' : 'top 70%', end: conditions.wide ? '+=55%' : 'bottom 60%', scrub: .6, pin: conditions.wide}})
     .fromTo(quote.words, {autoAlpha: 0, y: '.12em'}, {autoAlpha: 1, y: 0, stagger: .12, duration: .3, ease: 'power2.out'})   // written in, word by word
     .fromTo('.qt-u', {'--u': 0}, {'--u': 1, duration: .5, ease: 'power2.inOut'})   // then the phrase gets its underline
     .from('.qt-mark', {scale: 0, autoAlpha: 0, duration: .3, ease: 'back.out(3)', stagger: {each: .05, from: 'random'}}, 0)
@@ -181,11 +182,20 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
      so everyone sees all four. A pick by hand still works; the next quarter of scroll moves on from wherever it is ---------- */
   if (sides) {   // phones too: there the section is one screen, so holding it is how the choice gets seen
     let turn = 0;
-    ScrollTrigger.create({trigger: '#sides', start: 'top top', end: conditions.wide ? '+=160%' : '+=120%', pin: true, onUpdate: ({progress}) => {
+    ScrollTrigger.create({trigger: '#sides', start: 'top top', end: conditions.wide ? '+=105%' : '+=80%', pin: true, onUpdate: ({progress}) => {
       const i = Math.min(3, Math.floor(progress * 4));
       if (i !== turn) sides.pick(turn = i);
     }});
   }
+
+  /* ---------- the stories: the sticker drops onto the page, its headline slides in after it ---------- */
+  gsap.from('.sy-fig', {y: 70, rotate: -9, autoAlpha: 0, duration: 1.1, ease: 'expo.out', clearProps: 'transform,opacity,visibility', scrollTrigger: {trigger: '.sy-card', start: 'top 78%'}});
+  gsap.from(['.sy-h', '.sy-more'], {xPercent: -8, autoAlpha: 0, duration: 1.1, stagger: .25, ease: 'expo.out', scrollTrigger: {trigger: '.sy-card', start: 'top 78%'}});
+
+  /* ---------- the readers: the number counts up once, as it comes into view ---------- */
+  const reads = $('.rd-n'), count = {v: 0};
+  gsap.to(count, {v: +reads.dataset.count, duration: 1.8, ease: 'power3.out', scrollTrigger: {trigger: reads, start: 'top 88%'},
+    onUpdate: () => { reads.textContent = Math.round(count.v).toLocaleString('en-US'); }});
 
   /* ---------- before you ask: the headline slams in ---------- */
   gsap.from('.fq-h', {xPercent: -12, autoAlpha: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: {trigger: '.fq-h', start: 'top 85%'}});
