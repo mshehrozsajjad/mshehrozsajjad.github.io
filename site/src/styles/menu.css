@@ -10,7 +10,7 @@
 .top.solid{background:color-mix(in srgb,var(--paper) 88%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .top.away{translate:0 -110%}
 .top .wrap{flex-wrap:nowrap}
-.top .theme{margin-left:auto}
+.top .mark{margin-right:auto}
 
 /* two strokes, the second shorter, as if drawn; they cross into the × when the menu is open */
 .burger{all:unset;box-sizing:border-box;flex:none;width:48px;height:48px;display:grid;place-content:center;gap:7px;border-radius:50%;cursor:pointer;color:var(--signal);transition:background-color .2s}

@@ -5,7 +5,6 @@ import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {SplitText} from 'gsap/SplitText';
 import {mountSides} from './sides.js';
-import {mountMenu} from './menu.js';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -117,7 +116,6 @@ if (marks) {
   document.fonts?.ready.then(stepAside);
 }
 
-mountMenu();   // the header and the burger's menu (menu.js)
 const sides = mountSides($('#sides'));   // the contents list and the fanned books, kept in step (sides.js, bookshelf.js)
 
 const mm = gsap.matchMedia();
@@ -188,27 +186,3 @@ mm.add({motion: '(prefers-reduced-motion: no-preference)', wide}, ({conditions})
   // the hand font changes line lengths once it loads, so measure again
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
 });
-
-/* ---------- the footer's clock: the time where he is ---------- */
-const clock = $('#ftClock');
-if (clock) {
-  const fmt = new Intl.DateTimeFormat('en-GB', {timeZone: 'Europe/Berlin', hour: '2-digit', minute: '2-digit'});
-  const tick = () => { const d = new Date(); clock.textContent = fmt.format(d); clock.dateTime = d.toISOString(); };
-  tick();
-  setInterval(tick, 20000);
-}
-
-/* ---------- the footer's view: loaded only as it comes near, playing only while it's on screen ---------- */
-const film = $('.ft-film');
-if (film) {
-  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let loaded = false;
-  new IntersectionObserver(([e]) => {
-    if (e.isIntersecting && !loaded && !still) {
-      loaded = true;
-      film.src = film.dataset.src;
-    }
-    if (still || !loaded) return;
-    if (e.isIntersecting) film.play().catch(() => {}); else film.pause();
-  }, {rootMargin: '300px 0px'}).observe(film);
-}

@@ -16,7 +16,11 @@ export function mountMenu() {
   const sprite = name => reduce ? `/assets/sprites/shehroz-${name}.webp` : `/assets/sprites/v2/shehroz-${name}-anim.webp`;
   let open = false;
 
-  links.forEach((a, i) => a.parentElement.style.setProperty('--i', i));
+  const path = p => p.replace(/\/$/, '');
+  links.forEach((a, i) => {
+    a.parentElement.style.setProperty('--i', i);
+    if (path(a.pathname) === path(location.pathname)) a.setAttribute('aria-current', 'page');
+  });
 
   /* ---------- the card follows the line you point at ---------- */
   let shown = null;

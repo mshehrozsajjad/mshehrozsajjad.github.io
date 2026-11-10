@@ -1,0 +1,35 @@
+<!-- the floating twin: the hero's polaroid in miniature, there once the hero has scrolled away -->
+<button class="fab tw-fab" id="fab" type="button" data-open="agent" aria-label="Talk to my AI twin, live now"><span class="fab-face" aria-hidden="true"><video src="/assets/media/twin-wave-thumb.mp4" poster="/assets/media/twin-wave-poster.webp" muted loop playsinline preload="metadata"></video><i></i></span><span class="tw-fab-cap hand" aria-hidden="true">AI twin</span></button>
+<button class="fab-tip hand" id="fabTip" type="button" data-open="agent" tabindex="-1" aria-hidden="true"></button>
+<div class="scrim" id="scrim"></div>
+<!-- the twin's call (twin-drawer.js): a sheet of the page's paper, the call as a print, his questions as ruled lines,
+     the twin's answers in his hand. Its look is in twin.css; the ids are the ones twin-drawer.js wires -->
+<aside role="dialog" aria-modal="true" class="drawer twd" id="agent" aria-labelledby="twd-h" aria-hidden="true">
+  <div class="twd-head">
+    <h2 id="twd-h" class="twd-h">Talk to my <span class="it">AI twin</span></h2>
+    <button class="twd-x" type="button" data-close aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5 12.5 12.5M12.5 3.5 3.5 12.5"/></svg></button>
+  </div>
+  <figure class="twd-print">
+    <div class="d-ph d-call">
+      <video class="twin" id="twinVideo" muted autoplay playsinline aria-label="My AI twin, live"></video>
+      <div class="d-screen" id="twinScreen" role="status"><video class="twd-wait" id="twinWait" src="/assets/media/twin-wave.mp4" poster="/assets/media/twin-wave-poster.webp" muted loop playsinline preload="none" aria-hidden="true"></video><span class="d-loader" aria-hidden="true"><i></i><i></i><i></i></span><p id="twinScreenText">Calling my twin…</p><button class="twd-again" id="twinAgain" type="button" hidden>Call again</button><a class="twd-mail" id="twinMail" href="mailto:mshehrozsajjad@gmail.com" hidden>or email the real me</a></div>
+      <p class="d-live" id="twinLive" hidden></p>
+      <button class="d-sound" id="twinSound" type="button" hidden>Tap for sound</button>
+      <!-- the call's controls, on the film like the clock: icon only, bottom right -->
+      <div class="twd-ctl">
+        <button class="d-mic twd-ic" id="twinMic" type="button" aria-pressed="false" aria-label="Turn my mic on" hidden><svg class="i-off" viewBox="0 0 256 256" aria-hidden="true"><path d="M213.38,229.92a8,8,0,0,1-11.3-.54l-30.92-34A78.83,78.83,0,0,1,136,207.59V240a8,8,0,0,1-16,0V207.6A80.11,80.11,0,0,1,48,128a8,8,0,0,1,16,0,64.07,64.07,0,0,0,64,64,63.41,63.41,0,0,0,32.21-8.68l-11.1-12.2A48,48,0,0,1,80,128V95.09L42.08,53.38A8,8,0,0,1,53.92,42.62l160,176A8,8,0,0,1,213.38,229.92Zm-24.19-63.13a7.88,7.88,0,0,0,3.51.82,8,8,0,0,0,7.19-4.49A79.16,79.16,0,0,0,208,128a8,8,0,0,0-16,0,63.32,63.32,0,0,1-6.48,28.09A8,8,0,0,0,189.19,166.79Zm-27.33-29.22A8,8,0,0,0,175.74,133a49.49,49.49,0,0,0,.26-5V64A48,48,0,0,0,84,44.87a8,8,0,0,0,1.41,8.57Z"/></svg><svg class="i-on" viewBox="0 0 256 256" aria-hidden="true"><path d="M80,128V64a48,48,0,0,1,96,0v64a48,48,0,0,1-96,0Zm128,0a8,8,0,0,0-16,0,64,64,0,0,1-128,0,8,8,0,0,0-16,0,80.11,80.11,0,0,0,72,79.6V240a8,8,0,0,0,16,0V207.6A80.11,80.11,0,0,0,208,128Z"/></svg></button>
+        <button class="d-end twd-ic twd-hang" id="twinEnd" type="button" aria-label="End call" hidden><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M236.28,161.84a16,16,0,0,1-18.38,5.06l-49-17.39-.29-.11a16,16,0,0,1-9.72-11.59l-6.21-29.75h0a76.52,76.52,0,0,0-49.68.11l-5.9,29.52a16,16,0,0,1-9.75,11.73l-.29.11-49,17.37A15.8,15.8,0,0,1,32.35,168a16,16,0,0,1-12.63-6.14c-17.23-22.22-15.3-51.71,4.69-71.71,56.15-56.17,151-56.17,207.18,0h0C251.58,110.13,253.51,139.62,236.28,161.84ZM216,192H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg></button>
+      </div>
+    </div>
+    <figcaption class="twd-cap hand">answers from my notes</figcaption>
+  </figure>
+  <p class="d-note twd-note">It’s AI, so it can get things wrong.</p>
+  <div class="qs twd-qs">
+    <button class="q" type="button">What are you working on now?</button>
+    <button class="q" type="button">Which of your products are live?</button>
+    <button class="q" type="button">What have you built that I can hold?</button>
+    <button class="q" type="button">Can we work together?</button>
+  </div>
+  <div class="log" id="log" aria-live="polite"></div>
+  <form class="d-form twd-form" id="askForm" autocomplete="off"><label for="askInput" class="sr">Your question</label><input id="askInput" placeholder="Ask me anything…"><button type="submit" aria-label="Ask"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button></form>
+</aside>

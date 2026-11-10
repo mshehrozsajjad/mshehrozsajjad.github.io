@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/src/styles/ending.css">
 <link rel="stylesheet" href="/src/styles/grain.css">
 <link rel="stylesheet" href="/src/styles/pages.css">
+<link rel="stylesheet" href="/src/styles/shell.css">
 <link rel="stylesheet" href="/src/styles/home.css">
 <link rel="stylesheet" href="/src/styles/menu.css">
 <link rel="stylesheet" href="/src/styles/twin.css">
@@ -34,13 +35,7 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 <a class="skip-link" href="#h1">Skip to content</a>
 <main id="main">
 
-<header class="top c" id="top">
-  <div class="wrap">
-    <a class="mark" href="/" aria-label="Shehroz Sajjad, home">Shehroz Sajjad <span class="dot hit"></span></a>
-    <button class="theme" id="theme" type="button" role="switch" aria-checked="false" aria-label="Dark mode"><svg class="th-sun" viewBox="0 0 256 256" aria-hidden="true"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/></svg><svg class="th-moon" viewBox="0 0 256 256" aria-hidden="true"><path d="M233.54,142.23a8,8,0,0,0-8-2,88.08,88.08,0,0,1-109.8-109.8,8,8,0,0,0-10-10,104.84,104.84,0,0,0-52.91,37A104,104,0,0,0,136,224a103.09,103.09,0,0,0,62.52-20.88,104.84,104.84,0,0,0,37-52.91A8,8,0,0,0,233.54,142.23ZM188.9,190.34A88,88,0,0,1,65.66,67.11a89,89,0,0,1,31.4-26A106,106,0,0,0,96,56,104.11,104.11,0,0,0,200,160a106,106,0,0,0,14.92-1.06A89,89,0,0,1,188.9,190.34Z"/></svg><span class="th-knob" aria-hidden="true"><svg class="th-sun" viewBox="0 0 256 256" aria-hidden="true"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm8,24a64,64,0,1,0,64,64A64.07,64.07,0,0,0,128,64ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/></svg><svg class="th-moon" viewBox="0 0 256 256" aria-hidden="true"><path d="M235.54,150.21a104.84,104.84,0,0,1-37,52.91A104,104,0,0,1,32,120,103.09,103.09,0,0,1,52.88,57.48a104.84,104.84,0,0,1,52.91-37,8,8,0,0,1,10,10,88.08,88.08,0,0,0,109.8,109.8,8,8,0,0,1,10,10Z"/></svg></span></button>
-    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu"><i></i><i></i></button>
-  </div>
-</header>
+<!--shell:header-->
 
 <!-- the hello: a word bigger than the screen, Shehroz in front of it, his own hand around him -->
 <section class="hx" aria-labelledby="h1">
@@ -225,113 +220,11 @@ setTimeout(function(){if(!document.documentElement.classList.contains('intro-on'
 
 </main>
 
-<!-- the footer: quiet type over the view from Munich to the Alps, drawn in his blue ink and moving a little. The drawing
-     is the section's background; its empty sky holds the columns. IDs are the ones pages.js wires (copy, book, newsletter) -->
-<footer class="ft" id="contact" aria-labelledby="h-foot">
-  <div class="ft-art" aria-hidden="true">
-    <video class="ft-film" muted loop playsinline preload="none" poster="/assets/media/munich-alps-poster.webp" data-src="/assets/media/munich-alps.mp4"></video>
-  </div>
-  <div class="wrap ft-in">
-    <div class="ft-brand">
-      <a class="mark" href="#top">Shehroz Sajjad <span class="dot hit"></span></a>
-      <h2 id="h-foot" class="ft-line">Founding engineer in Munich. <span class="it">Let’s build something.</span></h2>
-    </div>
-    <nav class="ft-col" aria-labelledby="ft-pages">
-      <p class="ft-t" id="ft-pages">Pages</p>
-      <ul class="ft-links">
-        <li><a href="/code">Engineering</a></li><li><a href="/design">Design</a></li><li><a href="/ai">AI products</a></li><li><a href="/hardware">Hardware</a></li><li><a href="/story">The long story</a></li>
-      </ul>
-    </nav>
-    <div class="ft-col">
-      <p class="ft-t" id="ft-else">Elsewhere</p>
-      <ul class="ft-links" aria-labelledby="ft-else">
-        <li><a href="https://www.linkedin.com/in/mshehrozsajjad/" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="https://www.instagram.com/mshehroz.sajjad/" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://github.com/mshehrozsajjad" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://www.tiktok.com/@mshehrozsajjad" target="_blank" rel="noopener">TikTok</a></li>
-      </ul>
-    </div>
-    <div class="ft-col">
-      <p class="ft-t">Say hi</p>
-      <ul class="ft-links">
-        <li><button class="ft-a" type="button" id="copy" aria-label="Copy mshehrozsajjad@gmail.com">mshehrozsajjad@gmail.com</button><span class="ft-hint" id="copy-hint" aria-live="polite">tap to copy</span></li>
-        <li><button class="ft-a" type="button" id="book">Book a call</button></li>
-      </ul>
-      <p class="msg" id="book-msg" role="status"></p>
-    </div>
-    <form class="ft-col ft-nl" id="nl" novalidate>
-      <label class="ft-t" for="nl-email">Newsletter</label>
-      <p class="ft-p">One email when I ship something new.</p>
-      <div class="ft-field"><input id="nl-email" type="email" placeholder="Your email" autocomplete="email"><button type="submit" aria-label="Sign up"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button></div>
-      <p class="msg" id="nl-msg" role="status"></p>
-    </form>
-    <div class="ft-base">
-      <span>© 2026 Shehroz Sajjad</span>
-      <span class="ft-clock">Munich, <time id="ftClock">now</time></span>
-      <a href="/impressum">Impressum</a>
-      <a href="/datenschutz">Datenschutz</a>
-    </div>
-  </div>
-</footer>
+<!--shell:footer-->
 
-<!-- the menu: an ink circle opens out of the burger over everything; each side of him a giant line, his sprite at
-     work beside the one you point at (menu.js) -->
-<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
-  <nav class="menu-in" aria-label="Main">
-    <ol class="menu-list">
-      <li><a href="/" aria-current="page" data-spr="wave" data-bg="var(--paper)" data-fg="var(--ink)" data-say="the short version"><span class="ml-n">00</span><span class="ml-t">Home</span></a></li>
-      <li><a href="/code" data-spr="think" data-bg="#111113" data-fg="#F8F5EC" data-say="founding engineer, co-founder"><span class="ml-n">01</span><span class="ml-t">Engineering</span></a></li>
-      <li><a href="/design" data-spr="draw" data-bg="#2D2BE0" data-fg="#FFFFFF" data-say="where I started"><span class="ml-n">02</span><span class="ml-t">Design</span></a></li>
-      <li><a href="/ai" data-spr="wave" data-bg="#1F1D9E" data-fg="#F3F1EA" data-say="four of them live"><span class="ml-n">03</span><span class="ml-t">AI products</span></a></li>
-      <li><a href="/hardware" data-spr="solder" data-bg="#0F0F3D" data-fg="#F1F1EC" data-say="Yolk, TARS and more"><span class="ml-n">04</span><span class="ml-t">Hardware</span></a></li>
-      <li><a href="/story" data-spr="camera" data-bg="#F8F5EC" data-fg="#111113" data-say="from Photoshop to now"><span class="ml-n">05</span><span class="ml-t">The long story</span></a></li>
-    </ol>
-    <figure class="menu-card" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" width="248" height="481"><figcaption class="hand">the short version</figcaption></figure>
-    <div class="menu-foot">
-      <a class="menu-mail" href="mailto:mshehrozsajjad@gmail.com">mshehrozsajjad@gmail.com</a>
-      <button class="menu-twin" type="button" data-open="agent">Talk to my AI twin <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></button>
-      <ul class="menu-social" aria-label="Elsewhere">
-        <li><a href="https://www.linkedin.com/in/mshehrozsajjad/" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href="https://www.instagram.com/mshehroz.sajjad/" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="https://github.com/mshehrozsajjad" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href="https://www.tiktok.com/@mshehrozsajjad" target="_blank" rel="noopener">TikTok</a></li>
-      </ul>
-    </div>
-  </nav>
-</div>
+<!--shell:menu-->
 
-<!-- the floating twin: the hero's polaroid in miniature, there once the hero has scrolled away -->
-<button class="fab tw-fab" id="fab" type="button" data-open="agent" aria-label="Talk to my AI twin, live now"><span class="fab-face" aria-hidden="true"><video src="/assets/media/twin-wave-thumb.mp4" poster="/assets/media/twin-wave-poster.webp" muted loop playsinline preload="metadata"></video><i></i></span><span class="tw-fab-cap hand" aria-hidden="true">AI twin</span></button>
-<button class="fab-tip hand" id="fabTip" type="button" data-open="agent" tabindex="-1" aria-hidden="true"></button>
-<div class="scrim" id="scrim"></div>
-<!-- the twin's call (twin-drawer.js): a sheet of the page's paper, the call as a print, his questions as ruled lines,
-     the twin's answers in his hand. Its look is in twin.css; the ids are the ones twin-drawer.js wires -->
-<aside role="dialog" aria-modal="true" class="drawer twd" id="agent" aria-labelledby="twd-h" aria-hidden="true">
-  <div class="twd-head">
-    <h2 id="twd-h" class="twd-h">Talk to my <span class="it">AI twin</span></h2>
-    <button class="twd-x" type="button" data-close aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5 12.5 12.5M12.5 3.5 3.5 12.5"/></svg></button>
-  </div>
-  <figure class="twd-print">
-    <div class="d-ph d-call">
-      <video class="twin" id="twinVideo" muted autoplay playsinline aria-label="My AI twin, live"></video>
-      <div class="d-screen" id="twinScreen" role="status"><video class="twd-wait" id="twinWait" src="/assets/media/twin-wave.mp4" poster="/assets/media/twin-wave-poster.webp" muted loop playsinline preload="none" aria-hidden="true"></video><span class="d-loader" aria-hidden="true"><i></i><i></i><i></i></span><p id="twinScreenText">Calling my twin…</p><button class="twd-again" id="twinAgain" type="button" hidden>Call again</button><a class="twd-mail" id="twinMail" href="mailto:mshehrozsajjad@gmail.com" hidden>or email the real me</a></div>
-      <p class="d-live" id="twinLive" hidden></p>
-      <button class="d-sound" id="twinSound" type="button" hidden>Tap for sound</button>
-      <!-- the call's controls, on the film like the clock: icon only, bottom right -->
-      <div class="twd-ctl">
-        <button class="d-mic twd-ic" id="twinMic" type="button" aria-pressed="false" aria-label="Turn my mic on" hidden><svg class="i-off" viewBox="0 0 256 256" aria-hidden="true"><path d="M213.38,229.92a8,8,0,0,1-11.3-.54l-30.92-34A78.83,78.83,0,0,1,136,207.59V240a8,8,0,0,1-16,0V207.6A80.11,80.11,0,0,1,48,128a8,8,0,0,1,16,0,64.07,64.07,0,0,0,64,64,63.41,63.41,0,0,0,32.21-8.68l-11.1-12.2A48,48,0,0,1,80,128V95.09L42.08,53.38A8,8,0,0,1,53.92,42.62l160,176A8,8,0,0,1,213.38,229.92Zm-24.19-63.13a7.88,7.88,0,0,0,3.51.82,8,8,0,0,0,7.19-4.49A79.16,79.16,0,0,0,208,128a8,8,0,0,0-16,0,63.32,63.32,0,0,1-6.48,28.09A8,8,0,0,0,189.19,166.79Zm-27.33-29.22A8,8,0,0,0,175.74,133a49.49,49.49,0,0,0,.26-5V64A48,48,0,0,0,84,44.87a8,8,0,0,0,1.41,8.57Z"/></svg><svg class="i-on" viewBox="0 0 256 256" aria-hidden="true"><path d="M80,128V64a48,48,0,0,1,96,0v64a48,48,0,0,1-96,0Zm128,0a8,8,0,0,0-16,0,64,64,0,0,1-128,0,8,8,0,0,0-16,0,80.11,80.11,0,0,0,72,79.6V240a8,8,0,0,0,16,0V207.6A80.11,80.11,0,0,0,208,128Z"/></svg></button>
-        <button class="d-end twd-ic twd-hang" id="twinEnd" type="button" aria-label="End call" hidden><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M236.28,161.84a16,16,0,0,1-18.38,5.06l-49-17.39-.29-.11a16,16,0,0,1-9.72-11.59l-6.21-29.75h0a76.52,76.52,0,0,0-49.68.11l-5.9,29.52a16,16,0,0,1-9.75,11.73l-.29.11-49,17.37A15.8,15.8,0,0,1,32.35,168a16,16,0,0,1-12.63-6.14c-17.23-22.22-15.3-51.71,4.69-71.71,56.15-56.17,151-56.17,207.18,0h0C251.58,110.13,253.51,139.62,236.28,161.84ZM216,192H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg></button>
-      </div>
-    </div>
-    <figcaption class="twd-cap hand">answers from my notes</figcaption>
-  </figure>
-  <p class="d-note twd-note">It’s AI, so it can get things wrong.</p>
-  <div class="qs twd-qs">
-    <button class="q" type="button">What are you working on now?</button>
-    <button class="q" type="button">Which of your products are live?</button>
-    <button class="q" type="button">What have you built that I can hold?</button>
-    <button class="q" type="button">Can we work together?</button>
-  </div>
-  <div class="log" id="log" aria-live="polite"></div>
-  <form class="d-form twd-form" id="askForm" autocomplete="off"><label for="askInput" class="sr">Your question</label><input id="askInput" placeholder="Ask me anything…"><button type="submit" aria-label="Ask"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button></form>
-</aside>
+<!--shell:twin-->
 <script type="module" src="/src/pages.js"></script>
 <script type="module" src="/src/home.js"></script>
 </body>

@@ -1,0 +1,45 @@
+<!-- the footer: quiet type over the view from Munich to the Alps, drawn in his blue ink and moving a little. The drawing
+     is the section's background; its empty sky holds the columns. IDs are the ones pages.js wires (copy, book, newsletter) -->
+<footer class="ft" id="contact" aria-labelledby="h-foot">
+  <div class="ft-art" aria-hidden="true">
+    <video class="ft-film" muted loop playsinline preload="none" poster="/assets/media/munich-alps-poster.webp" data-src="/assets/media/munich-alps.mp4"></video>
+  </div>
+  <div class="wrap ft-in">
+    <div class="ft-brand">
+      <a class="mark" href="#top">Shehroz Sajjad <span class="dot hit"></span></a>
+      <h2 id="h-foot" class="ft-line">Founding engineer in Munich. <span class="it">Let’s build something.</span></h2>
+    </div>
+    <nav class="ft-col" aria-labelledby="ft-pages">
+      <p class="ft-t" id="ft-pages">Pages</p>
+      <ul class="ft-links">
+        <li><a href="/code">Engineering</a></li><li><a href="/design">Design</a></li><li><a href="/ai">AI products</a></li><li><a href="/hardware">Hardware</a></li><li><a href="/story">The long story</a></li>
+      </ul>
+    </nav>
+    <div class="ft-col">
+      <p class="ft-t" id="ft-else">Elsewhere</p>
+      <ul class="ft-links" aria-labelledby="ft-else">
+        <li><a href="https://www.linkedin.com/in/mshehrozsajjad/" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="https://www.instagram.com/mshehroz.sajjad/" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://github.com/mshehrozsajjad" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://www.tiktok.com/@mshehrozsajjad" target="_blank" rel="noopener">TikTok</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <p class="ft-t">Say hi</p>
+      <ul class="ft-links">
+        <li><button class="ft-a" type="button" id="copy" aria-label="Copy mshehrozsajjad@gmail.com">mshehrozsajjad@gmail.com</button><span class="ft-hint" id="copy-hint" aria-live="polite">tap to copy</span></li>
+        <li><button class="ft-a" type="button" id="book">Book a call</button></li>
+      </ul>
+      <p class="msg" id="book-msg" role="status"></p>
+    </div>
+    <form class="ft-col ft-nl" id="nl" novalidate>
+      <label class="ft-t" for="nl-email">Newsletter</label>
+      <p class="ft-p">One email when I ship something new.</p>
+      <div class="ft-field"><input id="nl-email" type="email" placeholder="Your email" autocomplete="email"><button type="submit" aria-label="Sign up"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button></div>
+      <p class="msg" id="nl-msg" role="status"></p>
+    </form>
+    <div class="ft-base">
+      <span>© 2026 Shehroz Sajjad</span>
+      <span class="ft-clock">Munich, <time id="ftClock">now</time></span>
+      <a href="/impressum">Impressum</a>
+      <a href="/datenschutz">Datenschutz</a>
+    </div>
+  </div>
+</footer>

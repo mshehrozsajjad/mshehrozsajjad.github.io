@@ -6,6 +6,7 @@ import {handDrawn} from './hand.js';
 import {playDoodles} from './doodles.js';
 import {mountTwin} from './twin-drawer.js';
 import {mountCursor} from './cursor.js';
+import {mountMenu} from './menu.js';
 
 (() => {
 "use strict";
@@ -281,6 +282,31 @@ const th = () => root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)
 const themeBtn = $('#theme');
 if (themeBtn){ const label = () => themeBtn.setAttribute('aria-checked', th() === 'dark');   // a switch: on is dark
   themeBtn.addEventListener('click', () => { root.dataset.theme = th() === 'dark' ? 'light' : 'dark'; try { localStorage.setItem('site-theme', th()); } catch (_) {} label(); }); label(); }
+
+mountMenu();   // the header and the burger's menu (menu.js)
+
+/* ---------- the footer's clock: the time where he is ---------- */
+const clock = $('#ftClock');
+if (clock) {
+  const fmt = new Intl.DateTimeFormat('en-GB', {timeZone: 'Europe/Berlin', hour: '2-digit', minute: '2-digit'});
+  const tick = () => { const d = new Date(); clock.textContent = fmt.format(d); clock.dateTime = d.toISOString(); };
+  tick();
+  setInterval(tick, 20000);
+}
+
+/* ---------- the footer's view: loaded only as it comes near, playing only while it's on screen ---------- */
+const film = $('.ft-film');
+if (film) {
+  let loaded = false;
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting && !loaded && !reduce) {
+      loaded = true;
+      film.src = film.dataset.src;
+    }
+    if (reduce || !loaded) return;
+    if (e.isIntersecting) film.play().catch(() => {}); else film.pause();
+  }, {rootMargin: '300px 0px'}).observe(film);
+}
 
 /* ---------- his doodles: played back, or drawn on the dev server with ?doodle; and his pen as the cursor ---------- */
 if (import.meta.env.DEV && new URLSearchParams(location.search).has('doodle')) import('./doodle-editor.js');   // keeps its crosshair

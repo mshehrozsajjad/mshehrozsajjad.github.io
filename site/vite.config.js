@@ -40,11 +40,20 @@ const doodleSaver = {
     });
   },
 };
+// The shell every page shares (header, menu, twin, footer) lives once in src/shell/*.html; a page asks for a piece with
+// <!--shell:name-->. Done before Vite reads the page, so the pieces' assets are handled like the page's own.
+const shell = {
+  name: 'shell-include',
+  transformIndexHtml: {
+    order: 'pre',
+    handler: html => html.replace(/<!--shell:([a-z]+)-->/g, (_, name) => readFileSync(page(`src/shell/${name}.html`), 'utf8')),
+  },
+};
 export default defineConfig(({command}) => ({
   // a build re-bundles the dependencies too; in the dev server's cache that leaves an open page asking for files that
   // just changed under it ("504 Outdated Optimize Dep"), so builds keep their own cache
   cacheDir: command === 'build' ? 'node_modules/.vite-build' : 'node_modules/.vite',
-  plugins: [doodleSaver, cloudflare()],
+  plugins: [shell, doodleSaver, cloudflare()],
   build: {
     assetsDir: 'bundle',
   },
