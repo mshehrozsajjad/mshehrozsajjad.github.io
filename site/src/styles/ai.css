@@ -1,96 +1,208 @@
-/* ===== /ai: the product lab, as a dashboard =====
-   Cooler paper and white cards, like the tools these products are. Status reads in colour (live green, stopped grey),
-   the accent word is highlighted rather than set in italic, and the pipeline from idea to customers is the one chart. */
-:root.pg-ai{--paper:#F3F4F7; --raised:#FFFFFF; --ink:#14151A; --muted:#5E6270; --line:#E1E3EA; --signal:#4F46E5; --signal-soft:#E8E7FD; --live:#0E9F6E; --live-soft:#DDF5EB; --stop:#8A8F9C; --card:#FFFFFF}
-@media (prefers-color-scheme:dark){:root.pg-ai:not([data-theme="light"]){--paper:#0D0E12; --raised:#16171D; --ink:#EEF0F5; --muted:#9BA0AE; --line:#262833; --signal:#8B85FF; --signal-soft:#221F4A; --live:#34D399; --live-soft:#0E2E23; --stop:#7C8190; --card:#15161C}}
-:root.pg-ai[data-theme="dark"]{--paper:#0D0E12; --raised:#16171D; --ink:#EEF0F5; --muted:#9BA0AE; --line:#262833; --signal:#8B85FF; --signal-soft:#221F4A; --live:#34D399; --live-soft:#0E2E23; --stop:#7C8190; --card:#15161C}
-.pg-ai body::after{opacity:.04}
-.pg-ai .it{font-family:var(--sans);font-style:normal;font-weight:600;background:linear-gradient(transparent 58%,var(--signal-soft) 58%,var(--signal-soft) 92%,transparent 92%);padding:0 .06em}
+/* ===== /ai: the side projects, as a corner shop =====
+   These are things he builds and sells, so the page is his shop: an awning over the door, the products standing on a
+   shelf with a hang tag and a stamp card each, a till receipt for the whole story, and the house rules on the board
+   behind the counter. Paper things (receipts, tags) keep their own colours in the dark, like the prints do. */
+.pg-ai{--live:#0E9F6E; --stop:#8A8F9C; --rc:#FFFEFA; --rc-ink:#1D1B18; --tag:#F1DFB6; --board:#17171A; --board-ink:#F3F1EA}
 
-/* ---------- hero: words on the left, the lab at a glance on the right ---------- */
-.ai-hero > .wrap{grid-template-columns:minmax(0,1fr) minmax(0,420px);align-items:center}
-.kpis{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;display:grid;gap:6px;box-shadow:0 1px 2px rgba(20,22,30,.04),0 18px 36px -28px rgba(20,22,30,.35)}
-.kpi b{font:600 clamp(34px,3.4vw,46px)/1 var(--sans);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
-.kpi span{font-size:var(--fs-xs);color:var(--muted);line-height:1.35}
-.kpi.hot{background:var(--signal);border-color:var(--signal);color:#fff}
-.kpi.hot span{color:rgba(255,255,255,.82)}
-.kpi-spr{position:absolute;right:-30px;bottom:-110px;--h:150px}
+/* ---------- the shopfront: awning, the hello, and the till ---------- */
+.ai-hero{padding-top:calc(var(--sp-5) + 70px)}
+.ai-hero > .wrap{grid-template-columns:minmax(0,1fr) minmax(0,320px);align-items:center}
+/* stripes one scallop wide, so every scallop is one colour */
+.awning{--s:46px;position:absolute;inset:0 0 auto;height:70px;background:repeating-linear-gradient(90deg,var(--signal) 0 var(--s),#FBF7EE var(--s) calc(var(--s)*2));
+  -webkit-mask:radial-gradient(calc(var(--s)/2) at 50% calc(100% - var(--s)/2),#000 97%,#0000) 0 0/var(--s) 100%,linear-gradient(#000 0 0) top/100% calc(100% - var(--s)/2) no-repeat;
+  mask:radial-gradient(calc(var(--s)/2) at 50% calc(100% - var(--s)/2),#000 97%,#0000) 0 0/var(--s) 100%,linear-gradient(#000 0 0) top/100% calc(100% - var(--s)/2) no-repeat;
+  filter:drop-shadow(0 10px 12px rgba(20,16,10,.18))}
+/* the sign on the door: hung on two strings, it swings once as you arrive */
+.shop-sign{position:absolute;right:calc(max(0px,(100% - 1120px)/2) + var(--gr) + 372px);top:92px;   /* clear of the till */z-index:3;padding:9px 16px 8px;border-radius:4px;background:var(--ink);color:var(--paper);
+  font:700 20px/1 var(--sans);font-stretch:75%;letter-spacing:.08em;text-transform:uppercase;transform-origin:50% -34px;rotate:3deg}
+.shop-sign::before{content:"";position:absolute;left:14px;right:14px;bottom:100%;height:36px;border:solid var(--ink);border-width:0 1.5px;transform:perspective(60px) rotateX(-38deg);transform-origin:bottom}
+.js .shop-sign{animation:swing 2.2s ease-in-out .3s}
+@keyframes swing{0%{rotate:-9deg}25%{rotate:8deg}50%{rotate:-3deg}75%{rotate:5deg}100%{rotate:3deg}}
 
-/* ---------- the dashboard ---------- */
-.dash-bar{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);margin-bottom:var(--sp-3)}
-.filters{display:inline-flex;flex-wrap:wrap;gap:6px;padding:5px;background:var(--card);border:1px solid var(--line);border-radius:12px}
-.filters button{border:0;background:none;border-radius:8px;padding:8px 14px;font:500 var(--fs-s)/1 var(--sans);color:var(--muted);cursor:pointer;display:inline-flex;gap:8px;align-items:center;transition:background .2s,color .2s}
-.filters button i{font-style:normal;font-size:12px;color:inherit;opacity:.7}
-.filters button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
-.dash-note{transform:rotate(-4deg)}
-.pcs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.pc{position:relative;display:grid;gap:12px;align-content:start;text-align:left;padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--card);color:var(--ink);font:inherit;cursor:pointer;box-shadow:0 1px 2px rgba(20,22,30,.04),0 22px 44px -34px rgba(20,22,30,.4);transition:transform .3s var(--ease),box-shadow .3s var(--ease),opacity .3s,filter .3s}
-.pc:hover{transform:translateY(-4px);box-shadow:0 1px 2px rgba(20,22,30,.05),0 30px 54px -30px rgba(20,22,30,.45)}
-.pc.off{opacity:.28;filter:grayscale(1);pointer-events:none}
-.pc-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.pc-top b{font:600 20px/1.2 var(--sans);letter-spacing:-.02em}
-.pill{display:inline-flex;align-items:center;gap:6px;font:600 12px/1 var(--sans);padding:6px 10px;border-radius:999px;background:var(--live-soft);color:var(--live)}
-.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
-.pill.live::before{animation:pulse 1.8s ease-out infinite}
-.pill.stopped{background:color-mix(in srgb,var(--stop) 16%,transparent);color:var(--stop)}
-@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--live) 50%,transparent)}100%{box-shadow:0 0 0 7px transparent}}
-.pc-thumb{display:block;border-radius:10px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/9;background:var(--paper)}
-.pc-thumb img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
-.pc-line{font-size:var(--fs-s);line-height:1.45;color:var(--muted);min-height:3em}
-.pc-metric{font:600 var(--fs-s)/1.3 var(--sans)}
-.pc-open{font:600 var(--fs-xs)/1 var(--sans);color:var(--signal);display:inline-flex;align-items:center;gap:6px}
-/* the pipeline: five stages, filled as far as the idea got */
-.pipe{position:relative;list-style:none;margin:6px 0 4px;padding:0;display:flex;justify-content:space-between}
-.pipe::before,.pipe::after{content:"";position:absolute;left:5px;right:5px;top:5px;height:2px;border-radius:2px;background:var(--line)}
-.pipe::after{right:auto;width:calc((100% - 10px)*var(--to));background:var(--signal)}
-.pipe li{position:relative;z-index:1;width:12px;height:12px;border-radius:50%;background:var(--card);border:2px solid var(--line)}
-.pipe li.on{background:var(--signal);border-color:var(--signal)}
-.pipe li.tip{box-shadow:0 0 0 4px var(--signal-soft)}
-.pipe li.x{border-color:var(--stop);background:var(--card)}
-.pipe li.x::after{content:"×";position:absolute;inset:-6px 0 0;text-align:center;font:600 12px/1 var(--sans);color:var(--stop)}
-.pipe li span{position:absolute;top:18px;left:50%;transform:translateX(-50%);font:500 10.5px/1 var(--sans);color:var(--muted);white-space:nowrap}
-.pipe li:first-child span{left:0;transform:none}.pipe li:last-child span{left:auto;right:0;transform:none}
-.pc .pipe{margin-bottom:18px}
+/* the till: a slot, and the day's receipt feeding out of it */
+.till{position:relative;filter:drop-shadow(0 22px 26px rgba(20,16,10,.22))}
+.till::before{content:"";position:relative;z-index:1;display:block;height:14px;margin:0 -12px;border-radius:8px;background:var(--ink)}
+.till-out{overflow:hidden;margin-top:-7px;padding-bottom:2px}
+.js .till .rcpt{animation:feed 1.5s steps(20) .5s both}
+@keyframes feed{from{translate:0 -100%}}
+.till-spr{position:absolute;left:-104px;bottom:-26px;--h:170px}
 
-/* the sheet: a product's whole story, over the dashboard */
-.sheet{width:min(1040px,calc(100% - 32px));max-height:calc(100svh - 48px);padding:0;border:1px solid var(--line);border-radius:22px;background:var(--card);color:var(--ink);box-shadow:0 40px 120px -30px rgba(10,12,20,.55)}
-.sheet::backdrop{background:rgba(12,14,22,.45);backdrop-filter:blur(3px)}
+/* the shopfront in 3D (stall.js), where there is WebGL: it fills the hero, behind the words, with its own cloth awning
+   and counter; the flat awning goes, and the flat receipt stays as its text, out of sight */
+.stall-3d{display:none}
+/* the awning runs up behind the header to the top of the page (stall.js), so the header's three things sit on paper chips to stay readable
+   over the stripes; once the page is scrolled the header has its own backing (menu.css) */
+.pg-ai.has-3d:not(.menu-on) .top:not(.solid) :is(.mark,.theme,.burger){background:var(--paper);box-shadow:0 8px 18px -10px rgba(20,16,10,.55)}
+.pg-ai.has-3d .top .mark{margin-left:-16px;padding:11px 16px;border-radius:999px}
+/* the stage runs on past the hero's bottom edge, so the counter comes down to the ground and fades into the page instead of being cut off */
+.has-3d .stall-3d{display:block;position:absolute;inset:0 0 calc(-1*var(--past));z-index:1;touch-action:pan-y;
+  -webkit-mask-image:linear-gradient(#000 calc(100% - 90px),#0000);mask-image:linear-gradient(#000 calc(100% - 90px),#0000)}
+.stall-3d canvas{display:block;width:100%;height:100%}
+.has-3d .ai-hero{--past:clamp(180px,33svh,340px);margin-bottom:calc(var(--past) - 70px);min-height:max(780px,calc(100svh - 90px));padding-block:clamp(120px,15svh,160px) clamp(120px,15svh,170px);justify-content:center}
+.has-3d .ai-hero > .wrap{grid-template-columns:minmax(0,1fr);pointer-events:none}
+.has-3d .hero-copy{max-width:54%}
+.has-3d .hero-copy :is(a,button){pointer-events:auto}
+.has-3d .till{display:none}   /* its numbers are the line under the lead */
+.has-3d :is(.shop-sign,.awning){display:none}
+.stall-tip{position:absolute;left:0;top:0;z-index:3;padding:5px 14px 7px;border-radius:999px;background:var(--raised);box-shadow:0 10px 24px -12px rgba(20,16,10,.5),0 0 0 1px var(--line);white-space:nowrap;opacity:0;transition:opacity .2s}
+.stall-tip.on{opacity:1;pointer-events:auto}   /* a way in, not only a caption: it can be clicked (stall.js) */
+/* the words, as the shop's own lettering: condensed caps like a painted sign, the last line in his italic */
+.ai-hero.p-hero h1{max-width:none;font-weight:700;font-stretch:75%;font-size:clamp(50px,7.2vw,112px);line-height:.9;letter-spacing:-.01em;text-transform:uppercase}
+.ai-hero h1 .it{display:block;font-size:1.04em;line-height:1;letter-spacing:-.02em;text-transform:none;color:var(--signal)}
+.ai-hero .lead{max-width:36ch}
+/* the shop at a glance, where the 3D shopfront has taken the receipt's place: three figures on a ruled line */
+.shop-facts{display:none}
+.has-3d .shop-facts{display:flex;flex-wrap:wrap;gap:6px var(--sp-3);list-style:none;margin:var(--sp-3) 0 0;padding:14px 0 0;border-top:1px solid var(--line);max-width:420px;white-space:nowrap;font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.shop-facts li{display:flex;align-items:baseline;gap:8px}
+.shop-facts b{font:700 30px/1 var(--sans);font-stretch:75%;letter-spacing:0;color:var(--ink)}
+/* the words arrive one line after another, from the first paint (no script involved, so they never show and then hide) */
+.ai-hero .hero-copy > *{animation:rise .9s var(--ease) both}
+.ai-hero .hero-copy > :nth-child(2){animation-delay:.08s}
+.ai-hero .hero-copy > :nth-child(3){animation-delay:.2s}
+.ai-hero .hero-copy > :nth-child(4){animation-delay:.3s}
+.ai-hero .hero-copy > :nth-child(5){animation-delay:.4s}
+@keyframes rise{from{opacity:0;translate:0 22px}}
+
+/* ---------- a receipt: white paper, mono labels, a torn edge, a barcode to finish ---------- */
+.rcpt{--ink:var(--rc-ink);--muted:#625E56;--line:#D9D5CB;--signal:#2D2BE0;--z:14px;display:grid;gap:12px;align-content:start;padding:26px 24px 30px;background:var(--rc);color:var(--ink);
+  -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/var(--z) 100%;mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/var(--z) 100%}
+.rcpt::after{content:"thank you, come again";display:block;margin-top:8px;padding-top:58px;text-align:center;font:400 var(--fs-hand)/1 var(--hand);color:var(--signal);
+  background:repeating-linear-gradient(90deg,var(--ink) 0 2px,#0000 2px 5px,var(--ink) 5px 6px,#0000 6px 8px,var(--ink) 8px 11px,#0000 11px 14px) top center/210px 44px no-repeat}
+.rc-head,.sh-body::before{display:grid;gap:4px;padding-bottom:12px;border-bottom:1px dashed var(--ink);text-align:center;font:500 11px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.rc-head b{font:700 28px/1 var(--sans);font-stretch:75%;letter-spacing:.02em;color:var(--ink)}
+.rc-rows{display:grid;gap:8px;font:500 13px/1.35 var(--mono)}
+.rc-rows div{display:flex;align-items:baseline;gap:8px}
+.rc-rows dt{flex:1;display:flex;align-items:baseline;gap:8px}
+.rc-rows dt::after{content:"";flex:1;min-width:12px;border-bottom:2px dotted var(--ink);opacity:.3}
+.rc-rows dd{margin:0;font:700 22px/1 var(--sans);font-variant-numeric:tabular-nums}
+.rc-rows .rc-total{margin-top:6px;padding-top:12px;border-top:1px dashed var(--ink)}
+.rc-total dt::after{display:none}
+.rc-total dd{font-size:40px;letter-spacing:-.03em;color:var(--signal)}
+
+/* ---------- the catalogue: one product to a row, set like a spread ----------
+   A carton with real depth on one side (his cardboard on three faces, tape, "this way up", the screenshot as its
+   label, its status rubber-stamped), and on the other the words, large: a number, the name, one line in his italic,
+   how far it got as a line of type, and one way in. Ink on paper; blue only where his hand would be. */
+.pcs{display:grid;counter-reset:pc}
+.pc{counter-increment:pc;position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(32px,7vw,112px);align-items:center;padding:clamp(56px,8vw,112px) 0;border:0;border-top:1px solid var(--line);background:none;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.pc:last-child{border-bottom:1px solid var(--line)}
+.pc:nth-child(even) .pc-box{order:2}
+.pc:focus-visible{outline-offset:-8px}
+/* the carton: front, side and top, turned so all three show; it stands on its own soft shadow */
+.pc-box{--card:url(/assets/textures/shop-cardboard.webp);--deep:150px;position:relative;display:block;justify-self:center;width:min(100%,400px);margin-left:calc(var(--deep)*.35);perspective:1400px;color:#261C12}
+.pc-box::after{content:"";position:absolute;left:-30%;right:-8%;bottom:-34px;height:70px;background:radial-gradient(closest-side,rgba(30,20,8,.34),rgba(30,20,8,0));filter:blur(6px);transition:opacity .6s var(--ease),scale .6s var(--ease)}
+.pc-carton{position:relative;z-index:1;display:block;transform-style:preserve-3d;transform:rotateX(-9deg) rotateY(26deg);transition:transform .7s var(--ease)}
+.pc-carton::before,.pc-carton::after{content:"";position:absolute;background:var(--card) 0 -260px/460px}
+.pc-carton::before{left:0;right:0;bottom:100%;height:var(--deep);transform-origin:50% 100%;transform:rotateX(90deg);   /* the top: two flaps under a strip of tape */
+  background-image:linear-gradient(90deg,#0000 calc(50% - 30px),rgba(243,230,196,.72) calc(50% - 30px) calc(50% + 30px),#0000 calc(50% + 30px)),linear-gradient(rgba(255,240,210,.14),rgba(255,240,210,.14)),var(--card)}
+.pc-carton::after{right:100%;top:0;bottom:0;width:var(--deep);transform-origin:100% 50%;transform:rotateY(-90deg);   /* the side that shows at this turn, in its own shade */
+  background-image:linear-gradient(rgba(40,24,8,.3),rgba(40,24,8,.3)),var(--card)}
+.pc-thumb{position:relative;display:block;padding:54px 26px 30px;background:var(--card) 0 0/460px;box-shadow:inset 0 0 50px rgba(60,36,12,.14)}
+.pc-thumb::before{content:"";position:absolute;left:50%;top:0;width:60px;height:40px;translate:-50% 0;background:rgba(243,230,196,.72);box-shadow:inset 5px 0 0 rgba(255,255,255,.22);clip-path:polygon(0 0,100% 0,100% 84%,84% 100%,66% 86%,48% 100%,30% 88%,14% 100%,0 86%)}
+.pc-thumb::after{content:"";position:absolute;left:26px;top:14px;width:34px;height:24px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 24' fill='%23261C12'%3E%3Cpath d='M8 0l6 9h-4.5v9h-3V9H2zM24 0l6 9h-4.5v9h-3V9H18zM0 21h34v2.4H0z'/%3E%3C/svg%3E") no-repeat;opacity:.9}
+.pc-thumb img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;border:7px solid #FFFEFA;box-shadow:0 2px 8px rgba(40,24,8,.4);rotate:-.7deg}
+/* its status, rubber-stamped on the card in the same ink as the rest of its print */
+.tag{position:absolute;right:20px;top:12px;z-index:2;padding:6px 10px 5px;border:2.5px solid currentColor;border-radius:3px;font:500 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;rotate:-5deg;opacity:.82}
+.tag.stopped{text-decoration:line-through}
+.tag i{display:none}
+@media (hover:hover) and (pointer:fine){
+  /* picked up: it lifts off its shadow and turns to face you */
+  .pc:hover .pc-carton{transform:translateY(-14px) rotateX(-4deg) rotateY(9deg)}
+  .pc:hover .pc-box::after{opacity:.6;scale:.9}
+  .pc:hover .pc-open .ar{transform:translateX(4px)}
+}
+/* the words */
+.pc-text{display:grid;gap:22px;justify-items:start;min-width:0}
+.pc-text::before{content:"N° 0" counter(pc) " / 05";font:500 12px/1 var(--mono);letter-spacing:.18em;color:var(--muted)}
+.pc-edge{display:grid;gap:14px}
+.pc-edge b{font:700 clamp(56px,7.4vw,116px)/.84 var(--sans);font-stretch:75%;letter-spacing:-.01em;text-transform:uppercase}
+.pc-metric{font:500 12px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.pc-line{max-width:24ch;font:400 clamp(22px,2.3vw,31px)/1.22 var(--serif);font-style:italic;letter-spacing:-.01em}
+/* how far it got, as a line of type: reached in ink, the furthest in his blue, the rest faint; where it stopped is struck out */
+.pc .pipe{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;align-items:center;gap:8px 0;font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.pc .pipe li{display:flex;align-items:center;color:color-mix(in srgb,var(--ink) 28%,transparent)}
+.pc .pipe li + li::before{content:"";width:clamp(12px,2vw,26px);height:1px;margin:0 10px;background:currentColor}
+.pc .pipe li.on{color:var(--ink)}
+.pc .pipe li.tip span{color:var(--signal)}
+.pc .pipe li.x span{text-decoration:line-through}
+.pc-open{position:relative;display:inline-flex;align-items:center;gap:10px;margin-top:8px;padding-bottom:8px;font:600 var(--fs-body)/1.2 var(--sans);letter-spacing:-.01em}
+.pc-open::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--signal);-webkit-mask:var(--ul) center/100% 100% no-repeat;mask:var(--ul) center/100% 100% no-repeat}
+.pipe li.x{position:static;width:auto;min-height:0;padding:0;border:0;border-radius:0;background:none;font:inherit;cursor:auto}   /* .x is also the close button (site.css, .sheet .x) */
+
+/* ---------- the receipt for one product, over the shop ----------
+   A dialog is drawn above everything, his pen cursor included (cursor.js), so inside it the ordinary cursor comes back */
+.pen-cursor dialog.sheet,.pen-cursor dialog.sheet *{cursor:auto!important}
+.pen-cursor dialog.sheet :is(a,button){cursor:pointer!important}
+.sheet{width:min(940px,calc(100% - 32px));max-height:calc(100svh - 32px);padding:0;border:0;background:none;color:var(--rc-ink);overflow:auto}
+.sheet::backdrop{background:rgba(12,14,22,.55);backdrop-filter:blur(3px)}
 .sheet[open]{animation:sheetIn .4s var(--ease)}
 @keyframes sheetIn{from{opacity:0;transform:translateY(24px) scale(.98)}}
-.sheet .x{position:absolute;right:14px;top:14px;z-index:2}
-.sh-in{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:var(--sp-4);padding:var(--sp-4)}
-.sh-media{position:relative}
+.sheet .x{position:absolute;right:18px;top:18px;z-index:2;background:var(--rc);color:var(--rc-ink);border-color:#D9D5CB}
+.sh-in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,400px);gap:var(--sp-4);align-items:start;padding:10px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.4))}
+.sh-media{margin-top:var(--sp-4);padding:10px 10px 6px;background:var(--print);border-radius:6px;rotate:-1.5deg}
 .sh-media img,.sh-media video{display:block;width:100%}
-.sh-media .m-shot,.sh-media .m-film{border-radius:14px}
-.sh-why{position:absolute;left:10px;bottom:-40px}
-.sh-body{display:grid;gap:12px;align-content:start}
-.sh-body h3{font-size:clamp(28px,3vw,40px)}
-.sh-line{font:500 var(--fs-lead)/1.4 var(--sans)}
-.sh-body > p:not(.kicker,.sh-line){color:var(--muted)}
-.sh-body .pipe{margin:8px 0 22px}
+.sh-media .m-shot,.sh-media .m-film{border-radius:2px;box-shadow:none}
+.sh-why{position:static;display:block;padding:10px 6px 6px;transform:rotate(-2deg);color:var(--print-signal)}
+.sheet[open] .rcpt{animation:feed-in .7s steps(14) .15s both}
+@keyframes feed-in{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+.sh-body::before{content:"Side projects · Munich";margin-right:44px}
+.sh-body h3{font:700 clamp(34px,4vw,46px)/.95 var(--sans);font-stretch:75%;letter-spacing:0;text-transform:uppercase}
+.sh-body .kicker{font:500 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.sh-line{font:500 var(--fs-body)/1.4 var(--sans)}
+.sh-body > p:not(.kicker,.sh-line){font-size:var(--fs-s);color:var(--muted)}
+.sh-body .proofs{display:flex;flex-wrap:wrap;gap:4px 16px;margin:0;font:500 11px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+/* the stages, rung up as line items */
+.rcpt .pipe{list-style:none;margin:0;padding:12px 0;border-block:1px dashed var(--ink);display:grid;gap:5px;font:500 12px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.rcpt .pipe li{display:flex;align-items:baseline;gap:8px}
+.rcpt .pipe li::before{content:"";order:1;flex:1;border-bottom:2px dotted var(--ink);opacity:.3}
+.rcpt .pipe li::after{content:"–";order:2;opacity:.45}
+.rcpt .pipe li.on::after{content:"✓";opacity:1;color:var(--live);font-weight:700}
+.rcpt .pipe li.x::after{content:"stopped";opacity:1}
 
-/* ---------- the playbook ---------- */
-.play{list-style:none;padding:0;display:grid;gap:10px;max-width:760px}
-.play li{border:1px solid var(--line);border-radius:14px;background:var(--card);transition:border-color .2s}
-.play li.on{border-color:var(--signal)}
-.play button{width:100%;display:flex;align-items:center;gap:16px;padding:16px 20px;background:none;border:0;cursor:pointer;text-align:left;font:600 clamp(18px,1.6vw,22px)/1.2 var(--sans);color:var(--ink);letter-spacing:-.015em}
-.pl-n{font:500 12px/1 var(--mono);color:var(--signal)}
-.pl-b{padding:0 20px 18px 56px;color:var(--muted);display:grid;gap:6px}
-.pl-where{font-size:var(--fs-xs)}
-.pl-where b{color:var(--ink)}
-
-@media (max-width:1000px){.pcs{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:760px){
-  .ai-hero > .wrap{grid-template-columns:minmax(0,1fr)}
-  .kpi-spr{display:none}
-  .pcs{grid-template-columns:minmax(0,1fr)}
-  .dash-note{display:none}
-  .sh-in{grid-template-columns:minmax(0,1fr);padding:var(--sp-3);gap:var(--sp-4)}
-  .pl-b{padding-left:20px}
+/* ---------- the house rules: the letter board behind the counter ----------
+   A real one: his oak as the frame, black felt with a groove every 14px, and white letters pushed in by hand (lab.js
+   sets each a little off). All six rules show at once; each points at the product it came from. Dark in both themes. */
+.play{--pitch:14px;list-style:none;margin:0;padding:calc(var(--pitch)*2) clamp(20px,4vw,56px);color:var(--board-ink);border:clamp(12px,1.7vw,22px) solid #0000;border-radius:6px;
+  background:repeating-linear-gradient(#0000 0 calc(var(--pitch) - 2px),rgba(0,0,0,.55) calc(var(--pitch) - 2px) calc(var(--pitch) - 1px),rgba(255,255,255,.05) calc(var(--pitch) - 1px) var(--pitch)) padding-box,
+    radial-gradient(120% 90% at 30% 0,#24242A,var(--board)) padding-box,
+    linear-gradient(rgba(60,34,12,.18),rgba(60,34,12,.18)) border-box,url(/assets/textures/shop-counter-top.webp) 0 0/620px border-box;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.6),inset 0 8px 18px rgba(0,0,0,.6),0 1px 0 rgba(255,236,200,.5),0 50px 60px -36px rgba(20,16,10,.75),0 14px 22px -14px rgba(20,16,10,.5)}
+.play li{display:grid;grid-template-columns:44px minmax(0,1fr) minmax(0,.82fr);gap:0 clamp(16px,3vw,40px);align-items:start;padding:calc(var(--pitch)*2) 0}
+.pl-n{padding-top:.5em;font:500 12px/1 var(--mono);letter-spacing:.14em;color:#8E8CFF}
+.pl-t{margin:0;font:700 clamp(38px,5.4vw,76px)/.92 var(--sans);font-stretch:75%;letter-spacing:.015em;text-transform:uppercase;color:#F6F3EA;text-shadow:0 1px 0 #fff,0 3px 3px rgba(0,0,0,.75);transition:color .3s}
+.pl-w{display:inline-block;white-space:nowrap}
+.pl-t i{display:inline-block;font-style:normal}
+.pl-b{display:grid;gap:12px;padding-top:.55em;max-width:40ch;color:rgba(243,241,234,.8);font-size:var(--fs-body);line-height:1.45}
+.pl-b p{margin:0}
+.pl-where{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;font:500 11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:rgba(243,241,234,.5)}
+.pl-where b,.pl-go{font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--board-ink)}
+.pl-go{position:relative;display:inline-flex;align-items:center;gap:6px;padding:0 0 6px;border:0;background:none;cursor:pointer}
+.pl-go::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:#8E8CFF;-webkit-mask:var(--ul) center/100% 100% no-repeat;mask:var(--ul) center/100% 100% no-repeat}
+.pl-go .ar{transition:transform .3s var(--ease)}
+.pl-go:focus-visible{outline-color:#B9B7FF}
+@media (hover:hover) and (pointer:fine){
+  .play li:hover .pl-t{color:#B9B7FF}
+  .pl-go:hover .ar{transform:translateX(4px)}
 }
-.pl-b[hidden]{display:none}
-/* on a card only the stage it reached is named */
-.pc .pipe li:not(.tip) span{display:none}
-.pc .pipe li.tip span{color:var(--signal);font-weight:600}
-.sh-body .proofs{display:flex;flex-wrap:wrap;gap:4px 18px}
+
+@media (max-width:1000px){.till-spr,.shop-sign{display:none}}
+@media (max-width:760px){
+  .ai-hero{padding-top:calc(var(--sp-5) + 56px)}
+  .ai-hero > .wrap{grid-template-columns:minmax(0,1fr)}
+  .awning{--s:34px;height:52px}
+  .till{max-width:340px}
+  .has-3d .ai-hero{--past:360px;min-height:max(760px,calc(100svh - 70px));padding-block:132px 350px;justify-content:flex-start}
+  .ai-hero.p-hero h1{font-size:clamp(44px,13vw,60px)}
+  .has-3d .shop-facts{gap:6px var(--sp-2)}
+  .shop-facts b{font-size:24px}
+  .has-3d .hero-copy{max-width:none}
+  .pc{grid-template-columns:minmax(0,1fr);gap:56px;padding:56px 0}
+  .pc:nth-child(even) .pc-box{order:0}
+  .pc-box{--deep:96px;width:min(78%,320px);justify-self:start}
+  .pc-edge b{font-size:clamp(48px,15vw,68px)}
+  .sh-in{grid-template-columns:minmax(0,1fr);gap:var(--sp-3)}
+  .sh-media{margin-top:56px}
+  .play li{grid-template-columns:minmax(0,1fr);gap:8px}
+  .pl-n{padding-top:0}
+  .pl-b{padding-top:6px}
+}
