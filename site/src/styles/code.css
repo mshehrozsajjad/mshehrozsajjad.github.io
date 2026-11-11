@@ -1,8 +1,93 @@
 /* ===== /code: the main theme, with the engineering showing through =====
    Same paper, ink, blue hand and italic serif as the rest of the site. What makes it the engineering page is in the hero:
    the year of GitHub falling behind the words, the platform as a wireframe globe, and a terminal you can type into. */
-.pg-code .kicker{font-family:var(--mono);font-weight:500;letter-spacing:.02em}
-.pg-code .chap .wrap::before{content:"// "}
+/* After the hero the paper ends: one dark terminal session, edge to edge, down to the footer. The site's dark tokens,
+   whatever the theme, so every shared part (headings, links, rules) follows without its own rule. */
+.sess{position:relative;--paper:#0E0E10;--raised:#17171A;--ink:#F1F1EC;--muted:#A1A1A9;--line:#2B2B30;--signal:#8E8CFF;--signal-soft:#1D1C46;--on-signal:#0E0E10;--tint:#17171A;
+  background:var(--paper);color:var(--ink);clip-path:inset(0);color-scheme:dark}   /* clipped, so the fixed rain shows only inside it */
+.sess > section{position:relative;z-index:1}
+/* The session's look, after the sites built for programmers: a tight grotesk for what is said, the mono kept for labels,
+   buttons and code; the page's frame drawn in hairlines; every panel square and flat, a words cell beside a terminal cell. */
+.sess{--fs-h3:clamp(22px,2.2vw,30px);--lh-h3:1.15;--ls-h3:-.03em;--fs-lead:18px;--row:clamp(18px,1.7vw,22px);--soft:#D2D2D8;font:400 16px/1.6 var(--sans)}
+.sess::before{content:"";position:absolute;inset:0 calc((100% - 1120px)/2);z-index:0;border-inline:1px solid var(--line);pointer-events:none}   /* the two guide lines the page hangs from */
+.sess > section + section{border-top:1px solid var(--line)}
+.sess :is(h2,h3){font-family:var(--sans);font-weight:500}
+.sess h2{font-size:clamp(34px,4.7vw,66px);line-height:1.02;letter-spacing:-.04em;max-width:17ch}
+.sess .it{font-family:inherit;font-style:normal;font-weight:inherit;letter-spacing:inherit;color:var(--signal)}
+.sess .lead{color:var(--soft);max-width:54ch}
+/* a way out is a small square button in the mono, not a hand-underlined link */
+.sess .act{padding:10px 14px;border:1px solid color-mix(in srgb,var(--signal) 55%,#0000);background:color-mix(in srgb,var(--signal) 10%,#0000);color:var(--signal);font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;transition:background-color .2s,color .2s}
+.sess .act::after{display:none}
+.sess .act:is(:hover,:focus-visible){background:var(--signal);color:#0E0E10}
+.sess .tw{--t-bg:#131316;--t-line:#2B2B30;border-radius:0;box-shadow:none}
+.sess .tw-bar i{width:8px;height:8px;border-radius:0}
+/* a panel: two cells sharing a border */
+.sess .row{gap:0;align-items:stretch;padding:0;border:1px solid var(--line);background:#0E0E10}
+.sess .row + .row{margin-top:-1px}
+.sess .row-words{align-content:center;padding:clamp(24px,3.6vw,48px)}
+.sess .row > .tw{display:flex;flex-direction:column;border:0;border-left:1px solid var(--line)}
+.sess .row > .tw > :not(.tw-bar){flex:1}
+.sess .row > .tw > .m-shot{flex:none;margin-block:auto}
+.sess .tw-tall{justify-self:stretch;width:auto}
+.sess .tw-tall img{aspect-ratio:auto;height:100%;min-height:340px;object-position:20% 70%}
+.sess .row-words > .row-what{padding-left:16px;border-left:2px solid var(--signal);font-size:18px;line-height:1.45;color:var(--ink)}
+/* he turns up through the session the way he stands on the hero's terminal: on the top edge of a panel */
+.perch{position:relative;z-index:2;height:0}
+.perch .sprite,.st-spr{position:absolute;right:36px;bottom:-3px;--h:104px}
+.perch.on-bar .sprite{bottom:calc(-1*var(--sp-4) - 2px)}   /* standing on the long end of the scale bar */
+.sess .st-win{overflow:visible}
+.sess .st-win > .st-spr{bottom:calc(100% - 3px);right:48px;width:auto;height:var(--h)}   /* not one of the window's pictures */
+/* facts, as a small labelled grid */
+.kv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 28px;width:100%;margin:10px 0 4px}
+.kv dt{display:flex;align-items:center;gap:8px;font:var(--lbl);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.kv dt::before{content:"";flex:none;width:6px;height:6px;background:var(--signal);rotate:45deg}
+.kv dd{margin:5px 0 0;font-size:14px;line-height:1.5;color:var(--soft)}
+/* numbers, as cells in a row */
+.cells{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0;border:1px solid var(--line);background:#0E0E10}
+.cells div{padding:18px 22px 20px}
+.cells div + div{border-left:1px solid var(--line)}
+.cells dt{font:var(--lbl);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.cells dd{margin:10px 0 0;font:500 clamp(30px,3.6vw,48px)/1 var(--sans);letter-spacing:-.04em;color:var(--signal)}
+.sess .gv-name{font-family:var(--mono)}   /* a repository's name stays in the mono */
+.sess .tl-pic{border-radius:0}
+/* the footer belongs to the session too: same ground, same face, the drawing in light ink as in the site's dark theme */
+.pg-code .ft{--paper:#0E0E10;--raised:#17171A;--ink:#F1F1EC;--muted:#A1A1A9;--line:#2B2B30;--signal:#8E8CFF;--on-signal:#0E0E10;background:#0E0E10;color:var(--ink);border-top:1px solid var(--line);color-scheme:dark}
+.pg-code .ft .ft-line .it{font-family:inherit;font-style:normal;color:var(--signal)}
+.pg-code .ft-film{filter:invert(1) hue-rotate(180deg) saturate(1.4);mix-blend-mode:screen}
+.sess .tw{--t-bg:#16161A;--t-line:#303038;box-shadow:0 40px 80px -40px #000}
+/* The page's own scale, so every section reads as one thing. Four sizes and no others:
+   headline (--fs-h2: section headings, the three durations, the three numbers), row title (--row), body, and one mono label (--lbl). */
+.pg-code{--row:clamp(22px,2.1vw,30px);--lbl:500 12px/1.45 var(--mono)}
+.pg-code .kicker,.lbl,.flow p{font:var(--lbl);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.act .lbl{font:inherit;letter-spacing:inherit;text-transform:none;color:inherit}   /* the film button's own label (pages.js) */
+/* code inside a window: one size, the terminal's colours */
+.tw .code{margin:0;padding:22px 26px 26px;font:inherit;line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere}
+.code.wait .ln{opacity:0}
+.code.run .ln{animation:ln .01s both;animation-delay:calc(var(--i)*150ms + .2s)}   /* each line appears in turn (terminal.js) */
+@keyframes ln{from{opacity:0}}
+.code b{font-weight:500;color:var(--t-acc)}
+.code .dim{color:var(--t-dim)}
+.code .del{color:#FF8A80}
+.code .add{color:#8CE0B0}
+.code .kw{color:#B9B7FF}
+.code .str{color:#F2C879}
+/* code keeps falling down the margins after the hero (terminal.js) */
+.rain{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity .8s}
+.rain.on{opacity:1}
+/* one terminal window for everything this page shows: the hero's terminal, a film, a call, a diff, a workflow, the tags */
+.tw{--t-bg:#111113;--t-ink:#F1F1EC;--t-dim:#9A9AA2;--t-line:#2B2B30;--t-acc:#8E8CFF;border:1px solid var(--t-line);border-radius:12px;overflow:hidden;background:var(--t-bg);color:var(--t-ink);font:500 13px/1.6 var(--mono);box-shadow:0 30px 60px -34px rgba(17,17,19,.55)}
+.tw-bar{display:flex;align-items:center;gap:7px;padding:10px 14px;border-bottom:1px solid var(--t-line);color:var(--t-dim);font-size:12px;white-space:nowrap;overflow:hidden}
+.tw-bar i{flex:none;width:10px;height:10px;border-radius:50%;background:var(--t-line)}
+.tw-bar span{margin-left:8px;overflow:hidden;text-overflow:ellipsis}
+.tw :is(video,img){display:block;width:100%;height:auto}
+.tw .m-shot{border-radius:0;box-shadow:none}
+/* a section opens with the command that would print it, typed as it arrives (terminal.js), and a comment saying which */
+.pg-code .chap .wrap{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;min-height:1.5em;font-size:15px;line-height:1.5;letter-spacing:0;text-transform:none;color:var(--ink)}
+.pg-code .chap .wrap::before{content:"$";color:var(--signal)}
+.tp::after{content:"";display:inline-block;width:.55em;height:1.05em;margin-left:3px;vertical-align:-.18em;background:var(--signal);animation:caret 1s steps(2) infinite}
+.tp.typing::after{animation:none}
+.tp-note{color:var(--muted);font-size:12px;letter-spacing:.04em}
+@keyframes caret{50%{opacity:0}}
 .pg-code .proofs li,.pg-code .wk-meta{font-family:var(--mono);font-size:var(--fs-xs)}
 
 /* ---------- hero: the words, the 3D platform, and the terminal under both ---------- */
@@ -72,3 +157,190 @@
 @media (max-width:1000px){.code-side{margin-top:var(--sp-2)}}
 @media (max-width:760px){.term-spr{padding-right:20px}}
 @media (max-width:760px){.term-spr .sprite{--h:110px}.code-side .term-out{height:180px}}
+
+/* ---------- the row every section is built from: words on paper, and the real thing in a terminal window beside them ---------- */
+.rows{list-style:none;margin:0;padding:0}
+.row{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:var(--sp-4) clamp(32px,6vw,88px);align-items:center;padding:clamp(40px,6vw,80px) 0;border-top:1px solid var(--line)}
+.row:last-child{border-bottom:1px solid var(--line)}
+.row-words{display:grid;gap:var(--sp-2);justify-items:start;min-width:0}
+.row-words > p:not(.lbl,.dstat){max-width:46ch;color:var(--muted)}
+.row-words > .row-what{color:var(--ink)}
+.lbl{display:flex;flex-wrap:wrap;gap:6px 0}
+.lbl span + span::before{content:"·";margin:0 10px}
+.lbl span:first-child{color:var(--signal)}
+.row > .tw{min-width:0}
+.tw-tall{justify-self:center;width:min(100%,360px)}
+.tw-tall img{aspect-ratio:1;object-fit:cover;object-position:20% 78%}   /* the screen and the person at it */
+
+/* ---------- 01: shipped on deadline. One bar cut to scale (1 : 4 : 30), then the three side by side: cells of one
+   panel, each with its claim on top and its proof, in a window, at the foot ---------- */
+.sizes{display:flex;gap:3px;height:14px;margin:var(--sp-4) 0 var(--sp-5)}
+.sizes span{position:relative;flex:var(--n) 0 0;background:var(--signal);transform-origin:0 50%;scale:0 1;transition:scale 1.1s var(--ease) .2s}
+.sizes span:nth-child(1){opacity:.45}
+.sizes span:nth-child(2){opacity:.7}
+.sizes.shown span{scale:1}
+.sizes b{position:absolute;left:0;bottom:calc(100% + 8px);font:var(--lbl);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;color:var(--ink)}
+.sizes span:nth-child(2) b{bottom:auto;top:calc(100% + 8px)}
+.trio{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);background:#0E0E10}
+.tri{display:flex;flex-direction:column;min-width:0}
+.tri + .tri{border-left:1px solid var(--line)}
+.tri-words{display:grid;gap:14px;align-content:start;justify-items:start;flex:1;padding:clamp(20px,2.4vw,32px)}
+.ship-t{max-width:none;font-size:clamp(40px,4.9vw,72px);line-height:.95;letter-spacing:-.045em}
+.ship-t .it{display:block}
+.tri-what{padding-left:14px;border-left:2px solid var(--signal);line-height:1.45;color:var(--ink)}
+.tri .kv{grid-template-columns:minmax(0,1fr);gap:14px;margin:4px 0}
+.sess .tri-media{border:0;border-top:1px solid var(--line)}
+.tri-media > :not(.tw-bar){aspect-ratio:16/10}
+.tri-media > :is(img,video){object-fit:contain}
+/* a tall photo in a wide slot: all of it, with itself out of focus behind */
+.tri-photo{position:relative;background:var(--bg) center/cover}
+.tri-photo::before{content:"";position:absolute;inset:0;backdrop-filter:blur(30px) brightness(.4);-webkit-backdrop-filter:blur(30px) brightness(.4)}
+.tri-photo > *{position:relative}
+.tri-photo .tw-bar{background:#131316}
+.tri-media > .code{display:grid;align-content:center}
+
+/* ---------- 02: the platform. One framed window, pinned at the middle of the screen for a run of scrolling, with the
+   demo's own colours glowing out behind it. The demo on top, shown whole; its caption under it; tmux's bar at the foot ---------- */
+.plat-run{margin:0 calc(50% - 50vw)}
+.plat-run::after{content:"";display:block;height:170svh}   /* the run: half a screen of scrolling per demo */
+.plat-stage{--z:1;position:sticky;top:64px;padding:112px 0 28px;display:grid;place-items:center;isolation:isolate}   /* only as tall as its window, plus room for him to stand on it: no empty screen before or after */
+#work{padding-bottom:var(--sp-4)}
+#work .cells{margin-bottom:0}
+.st-win{border:1px solid var(--line);width:min(1040px,calc(100vw - 32px));scale:calc(.9 + var(--z)*.1);opacity:calc(.3 + var(--z)*.7)}
+.st-glow{position:absolute;inset:112px 0 28px;z-index:-1;width:min(1040px,100vw);margin-inline:auto;opacity:var(--z)}
+.st-glow i{position:absolute;inset:0;background:var(--bg) center/cover;filter:blur(90px) saturate(1.5);opacity:0;transition:opacity .9s var(--ease)}
+.st-glow i.on{opacity:.32}
+.st-screen{position:relative;aspect-ratio:16/9;max-height:calc(100svh - 460px);width:100%;background:#000}   /* room above the window for him to stand on it, clear of the header */
+.st-pane{position:absolute;inset:0;opacity:0;transition:opacity .6s var(--ease);background:var(--bg) center/cover}
+.st-pane::before{content:"";position:absolute;inset:0;backdrop-filter:blur(40px) brightness(.3);-webkit-backdrop-filter:blur(40px) brightness(.3)}
+.st-pane.on{opacity:1}
+.st-pane video{position:relative;width:100%;height:100%;object-fit:contain}
+.st-caps{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--t-line)}
+.st-cap{grid-area:1 / 1;display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) minmax(0,1.1fr);gap:6px var(--sp-3);align-items:baseline;padding:18px 22px 20px;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+.st-cap.on{opacity:1;visibility:visible}
+.st-cap h3{font-size:var(--fs-h3);line-height:var(--lh-h3);color:#fff}
+.st-cap > p:not(.lbl){font-size:13px;line-height:1.6;color:var(--t-dim)}
+.mux-bar{display:flex;flex-wrap:wrap;align-items:stretch;gap:0 4px;padding:0 8px;background:var(--signal);color:#111113;font:500 12px/1.5 var(--mono)}
+.mux-s{align-self:center;padding:0 10px 0 4px;font-weight:700}
+.st-tab{padding:7px 11px;border:0;background:none;color:inherit;font:inherit;cursor:pointer;transition:background-color .3s,color .3s}
+.st-tab.on{background:#111113;color:#F1F1EC}
+.mux-nums{margin-left:auto;align-self:center;padding-right:6px}
+.mux-nums b{font-weight:700}
+
+/* ---------- 03: given away. One panel, four cells of three shapes: two that show their output, one wide for the
+   workflow, one strip that is just a command. A line of words each ---------- */
+.bento{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid var(--line);background:#0E0E10}
+.bn{display:flex;flex-direction:column;min-width:0;border-top:1px solid var(--line)}
+.bn:nth-child(-n+2){border-top:0}
+.bn:nth-child(2){border-left:1px solid var(--line)}
+.bn.wide,.bn.strip{grid-column:1 / -1}
+.bn-h{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:22px 24px 0}
+.bn .lbl{margin-bottom:10px}
+.gv-name{font:500 var(--row)/1.2 var(--mono);letter-spacing:-.02em;overflow-wrap:anywhere}
+.gv-name::after{content:"/";color:var(--signal)}
+.bn-p{padding:10px 24px 22px;color:var(--soft)}
+.sess .bn-term{flex:1;border:0;border-top:1px solid var(--line)}
+.bn.strip{flex-direction:row;flex-wrap:wrap;align-items:center;gap:14px 28px;padding:20px 24px}
+.bn.strip .lbl{margin-bottom:8px}
+.bn-cmd{margin-left:auto;padding:9px 14px;border:1px solid var(--line);background:#131316;font:500 13px/1.4 var(--mono);color:var(--ink)}
+.bn-cmd::before{content:"$ ";color:var(--signal)}
+
+/* ---------- 04: how I got here. A year chart: a row per employer, a bar across the years it ran, two of them still
+   open. One panel, two cells: the chart, and whichever row you reach for, in a few words ---------- */
+.gantt{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);border:1px solid var(--line);background:#0E0E10}
+.gt-chart{--name:150px;position:relative;padding:18px 0 22px;font:var(--lbl);letter-spacing:.04em}
+.gt-years,.gt-row{display:grid;grid-template-columns:var(--name) minmax(0,1fr);align-items:center;width:100%;margin:0;padding:0 22px}
+.gt-track{display:grid;grid-template-columns:repeat(13,minmax(0,1fr));align-items:center}
+.gt-years{padding-bottom:10px;color:var(--muted)}
+.gt-years .gt-track span{padding-left:4px;border-left:1px solid var(--line)}
+.gt-row{height:46px;border:0;border-top:1px solid var(--line);background:none;color:var(--muted);font:inherit;text-align:left;cursor:pointer;transition:background-color .25s,color .25s}
+.gt-row .gt-track{height:100%;background:repeating-linear-gradient(90deg,var(--line) 0 1px,#0000 1px calc(100%/13))}   /* the year lines run down through every row */
+.gt-row.on{background:rgba(142,140,255,.08);color:var(--ink)}
+.gt-row:focus-visible{outline:2px solid var(--signal);outline-offset:-2px}
+.gt-row{position:relative}
+.auto .gt-row.on::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--signal);transform-origin:0 50%;animation:gt-step var(--step) linear}   /* how long until the next row */
+@keyframes gt-step{from{scale:0 1}}
+.gt-hint{margin:14px 22px 0;color:var(--muted);letter-spacing:.06em}
+.gantt:not(.auto) .gt-hint{visibility:hidden}
+.gt-bar{--c:#8E8CFF;height:16px;background:var(--c);opacity:.5;transform-origin:0 50%;scale:0 1;transition:scale .9s var(--ease) calc(var(--i)*70ms + .15s),opacity .25s}
+.gt-bar.cj{--c:#8CE0B0}
+.gt-bar.june{--c:#F2C879}
+.gt-bar.dim{--c:#77778A}
+.gt-bar.open{background:linear-gradient(90deg,var(--c) 70%,#0000);position:relative}   /* still running: it fades out past today */
+.shown .gt-bar{scale:1}
+.gt-row.on .gt-bar{opacity:1}
+.gt-tag{width:11px;height:11px;margin-left:calc(6px + var(--n)*16px);background:#F1F1EC;rotate:45deg;opacity:.55;transition:opacity .25s}
+.gt-row.on .gt-tag{opacity:1}
+.gt-detail{display:grid;border-left:1px solid var(--line)}
+.gt-d{grid-area:1 / 1;display:grid;gap:12px;align-content:center;justify-items:start;padding:clamp(22px,3vw,40px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.gt-d.on{opacity:1;visibility:visible}
+.gt-d h3{font-size:clamp(28px,3.2vw,44px);line-height:1.05;letter-spacing:-.04em}
+.gt-d > p:not(.lbl){color:var(--soft);max-width:36ch}
+.gt-d .tl-pic{width:min(100%,230px);margin-top:6px}
+.gt-d .tl-pic.plain{width:min(100%,300px)}
+.gt-logo{width:auto;height:38px;margin-top:6px}   /* the employer's own mark, from its site */
+.gt-logo.sq{height:52px}
+.gt-tags{list-style:none;margin:0;padding:0;display:grid;gap:12px;font-size:14px}
+.gt-tags li{display:grid;grid-template-columns:5ch minmax(0,1fr);gap:0 12px}
+.gt-tags b{font:var(--lbl);padding-top:3px;color:var(--signal)}
+.gt-tags i{display:block;font-style:normal;font-size:13px;color:var(--muted)}
+/* a photo where there is one: a small print beside its commit, straightening when you reach it */
+.tl-pic{margin:6px 0 0;padding:6px;background:var(--print);border-radius:4px;rotate:var(--r,0deg);box-shadow:0 18px 30px -18px #000;transition:rotate .4s var(--ease),scale .4s var(--ease)}
+.tl-pic img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+.tl-pic.plain{padding:0;background:none;box-shadow:none}   /* a cut-out: it stands free, no print around it */
+.tl-pic.plain img{aspect-ratio:3/2;object-fit:contain}
+
+/* given away: the workshop print beside the heading, and the real workflow drawn on a canvas under its row */
+.gv-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:var(--sp-4);align-items:end}
+.gv-print img{aspect-ratio:3/2;object-fit:cover;object-position:left}
+.flow{margin:0}
+.bn .flow-in{padding-top:6px}
+.flow-in{display:grid;gap:10px;padding:8px clamp(16px,2.4vw,28px) 26px;background:radial-gradient(#2E2E35 1px,#0000 1.5px) 0 0/18px 18px}
+.flow p{margin:14px 0 0;color:#9A9AA2}
+.flow ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px 0}
+.flow li{display:flex;align-items:center;padding:9px 9px;font-size:11px;border:1px solid #3A3A42;border-radius:8px;background:#1B1B20;white-space:nowrap}
+.flow li + li{margin-left:13px;position:relative}
+.flow li + li::before{content:"";position:absolute;right:100%;top:50%;width:13px;height:1px;background:#5A5A66}
+.flow li.bey{border-color:#8E8CFF;color:#fff;box-shadow:0 0 0 3px rgba(142,140,255,.16)}   /* the Beyond Presence nodes */
+
+/* the other sides, as what `ls ../` prints; reaching for one types the `cd` in front of it */
+.dirs{list-style:none;margin:var(--sp-4) 0 0;padding:0}
+.dirs a{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) auto;gap:6px var(--sp-4);align-items:baseline;padding:var(--sp-3) 0;border-top:1px solid var(--line);color:var(--ink);text-decoration:none}
+.dirs li:last-child a{border-bottom:1px solid var(--line)}
+.dir-n{display:flex;font:500 var(--row)/1.2 var(--mono);letter-spacing:-.02em;white-space:nowrap}
+.dir-n::before{content:"cd ";white-space:pre;width:0;overflow:hidden;color:var(--signal);transition:width .35s var(--ease)}
+.dir-d{max-width:44ch;color:var(--muted)}
+.dirs .ar{width:20px;height:20px;align-self:center;transition:transform .35s var(--ease)}
+.dirs a:is(:hover,:focus-visible) .dir-n::before{width:3ch}
+.dirs a:is(:hover,:focus-visible) .ar{transform:translateX(6px)}
+
+@media (max-width:1168px){.sess::before{display:none}}
+@media (max-width:1000px){
+  .row{grid-template-columns:minmax(0,1fr)}
+  .trio{grid-template-columns:minmax(0,1fr)}
+  .bento{grid-template-columns:minmax(0,1fr)}
+  .bn:nth-child(2){border-left:0;border-top:1px solid var(--line)}
+  .bn-cmd{margin-left:0}
+  .tri + .tri{border-left:0;border-top:1px solid var(--line)}
+  .sess .row > .tw{border-left:0;border-top:1px solid var(--line)}
+  .gantt{grid-template-columns:minmax(0,1fr)}
+  .gt-detail{border-left:0;border-top:1px solid var(--line)}
+  .st-cap{grid-template-columns:minmax(0,1fr);gap:4px;padding:14px 16px 16px}
+  .st-screen{max-height:none}
+  .mux-nums{display:none}
+}
+@media (max-width:760px){
+  .mux-s{display:none}
+  .kv{grid-template-columns:minmax(0,1fr)}
+  .cells{grid-template-columns:minmax(0,1fr)}
+  .cells div + div{border-left:0;border-top:1px solid var(--line)}
+  .mux-bar{font-size:11px}
+  .st-tab{padding:8px 7px}
+  .gt-chart{--name:104px}
+  .gt-years,.gt-row{padding:0 12px}
+  .tw .code{padding:18px 18px 20px;font-size:12px}
+  .gv-head{grid-template-columns:minmax(0,1fr)}
+  .gv-print{justify-self:start;width:min(100%,300px)}
+  .dirs a{grid-template-columns:minmax(0,1fr) auto}
+  .dir-d{grid-column:1;grid-row:2}
+}
