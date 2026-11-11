@@ -1,6 +1,6 @@
 // The design page's moves, shared by the paper (/design) and its brand features (/design/<brand>): headlines fitted to
-// the width of the sheet, the paper spinning in, long pages that scroll themselves, the strip that drags, and posters
-// that lean toward the pointer like paper picked up.
+// the width of the sheet, the paper spinning in, the strip that drags, and posters that lean toward the pointer like
+// paper picked up.
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const root = document.documentElement;
 
@@ -61,35 +61,6 @@ if (!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
   });
 }
 
-// long pages scroll themselves while on screen, slowly, and wait at the bottom before going back up.
-// Hover or touch stops it; a click or the tab key hands it to the visitor to scroll, until they leave it (design.css).
-document.querySelectorAll('[data-ss] .ss-view').forEach(v => {
-  if (reduce) return;
-  let on = false, hold = false, pause = 0, raf = 0, y = 0;
-  const step = () => {
-    raf = 0; if (!on || hold) return;
-    const max = v.scrollHeight - v.clientHeight;
-    if (pause > 0) pause--;
-    else if (v.scrollTop >= max - 1){ pause = 120; y = 0; setTimeout(() => { if (!hold) v.scrollTo({top: 0, behavior: 'smooth'}); }, 1500); }
-    else { y = Math.max(y, v.scrollTop) + .7; v.scrollTop = y; }
-    raf = requestAnimationFrame(step);
-  };
-  const go = () => { if (!raf) raf = requestAnimationFrame(step); };
-  const stop = () => { hold = true; }, resume = () => { hold = false; y = v.scrollTop; go(); };
-  ['pointerenter', 'touchstart', 'focus'].forEach(ev => v.addEventListener(ev, stop, {passive: true}));
-  ['pointerleave', 'blur'].forEach(ev => v.addEventListener(ev, resume));
-  new IntersectionObserver(es => { on = es[0].isIntersecting; if (on) go(); }, {threshold: .4}).observe(v);
-});
-
-// interfaces: one shown at a time, the index beside it picks which
-document.querySelectorAll('[data-picks]').forEach(box => {
-  const picks = [...box.querySelectorAll('[data-pick]')], panes = [...box.querySelectorAll('[data-pane]')];
-  picks.forEach((p, i) => p.addEventListener('click', () => {
-    picks.forEach((q, j) => { q.classList.toggle('on', j === i); q.setAttribute('aria-pressed', j === i); });
-    panes.forEach((f, j) => { f.hidden = j !== i; });
-  }));
-});
-
 // the front page carries today's date, like any paper
 document.querySelectorAll('[data-today]').forEach(el => { el.textContent = new Date().toLocaleDateString('en-GB', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'}); });
 
@@ -104,5 +75,24 @@ document.querySelectorAll('[data-strip] .ft-track').forEach(t => {
     if (!reduce){ const glide = () => { v *= .94; t.scrollLeft -= v; if (Math.abs(v) > .4) raf = requestAnimationFrame(glide); }; raf = requestAnimationFrame(glide); }
   });
   t.addEventListener('click', e => { if (moved > 4) e.preventDefault(); }, true);
+  // so nobody misses that it moves: the first time it is on screen it slides a little way along and back, once,
+  // unless it has already been touched
+  let touched = false;
+  ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach(ev => t.addEventListener(ev, () => { touched = true; }, {passive: true, once: true}));
+  if (!reduce) new IntersectionObserver((es, io) => {
+    if (!es[0].isIntersecting) return;
+    io.disconnect();
+    const far = Math.min(180, t.scrollWidth - t.clientWidth), LONG = 1600;
+    let t0 = 0;
+    const nudge = now => {
+      if (touched) return;
+      if (root.classList.contains('spin')) return requestAnimationFrame(nudge);   // not while the paper is still in the air
+      t0 ||= now + 500;
+      const k = Math.max(0, Math.min(1, (now - t0)/LONG));
+      t.scrollLeft = far*Math.sin(k*Math.PI)**2;   // out and back, eased at both ends
+      if (k < 1) requestAnimationFrame(nudge);
+    };
+    requestAnimationFrame(nudge);
+  }, {threshold: .6}).observe(t);
   t.addEventListener('keydown', e => { const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (d){ e.preventDefault(); t.scrollBy({left: d*t.firstElementChild.offsetWidth, behavior: reduce ? 'auto' : 'smooth'}); } });
 });

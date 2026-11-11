@@ -2,14 +2,23 @@
    One brand, given the room the index row cannot: its picture under a torn edge of the sheet, its name as wide as the
    page, the story, the identity (mark, colours, type), the whole site in a frame, and its films. Printed on the same
    paper with the same type (design.css). The pages are written by tools/brand-pages.py. */
-.bh{position:relative}
+/* the strip under the header: the way back to the paper, large, and the four features with this one marked */
+.bnav .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px var(--sp-3);padding-block:10px;border-top:3px double var(--ink)}
+.bnav a{color:var(--ink);text-decoration:none}
+.bnav-back{display:inline-flex;align-items:center;gap:10px;padding:.32em .6em .24em;background:var(--ink);color:var(--paper) !important;font:700 clamp(20px,2vw,26px)/1 var(--sans);font-stretch:75%;text-transform:uppercase;transition:background-color .2s}
+.bnav-back .ar{width:.7em;height:.7em;rotate:180deg}
+.bnav-back:hover,.bnav-back:focus-visible{background:var(--signal)}
+.bnav-back:hover .ar{transform:translateX(4px)}
+.bnav ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px var(--sp-3)}
+.bnav li a{font:700 clamp(18px,1.7vw,22px)/1 var(--sans);font-stretch:75%;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.bnav li span{font:italic 400 13px/1 var(--news);margin-right:2px}
+.bnav li a:hover,.bnav li a[aria-current]{color:var(--ink)}
+.bnav li a[aria-current]{box-shadow:0 3px 0 var(--signal)}
+.bh{position:relative;margin-top:var(--sp-1)}
 .bh-img{height:min(66vh,640px);overflow:hidden;background:var(--ground)}
 .bh-img img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
 /* the torn edge (tools/news-textures.py): the sheet rising over the foot of the picture, fading into the page below */
 .bh-tear{position:absolute;left:0;right:0;top:min(66vh,640px);width:100%;height:clamp(90px,14vw,200px);translate:0 -50%;pointer-events:none;filter:drop-shadow(0 -8px 10px rgba(0,0,0,.28))}
-.bh-back{position:absolute;left:var(--gl);top:var(--sp-2);z-index:3;display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);text-decoration:none;box-shadow:4px 4px 0 var(--ink);transition:translate .2s var(--ease),box-shadow .2s var(--ease)}
-.bh-back .ar{width:12px;height:12px;rotate:180deg}
-.bh-back:hover{translate:-2px -2px;box-shadow:6px 6px 0 var(--ink)}
 .bh-name{position:relative;z-index:2;margin-top:calc(clamp(90px,14vw,200px)*-.08);font-size:min(15.5vw,230px);line-height:.84;letter-spacing:-.03em;white-space:nowrap;overflow:clip;padding-bottom:.04em}
 .bh-name span{display:block}
 .bh-meta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px var(--sp-3);margin-top:var(--sp-3);padding:10px 0;border-block:1px solid var(--ink);font:400 15px/1.3 var(--news)}
@@ -55,30 +64,44 @@
 .btype dd{margin:6px 0 0;font:400 clamp(26px,2.6vw,38px)/1 var(--serif)}
 .bid-say{font:700 clamp(34px,4.4vw,68px)/.9 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:-.02em}
 
-/* the site: one whole page, top to bottom, scrolling itself in its frame (mag.js) */
-.bsite{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:var(--sp-4);align-items:end;margin-top:var(--sp-3)}
-.bsite .ss-view{height:min(620px,72vh)}
-.bsite-side{display:grid;gap:var(--sp-3);justify-items:start;padding-bottom:var(--sp-2)}
-.bsite-side p:not(.hand-p){font:400 17px/1.55 var(--news);color:var(--muted);max-width:34ch}
+/* the site: the whole page as three cuts of one long picture, each a third of it, set side by side like a proof sheet */
+.cuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:var(--sp-3);border-top:3px double var(--ink)}
+.cut{padding:var(--sp-2) var(--sp-2) 0}
+.cut + .cut{border-left:1px solid var(--ink)}
+.cut:first-child{padding-left:0}.cut:last-child{padding-right:0}
+.cut-img{display:block;aspect-ratio:var(--cut);overflow:hidden;border:1px solid var(--ink);background:#fff;box-shadow:6px 6px 0 rgba(29,29,27,.85)}
+.cut-img img{display:block;width:100%;height:100% !important;object-fit:cover;object-position:0 var(--y)}
+.cut figcaption{margin-top:14px}
+.bsite-foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--sp-2) var(--sp-3);margin-top:var(--sp-3);padding-top:var(--sp-2);border-top:1px solid var(--ink)}
+.bsite-foot p{font:italic 400 clamp(20px,2vw,26px)/1.3 var(--serif)}
 /* the way out to the live site: an oval, as a paper would ring something in pen */
 .oval{display:inline-flex;align-items:center;gap:10px;padding:.5em 1.1em .42em;border:1.5px solid var(--ink);border-radius:50%;color:var(--ink);text-decoration:none;font:700 clamp(26px,2.8vw,40px)/1 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:-.01em;transition:background-color .3s var(--ease),color .3s var(--ease)}
 .oval .ar{width:.5em;height:.5em}
 .oval:hover,.oval:focus-visible{background:var(--ink);color:var(--paper)}
 .bfilms{margin-top:var(--sp-3)}
 
-/* the next feature: the whole row is the link, set like a headline */
-.bnext{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--sp-3);align-items:end;margin-top:var(--sp-5);padding:var(--sp-3) 0 var(--sp-4);border-top:3px double var(--ink);color:var(--ink);text-decoration:none}
-.bnext b{display:block;margin-top:8px;font:700 clamp(56px,10vw,150px)/.84 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:-.03em;transition:color .3s,translate .5s var(--ease)}
-.bnext .ar{width:clamp(36px,5vw,72px);height:clamp(36px,5vw,72px);margin-bottom:8px}
-.bnext:hover b{color:var(--signal);translate:12px 0}
+/* the foot of a feature: back to the paper on the left, the next feature on the right, each set like a headline */
+.bfoot{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:var(--sp-5);border-top:3px double var(--ink)}
+.bnext{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--sp-3);padding:var(--sp-3) 0 var(--sp-4) var(--sp-3);color:var(--ink);text-decoration:none}
+.bnext.back{justify-content:flex-start;padding:var(--sp-3) var(--sp-3) var(--sp-4) 0;border-right:1px solid var(--ink)}
+.bnext b{display:block;margin-top:8px;font:700 clamp(40px,6.4vw,100px)/.86 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:-.03em;transition:color .3s,translate .5s var(--ease)}
+.bnext .ar{flex:none;width:clamp(30px,4vw,56px);height:clamp(30px,4vw,56px);margin-bottom:6px}
+.bnext.back .ar{rotate:180deg}
+.bnext:hover b{color:var(--signal);translate:10px 0}
+.bnext.back:hover b{translate:-10px 0}
 .bnext:hover .ar{transform:translateX(10px)}
 @media (max-width:760px){
   .bh-img{height:46vh}
   .bh-img img{object-position:left top}
   .bh-tear{top:46vh}
-  .bstory,.bid,.bsite{grid-template-columns:minmax(0,1fr);gap:var(--sp-3)}
+  .bstory,.bid{grid-template-columns:minmax(0,1fr);gap:var(--sp-3)}
+  .cut{padding-inline:6px}
+  .cut figcaption{font-size:12px}
+  .cut-img{box-shadow:3px 3px 0 rgba(29,29,27,.85)}
+  .bfoot{grid-template-columns:minmax(0,1fr)}
+  .bnext,.bnext.back{padding:var(--sp-3) 0;border-right:0}
+  .bnext.back{border-bottom:1px solid var(--ink)}
   .bstory .sp-cols{padding-left:0;border-left:0}
   .coupon{grid-template-columns:minmax(0,1fr);gap:8px}
   .sw span{font-size:9px;padding:2px 3px}
-  .bsite .ss-view{height:440px}
 }

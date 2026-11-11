@@ -31,10 +31,16 @@
 
 <!--shell:header-->
 
+<!-- where you are in the paper: the way back, and the other features -->
+<nav class="bnav" aria-label="The Design Paper">
+  <div class="wrap">
+    <a class="bnav-back" href="/design#brands"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg> The Design Paper</a>
+    <ol><li><a href="/design/yolk" aria-current=page><span aria-hidden="true">01</span> Yolk</a></li><li><a href="/design/npc-filter"><span aria-hidden="true">02</span> NPC Filter</a></li><li><a href="/design/myclosr"><span aria-hidden="true">03</span> myClosr</a></li><li><a href="/design/slaptastic"><span aria-hidden="true">04</span> Slaptastic</a></li></ol>
+  </div>
+</nav>
 <section class="bh" aria-labelledby="h1">
   <figure class="bh-img"><img src="/assets/design/ui-yolk-hero.webp" alt="The top of the Yolk website: the yellow device beside its headline" fetchpriority="high"></figure>
   <img class="bh-tear" src="/assets/textures/news-tear.webp" alt="" aria-hidden="true">
-  <a class="bh-back bar-type" href="/design#brands"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg> The Design Paper</a>
   <div class="wrap">
     <h1 id="h1" tabindex="-1" class="bh-name"><span>Yolk</span></h1>
     <div class="bh-meta">
@@ -68,13 +74,13 @@
 <section class="spread" aria-label="The site">
   <div class="wrap">
     <p class="sp-bar bar-type"><span>The site</span><span>getyolk.tech</span></p>
-    <div class="bsite c">
-      <div class="ss" data-ss data-reveal><div class="ss-bar" aria-hidden="true"><i></i><i></i><i></i><span>getyolk.tech</span></div><div class="ss-view" tabindex="0" aria-label="The Yolk website, top to bottom, scroll to look through it"><img src="/assets/design/site-yolk-long.webp" alt="The Yolk website, top to bottom" loading="lazy"></div></div>
-      <div class="bsite-side">
-        <p class="hand-p"><span class="hand">it scrolls: click to take over</span></p>
-        <p>The whole page, top to bottom. The real one is a click away.</p>
-        <a class="oval" href="https://getyolk.tech" target="_blank" rel="noopener">Live site <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a>
-      </div>
+    <!-- the whole page as three cuts of one long picture, side by side at its own size, like a proof sheet -->
+    <div class="cuts c" style="--cut:385/667">
+      <figure class="cut" data-reveal><span class="cut-img"><img src="/assets/design/site-yolk-long.webp" alt="The Yolk website, top to bottom" loading="lazy" style="--y:0%"></span><figcaption>The top of the page.</figcaption></figure><figure class="cut" data-reveal><span class="cut-img"><img src="/assets/design/site-yolk-long.webp" alt="" loading="lazy" style="--y:50%"></span><figcaption>Halfway down.</figcaption></figure><figure class="cut" data-reveal><span class="cut-img"><img src="/assets/design/site-yolk-long.webp" alt="" loading="lazy" style="--y:100%"></span><figcaption>The foot of the page.</figcaption></figure>
+    </div>
+    <div class="bsite-foot c" data-reveal>
+      <p>The whole page, in three cuts. The real one is a click away.</p>
+      <a class="oval" href="https://getyolk.tech" target="_blank" rel="noopener">Live site <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a>
     </div>
   </div>
 </section>
@@ -84,9 +90,10 @@
     <div class="jrow bfilms c"><figure style="--a:1.5625" data-reveal><video src="/assets/media/yolk-colours.mp4" poster="/assets/media/yolk-colours-poster.webp" muted loop playsinline preload="none" aria-label="Yolk’s site: choosing body and accent colours on a 3D model of the device"></video><figcaption>On the site: pick the colours on a 3D model you can turn.</figcaption></figure><figure style="--a:1.821" data-reveal><video src="/assets/media/yolk-inside.mp4" poster="/assets/media/yolk-inside-poster.webp" muted loop playsinline preload="none" aria-label="Yolk’s site: the enclosure taken apart and put back together in 3D"></video><figcaption>On the site: the enclosure, taken apart.</figcaption></figure><figure class=tall style="--a:0.5625" data-reveal><video src="/assets/media/yolk-film.mp4" poster="/assets/media/yolk-film-poster.webp" muted loop playsinline preload="none" aria-label="The Yolk launch film"></video><figcaption>The launch film.</figcaption></figure></div>
   </div>
 </section>
-<div class="wrap">
+<nav class="wrap bfoot" aria-label="Where next">
+  <a class="bnext back" href="/design#brands"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg><span><span class="kicker">Back to</span><b>The paper</b></span></a>
   <a class="bnext" href="/design/npc-filter" data-bg="#171915"><span><span class="kicker">Next feature</span><b>NPC Filter</b></span><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>
-</div>
+</nav>
 <a class="callbar" href="https://cal.com/mshehrozsajjad" target="_blank" rel="noopener" aria-label="This paper costs one call. Book it."><span class="callbar-in" aria-hidden="true"><span>This paper costs one call</span><b>Book it</b><span>This paper costs one call</span><b>Book it</b><span>This paper costs one call</span><b>Book it</b><span>This paper costs one call</span><b>Book it</b></span></a>
 
 </main>

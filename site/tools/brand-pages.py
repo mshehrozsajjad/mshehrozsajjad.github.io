@@ -14,7 +14,7 @@ BRANDS = [
          kinds=['Device', 'Brand', 'Site', 'Film'], ground='#FFCF32', mark=YOLK_LOGO,
          colours=['#FFCF32', '#232720', '#2058A6', '#EFA58B', '#F5F2E9'], type=('Space Grotesk', 'DM Sans'),
          hero=('/assets/design/ui-yolk-hero.webp', 'The top of the Yolk website: the yellow device beside its headline'),
-         site=('site-yolk-long', 'The Yolk website, top to bottom'),
+         site=('site-yolk-long', 'The Yolk website, top to bottom', 385),
          story=['I always wanted a Pokédex. When Meta open-sourced Muse Gadgets, I designed my own device around it: custom hardware, an e-paper screen and a rotary encoder that drives an AI agent.',
                 'It calls on my behalf in German, using what I learned building real-time AI. It waits on hold, says it’s an AI and books the table.',
                 'I made its brand, its website and its launch film.'],
@@ -27,7 +27,7 @@ BRANDS = [
          kinds=['Brand', 'Site', 'Film'], ground='#171915', mark=mark('npcfilter', 'NPC Filter'),
          colours=['#D5FA39', '#6E850D', '#FFF0C2', '#171915'], type=('Inter', 'Inter'),
          hero=('/assets/design/ui-npc-hero.webp', 'The top of the NPC Filter website: Keep the weird. Skip the filler.'),
-         site=('site-npcfilter-long', 'The NPC Filter website, top to bottom'),
+         site=('site-npcfilter-long', 'The NPC Filter website, top to bottom', 394),
          story=['LinkedIn filled up with AI comments. Someone in my comments asked for a filter for AI-written posts on LinkedIn, X and Reddit, and my agent built it overnight.',
                 'Like every idea of mine, it got a name and a brand before it got built. It launched with a film.'],
          taught=None,
@@ -37,7 +37,7 @@ BRANDS = [
          kinds=['Brand', 'Site', 'Promo'], ground='#0A0A0A', mark=mark('myclosr', 'myClosr'),
          colours=['#0A0A0A', '#F5F5F5', '#8CFF2E'], type=('Inter', 'Inter'),
          hero=('/assets/design/ui-closr-cta.webp', 'A section of the myClosr website'),
-         site=('site-myclosr-long', 'The myClosr website, top to bottom'),
+         site=('site-myclosr-long', 'The myClosr website, top to bottom', 356),
          story=['A Mac and Windows app that coaches you while the call is happening and lets you practise afterwards.',
                 'I made its brand, its website and its promo.'],
          taught='Where I started learning to sell: ads, SEO and an automated blog.',
@@ -47,7 +47,7 @@ BRANDS = [
          kinds=['Brand', 'Site'], ground='#1D1D1B', mark=mark('slaptastic', 'Slaptastic'),
          colours=['#DFF721', '#F7448B', '#1D1D1B'], type=('Bebas Neue', 'Outfit'),
          hero=('/assets/shots/slaptastic.webp', 'The top of the Slaptastic website'),
-         site=('site-slaptastic-long', 'The Slaptastic website, top to bottom'),
+         site=('site-slaptastic-long', 'The Slaptastic website, top to bottom', 312),
          story=['It makes creator-style video ads and images from one product photo. I ran the ads for it myself and they brought in customers.',
                 'I made its brand and its website.'],
          taught='How to bring customers back with n8n flows that send Stripe offers.',
@@ -111,10 +111,16 @@ def page(b, i):
 
 <!--shell:header-->
 
+<!-- where you are in the paper: the way back, and the other features -->
+<nav class="bnav" aria-label="The Design Paper">
+  <div class="wrap">
+    <a class="bnav-back" href="/design#brands">{AR('i-right')} The Design Paper</a>
+    <ol>{''.join(f'<li><a href="/design/{o["slug"]}"{" aria-current=page" if o is b else ""}><span aria-hidden="true">{k + 1:02d}</span> {o["name"]}</a></li>' for k, o in enumerate(BRANDS))}</ol>
+  </div>
+</nav>
 <section class="bh" aria-labelledby="h1">
   <figure class="bh-img"><img src="{b['hero'][0]}" alt="{b['hero'][1]}" fetchpriority="high"></figure>
   <img class="bh-tear" src="/assets/textures/news-tear.webp" alt="" aria-hidden="true">
-  <a class="bh-back bar-type" href="/design#brands">{AR('i-right')} The Design Paper</a>
   <div class="wrap">
     <h1 id="h1" tabindex="-1" class="bh-name"><span>{b['name']}</span></h1>
     <div class="bh-meta">
@@ -148,19 +154,20 @@ def page(b, i):
 <section class="spread" aria-label="The site">
   <div class="wrap">
     {bar('The site', b['url'])}
-    <div class="bsite c">
-      <div class="ss" data-ss data-reveal><div class="ss-bar" aria-hidden="true"><i></i><i></i><i></i><span>{b['url']}</span></div><div class="ss-view" tabindex="0" aria-label="{b['site'][1]}, scroll to look through it"><img src="/assets/design/{b['site'][0]}.webp" alt="{b['site'][1]}" loading="lazy"></div></div>
-      <div class="bsite-side">
-        <p class="hand-p"><span class="hand">it scrolls: click to take over</span></p>
-        <p>The whole page, top to bottom. The real one is a click away.</p>
-        <a class="oval" href="https://{b['url']}" target="_blank" rel="noopener">Live site {AR('i-ne')}</a>
-      </div>
+    <!-- the whole page as three cuts of one long picture, side by side at its own size, like a proof sheet -->
+    <div class="cuts c" style="--cut:{b['site'][2]}/667">
+      {''.join(f'<figure class="cut" data-reveal><span class="cut-img"><img src="/assets/design/{b["site"][0]}.webp" alt="{b["site"][1] if n == 0 else ""}" loading="lazy" style="--y:{y}%"></span><figcaption>{cap}</figcaption></figure>' for n, (y, cap) in enumerate([(0, 'The top of the page.'), (50, 'Halfway down.'), (100, 'The foot of the page.')]))}
+    </div>
+    <div class="bsite-foot c" data-reveal>
+      <p>The whole page, in three cuts. The real one is a click away.</p>
+      <a class="oval" href="https://{b['url']}" target="_blank" rel="noopener">Live site {AR('i-ne')}</a>
     </div>
   </div>
 </section>{films(b)}
-<div class="wrap">
+<nav class="wrap bfoot" aria-label="Where next">
+  <a class="bnext back" href="/design#brands">{AR('i-right')}<span><span class="kicker">Back to</span><b>The paper</b></span></a>
   <a class="bnext" href="/design/{nxt['slug']}" data-bg="{nxt['ground']}"><span><span class="kicker">Next feature</span><b>{nxt['name']}</b></span>{AR('i-right')}</a>
-</div>
+</nav>
 <a class="callbar" href="https://cal.com/mshehrozsajjad" target="_blank" rel="noopener" aria-label="This paper costs one call. Book it."><span class="callbar-in" aria-hidden="true">{'<span>This paper costs one call</span><b>Book it</b>' * 4}</span></a>
 
 </main>

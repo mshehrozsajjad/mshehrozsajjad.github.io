@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Grotesk:wght@700&display=swap");
 /* ===== /design: a newspaper =====
    The Design Paper, Vol. 02 of the collected works. A broadsheet of warm stock laid on a dark desk, set in the site's
-   own type: the condensed caps and the italic serif of the homepage, his hand for the notes, and the book's blue as
+   own type: the condensed caps and the italic serif of the homepage, and the book's blue as
    the one spot colour. Newsreader is the only face of its own, for the running text.
    Brand pages (/design/<brand>, brand.css) are printed on the same paper and share everything in this file. */
 :root.pg-design,:root.pg-design[data-theme]{--paper:#ECE5D5; --raised:#F4EFE3; --ink:#1D1D1B; --muted:#5A564C; --line:#C9C0AC; --signal:#2D2BE0; --on-signal:#fff;
-  --desk:#1D1D1B; --news:"Newsreader",Georgia,serif; --hand:'Shehroz Hand','Shehroz Print','Caveat',cursive; color-scheme:light; background:var(--desk)}
+  --desk:#1D1D1B; --news:"Newsreader",Georgia,serif; color-scheme:light; background:var(--desk)}
 .pg-design body{--stock:url(/assets/textures/news-paper.webp) 0 0/820px,radial-gradient(ellipse at 30% 0%,rgba(255,255,255,.35),transparent 60%),radial-gradient(ellipse at 100% 100%,rgba(120,96,60,.12),transparent 55%),var(--paper);
   max-width:1480px;margin-inline:auto;font-family:var(--news);box-shadow:0 0 120px rgba(0,0,0,.55);background:var(--stock);background-blend-mode:multiply,normal,normal,normal}
 .pg-design body::after{opacity:.16}
@@ -16,7 +16,7 @@
 .pg-design :is(h1,h2,h3),.caps{font-family:var(--sans);font-weight:700;font-stretch:75%;text-transform:uppercase;letter-spacing:-.02em}
 .pg-design .it{font-family:var(--serif);font-style:italic;font-weight:400;font-stretch:normal;text-transform:none;letter-spacing:-.02em;color:var(--signal)}
 .pg-design .kicker,.bar-type{font:600 11px/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
-.pg-design .hand{font-size:clamp(24px,2vw,30px)}
+.pg-design .hi-line{font:italic 400 16px/1.4 var(--news);color:var(--muted)}
 .np-label{font:700 26px/1 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:-.01em}
 .cap,.pg-design figcaption{font:italic 400 14px/1.4 var(--news);color:var(--muted)}
 .pg-design figure{margin:0}
@@ -127,7 +127,6 @@
 .brief-text p + p{margin-top:1em}
 .brief img{display:block;width:100%;border:1px solid var(--ink)}
 .brief figcaption{padding-top:8px}
-.brief figcaption .hand{display:block;margin-top:10px}
 .route ol{list-style:none;margin:10px 0 0;padding:0;counter-reset:route;border-top:2px solid var(--ink)}
 .route li{counter-increment:route;display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:baseline;padding:11px 0;border-bottom:1px dotted var(--ink);font:500 16px/1.3 var(--news)}
 .route li::before{content:"(" counter(route) ")";font:400 26px/1 var(--serif);color:var(--muted)}
@@ -142,56 +141,45 @@
 .poster{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .4s var(--ease)}
 .poster img{display:block;width:100%;border:1px solid var(--ink)}
 .poster figcaption{margin-top:8px}
-.wall .hand{justify-self:end}
+.wall .cap{justify-self:end}
 
-/* C. interfaces: one at a time, large. The index on the left picks which (mag.js); the picked one opens to say what
-   it is, and its page scrolls itself in a browser frame on the right */
-.ui{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.75fr);border-top:3px double var(--ink)}
-.ui-index{list-style:none;margin:0;padding:0}
-.ui-index li{border-bottom:1px solid var(--ink)}
-.ui-index li:last-child{border-bottom:0}
-.ui-pick{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;align-items:baseline;width:100%;padding:var(--sp-3) var(--sp-3) var(--sp-3) 0;border:0;background:none;color:var(--muted);font:inherit;text-align:left;cursor:pointer;transition:color .3s}
-.ui-pick b{font:700 clamp(40px,5.2vw,84px)/.86 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:-.03em;transition:translate .5s var(--ease)}
-.ui-pick .kicker{grid-column:2;color:inherit}
-.ui-pick:hover,.ui-pick.on{color:var(--ink)}
-.ui-pick:hover b{translate:8px 0}
-.ui-pick.on b{color:var(--signal);translate:none}
-/* what it is: closed until its interface is picked */
-.ui-say{grid-column:2;display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
-.ui-say > span{overflow:hidden;font:400 17px/1.5 var(--news);color:var(--muted)}
-.ui-say .it{display:block;margin:8px 0 6px;font-size:clamp(24px,2.2vw,30px);line-height:1.05}
-.ui-pick.on .ui-say{grid-template-rows:1fr}
-.ui-stage{padding:var(--sp-3) 0 var(--sp-2) var(--sp-3);border-left:1px solid var(--ink)}
-.ui-pane[hidden]{display:none}
-.ui-pane{height:min(600px,70vh);animation:ui-in .6s var(--ease)}
-@keyframes ui-in{from{opacity:0;translate:0 14px}}
-@media (prefers-reduced-motion:reduce){.ui-pane{animation:none}}
-.ui-pane .ss{height:100%;display:flex;flex-direction:column}
-.ui-pane .ss-view{flex:1;height:auto}
-.ui-pane .dev{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 30px 40px rgba(0,0,0,.18))}
-.ui-hint{position:absolute;left:0;bottom:var(--sp-2)}   /* in the foot of the index column */
-.ui:has(.ui-pane:nth-child(2):not([hidden])) .ui-hint{display:none}   /* the device picture does not scroll */
+/* C. interfaces: a short page. The headline in one column, two long pages beside it, each held still in a
+   small browser frame until it is clicked */
+#ui .sp-head{margin-bottom:0}
+.shots{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,1.1fr);align-items:start;padding-top:var(--sp-3)}
+.shots > *{padding-inline:var(--sp-3)}
+.shots > :first-child{padding-left:0}
+.shots > :last-child{padding-right:0}
+.shots > * + *{border-left:1px solid var(--ink)}
+.shots h2{font-size:clamp(38px,4.6vw,72px);line-height:.9}
+.shots h2 .it{display:block;margin-top:.06em}
+.shot{display:grid;gap:8px}
+.shot .ss{margin-bottom:var(--sp-1)}
+.shot .ss-view{height:auto;aspect-ratio:16/10}   /* both frames one shape: the homepage whole, the long page from its top */
+.ss-view.still{cursor:auto}
+.shot p:not(.kicker){font:400 16px/1.45 var(--news);color:var(--muted)}
 .ss{background:#fff;border:1px solid var(--ink);box-shadow:6px 6px 0 rgba(29,29,27,.85);overflow:hidden}
 .ss-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:var(--raised);border-bottom:1px solid var(--ink);font:500 11px/1 var(--mono);color:var(--muted)}
 .ss-bar i{width:9px;height:9px;border-radius:50%;background:#D8D4CA}
 .ss-bar span{margin-left:10px;padding:4px 10px;border-radius:6px;background:#fff;flex:1;max-width:280px}
-/* the frame takes the wheel only once it has been clicked or tabbed into, so reading down the page never gets caught in it */
-.ss-view{height:min(400px,48vh);overflow:hidden;scrollbar-width:thin;outline-offset:-3px;cursor:pointer}
+/* the frame shows the top of its page and holds still; it takes the wheel only once it has been clicked or tabbed into,
+   so reading down the page never gets caught in it */
+.ss-view{height:min(340px,44vh);overflow:hidden;scrollbar-width:thin;outline-offset:-3px;cursor:pointer}
 .ss-view:focus{overflow:auto;cursor:auto}
 .ss-view img{display:block;width:100%;height:auto}
 
 /* D. brands: the headline in a block of ink, then the index. One row a brand: its mark on its own ground, its name
-   as large as the row allows, its line, its colours. A row turns to ink when pointed at; four of them open a feature */
+   as large as the row allows, its line, its colours. Four of them open a feature */
 .sp-head.inv h2{margin-top:var(--sp-2);padding:.1em .14em .06em;background:var(--ink);color:var(--paper)}
 .sp-head.inv h2 .it{color:var(--paper)}
 .bx{list-style:none;margin:0;padding:0;border-top:3px double var(--ink)}
-.bx-row{display:grid;grid-template-columns:34px 112px minmax(0,1.5fr) minmax(0,1fr) auto;gap:var(--sp-3);align-items:center;padding:14px 0;border-bottom:1px solid var(--ink);color:var(--ink);text-decoration:none;transition:background-color .3s var(--ease),color .3s var(--ease),box-shadow .3s var(--ease)}
+.bx-row{display:grid;grid-template-columns:34px 112px minmax(0,1.5fr) minmax(0,1fr) auto;gap:var(--sp-3);align-items:center;padding:14px 0;border-bottom:1px solid var(--ink);color:var(--ink);text-decoration:none;transition:background-color .3s var(--ease)}
 .bx-n{font:italic 400 15px/1 var(--news)}
-.bx-mark{display:grid;place-items:center;aspect-ratio:1;background:var(--ground);border:1px solid var(--ink);transition:transform .5s var(--ease),border-color .3s}
+.bx-mark{display:grid;place-items:center;aspect-ratio:1;background:var(--ground);border:1px solid var(--ink)}
 .bx-mark img{display:block;width:46%;max-height:46%;object-fit:contain}
 .bx-mark{container-type:inline-size}
 .bx-mark .yolk-logo{font-size:27cqw}
-.bx-name{display:grid;gap:6px;transition:translate .5s var(--ease)}
+.bx-name{display:grid;gap:6px}
 .bx-name b{font:700 clamp(40px,6vw,92px)/.86 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:-.03em}
 .bx-line{font:italic 400 17px/1.3 var(--news)}
 .bx-side{display:grid;gap:10px;justify-items:start}
@@ -199,11 +187,8 @@
 .bx-pal i{width:20px;height:20px;border:1px solid var(--ink);background:var(--c)}
 .bx-go{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;font:italic 400 15px/1 var(--news)}
 .bx-go .ar{width:12px;height:12px}
-.bx-row:hover,.bx-row:focus-visible{background:var(--ink);color:var(--paper);box-shadow:-14px 0 0 var(--ink),14px 0 0 var(--ink)}   /* the ink runs a little past the column, the rules do not */
-.bx-row:hover .kicker,.bx-row:focus-visible .kicker{color:var(--paper)}
-.bx-row:hover .bx-pal i,.bx-row:hover .bx-mark,.bx-row:focus-visible .bx-pal i,.bx-row:focus-visible .bx-mark{border-color:var(--paper)}
-.bx-row:hover .bx-mark{transform:rotate(-4deg) scale(1.06)}
-.bx-row:hover .bx-name{translate:10px 0}
+/* pointed at, a row barely tints and its arrow moves: no louder than the rest of the page */
+.bx-row:hover,.bx-row:focus-visible{background:color-mix(in srgb,var(--ink) 5%,transparent)}
 .bx-row:hover .bx-go .ar{transform:translateX(4px)}
 /* Yolk's logo, built the way its own site builds it (21 x 25 mark, 4px ring, 8px gap at a 42px wordmark) */
 .yolk-logo{display:flex;align-items:center;gap:.19em;font:700 30px/.9 "Space Grotesk",var(--sans);font-stretch:normal;letter-spacing:-.08em;text-transform:none;color:#232720}
@@ -214,10 +199,11 @@
 .pull .caps{font-style:normal}
 
 /* F. design that ships, and the index of everything */
-.sp-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:var(--sp-4);align-items:start}
-.sp-grid .sp-cols{padding-left:var(--sp-4);border-left:1px solid var(--ink)}
-.sp-fig img{display:block;width:100%;border:1px solid var(--ink)}
-.sp-fig figcaption{padding-top:8px}
+.sp-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:var(--sp-4);align-items:start}
+.sp-text{font:400 17px/1.6 var(--news);text-align:justify;hyphens:auto}
+.sp-text p + p{margin-top:1em}
+.sp-grid .jrow{padding-left:var(--sp-4);border-left:1px solid var(--ink)}
+.sp-grid img{border:1px solid var(--ink)}
 .allwork{margin-top:var(--sp-4);border:2px solid var(--ink);padding:var(--sp-3);box-shadow:6px 6px 0 var(--ink);background:var(--raised)}
 .aw-head{font:700 clamp(40px,5vw,68px)/1 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:-.02em;color:var(--signal);border-bottom:1px solid var(--ink);padding-bottom:10px}
 .allwork ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -302,13 +288,9 @@
   .brief > * + *{border-left:0}
   .wall{grid-template-columns:minmax(0,1fr);gap:var(--sp-3)}
   .wall-side{padding-left:0;border-left:0;order:-1}
-  .ui{grid-template-columns:minmax(0,1fr)}
-  .ui-pick{grid-template-columns:minmax(0,1fr);padding:var(--sp-2) 0}
-  .ui-pick .kicker,.ui-say{grid-column:1}
-  .ui-stage{padding:var(--sp-3) 0 0;border-left:0;border-top:1px solid var(--ink)}
-  .ui-pane{height:440px}
-  .ui-pane:nth-child(2){height:auto}
-  .ui-hint{position:static;margin-top:var(--sp-2)}
+  .shots{grid-template-columns:minmax(0,1fr);row-gap:var(--sp-3)}
+  .shots > *{padding-inline:0}
+  .shots > * + *{border-left:0}
   .bx-row{grid-template-columns:64px minmax(0,1fr);gap:12px var(--sp-2)}
   .bx-n{display:none}
   .bx-side{grid-column:1 / -1;grid-row:auto}
@@ -317,7 +299,7 @@
   .jrow figure{flex:1 1 100%}
   .jrow figure.tall{flex:1 1 40%}
   .sp-grid{grid-template-columns:minmax(0,1fr)}
-  .sp-grid .sp-cols{padding-left:0;border-left:0}
+  .sp-grid .jrow{padding-left:0;border-left:0}
   .allwork ul{grid-template-columns:minmax(0,1fr)}
   .allwork li{border-left:0 !important}
 }

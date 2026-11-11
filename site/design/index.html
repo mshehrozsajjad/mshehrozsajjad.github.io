@@ -17,7 +17,6 @@
 <link rel="stylesheet" href="/src/styles/twin.css">
 <link rel="stylesheet" href="/src/styles/shell.css">
 <link rel="stylesheet" href="/src/styles/design.css">
-<link rel="preload" href="/fonts/shehroz-hand.woff2" as="font" type="font/woff2" crossorigin>
 <!-- the entrance (mag.js, design.css): the paper spins up out of the dark. Decided before the first paint, so the page
      never flashes; not for reduced motion, a link to a section, the back button or doodle mode. The timer is its safety net -->
 <script>try{var n=performance.getEntriesByType('navigation')[0],d=document.documentElement;if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&!location.hash&&!/[?&]doodle/.test(location.search)&&!(n&&n.type==='back_forward')){d.classList.add('spin');setTimeout(function(){d.classList.remove('spin')},5000)}}catch(e){}</script>
@@ -41,7 +40,7 @@
     <h1 id="h1" tabindex="-1" class="np-h c" data-fit><span>Started</span> <span>in design.</span></h1>
     <div class="np-lead c">
       <div class="np-col">
-        <p class="hi-line"><span class="hand">hi <span data-who>stranger</span>,</span> the design side<span data-if-co hidden>, for the team at <span data-co></span></span>.</p>
+        <p class="hi-line">Hi <span data-who>stranger</span>, this is the design side<span data-if-co hidden>, for the team at <span data-co></span></span>.</p>
         <p class="np-turn it">Never stopped.</p>
         <p class="np-dek drop">Every idea of mine gets a name and a brand before I build it. I design the interface, the website, and often the launch film. It started at my first company, where I took over the design.</p>
       </div>
@@ -63,7 +62,7 @@
   <div class="wrap">
     <header class="sp-head c"><p class="sp-bar bar-type"><span>Section A</span><span>Where it started</span><span aria-hidden="true">Page 2</span></p></header>
     <div class="brief c">
-      <figure class="tone" data-reveal="print"><img src="/assets/media/flappy-banner.webp" alt="Flappy Returns, my first published game" loading="lazy" width="1000" height="767"><figcaption>Flappy Returns, 2015: my first game design. <span class="hand">every pixel, mine.</span></figcaption></figure>
+      <figure class="tone" data-reveal="print"><img src="/assets/media/flappy-banner.webp" alt="Flappy Returns, my first published game" loading="lazy" width="1000" height="767"><figcaption>Flappy Returns, 2015: my first game design.</figcaption></figure>
       <div class="brief-story">
         <h2 id="h-started" data-reveal="words">A trip company, <span class="it">and Photoshop.</span></h2>
         <div class="brief-text" data-reveal>
@@ -92,7 +91,7 @@
           <figure class="poster tone" style="--a:.802" data-reveal="print"><img src="/assets/design/poster-founder.webp" alt="5 lessons learned from The Founder" loading="lazy"><figcaption>5 lessons from The Founder · CodeJunkie</figcaption></figure>
           <figure class="poster tone" style="--a:.998" data-reveal="print"><img src="/assets/design/poster-advisory.webp" alt="A motion-blur portrait in an album-cover style" loading="lazy"><figcaption>An album-cover portrait</figcaption></figure>
         </div>
-        <p data-reveal><span class="hand">made in Photoshop</span></p>
+        <p class="cap" data-reveal>All made in Photoshop.</p>
       </div>
     </div>
     <p class="jump c"><a href="#ui">Continued on Page 4 <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></p>
@@ -100,19 +99,22 @@
 </section>
 <section class="ch spread" id="ui" aria-labelledby="h-ui">
   <div class="wrap">
-    <header class="sp-head c">
-      <p class="sp-bar bar-type"><span>Section C</span><span>Interfaces</span><span aria-hidden="true">Page 4</span></p>
-      <h2 id="h-ui" data-reveal="words">Screens people <span class="it">actually use.</span></h2>
-    </header>
-    <!-- one interface at a time, large: the index picks which (mag.js) -->
-    <div class="ui c" data-picks data-reveal>
-      <ol class="ui-index" aria-label="Choose an interface"><li><button class="ui-pick on" type="button" data-pick aria-pressed="true"><span class="bx-n" aria-hidden="true">01</span><b>ReachWorx</b><span class="kicker">Landing page</span><span class="ui-say"><span><span class="it">“Scheduling, made seamless.”</span> A long landing page for a scheduling product: bold colour, cut-out photography and a classical statue for “does all the heavy lifting”.</span></span></button></li><li><button class="ui-pick" type="button" data-pick aria-pressed="false"><span class="bx-n" aria-hidden="true">02</span><b>Agriculture</b><span class="kicker">Company website</span><span class="ui-say"><span><span class="it">“Pioneering agricultural innovation in Pakistan.”</span> A company website for an agricultural business, shown across tablet and laptop.</span></span></button></li><li><button class="ui-pick" type="button" data-pick aria-pressed="false"><span class="bx-n" aria-hidden="true">03</span><b>Vorsprech</b><span class="kicker">Product page</span><span class="ui-say"><span><span class="it">“Pass the FSP. Approbation, on schedule.”</span> The exam page for my own product: what the FSP Sprechen actually looks like, the kind of prompt you’ll hear, and what’s at stake.</span></span></button></li></ol>
-      <div class="ui-stage">
-        <div class="ui-pane" data-pane><div class="ss" data-ss><div class="ss-bar" aria-hidden="true"><i></i><i></i><i></i><span>reachworx</span></div><div class="ss-view" tabindex="0" aria-label="The ReachWorx landing page, top to bottom, scroll to look through it"><img src="/assets/design/ui-reachworx-long.webp" alt="The ReachWorx landing page, top to bottom" loading="lazy"></div></div></div>
-        <div class="ui-pane" data-pane hidden><img class="dev" src="/assets/design/ui-agri-devices.webp" alt="A website for an agricultural company in Pakistan, on a tablet and a laptop" loading="lazy"></div>
-        <div class="ui-pane" data-pane hidden><div class="ss" data-ss><div class="ss-bar" aria-hidden="true"><i></i><i></i><i></i><span>vorsprech.com/exams/fsp</span></div><div class="ss-view" tabindex="0" aria-label="The Vorsprech page for the FSP exam, top to bottom, scroll to look through it"><img src="/assets/design/ui-vorsprech-fsp-long.webp" alt="The Vorsprech page for the FSP exam, top to bottom" loading="lazy"></div></div></div>
-        <p class="ui-hint"><span class="hand">it scrolls: click to take over</span></p>
+    <header class="sp-head c"><p class="sp-bar bar-type"><span>Section C</span><span>Interfaces</span><span aria-hidden="true">Page 4</span></p></header>
+    <div class="shots c">
+      <div class="shots-head">
+        <h2 id="h-ui" data-reveal="words">Screens people <span class="it">actually use.</span></h2>
+        <p class="sp-dek" data-reveal>A client’s landing page, and the homepage of my own product.</p>
       </div>
+      <article class="shot" data-reveal>
+        <div class="ss"><div class="ss-bar" aria-hidden="true"><i></i><i></i><i></i><span>reachworx</span></div><div class="ss-view" tabindex="0" aria-label="The ReachWorx landing page, top to bottom, scroll to look through it"><img src="/assets/design/ui-reachworx-long.webp" alt="The ReachWorx landing page, top to bottom" loading="lazy"></div></div>
+        <p class="kicker">Landing page · ReachWorx</p>
+        <p>A long landing page for a scheduling product: bold colour and cut-out photography. Click it to scroll.</p>
+      </article>
+      <article class="shot" data-reveal>
+        <div class="ss"><div class="ss-bar" aria-hidden="true"><i></i><i></i><i></i><span>vorsprech.com</span></div><div class="ss-view still"><img src="/assets/design/ui-vorsprech-home.webp" alt="The Vorsprech homepage: Speak with confidence. Practice without pressure." loading="lazy" width="800" height="500"></div></div>
+        <p class="kicker">Homepage · Vorsprech</p>
+        <p>My own product: practice for the spoken German medical exam.</p>
+      </article>
     </div>
     <p class="jump c"><a href="#brands">Continued on Page 5 <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></p>
   </div>
@@ -196,10 +198,14 @@
       <h2 id="h-ships" data-reveal="words">From the interface <span class="it">to the web app.</span></h2>
     </header>
     <div class="sp-grid c">
-      <figure class="sp-fig tone" data-reveal><img src="/assets/media/codejunkie-team.webp" alt="The CodeJunkie team on a day out" loading="lazy" width="800" height="480"><figcaption>CodeJunkie, a day away from our desks.</figcaption></figure>
-      <div class="sp-cols" data-reveal>
+      <div class="sp-text" data-reveal>
         <p class="drop">At CodeJunkie, the company I co-founded and ran as CTO, I trained our designers and developers as the team grew to 25.</p>
         <p>My computer science background let me take projects from interface design into full web apps, for startups and for corporate clients, including banks in the UAE and Oman.</p>
+      </div>
+      <div class="jrow">
+        <figure class="tone" style="--a:1.501" data-reveal><img src="/assets/media/codejunkie-team-2.webp" alt="The CodeJunkie team together at a dinner" loading="lazy" width="1024" height="682"><figcaption>The whole team.</figcaption></figure>
+        <figure class="tone" style="--a:1.667" data-reveal><img src="/assets/media/codejunkie-team.webp" alt="The CodeJunkie team on a day out" loading="lazy" width="800" height="480"><figcaption>A day away from our desks.</figcaption></figure>
+        <figure class="tone" style="--a:1.499" data-reveal><img src="/assets/media/codejunkie-poster.webp" alt="A CodeJunkie internship poster" loading="lazy" width="1000" height="667"><figcaption>An internship poster: we were growing.</figcaption></figure>
       </div>
     </div>
     <aside class="allwork c" aria-labelledby="h-all">
