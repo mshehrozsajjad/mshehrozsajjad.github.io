@@ -37,6 +37,15 @@ document.querySelectorAll('[data-ss] .ss-view').forEach(v => {
   new IntersectionObserver(es => { on = es[0].isIntersecting; if (on) go(); }, {threshold: .4}).observe(v);
 });
 
+// the brands page shows one site at a time: the index beside it picks which
+document.querySelectorAll('[data-sites]').forEach(box => {
+  const picks = [...box.querySelectorAll('[data-site]')], frames = [...box.querySelectorAll('.ss')];
+  picks.forEach((p, i) => p.addEventListener('click', () => {
+    picks.forEach((q, j) => { q.classList.toggle('on', j === i); q.setAttribute('aria-pressed', j === i); });
+    frames.forEach((f, j) => { f.hidden = j !== i; });
+  }));
+});
+
 // the front page carries today's date, like any paper
 document.querySelectorAll('[data-today]').forEach(el => { el.textContent = new Date().toLocaleDateString('en-GB', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'}); });
 

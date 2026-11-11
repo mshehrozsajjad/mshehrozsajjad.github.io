@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Anton&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap");
 /* ===== /design: a newspaper =====
    The Design Paper, Vol. 01. A broadsheet of warm, grainy stock laid on a dark desk: a masthead across the full width,
    condensed caps for the headlines with an italic serif for the turn, column rules, drop caps, a strip of featured work
@@ -245,3 +245,189 @@
 .bsheet:not(:has(.bs-pages)){grid-template-columns:minmax(0,1fr)}
 .bsheet:not(:has(.bs-pages)) .bs-marks{grid-template-columns:repeat(auto-fit,minmax(200px,280px))}
 @media (max-width:760px){.bsheet{grid-template-columns:minmax(0,1fr)}.bs-pages{grid-column:1;grid-row:auto;margin-top:var(--sp-3)}.bs-head{flex-direction:column}}
+
+/* ---------- polish: headlines that fit their page, controls set like the paper, jump lines, specimens, the back page ---------- */
+.sp-head h2{font-size:clamp(44px,6.6vw,104px)}
+.reel-nav button{width:auto;height:auto;padding:9px 14px;border-radius:0;border:1px solid var(--ink);font:700 11px/1 var(--disp);letter-spacing:.16em;text-transform:uppercase}
+.reel-count{font:italic 400 14px/1 var(--news)}
+.jump{margin-top:var(--sp-5);padding-top:10px;border-top:1px solid var(--ink);text-align:right}
+.jump a{display:inline-flex;align-items:center;gap:8px;font:italic 400 15px/1 var(--news);color:var(--ink);text-decoration:none}
+.jump .ar{width:12px;height:12px;transition:transform .3s var(--ease)}
+.jump a:hover{color:var(--hl)}
+.jump a:hover .ar{transform:translateX(4px)}
+/* identity: one row of five. Each mark on the ground it was drawn for, its name and line as a caption, its
+   palette as a row of chips. Small on purpose: the homepages have their own page */
+.tiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:3px double var(--ink)}
+.tile{display:grid;gap:6px;align-content:start;padding:14px var(--sp-2) 0;color:var(--ink);text-decoration:none}
+.tile + .tile{border-left:1px solid var(--ink)}
+.tile:first-child{padding-left:0}.tile:last-child{padding-right:0}
+.tile-ground{display:grid;place-items:center;aspect-ratio:1;margin-bottom:6px;border:1px solid var(--ink);background:var(--ground)}
+.tile-ground img{display:block;width:42%;max-height:42%;object-fit:contain;transition:transform .5s var(--ease)}
+.tile:hover .tile-ground img{transform:scale(1.12) rotate(-4deg)}
+.tile b{font:400 clamp(24px,2.3vw,32px)/1 var(--cond);text-transform:uppercase}
+.tile:hover b{color:var(--hl)}
+.tile-line{font:italic 400 14px/1.35 var(--news);color:var(--muted);min-height:2.7em}
+.tile-pal{display:flex;gap:4px;margin-top:2px}
+.tile-pal i{width:18px;height:18px;border:1px solid var(--ink);background:var(--c)}
+/* a story that leads with its words: a small column picture, then the text */
+.sp-story{grid-template-columns:minmax(0,230px) minmax(0,1fr);gap:var(--sp-4);align-items:start}
+.sp-inset{transform:none}
+.sp-inset .snap-img img{border:1px solid var(--ink)}
+.sp-inset figcaption{font-size:13px}
+@media (max-width:900px){
+  .tiles{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:var(--sp-4)}
+  .tile:nth-child(odd){padding-left:0;border-left:0}
+  .tile:nth-child(even){padding-right:0}
+  .sp-story{grid-template-columns:minmax(0,1fr)}
+  .sp-inset{max-width:230px}
+}
+/* the back page: three boxed ads and a serial, where the other sections of the paper are advertised */
+.ads{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-3)}
+.ad,.serial{position:relative;display:grid;gap:8px;align-content:start;padding:var(--sp-3);border:2px solid var(--ink);background:var(--raised);color:var(--ink);text-decoration:none;transition:translate .25s var(--ease),box-shadow .25s var(--ease)}
+.ad:nth-child(2){border-style:double;border-width:6px}
+.ad:nth-child(3){border-style:dashed}
+.ad-kind{justify-self:start;padding:3px 8px;background:var(--ink);color:var(--paper);font:700 10px/1.3 var(--disp);letter-spacing:.18em;text-transform:uppercase}
+.ad-spr{justify-self:center;--h:128px;margin:6px 0;filter:grayscale(1) contrast(1.1);transition:filter .4s}
+.ad b,.serial b{font:400 clamp(32px,3.4vw,50px)/.95 var(--cond);text-transform:uppercase}
+.ad-line{font:400 16px/1.45 var(--news);color:var(--muted)}
+.ad-go{display:inline-flex;align-items:center;gap:8px;margin-top:6px;padding-top:10px;border-top:1px dotted var(--ink);font:italic 400 15px/1 var(--news)}
+.ad-go .ar{width:12px;height:12px;transition:transform .3s var(--ease)}
+.serial{grid-template-columns:auto minmax(0,auto) minmax(0,1fr) auto;align-items:baseline;gap:var(--sp-3);margin-top:var(--sp-3)}
+.serial .ad-go{margin:0;padding:0;border:0}
+@media (hover:hover) and (pointer:fine){
+  :is(.ad,.serial):hover{translate:-3px -3px;box-shadow:6px 6px 0 var(--ink)}
+  :is(.ad,.serial):hover .ad-go .ar{transform:translateX(4px)}
+  .ad:hover .ad-spr{filter:none}
+  :is(.ad,.serial):hover b{color:var(--hl)}
+}
+.back{padding-bottom:var(--sp-6)}
+@media (max-width:900px){
+  .ads{grid-template-columns:minmax(0,1fr)}
+  .serial{grid-template-columns:minmax(0,1fr);gap:8px}
+}
+
+/* Yolk's logo, built the way its own site builds it (21 x 25 mark, 4px ring, 8px gap at a 42px wordmark) */
+.yolk-logo{display:flex;align-items:center;gap:.19em;font:700 clamp(34px,3.6vw,50px)/.9 "Space Grotesk",var(--sans);letter-spacing:-.08em;color:#232720;transition:transform .5s var(--ease)}
+.yolk-logo i{display:inline-block;width:.5em;height:.595em;border:.095em solid currentColor;border-radius:54% 54% 46% 46%;transform:rotate(-18deg)}
+.tile:hover .yolk-logo{transform:scale(1.08)}
+
+/* ---------- the audit: pages that showed everything at full size now choose ---------- */
+/* interfaces: three across, each in its own column, instead of three full screens */
+.cases{grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:3px double var(--ink)}
+.case{grid-template-columns:minmax(0,1fr);gap:var(--sp-2);align-items:start;align-content:start;padding:var(--sp-2) var(--sp-2) 0}
+.case + .case{border-left:1px solid var(--ink)}
+.case:first-child{padding-left:0}.case:last-child{padding-right:0}
+.case.flip .case-media{order:0}
+.case-text{border-top:0;padding-top:0}
+.case-text h3{font-size:clamp(24px,2.2vw,32px)}
+.case .ss-view{height:min(400px,48vh)}
+.case-media .dev{aspect-ratio:4/3.42;object-fit:contain}
+/* photography and film: two tight mosaics instead of a run of full-width pictures */
+.lens{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-areas:"w w s" "a m s";gap:var(--sp-2);margin-bottom:var(--sp-4)}
+.lens .l-wide{grid-area:w;display:grid;grid-template-rows:minmax(0,1fr) auto}
+.lens .l-sq{grid-area:s;display:grid;grid-template-rows:minmax(0,1fr) auto}
+.lens .l-wide img{aspect-ratio:auto;height:100%;max-height:340px}
+.l-sq img{min-height:0}
+.films2{gap:var(--sp-2)}
+.f-big{grid-column:span 2}
+.pull{grid-column:1 / -1;margin-top:var(--sp-2)}
+@media (max-width:900px){
+  .cases{grid-template-columns:minmax(0,1fr)}
+  .case{padding:var(--sp-3) 0 0}
+  .case + .case{border-left:0;border-top:1px solid var(--ink);margin-top:var(--sp-3)}
+  .lens{grid-template-columns:minmax(0,1fr);grid-template-areas:"w" "s" "a" "m"}
+}
+
+/* ---------- real paper: his newsprint under everything, and the sheet's fold under the front page ---------- */
+.pg-design body{background:url(/assets/textures/news-paper.webp) 0 0/820px,radial-gradient(ellipse at 30% 0%,rgba(255,255,255,.35),transparent 60%),radial-gradient(ellipse at 100% 100%,rgba(120,96,60,.12),transparent 55%),var(--paper);background-blend-mode:multiply,normal,normal,normal}
+.np-fold{height:120px;margin-block:-60px;background:url(/assets/textures/news-fold.webp) center/100% 100% no-repeat;mix-blend-mode:multiply;pointer-events:none;position:relative;z-index:1}
+/* ---------- pages sit closer: a paper has no empty half-pages ---------- */
+.np-cover{padding-bottom:var(--sp-5)}
+.spread{padding-block:var(--sp-4) var(--sp-5)}
+.jump{margin-top:var(--sp-4)}
+.sp-head{margin-bottom:var(--sp-3)}
+/* a short story, set like one: headline, text and a small picture in one ruled row */
+#started .sp-head{margin-bottom:0}
+.brief{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1.5fr) 200px;align-items:start;padding-top:var(--sp-3)}
+.brief > *{padding-inline:var(--sp-3)}
+.brief > :first-child{padding-left:0}
+.brief > :last-child{padding-right:0}
+.brief h2{font-size:clamp(34px,4.3vw,64px);line-height:.94}
+.brief h2 .it{display:block;font-size:.8em;margin-top:.08em}
+.brief .sp-cols{padding-left:var(--sp-3);font-size:16px;line-height:1.55}
+.brief .sp-inset{border-left:1px solid var(--ink)}
+@media (max-width:900px){
+  .brief{grid-template-columns:minmax(0,1fr);row-gap:var(--sp-3)}
+  .brief > *{padding-inline:0}
+  .brief .sp-cols{border-left:0}
+  .brief .sp-inset{border-left:0;max-width:230px}
+}
+
+/* ---------- work is shown whole: nothing he made is cropped to fit a slot ---------- */
+.np-fig img{aspect-ratio:auto}
+/* the strip: every piece at one height and its own width, like a contact sheet */
+.ft-track{grid-auto-columns:max-content}
+.ft-img{aspect-ratio:auto;height:clamp(220px,23vw,300px);background:none}
+.ft-img img{width:auto;height:100%;object-fit:contain}
+.ft-cap{width:0;min-width:100%;flex-wrap:wrap}
+/* the brand reel: each homepage at its own proportions */
+.reel-track{align-items:start}
+.pg-img img{aspect-ratio:auto;height:auto;object-fit:contain}
+/* photographs: three columns, each picture at its own shape */
+.lens{display:block;columns:3;column-gap:var(--sp-2)}
+.lens figure{break-inside:avoid;margin:0 0 var(--sp-2);display:block}
+.lens .l-wide,.lens .l-sq{display:block}
+.lens img,.lens .l-wide img,.l-sq img,.l-half img{aspect-ratio:auto;height:auto;max-height:none;width:100%}
+@media (max-width:900px){.lens{columns:2}}
+@media (max-width:560px){.lens{columns:1}}
+
+/* ---------- brands: one whole site at a time in a large frame (it scrolls itself, mag.js), and an index beside it
+   to pick another. One thing moves, not four ---------- */
+.edition{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);border-top:3px double var(--ink)}
+.ed-frames{padding:var(--sp-2) var(--sp-3) 0 0;border-right:1px solid var(--ink)}
+.ed-frames .ss[hidden]{display:none}
+.ed-frames .ss-view{height:min(560px,66vh)}
+.ed-index{list-style:none;margin:0;padding:0;display:grid;grid-auto-rows:1fr}   /* four equal rows, the full height of the frame beside them */
+.ed-index li{display:grid;gap:4px;align-content:center;padding:14px 0 14px var(--sp-3);border-bottom:1px solid var(--ink)}
+.ed-index li:last-child{border-bottom:0}
+.ed-pick{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 12px;align-items:baseline;padding:0;border:0;background:none;color:var(--muted);font:inherit;text-align:left;cursor:pointer;transition:color .2s}
+.ed-n{font:italic 400 14px/1 var(--news)}
+.ed-pick b{font:400 clamp(30px,3.4vw,50px)/.95 var(--cond);text-transform:uppercase}
+.ed-line{grid-column:2;font:italic 400 15px/1.35 var(--news)}
+.ed-pick.on{color:var(--ink)}
+.ed-pick.on b{color:var(--hl)}
+.ed-pick:hover{color:var(--ink)}
+.ed-go{display:none;align-items:center;gap:6px;justify-self:start;margin:6px 0 0 calc(12px + 2ch);font:700 10px/1.3 var(--disp);letter-spacing:.16em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+.ed-pick.on + .ed-go{display:inline-flex}
+.ed-go .ar{width:10px;height:10px}
+.ed-go:hover{color:var(--hl)}
+.hands{display:grid;grid-template-columns:minmax(0,.5fr) minmax(0,1fr) minmax(0,1fr);gap:var(--sp-3);align-items:start;margin-top:var(--sp-3);padding-top:12px;border-top:1px solid var(--ink)}
+.hands .np-label{border:0;padding:0}
+.hands figure{margin:0}
+.hands video{display:block;width:100%;border:1px solid var(--ink)}
+.hands figcaption{margin-top:8px;font:italic 400 14px/1.35 var(--news);color:var(--muted)}
+.launch{display:grid;grid-template-columns:minmax(0,.5fr) minmax(0,1.5fr) minmax(0,.48fr);gap:var(--sp-3);align-items:start;margin-top:var(--sp-3);padding-top:12px;border-top:1px solid var(--ink)}
+.launch .np-label{border:0;padding:0}
+.launch figure{margin:0}
+.launch video{display:block;width:100%;background:#000}
+.launch figcaption{margin-top:8px;font:italic 400 14px/1.35 var(--news);color:var(--muted)}
+.launch-head{display:grid;gap:10px;align-content:start}
+.launch-head p:not(.np-label){font:italic 400 16px/1.4 var(--news);color:var(--muted)}
+/* films and photographs at their own shapes */
+.films2{align-items:start}
+.films2 video,.films2 img{aspect-ratio:auto;height:auto}
+.f-tall video{aspect-ratio:9/16}
+/* ---------- no empty half-pages: a page ends where its last line ends ---------- */
+.np-cover{padding-bottom:var(--sp-3)}
+.spread{padding-block:var(--sp-3) var(--sp-3)}
+.jump{margin-top:var(--sp-3)}
+.back{padding-bottom:var(--sp-4)}
+.lens{margin-bottom:var(--sp-2)}
+@media (max-width:900px){
+  .edition{grid-template-columns:minmax(0,1fr)}
+  .ed-frames{padding-right:0;border-right:0}
+  .ed-index li{padding-left:0}
+  .hands{grid-template-columns:minmax(0,1fr)}
+  .launch{grid-template-columns:minmax(0,1fr) minmax(0,.4fr)}
+  .launch-head{grid-column:1 / -1}
+}
