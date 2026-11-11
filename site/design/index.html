@@ -63,12 +63,18 @@
   <div class="wrap">
     <header class="sp-head c"><p class="sp-bar bar-type"><span>Section A</span><span>Where it started</span><span aria-hidden="true">Page 2</span></p></header>
     <div class="brief c">
-      <h2 id="h-started" data-reveal="words">A trip company, <span class="it">and Photoshop.</span></h2>
-      <div class="sp-cols" data-reveal>
-        <p class="drop">My first company was a student trip company at NUST. I liked design software like Photoshop, so I took over the design. That led to freelance gigs, then a design agency contract.</p>
-        <p>Then I built what I designed: Flappy Returns, my first published game, built on a physics engine. Since then the design and the code have usually been the same job.</p>
+      <figure class="tone" data-reveal="print"><img src="/assets/media/flappy-banner.webp" alt="Flappy Returns, my first published game" loading="lazy" width="1000" height="767"><figcaption>Flappy Returns, 2015: my first game design. <span class="hand">every pixel, mine.</span></figcaption></figure>
+      <div class="brief-story">
+        <h2 id="h-started" data-reveal="words">A trip company, <span class="it">and Photoshop.</span></h2>
+        <div class="brief-text" data-reveal>
+          <p class="drop">My first company was a student trip company at NUST. I liked design software like Photoshop, so I took over the design. That led to freelance gigs, then a design agency contract.</p>
+          <p>Then I built what I designed: Flappy Returns, my first published game, built on a physics engine. Since then the design and the code have usually been the same job.</p>
+        </div>
       </div>
-      <figure data-reveal><img src="/assets/media/flappy-banner.webp" alt="Flappy Returns, my first published game" loading="lazy" width="1000" height="767"><figcaption>Flappy Returns, 2015: my first game design. <span class="hand">every pixel, mine.</span></figcaption></figure>
+      <div class="route" data-reveal>
+        <p class="np-label">The route</p>
+        <ol><li><span>A student trip company at NUST</span></li><li><span>I take over the design</span></li><li><span>Freelance gigs</span></li><li><span>A design agency contract</span></li><li><span>Flappy Returns, my first published game</span></li></ol>
+      </div>
     </div>
     <p class="jump c"><a href="#posters">Continued on Page 3 <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></p>
   </div>
@@ -98,19 +104,15 @@
       <p class="sp-bar bar-type"><span>Section C</span><span>Interfaces</span><span aria-hidden="true">Page 4</span></p>
       <h2 id="h-ui" data-reveal="words">Screens people <span class="it">actually use.</span></h2>
     </header>
-    <div class="cases c">
-      <article class="case" data-reveal>
-        <div class="case-media"><div class="ss" data-ss><div class="ss-bar" aria-hidden="true"><i></i><i></i><i></i><span>reachworx</span></div><div class="ss-view" tabindex="0" aria-label="The ReachWorx landing page, top to bottom, scroll to look through it"><img src="/assets/design/ui-reachworx-long.webp" alt="The ReachWorx landing page, top to bottom" loading="lazy"></div></div></div>
-        <div class="case-text"><p class="kicker">Landing page · ReachWorx</p><h3>Scheduling, made seamless.</h3><p>A long landing page for a scheduling product: bold colour, cut-out photography and a classical statue for “does all the heavy lifting”.</p><p><span class="hand">it scrolls: click to take over</span></p></div>
-      </article>
-      <article class="case" data-reveal>
-        <div class="case-media"><img class="dev" src="/assets/design/ui-agri-devices.webp" alt="A website for an agricultural company in Pakistan, on a tablet and a laptop" loading="lazy"></div>
-        <div class="case-text"><p class="kicker">Website · agriculture</p><h3>Pioneering agricultural innovation in Pakistan.</h3><p>A company website for an agricultural business, shown across tablet and laptop.</p></div>
-      </article>
-      <article class="case" data-reveal>
-        <div class="case-media"><div class="ss" data-ss><div class="ss-bar" aria-hidden="true"><i></i><i></i><i></i><span>vorsprech.com/exams/fsp</span></div><div class="ss-view" tabindex="0" aria-label="The Vorsprech page for the FSP exam, top to bottom, scroll to look through it"><img src="/assets/design/ui-vorsprech-fsp-long.webp" alt="The Vorsprech page for the FSP exam, top to bottom" loading="lazy"></div></div></div>
-        <div class="case-text"><p class="kicker">Product page · Vorsprech</p><h3>Pass the FSP. <span class="it">Approbation, on schedule.</span></h3><p>The exam page for my own product: what the FSP Sprechen actually looks like, the kind of prompt you’ll hear, and what’s at stake.</p></div>
-      </article>
+    <!-- one interface at a time, large: the index picks which (mag.js) -->
+    <div class="ui c" data-picks data-reveal>
+      <ol class="ui-index" aria-label="Choose an interface"><li><button class="ui-pick on" type="button" data-pick aria-pressed="true"><span class="bx-n" aria-hidden="true">01</span><b>ReachWorx</b><span class="kicker">Landing page</span><span class="ui-say"><span><span class="it">“Scheduling, made seamless.”</span> A long landing page for a scheduling product: bold colour, cut-out photography and a classical statue for “does all the heavy lifting”.</span></span></button></li><li><button class="ui-pick" type="button" data-pick aria-pressed="false"><span class="bx-n" aria-hidden="true">02</span><b>Agriculture</b><span class="kicker">Company website</span><span class="ui-say"><span><span class="it">“Pioneering agricultural innovation in Pakistan.”</span> A company website for an agricultural business, shown across tablet and laptop.</span></span></button></li><li><button class="ui-pick" type="button" data-pick aria-pressed="false"><span class="bx-n" aria-hidden="true">03</span><b>Vorsprech</b><span class="kicker">Product page</span><span class="ui-say"><span><span class="it">“Pass the FSP. Approbation, on schedule.”</span> The exam page for my own product: what the FSP Sprechen actually looks like, the kind of prompt you’ll hear, and what’s at stake.</span></span></button></li></ol>
+      <div class="ui-stage">
+        <div class="ui-pane" data-pane><div class="ss" data-ss><div class="ss-bar" aria-hidden="true"><i></i><i></i><i></i><span>reachworx</span></div><div class="ss-view" tabindex="0" aria-label="The ReachWorx landing page, top to bottom, scroll to look through it"><img src="/assets/design/ui-reachworx-long.webp" alt="The ReachWorx landing page, top to bottom" loading="lazy"></div></div></div>
+        <div class="ui-pane" data-pane hidden><img class="dev" src="/assets/design/ui-agri-devices.webp" alt="A website for an agricultural company in Pakistan, on a tablet and a laptop" loading="lazy"></div>
+        <div class="ui-pane" data-pane hidden><div class="ss" data-ss><div class="ss-bar" aria-hidden="true"><i></i><i></i><i></i><span>vorsprech.com/exams/fsp</span></div><div class="ss-view" tabindex="0" aria-label="The Vorsprech page for the FSP exam, top to bottom, scroll to look through it"><img src="/assets/design/ui-vorsprech-fsp-long.webp" alt="The Vorsprech page for the FSP exam, top to bottom" loading="lazy"></div></div></div>
+        <p class="ui-hint"><span class="hand">it scrolls: click to take over</span></p>
+      </div>
     </div>
     <p class="jump c"><a href="#brands">Continued on Page 5 <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></p>
   </div>

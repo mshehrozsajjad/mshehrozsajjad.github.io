@@ -114,18 +114,25 @@
 .jrow :is(img,video){display:block;width:100%;height:auto;aspect-ratio:var(--a);background:#000}
 .jrow figcaption{margin-top:8px}
 
-/* A. where it started: a short story, set like one */
+/* A. where it started: the first thing he designed, the story beside it, and the route as a numbered list */
 #started .sp-head{margin-bottom:0}
-.brief{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1.5fr) 200px;align-items:start;padding-top:var(--sp-3)}
+.brief{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,5fr) minmax(0,3fr);align-items:start;padding-top:var(--sp-3)}
 .brief > *{padding-inline:var(--sp-3)}
 .brief > :first-child{padding-left:0}
-.brief > :last-child{padding-right:0;border-left:1px solid var(--ink)}
-.brief h2{font-size:clamp(34px,4.3vw,64px);line-height:.92}
-.brief h2 .it{display:block;margin-top:.08em}
-.brief .sp-cols{padding-left:var(--sp-3);border-left:1px solid var(--ink);font-size:16px;line-height:1.55}
+.brief > :last-child{padding-right:0}
+.brief > * + *{border-left:1px solid var(--ink)}
+.brief h2{font-size:clamp(38px,4.6vw,72px);line-height:.9}
+.brief h2 .it{display:block;margin-top:.06em}
+.brief-text{margin-top:var(--sp-3);font:400 17px/1.6 var(--news);text-align:justify;hyphens:auto}
+.brief-text p + p{margin-top:1em}
 .brief img{display:block;width:100%;border:1px solid var(--ink)}
-.brief figcaption{padding-top:8px;font-size:13px}
-.brief figcaption .hand{display:block;margin-top:8px}
+.brief figcaption{padding-top:8px}
+.brief figcaption .hand{display:block;margin-top:10px}
+.route ol{list-style:none;margin:10px 0 0;padding:0;counter-reset:route;border-top:2px solid var(--ink)}
+.route li{counter-increment:route;display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:baseline;padding:11px 0;border-bottom:1px dotted var(--ink);font:500 16px/1.3 var(--news)}
+.route li::before{content:"(" counter(route) ")";font:400 26px/1 var(--serif);color:var(--muted)}
+.route li:last-child{border-bottom:0}
+.route li:last-child::before{color:var(--signal)}
 
 /* B. posters: the lead poster large, the headline and the rest beside it */
 .wall{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--sp-4);align-items:start;margin-top:var(--sp-3)}
@@ -137,15 +144,33 @@
 .poster figcaption{margin-top:8px}
 .wall .hand{justify-self:end}
 
-/* C. interfaces: three long pages in three columns, each scrolling itself in a browser frame (mag.js) */
-.cases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:3px double var(--ink)}
-.case{display:grid;gap:var(--sp-2);align-content:start;padding:var(--sp-2) var(--sp-2) 0}
-.case + .case{border-left:1px solid var(--ink)}
-.case:first-child{padding-left:0}.case:last-child{padding-right:0}
-.case-text{display:grid;gap:10px}
-.case-text h3{font-size:clamp(24px,2.2vw,32px);line-height:.98}
-.case-text h3 .it{display:block;font-size:.84em;margin-top:.1em}
-.case-text p:not(.kicker){color:var(--muted)}
+/* C. interfaces: one at a time, large. The index on the left picks which (mag.js); the picked one opens to say what
+   it is, and its page scrolls itself in a browser frame on the right */
+.ui{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.75fr);border-top:3px double var(--ink)}
+.ui-index{list-style:none;margin:0;padding:0}
+.ui-index li{border-bottom:1px solid var(--ink)}
+.ui-index li:last-child{border-bottom:0}
+.ui-pick{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;align-items:baseline;width:100%;padding:var(--sp-3) var(--sp-3) var(--sp-3) 0;border:0;background:none;color:var(--muted);font:inherit;text-align:left;cursor:pointer;transition:color .3s}
+.ui-pick b{font:700 clamp(40px,5.2vw,84px)/.86 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:-.03em;transition:translate .5s var(--ease)}
+.ui-pick .kicker{grid-column:2;color:inherit}
+.ui-pick:hover,.ui-pick.on{color:var(--ink)}
+.ui-pick:hover b{translate:8px 0}
+.ui-pick.on b{color:var(--signal);translate:none}
+/* what it is: closed until its interface is picked */
+.ui-say{grid-column:2;display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.ui-say > span{overflow:hidden;font:400 17px/1.5 var(--news);color:var(--muted)}
+.ui-say .it{display:block;margin:8px 0 6px;font-size:clamp(24px,2.2vw,30px);line-height:1.05}
+.ui-pick.on .ui-say{grid-template-rows:1fr}
+.ui-stage{padding:var(--sp-3) 0 var(--sp-2) var(--sp-3);border-left:1px solid var(--ink)}
+.ui-pane[hidden]{display:none}
+.ui-pane{height:min(600px,70vh);animation:ui-in .6s var(--ease)}
+@keyframes ui-in{from{opacity:0;translate:0 14px}}
+@media (prefers-reduced-motion:reduce){.ui-pane{animation:none}}
+.ui-pane .ss{height:100%;display:flex;flex-direction:column}
+.ui-pane .ss-view{flex:1;height:auto}
+.ui-pane .dev{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 30px 40px rgba(0,0,0,.18))}
+.ui-hint{position:absolute;left:0;bottom:var(--sp-2)}   /* in the foot of the index column */
+.ui:has(.ui-pane:nth-child(2):not([hidden])) .ui-hint{display:none}   /* the device picture does not scroll */
 .ss{background:#fff;border:1px solid var(--ink);box-shadow:6px 6px 0 rgba(29,29,27,.85);overflow:hidden}
 .ss-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:var(--raised);border-bottom:1px solid var(--ink);font:500 11px/1 var(--mono);color:var(--muted)}
 .ss-bar i{width:9px;height:9px;border-radius:50%;background:#D8D4CA}
@@ -154,7 +179,6 @@
 .ss-view{height:min(400px,48vh);overflow:hidden;scrollbar-width:thin;outline-offset:-3px;cursor:pointer}
 .ss-view:focus{overflow:auto;cursor:auto}
 .ss-view img{display:block;width:100%;height:auto}
-.case-media .dev{display:block;width:100%;aspect-ratio:4/3.42;object-fit:contain;filter:drop-shadow(0 30px 40px rgba(0,0,0,.18))}
 
 /* D. brands: the headline in a block of ink, then the index. One row a brand: its mark on its own ground, its name
    as large as the row allows, its line, its colours. A row turns to ink when pointed at; four of them open a feature */
@@ -275,14 +299,16 @@
   .sp-cols{column-count:1}
   .brief{grid-template-columns:minmax(0,1fr);row-gap:var(--sp-3)}
   .brief > *{padding-inline:0}
-  .brief .sp-cols,.brief > :last-child{border-left:0;padding-left:0}
-  .brief figure{max-width:230px}
+  .brief > * + *{border-left:0}
   .wall{grid-template-columns:minmax(0,1fr);gap:var(--sp-3)}
   .wall-side{padding-left:0;border-left:0;order:-1}
-  .cases{grid-template-columns:minmax(0,1fr)}
-  .case{padding:var(--sp-3) 0 0}
-  .case + .case{border-left:0;border-top:1px solid var(--ink);margin-top:var(--sp-3)}
-  .ss-view{height:420px}
+  .ui{grid-template-columns:minmax(0,1fr)}
+  .ui-pick{grid-template-columns:minmax(0,1fr);padding:var(--sp-2) 0}
+  .ui-pick .kicker,.ui-say{grid-column:1}
+  .ui-stage{padding:var(--sp-3) 0 0;border-left:0;border-top:1px solid var(--ink)}
+  .ui-pane{height:440px}
+  .ui-pane:nth-child(2){height:auto}
+  .ui-hint{position:static;margin-top:var(--sp-2)}
   .bx-row{grid-template-columns:64px minmax(0,1fr);gap:12px var(--sp-2)}
   .bx-n{display:none}
   .bx-side{grid-column:1 / -1;grid-row:auto}
