@@ -8,7 +8,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=JetBrains+Mono:wght@500&family=Instrument+Sans:wdth,wght@75..100,400..700&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=JetBrains+Mono:wght@400;500;700;800&family=Instrument+Sans:wdth,wght@75..100,400..700&family=Instrument+Serif:ital@0;1&display=swap">
 <link rel="stylesheet" href="/src/styles/site.css">
 <link rel="stylesheet" href="/src/styles/ending.css">
 <link rel="stylesheet" href="/src/styles/grain.css">
@@ -47,107 +47,134 @@
         <div class="term-bar"><i></i><i></i><i></i><span>shehroz@munich: ~</span></div>
         <div class="term-out" id="termOut" aria-live="polite"></div>
         <form class="term-in" id="termForm" autocomplete="off"><label for="termIn"><span aria-hidden="true">$</span><span class="sr">Type a command</span></label><input id="termIn" spellcheck="false" autocapitalize="off" placeholder="type help"></form>
-        <div class="t-chips" aria-label="Try a command"><button type="button" class="t-chip" data-cmd="help">help</button><button type="button" class="t-chip" data-cmd="ls">ls</button><button type="button" class="t-chip" data-cmd="now">now</button><button type="button" class="t-chip" data-cmd="stats">stats</button><button type="button" class="t-chip" data-cmd="open npc-filter">open npc-filter</button></div>
+        <div class="t-chips" aria-label="Try a command"><button type="button" class="t-chip" data-cmd="help">help</button><button type="button" class="t-chip" data-cmd="ls">ls</button><button type="button" class="t-chip" data-cmd="now">now</button><button type="button" class="t-chip" data-cmd="stats">stats</button><button type="button" class="t-chip" data-cmd="open shipped">open shipped</button></div>
       </div>
     </div>
   </div>
   <span class="way wd" data-o="2" data-v style="left:var(--gut);top:calc(100% - 40px)"></span>
 </section>
-<section class="ch role-sec" id="work" aria-labelledby="h-work">
-  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">01 / Now · Beyond Presence</div></div>
+<div class="sess">
+<section class="ch role-sec" id="shipped" aria-labelledby="h-shipped">
+  <div class="chap" data-reveal aria-hidden="true"><div class="wrap"><span class="tp" data-type>git log --grep=&quot;deadline&quot;</span><span class="tp-note"># 01 · shipped on deadline</span></div></div>
   <div class="wrap">
-    <span class="way" data-o="3" data-v style="left:-24px;top:0"></span>
     <div class="sec-head c">
-      <h2 id="h-work" data-reveal="words">I own the platform. <span class="it">And I ship it fast.</span></h2>
-      
+      <h2 id="h-shipped" data-reveal="words">Three deadlines, <span class="it">three sizes.</span></h2>
+      <p class="lead" data-reveal>A night, a few days, a month. Clients stay unnamed.</p>
     </div>
-    <div class="bp c">
-      <div class="bp-text">
-        <p data-reveal>I joined as a founding engineer in September 2024, at pre-seed, before there was a product. Now I own the platform that serves the product, frontend and backend: the creator platform, where an avatar gets made and embedded on a website, and the call platform behind our real-time avatars and Managed Agents, built on LiveKit. The real-time models and their scaling on GCP are my teammates’ work.</p>
-        <p data-reveal>What I bring is speed. I sit in customer meetings, work out what they actually need, and ship it against tight deadlines: the meetings integration that puts an avatar in a Zoom or Teams call, built on a third-party meeting service, and our kiosk. When something breaks for a customer, I’m often the one answering the support ticket.</p>
-        <dl class="nums" data-reveal><div><dt>200,000+</dt><dd>avatar sessions served</dd></div><div><dt>1,000+</dt><dd>running at the same time</dd></div><div><dt>15,000+</dt><dd>startups, scaleups and enterprise teams</dd></div></dl>
-        <p class="src" data-reveal>Public figures from <a href="https://www.beyondpresence.ai/" target="_blank" rel="noopener">beyondpresence.ai</a></p>
-      </div>
-      <div class="n3-stage bp-stage">
-        <div class="win" id="winCode" data-reveal="print">
-          <div class="win-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-          <div class="win-screen">
-            <div class="pane on" id="pc-creator" role="tabpanel" aria-labelledby="tc-creator"><video src="/assets/media/creator-platform.mp4" poster="/assets/media/creator-platform-poster.webp" muted loop playsinline preload="none" aria-label="The creator platform: picking an avatar and setting up an agent"></video></div>
-            <div class="pane" id="pc-meet" role="tabpanel" aria-labelledby="tc-meet" hidden><img src="/assets/media/external-meeting.webp" alt="A Beyond Presence avatar talking to me in a video call" loading="lazy" width="1400" height="1087"></div>
-            <div class="pane kiosk" id="pc-kiosk" role="tabpanel" aria-labelledby="tc-kiosk" hidden><video src="/assets/media/kiosk.mp4" poster="/assets/media/kiosk-poster.webp" muted loop playsinline preload="none" aria-label="Our kiosk: an avatar on a standing screen, speaking German"></video></div>
-          </div>
+    <div class="perch on-bar c" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-think-anim.webp" alt="" aria-hidden="true"></div>
+    <div class="sizes c" data-reveal aria-hidden="true"><span style="--n:1"><b>1 night</b></span><span style="--n:4"><b>a few days</b></span><span style="--n:30"><b>30 days, to scale</b></span></div>
+    <ol class="trio c" data-reveal>
+      <li class="tri">
+        <div class="tri-words">
+          <p class="lbl"><span>commit 01</span><span>NPC Filter</span></p>
+          <h3 class="ship-t">One <span class="it">night.</span></h3>
+          <p class="tri-what">Someone in my comments asked for a filter for AI-written posts. My agent built it overnight.</p>
+          <dl class="kv"><div><dt>Runs on</dt><dd>Cloudflare, built to stay cheap.</dd></div><div><dt>Decides with</dt><dd>Clef, Cloudflare’s typed decision model.</dd></div></dl>
+          <div class="wk-extra"><a class="act" href="https://npcfilter.com" target="_blank" rel="noopener">npcfilter.com <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a><button class="act" type="button" data-film="npc-code" data-label="Watch the film" aria-pressed="false"><span class="lbl">Watch the film</span> <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button></div>
         </div>
-        <div class="phone" data-reveal="print"><div class="phone-in"><video src="/assets/media/concierge.mp4" poster="/assets/media/concierge-poster.webp" muted loop playsinline preload="none" aria-label="The website concierge steering a site on a phone"></video></div></div>
-        <div class="n3-tabs" data-tabs="winCode" role="tablist" aria-label="What the platform runs">
-          <button type="button" role="tab" id="tc-creator" aria-controls="pc-creator" aria-selected="true">Creator platform</button><span class="sl" aria-hidden="true">/</span>
-          <button type="button" role="tab" id="tc-meet" aria-controls="pc-meet" aria-selected="false" tabindex="-1">Meetings</button><span class="sl" aria-hidden="true">/</span>
-          <button type="button" role="tab" id="tc-kiosk" aria-controls="pc-kiosk" aria-selected="false" tabindex="-1">Kiosk</button>
+        <div class="tw tri-media"><div class="tw-bar" aria-hidden="true"><i></i><i></i><i></i><span>npcfilter.com</span></div><div class="m-shot" id="npc-code"><img src="/assets/shots/npcfilter.webp" alt="The NPC Filter homepage" loading="lazy"><div class="m-film" hidden><video src="/assets/media/npc-film.mp4" poster="/assets/media/npc-film-poster.webp" muted loop playsinline preload="none" aria-label="The NPC Filter launch film"></video></div></div></div>
+      </li>
+      <li class="tri">
+        <div class="tri-words">
+          <p class="lbl"><span>commit 02</span><span>Beyond Presence</span></p>
+          <h3 class="ship-t">A few <span class="it">days.</span></h3>
+          <p class="tri-what">I sit in the customer meeting, work out what they need, and build it in days.</p>
+          <dl class="kv"><div><dt>Also shipped</dt><dd>The meetings integration and our kiosk.</dd></div><div><dt>Afterwards</dt><dd>I’m often the one answering the support ticket.</dd></div></dl>
         </div>
-        <span class="hand bp-note" aria-hidden="true">the website concierge</span>
-      </div>
-    </div>
+        <div class="tw tri-media tri-photo" style="--bg:url(/assets/media/meeting-join-poster.webp)"><div class="tw-bar" aria-hidden="true"><i></i><i></i><i></i><span>meet — an avatar joins my call</span></div><video src="/assets/media/meeting-join.mp4" poster="/assets/media/meeting-join-poster.webp" muted loop playsinline preload="none" aria-label="A video call: I admit a waiting guest, and the avatar joins the call next to me"></video></div>
+      </li>
+      <li class="tri">
+        <div class="tri-words">
+          <p class="lbl"><span>commit 03</span><span>A big bank, UAE</span></p>
+          <h3 class="ship-t">One <span class="it">month.</span></h3>
+          <p class="tri-what">The first team had left. I redesigned the bank’s portal in one month.</p>
+          <dl class="kv"><div><dt>Client</dt><dd>Name withheld.</dd></div></dl>
+        </div>
+        <div class="tw tri-media" aria-hidden="true"><div class="tw-bar" aria-hidden="true"><i></i><i></i><i></i><span>git show</span></div><pre class="code"><span class="dim">$ git show --stat</span>
+<span class="del">- the first team</span>
+<span class="add">+ the portal, redesigned</span>
+<span class="dim">1 bank · 1 month</span></pre></div>
+      </li>
+    </ol>
   </div>
 </section>
-<section class="ch role-sec" id="npc" aria-labelledby="h-npc">
-  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">02 / Built to stay cheap</div></div>
+<section class="ch role-sec" id="work" aria-labelledby="h-work">
+  <div class="chap" data-reveal aria-hidden="true"><div class="wrap"><span class="tp" data-type>tmux attach -t beyond-presence</span><span class="tp-note"># 02 · now</span></div></div>
   <div class="wrap">
-    <span class="way" data-o="11" data-v style="left:-24px;top:0"></span>
     <div class="sec-head c">
-      <h2 id="h-npc" data-reveal="words">Architecture for <span class="it">a free product.</span></h2>
-      
+      <h2 id="h-work" data-reveal="words">I own the platform <span class="it">behind the product.</span></h2>
+      <p class="lead" data-reveal>The creator platform and the call platform behind our real-time avatars, frontend and backend. Founding engineer since September 2024.</p>
     </div>
-    <article class="wk c">
-      <span class="dot" data-o="12" data-v></span>
-      <div class="wk-media" data-reveal="print" style="--r:-1.2deg"><div class="m-shot" id="npc-code"><img src="/assets/shots/npcfilter.webp" alt="The NPC Filter homepage" loading="lazy"><div class="m-film" hidden><video src="/assets/media/npc-film.mp4" poster="/assets/media/npc-film-poster.webp" muted loop playsinline preload="none" aria-label="The NPC Filter launch film"></video></div></div></div>
-      <div class="wk-text">
-        <p class="kicker" data-reveal>NPC Filter</p>
-        <h3 data-reveal="words">LinkedIn filled up with AI comments, so my agent built a filter overnight.</h3>
-        <p class="wk-meta" data-reveal>Free in the Chrome Web Store</p>
-        <p data-reveal>I designed the architecture to scale and stay cheap. It runs on Cloudflare and uses Clef, Cloudflare’s typed decision model, so each check comes back as a structured verdict, fast and at low cost.</p>
-        <div class="wk-extra" data-reveal><a class="act" href="https://npcfilter.com" target="_blank" rel="noopener">npcfilter.com <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a><button class="act" type="button" data-film="npc-code" data-label="Watch the film" aria-pressed="false"><span class="lbl">Watch the film</span> <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></button><ul class="proofs"><li>Chrome extension</li><li>Cloudflare</li><li>Clef</li></ul></div>
-      </div>
-    </article>
+    <dl class="cells c" data-reveal><div><dt>Avatar sessions served</dt><dd>200,000+</dd></div><div><dt>Running at the same time</dt><dd>1,000+</dd></div><div><dt>Startups, scaleups and enterprise teams</dt><dd>15,000+</dd></div></dl>
+    <div class="plat-run"><div class="plat-stage">
+      <div class="st-glow" aria-hidden="true"><i class=on style="--bg:url(/assets/media/creator-platform-poster.webp)"></i><i style="--bg:url(/assets/media/meeting-join-poster.webp)"></i><i style="--bg:url(/assets/media/concierge-demo-poster.webp)"></i><i style="--bg:url(/assets/media/kiosk-poster.webp)"></i></div>
+      <div class="tw st-win"><img class="sprite st-spr" src="/assets/sprites/v2/shehroz-camera-anim.webp" alt="" aria-hidden="true"><div class="tw-bar" aria-hidden="true"><i></i><i></i><i></i><span>tmux attach -t beyond-presence</span></div>
+      <div class="st-screen"><div class="st-pane on" style="--bg:url(/assets/media/creator-platform-poster.webp)"><video src="/assets/media/creator-platform.mp4" poster="/assets/media/creator-platform-poster.webp" muted loop playsinline preload="none" aria-label="The creator platform: picking an avatar and setting up an agent"></video></div><div class="st-pane" style="--bg:url(/assets/media/meeting-join-poster.webp)"><video src="/assets/media/meeting-join.mp4" poster="/assets/media/meeting-join-poster.webp" muted loop playsinline preload="none" aria-label="A video call: I admit a waiting guest, and the avatar joins the call next to me"></video></div><div class="st-pane" style="--bg:url(/assets/media/concierge-demo-poster.webp)"><video src="/assets/media/concierge-demo.mp4" poster="/assets/media/concierge-demo-poster.webp" muted loop playsinline preload="none" aria-label="The website concierge: an avatar in the corner of a site, pointing things out on the page and scrolling to the pricing"></video></div><div class="st-pane" style="--bg:url(/assets/media/kiosk-poster.webp)"><video src="/assets/media/kiosk.mp4" poster="/assets/media/kiosk-poster.webp" muted loop playsinline preload="none" aria-label="Our kiosk: an avatar on a standing screen, speaking German"></video></div></div>
+      <ol class="st-caps"><li class="st-cap on"><p class="lbl"><span>window 1 / 4</span><span>creator platform</span></p><h3>Where an avatar gets made.</h3><p>Pick an avatar, set up its agent, and embed it on a website.</p></li><li class="st-cap"><p class="lbl"><span>window 2 / 4</span><span>meetings</span></p><h3>It joins your call.</h3><p>The avatar is let into a video call like any other guest. Built on a third-party meeting service.</p></li><li class="st-cap"><p class="lbl"><span>window 3 / 4</span><span>website concierge</span></p><h3>It shows people around a site.</h3><p>An avatar in the corner of a website that points at things on the page and scrolls to them.</p></li><li class="st-cap"><p class="lbl"><span>window 4 / 4</span><span>kiosk</span></p><h3>It stands in a room.</h3><p>The same avatar on a standing screen, here speaking German.</p></li></ol>
+      <div class="mux-bar"><span class="mux-s" aria-hidden="true">[beyond-presence]</span><button type="button" class="st-tab on" tabindex="-1">1:creator</button><button type="button" class="st-tab" tabindex="-1">2:meetings</button><button type="button" class="st-tab" tabindex="-1">3:concierge</button><button type="button" class="st-tab" tabindex="-1">4:kiosk</button><span class="mux-nums">scroll ↓</span></div>
+    </div></div></div>
   </div>
 </section>
 <section class="ch role-sec" id="open-source" aria-labelledby="h-open-source">
-  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">03 / Given away</div></div>
+  <div class="chap" data-reveal aria-hidden="true"><div class="wrap"><span class="tp" data-type>ls given-away/</span><span class="tp-note"># 03 · open source</span></div></div>
   <div class="wrap">
-    <span class="way" data-o="20" data-v style="left:-24px;top:0"></span>
-    <div class="sec-head c">
+    <div class="sec-head gv-head c">
       <h2 id="h-open-source" data-reveal="words">Open source, mostly for <span class="it">building with avatars.</span></h2>
-      
-    </div><div class="oss c">
-      <article class="oss-card" data-reveal="print" style="--r:-1deg"><div class="m-term" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span><code><b>reels-in-code</b><i>Claude skill · Remotion</i>idea → hooks → shots → captions → reel</code></div><p class="kicker">Open source</p><h3>reels-in-code</h3><p>A Claude skill that takes an idea to a finished reel: hooks, shots, captions, zooms, sound effects. Built with Claude and Remotion.</p><div class="wk-extra"><a class="act" href="https://github.com/mshehrozsajjad/reels-in-code" target="_blank" rel="noopener">GitHub <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a></div></article>
-      <article class="oss-card" data-reveal="print" style="--r:1.2deg"><div class="m-term" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span><code><b>LiveKit JS plugin</b><i>JavaScript · ported from Python</i>LiveKit web app → Beyond Presence avatar</code></div><p class="kicker">Open source</p><h3>LiveKit JS plugin</h3><p>Brings Beyond Presence avatars to LiveKit web apps. Ported from the Python plugin.</p></article>
-      <article class="oss-card" data-reveal="print" style="--r:-0.6deg"><div class="m-term" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span><code><b>Beyond Presence node</b><i>Verified on n8n</i>node + templates</code></div><p class="kicker">Published</p><h3>Beyond Presence n8n node</h3><p>A custom node plus templates. The only verified n8n integration in the AI avatar category.</p></article>
-      <article class="oss-card" data-reveal="print" style="--r:0.8deg"><div class="m-term" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span><code><b>n8n workflows</b><i>Free · ready to import</i>trigger → avatar → result</code></div><p class="kicker">Free</p><h3>n8n workflows</h3><p>Ready-made workflows for using Beyond Presence avatars in n8n.</p></article></div>
+      <figure class="snapcard gv-print" data-reveal="print" style="--r:2deg"><span class="snap-img"><img src="/assets/media/bey-workshop.webp" alt="Me on a stage with a microphone, giving a Beyond Presence workshop to a room of hackathon participants" loading="lazy" width="1200" height="800"></span><figcaption><span>my workshop, at a hackathon</span></figcaption></figure>
+    </div>
+    <div class="perch  c" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" aria-hidden="true"></div>
+    <div class="bento c" data-reveal>
+      <article class="bn"><header class="bn-h"><div><p class="lbl"><span>open source · Claude skill</span></p><h3 class="gv-name">reels-in-code</h3></div><a class="act" href="https://github.com/mshehrozsajjad/reels-in-code" target="_blank" rel="noopener">GitHub <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a></header>
+        <p class="bn-p">An idea in, a finished reel out. As code.</p>
+        <div class="tw bn-term" aria-hidden="true"><pre class="code"><b>&gt;</b> Let’s make a reel about …
+
+<span class="add">✓</span> intake     <span class="add">✓</span> 3 hooks    <span class="add">✓</span> script
+<span class="add">✓</span> shot list  <span class="add">✓</span> clips      <span class="add">✓</span> edit
+<span class="add">✓</span> preview    <span class="add">✓</span> render</pre></div></article>
+      <article class="bn"><header class="bn-h"><div><p class="lbl"><span>contribution · LiveKit Agents JS</span></p><h3 class="gv-name">plugins/bey</h3></div><a class="act" href="https://github.com/livekit/agents-js/blob/main/plugins/bey/README.md" target="_blank" rel="noopener">GitHub <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a></header>
+        <p class="bn-p">Beyond Presence avatars for LiveKit’s JavaScript agents.</p>
+        <div class="tw bn-term" aria-hidden="true"><pre class="code"><span class="kw">import</span> { AvatarSession } <span class="kw">from</span> <span class="str">'@livekit/agents-plugin-bey'</span>;
+
+<span class="kw">const</span> avatarSession = <span class="kw">new</span> AvatarSession({
+  avatarId: <span class="str">'your-avatar-id'</span>,
+});
+<span class="kw">await</span> avatarSession.start(agentSession, room);</pre></div></article>
+      <article class="bn wide"><header class="bn-h"><div><p class="lbl"><span>free · three n8n templates</span></p><h3 class="gv-name">n8n-workflows</h3></div><a class="act" href="https://n8n.io/workflows/4514-ai-powered-hr-interview-system-with-beyondpresence/" target="_blank" rel="noopener">n8n.io <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a></header>
+        <p class="bn-p">This one, an HR interview system, has 3,800+ views.</p>
+        <div class="tw bn-term flow" role="img" aria-label="The HR interview workflow. Setup: Click to start setup, Your job description, Prepare interview agent, Create interview agent, Save agent info, Save to Google Sheets. After each interview: Receive interview data, Get agent info, Handle webhook event, Analyze interview, Format for Sheets, Save to Google Sheets."><div class="flow-in"><p>setup, once</p><ol><li>Click to start setup</li><li>Your job description</li><li>Prepare interview agent</li><li class="bey">Create interview agent</li><li>Save agent info</li><li>Save to Google Sheets</li></ol><p>after each interview</p><ol><li>Receive interview data</li><li>Get agent info</li><li class="bey">Handle webhook event</li><li>Analyze interview</li><li>Format for Sheets</li><li>Save to Google Sheets</li></ol></div></div></article>
+      <article class="bn strip"><div><p class="lbl"><span>open source · n8n node</span></p><h3 class="gv-name">n8n-nodes-beyondpresence</h3></div>
+        <code class="bn-cmd">npm install n8n-nodes-beyondpresence</code>
+        <a class="act" href="https://github.com/bey-dev/n8n-nodes-beyondpresence" target="_blank" rel="noopener">GitHub <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a></article>
+    </div>
   </div>
 </section>
 <section class="ch role-sec" id="before" aria-labelledby="h-before">
-  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">04 / Before this</div></div>
+  <div class="chap" data-reveal aria-hidden="true"><div class="wrap"><span class="tp" data-type>git log --all --since=2014</span><span class="tp-note"># 04 · how I got here</span></div></div>
   <div class="wrap">
-    <span class="way" data-o="30" data-v style="left:-24px;top:0"></span>
     <div class="sec-head c">
       <h2 id="h-before" data-reveal="words">Where I learned <span class="it">to ship.</span></h2>
       
-    </div><ol class="tl c">
-      <li data-reveal><span class="dot" data-o="40" data-v></span><p class="kicker">2022–2024 · cureVision · Munich</p><h3>Founding engineer on a medical device.</h3><p>Two years on the software for our own hardware, with ML on the device. Wound documentation got about 90% faster.</p></li>
-      <li data-reveal><span class="dot" data-o="41" data-v></span><p class="kicker">2023 · The June Care Company</p><h3>Founding engineer, on contract.</h3><p>Five months building their product in React.</p></li>
-      <li data-reveal><span class="dot" data-o="42" data-v></span><p class="kicker">2021–2022 · Keyhole · Social media analytics</p><h3>Rebuilt parts of their legacy platform in React.</h3><p>A year as a full-stack engineer.</p></li>
-      <li data-reveal><span class="dot" data-o="43" data-v></span><p class="kicker">2022 · Humain · for a top German car company</p><h3>A car information system.</h3><p>Senior web developer at Humain, building a car information system for one of Germany’s top car makers. The rest is under NDA.</p></li>
-      <li data-reveal><span class="dot" data-o="44" data-v></span><p class="kicker">2018 → · CodeJunkie · Co-founder & CTO</p><h3>A company. An award-winning one.</h3><p>Co-founded in my final semester. I led the technical side of an award-winning agency, trained our designers and developers, and delivered work for startups and corporate clients, including banks in the UAE and Oman. In 2023 it grew a second company: Crewmate, a staff augmentation service I co-founded.</p></li>
-      <li data-reveal><span class="dot" data-o="45" data-v></span><p class="kicker">2015 · NUST, Islamabad</p><h3>Two hackathon prizes and a first game.</h3><p>First prize at Pakathon for Directions, an educational Android app I built and helped design, and the People’s Choice award for EZ Manzil, a transport app for women. Flappy Returns, my first published game, came out the same year.</p></li></ol><ul class="awards c" aria-label="Awards" data-reveal><li><span>2015</span><b>Best Idea, 1st prize</b><i>Pakathon, NUST chapter</i></li><li><span>2015</span><b>People’s Choice</b><i>PIF women’s transport hackathon</i></li><li><span>2016</span><b>High Achiever’s Award</b><i>Rector, NUST</i></li><li><span>2022</span><b>AGORA scholarship</b><i>DAAD and the Strascheg Center for Entrepreneurship</i></li></ul>
+    </div><div class="perch  c" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-draw-anim.webp" alt="" aria-hidden="true"></div>
+    <div class="gantt c" id="gantt" data-reveal>
+      <div class="gt-chart"><p class="gt-years" aria-hidden="true"><span class="gt-name"></span><span class="gt-track"><span>2014</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span></span></p><button type="button" class="gt-row on" data-i="0" aria-pressed="true"><span class="gt-name">beyond-presence</span><span class="gt-track"><i class="gt-bar main open" style="grid-column:11 / 14;--i:0"></i></span></button><button type="button" class="gt-row" data-i="1" aria-pressed="false"><span class="gt-name">june-care</span><span class="gt-track"><i class="gt-bar june" style="grid-column:10 / 11;--i:1"></i></span></button><button type="button" class="gt-row" data-i="2" aria-pressed="false"><span class="gt-name">curevision</span><span class="gt-track"><i class="gt-bar main" style="grid-column:9 / 12;--i:2"></i></span></button><button type="button" class="gt-row" data-i="3" aria-pressed="false"><span class="gt-name">humain</span><span class="gt-track"><i class="gt-bar main" style="grid-column:9 / 10;--i:3"></i></span></button><button type="button" class="gt-row" data-i="4" aria-pressed="false"><span class="gt-name">keyhole</span><span class="gt-track"><i class="gt-bar main" style="grid-column:8 / 10;--i:4"></i></span></button><button type="button" class="gt-row" data-i="5" aria-pressed="false"><span class="gt-name">hochschule-münchen</span><span class="gt-track"><i class="gt-bar dim" style="grid-column:8 / 11;--i:5"></i></span></button><button type="button" class="gt-row" data-i="5" aria-pressed="false"><span class="gt-name">codejunkie</span><span class="gt-track"><i class="gt-bar cj open" style="grid-column:5 / 14;--i:5"></i></span></button><button type="button" class="gt-row" data-i="6" aria-pressed="false"><span class="gt-name">nust</span><span class="gt-track"><i class="gt-bar dim" style="grid-column:1 / 6;--i:6"></i></span></button><button type="button" class="gt-row" data-i="7" aria-pressed="false"><span class="gt-name">tags</span><span class="gt-track"><i class="gt-tag" style="grid-column:2;--n:0"></i><i class="gt-tag" style="grid-column:2;--n:1"></i><i class="gt-tag" style="grid-column:3;--n:0"></i><i class="gt-tag" style="grid-column:9;--n:0"></i></span></button><p class="gt-hint" aria-hidden="true">playing through · point at a row to hold it</p></div>
+      <div class="gt-detail"><div class="gt-d on"><p class="lbl"><span>2024 → now · Munich</span></p><h3>Beyond Presence</h3><p>Founding engineer since September 2024, at pre-seed. I own the platform above.</p></div><div class="gt-d"><p class="lbl"><span>2023 · on contract</span></p><h3>The June Care Company</h3><p>Founding engineer on contract: five months building their product in React.</p><img class="gt-logo" src="/assets/logos/june-care.png" alt="June Care logo" loading="lazy" width="500" height="88"></div><div class="gt-d"><p class="lbl"><span>2022–2024 · Munich</span></p><h3>cureVision</h3><p>Founding engineer on a medical device. Wound documentation got about 90% faster.</p><figure class="tl-pic plain"><img src="/assets/media/curevision-device-render.webp" alt="The cureVision device: a handheld tablet showing its wound examination screen" loading="lazy"></figure></div><div class="gt-d"><p class="lbl"><span>2022 · for a top German car company</span></p><h3>Humain</h3><p>Senior web developer on a car information system. The rest is under NDA.</p></div><div class="gt-d"><p class="lbl"><span>2021–2022 · social media analytics</span></p><h3>Keyhole</h3><p>A year as a full-stack engineer, rebuilding parts of their legacy platform in React.</p><img class="gt-logo sq" src="/assets/logos/keyhole.png" alt="Keyhole logo" loading="lazy" width="192" height="192"><figure class="tl-pic"><img src="/assets/media/keyhole-merch.webp" alt="Keyhole team merchandise" loading="lazy"></figure></div><div class="gt-d"><p class="lbl"><span>Oct 2021 – Jan 2023 · Munich</span></p><h3>Hochschule München</h3><p>Master’s in Entrepreneurship and Digital Transformation.</p></div><div class="gt-d"><p class="lbl"><span>2018 → · co-founder & CTO</span></p><h3>CodeJunkie</h3><p>An award-winning agency: startups, corporate clients, banks in the UAE and Oman. In 2023 it grew a second company, Crewmate.</p><figure class="tl-pic"><img src="/assets/media/codejunkie-team.webp" alt="The CodeJunkie team" loading="lazy"></figure></div><div class="gt-d"><p class="lbl"><span>2014–2018 · Islamabad</span></p><h3>NUST</h3><p>Two hackathon prizes and Flappy Returns, my first published game.</p><figure class="tl-pic"><img src="/assets/media/hackathon-cheque.webp" alt="The People’s Choice winner’s cheque from the women’s transport innovation challenge and hackathon, September 2015" loading="lazy"></figure></div><div class="gt-d"><p class="lbl"><span>git tag -n</span></p><h3>Awards</h3><ul class="gt-tags"><li><b>2015</b><span>Best Idea, 1st prize<i>Pakathon, NUST chapter</i></span></li><li><b>2015</b><span>People’s Choice<i>PIF women’s transport hackathon</i></span></li><li><b>2016</b><span>High Achiever’s Award<i>Rector, NUST</i></span></li><li><b>2022</b><span>AGORA scholarship<i>DAAD and the Strascheg Center for Entrepreneurship</i></span></li></ul></div></div>
+    </div>
   </div>
 </section>
 <section class="ch others" aria-labelledby="h-others">
+  <div class="chap" data-reveal aria-hidden="true"><div class="wrap"><span class="tp" data-type>ls ../</span><span class="tp-note"># the other sides</span></div></div>
   <div class="wrap">
-    <span class="way" data-o="80" data-v style="left:-24px;top:0"></span>
     <h2 id="h-others" class="c" data-reveal="words">The other sides of <span class="it">the same work.</span></h2>
-    <div class="doors three c"><a class="door sm" href="/design"><span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-draw-anim.webp" alt="" aria-hidden="true" width="302" height="436"></span><span class="door-t"><b>Design</b><span>Brands, interfaces and films, made by the hands that build them.</span></span><span class="door-go" aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></a><a class="door sm" href="/ai"><span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" aria-hidden="true" width="248" height="481"></span><span class="door-t"><b>Side projects</b><span>AI products I build and sell on the side.</span></span><span class="door-go" aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></a><a class="door sm" href="/hardware"><span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-solder-anim.webp" alt="" aria-hidden="true" width="260" height="431"></span><span class="door-t"><b>Hardware</b><span>Where the AI leaves the screen.</span></span><span class="door-go" aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></a></div>
-    <p class="long c" data-reveal>Or read <a class="act" href="/story">the long story <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>, from Photoshop to now.</p>
+    <ul class="dirs c">
+      <li data-reveal><a href="/design"><span class="dir-n">design/</span><span class="dir-d">Brands, interfaces and films, made by the hands that build them.</span><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+      <li data-reveal><a href="/ai"><span class="dir-n">side-projects/</span><span class="dir-d">AI products I build and sell on the side.</span><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+      <li data-reveal><a href="/hardware"><span class="dir-n">hardware/</span><span class="dir-d">Where the AI leaves the screen.</span><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+      <li data-reveal><a href="/story"><span class="dir-n">story.md</span><span class="dir-d">The long story, from Photoshop to now.</span><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+    </ul>
   </div>
 </section>
 
+</div>
 </main>
 
 <!--shell:footer-->

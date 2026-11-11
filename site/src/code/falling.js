@@ -101,7 +101,7 @@ export async function mountFalling(hero, {reduce = false} = {}){
       const s = streams[i];
       if (!reduce) s.y += s.v;
       if (s.w >= 0){                                   // aiming for the calendar
-        const t = gpiles[s.w][0];
+        const t = gpiles[s.w]?.[0];   // after a resize the calendar may have fewer columns than this stream was aiming for
         if (!t){ s.w = -1; s.col = Math.round(s.x/CW); }
         else {
           let n;   // fast streams can reach more than one day in a frame
