@@ -34,7 +34,9 @@
 /* he turns up through the session the way he stands on the hero's terminal: on the top edge of a panel */
 .perch{position:relative;z-index:2;height:0}
 .perch .sprite,.st-spr{position:absolute;right:36px;bottom:-3px;--h:104px}
-.perch.on-bar .sprite{bottom:calc(-1*var(--sp-4) - 2px)}   /* standing on the long end of the scale bar */
+.perch.sit .sprite{bottom:calc(var(--h)*-.235);right:64px}   /* his ledge rests on the rule; the legs hang over it */
+.others .perch{margin-top:var(--sp-4)}
+.others .perch + .dirs{margin-top:0}
 .sess .st-win{overflow:visible}
 .sess .st-win > .st-spr{bottom:calc(100% - 3px);right:48px;width:auto;height:var(--h)}   /* not one of the window's pictures */
 /* facts, as a small labelled grid */
