@@ -26,6 +26,7 @@
 </svg>
 <a class="skip-link" href="#h1">Skip to content</a>
 <main id="main">
+<div class="yk-layer" id="ykLayer" aria-hidden="true"></div>
 <svg id="trail" aria-hidden="true"><path id="pMain" style="stroke:var(--signal);stroke-width:2"/></svg>
 
 <!--shell:header-->
@@ -39,10 +40,16 @@
       <div class="hero-actions"><a class="btn" href="#work">Take it apart <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a><a class="act" href="#contact">Book a call <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></div>
     </div>
     <div class="hero-side role-side">
-      <figure class="sprite-fig s-role c" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-solder-anim.webp" alt="" aria-hidden="true" width="260" height="431"></figure>
+      <div class="yk-slot" data-yk="cover" role="img" aria-label="Yolk, drawn assembled: a small handheld with a square e-paper screen, a dial in one corner and a loop for a lanyard">
+        <img class="yk-still" src="/assets/media/yolk-built-front.webp" alt="" width="1057" height="1288">
+        <p class="yk-tip" aria-hidden="true">Fig. 0 · Yolk, assembled · drag to turn</p>
+      </div>
     </div>
   </div>
-  <div class="wrap"><dl class="tblock c" aria-label="Drawing details"><div><dt>Drawing</dt><dd>SS-HW-01</dd></div><div><dt>Title</dt><dd>Hardware</dd></div><div><dt>Drawn by</dt><dd>Shehroz Sajjad</dd></div><div><dt>Where</dt><dd>Munich</dd></div><div><dt>Sheets</dt><dd>4</dd></div></dl></div>
+  <div class="wrap tb-row">
+    <dl class="tblock c" aria-label="Drawing details"><div><dt>Drawing</dt><dd>SS-HW-01</dd></div><div><dt>Subject</dt><dd data-yk-size>Yolk</dd></div><div><dt>Drawn by</dt><dd>Shehroz Sajjad</dd></div><div><dt>Where</dt><dd>Munich</dd></div><div><dt>Sheets</dt><dd>4</dd></div></dl>
+    <figure class="sprite-fig s-role c" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-solder-anim.webp" alt="" aria-hidden="true" width="260" height="431"></figure>
+  </div>
   <span class="way wd" data-o="2" data-v style="left:var(--gut);top:calc(100% - 40px)"></span>
 </section>
 <section class="ch role-sec xp-sec" id="work" aria-labelledby="h-work">
@@ -53,22 +60,37 @@
     <div class="xp" id="xp">
       <div class="xp-stage">
         <div class="xp-head c">
-          <p class="kicker">Fig. 1 · Yolk, exploded</p>
+          <p class="kicker">Fig. 1 · Yolk, exploded · parts list</p>
           <h3>My own AI device. <span class="it">It makes my phone calls in German.</span></h3>
         </div>
-        <div class="xp-scene" id="xpScene" aria-hidden="true"><div class="xp-rig"><div class="layer l-back" style="--i:0"><svg class="ply " viewBox="-20 -20 340 420" aria-hidden="true"><rect x="0" y="0" width="300" height="380" rx="46"/><circle cx="40" cy="40" r="16"/><path d="M40 24 C 40 6, 66 -6, 80 10"/><line x1="60" y1="330" x2="60" y2="352"/><line x1="74" y1="330" x2="74" y2="352"/><line x1="88" y1="330" x2="88" y2="352"/><line x1="102" y1="330" x2="102" y2="352"/><line x1="116" y1="330" x2="116" y2="352"/><line x1="130" y1="330" x2="130" y2="352"/></svg></div><div class="layer l-core" style="--i:1"><svg class="ply pcb" viewBox="-20 -20 340 420" aria-hidden="true"><rect x="26" y="40" width="248" height="300" rx="18"/><rect x="50" y="80" width="44" height="34" rx="4"/><rect x="120" y="80" width="44" height="34" rx="4"/><rect x="190" y="80" width="44" height="34" rx="4"/><rect x="50" y="150" width="44" height="34" rx="4"/><rect x="120" y="150" width="44" height="34" rx="4"/><rect x="190" y="150" width="44" height="34" rx="4"/><path d="M50 300 H 250 M70 300 V 270 M130 300 V 280 M190 300 V 266"/></svg></div><div class="layer l-dial" style="--i:2"><svg class="ply part" viewBox="-20 -20 340 420" aria-hidden="true"><circle cx="236" cy="306" r="40"/><circle cx="236" cy="306" r="26"/><line x1="276.0" y1="306.0" x2="282.0" y2="306.0"/><line x1="270.6" y1="326.0" x2="275.8" y2="329.0"/><line x1="256.0" y1="340.6" x2="259.0" y2="345.8"/><line x1="236.0" y1="346.0" x2="236.0" y2="352.0"/><line x1="216.0" y1="340.6" x2="213.0" y2="345.8"/><line x1="201.4" y1="326.0" x2="196.2" y2="329.0"/><line x1="196.0" y1="306.0" x2="190.0" y2="306.0"/><line x1="201.4" y1="286.0" x2="196.2" y2="283.0"/><line x1="216.0" y1="271.4" x2="213.0" y2="266.2"/><line x1="236.0" y1="266.0" x2="236.0" y2="260.0"/><line x1="256.0" y1="271.4" x2="259.0" y2="266.2"/><line x1="270.6" y1="286.0" x2="275.8" y2="283.0"/><rect x="230" y="290" width="12" height="32" rx="6"/></svg></div><div class="layer l-screen" style="--i:3"><svg class="ply part" viewBox="-20 -20 340 420" aria-hidden="true"><rect x="56" y="44" width="188" height="188" rx="10"/><rect x="72" y="60" width="156" height="156" rx="4" class="glass"/><path d="M122 150 c 0 -26, 56 -26, 56 0 v 22 h -56 z"/><circle cx="140" cy="146" r="4"/><circle cx="160" cy="146" r="4"/></svg></div><div class="layer l-front" style="--i:4"><svg class="ply " viewBox="-20 -20 340 420" aria-hidden="true"><rect x="0" y="0" width="300" height="380" rx="46"/><rect x="56" y="44" width="188" height="188" rx="10"/><circle cx="236" cy="306" r="44"/><line x1="14" y1="120" x2="30" y2="120"/><line x1="14" y1="134" x2="30" y2="134"/><line x1="14" y1="148" x2="30" y2="148"/></svg></div></div></div>
-        <ol class="xp-calls c" aria-label="What Yolk is made of"><li class="call-front" style="--i:4"><span class="cn">01</span><b>Front shell</b><span>custom, in Yolk yellow</span></li><li class="call-screen" style="--i:3"><span class="cn">02</span><b>E-paper screen</b><span>low power, readable in daylight</span></li><li class="call-dial" style="--i:2"><span class="cn">03</span><b>Rotary encoder</b><span>the dial: turn to read, press to ask</span></li><li class="call-core" style="--i:1"><span class="cn">04</span><b>Electronics</b><span>designed around Meta’s open-sourced Muse Gadgets</span></li><li class="call-back" style="--i:0"><span class="cn">05</span><b>Back shell</b><span>custom enclosure, with a loop for the lanyard</span></li></ol>
-        <p class="xp-hint" aria-hidden="true"><span class="hand">scroll to take it apart</span></p>
+        <div class="yk-slot" data-yk="apart" aria-hidden="true"></div>
+        <ol class="bom c" aria-label="What Yolk is made of">
+          <li><span class="cn">01</span><b>Dial cap</b><i>printed</i><span>turn to read, press to ask</span></li>
+          <li><span class="cn">02</span><b>Screen surround</b><i>printed</i><span>the frame around the e-paper</span></li>
+          <li><span class="cn">03</span><b>Talk paddle</b><i>printed</i><span>hold it and speak</span></li>
+          <li><span class="cn">04</span><b>Front shell</b><i>printed</i><span>Yolk yellow, with the loop for the lanyard</span></li>
+          <li><span class="cn">05</span><b>Rotary encoder</b><i>EC11</i><span>the click under the dial</span></li>
+          <li><span class="cn">06</span><b>E-paper board</b><i>ESP32-S3</i><span>screen and brain on one board, readable in daylight</span></li>
+          <li><span class="cn">07</span><b>USB-C extension</b><i>66 mm</i><span>the port, brought out to the edge</span></li>
+          <li><span class="cn">08</span><b>Speaker</b><i>bought</i><span>how it talks back</span></li>
+          <li><span class="cn">09</span><b>Battery</b><i>430 mAh</i><span>one 602035 cell</span></li>
+          <li><span class="cn">10</span><b>Rear tray</b><i>printed</i><span>closed with four M3 screws</span></li>
+        </ol>
+        <p class="xp-hint" aria-hidden="true"><span class="h-apart">scroll to take it apart</span><span class="h-print">drawing approved · printing</span></p>
       </div>
     </div>
-    <div class="sheet-row c">
-      <div class="sr-media"><div class="m-duo"><figure><video src="/assets/media/yolk-in-hand.mp4" poster="/assets/media/yolk-in-hand-poster.webp" muted loop playsinline preload="none" aria-label="Yolk in my hand"></video><figcaption>Fig. 1a · in my hand</figcaption></figure><figure><video src="/assets/media/yolk-film.mp4" poster="/assets/media/yolk-film-poster.webp" muted loop playsinline preload="none" aria-label="The Yolk launch film"></video><figcaption>Fig. 1b · the launch film</figcaption></figure></div></div>
-      <div class="sr-text">
+    <div class="yk-row c">
+      <figure class="yk-photo"><img src="/assets/media/yolk-built-front.webp" alt="The Yolk I built: a yellow printed handheld with a black dial and a lanyard, its e-paper screen showing a sleeping mascot and “Press to wake”" loading="lazy" width="1057" height="1288"><figcaption>Fig. 1a · as built</figcaption></figure>
+      <div class="yk-story">
         <p class="kicker">Yolk · launched · waitlist open</p>
         <p>I always wanted a Pokédex. When Meta open-sourced Muse Gadgets, I designed my own device around it: custom hardware, an e-paper screen and a rotary encoder that drives an AI agent.</p>
         <p>It calls on my behalf in German, using what I learned building real-time AI. It waits on hold, says it’s an AI and books the table. So far it has also filled in a refund form and booked water-heater maintenance.</p>
         <p>I made its brand, its website and its launch film.</p>
         <div class="wk-extra"><a class="act" href="https://getyolk.tech" target="_blank" rel="noopener">Join the waitlist <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a></div>
+      </div>
+      <div class="yk-films">
+        <figure><video src="/assets/media/yolk-in-hand.mp4" poster="/assets/media/yolk-in-hand-poster.webp" muted loop playsinline preload="none" aria-label="Yolk in my hand"></video><figcaption>Fig. 1b · in my hand</figcaption></figure>
+        <figure><video src="/assets/media/yolk-film.mp4" poster="/assets/media/yolk-film-poster.webp" muted loop playsinline preload="none" aria-label="The Yolk launch film"></video><figcaption>Fig. 1c · the launch film</figcaption></figure>
       </div>
     </div>
   </div>
@@ -150,7 +172,7 @@
 <!--shell:footer-->
 <!--shell:menu-->
 <!--shell:twin-->
-<script type="module" src="/src/hardware/explode.js"></script>
+<script type="module" src="/src/hardware/yolk-scene.js"></script>
 <script type="module" src="/src/pages.js"></script>
 </body>
 </html>
