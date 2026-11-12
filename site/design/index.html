@@ -17,6 +17,9 @@
 <link rel="stylesheet" href="/src/styles/twin.css">
 <link rel="stylesheet" href="/src/styles/shell.css">
 <link rel="stylesheet" href="/src/styles/design.css">
+<!-- the entrance (mag.js, design.css): the paper spins up out of the dark. Decided before the first paint, so the page
+     never flashes; not for reduced motion, a link to a section, the back button or doodle mode. The timer is its safety net -->
+<script>try{var n=performance.getEntriesByType('navigation')[0],d=document.documentElement;if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&!location.hash&&!/[?&]doodle/.test(location.search)&&!(n&&n.type==='back_forward')){d.classList.add('spin');setTimeout(function(){d.classList.remove('spin')},5000)}}catch(e){}</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -32,163 +35,201 @@
 
 <section class="np-cover" aria-labelledby="h1">
   <div class="wrap">
-    <div class="np-top c"><span>Munich, Germany</span><span>Vol. 01 · No. 01 · The design side</span><span data-today>Thursday, 5 November 2026</span></div>
-    <p class="np-mast c" aria-hidden="true">The Design Paper</p>
-    <div class="np-sub c"><span>Posters</span><span>Interfaces</span><span>Brands</span><span>Photography &amp; film</span><span>Price: one call</span></div>
+    <p class="np-mast c" aria-hidden="true" data-fit>The Design Paper</p>
+    <div class="np-sub bar-type c"><span data-today>Thursday, 5 November 2026</span><span>Posters · Interfaces · Brands · Photography &amp; film</span><span>Price: one call</span></div>
+    <h1 id="h1" tabindex="-1" class="np-h c" data-fit><span>Started</span> <span>in design.</span></h1>
     <div class="np-lead c">
       <div class="np-col">
-        <p class="hi-line"><span class="hand">hi <span data-who>stranger</span>,</span> the design side<span data-if-co hidden>, for the team at <span data-co></span></span>.</p>
-        <h1 id="h1" tabindex="-1" class="np-h">Started in design. <span class="it">Never stopped.</span></h1>
-        <p class="np-dek drop">Every idea of mine gets a name and a brand before I build it. I design the interface, the website, and often the launch film. It started with no budget and a copy of Photoshop.</p>
+        <p class="hi-line">Hi <span data-who>stranger</span>, this is the design side<span data-if-co hidden>, for the team at <span data-co></span></span>.</p>
+        <p class="np-turn it">Never stopped.</p>
+        <p class="np-dek drop">Every idea of mine gets a name and a brand before I build it. I design the interface, the website, and often the launch film. It started at my first company, where I took over the design.</p>
       </div>
-      <figure class="np-fig"><img src="/assets/design/photo-lake.webp" alt="A lake under mountains with a red pavilion, and a handwritten line: wherever you go becomes a part of you somehow" loading="lazy"><figcaption><b>Pictured:</b> a lake, a red pavilion, and my own lettering. Photo and hand by the author.</figcaption></figure>
-      <aside class="np-col np-side">
-        <nav aria-label="In this issue"><p class="np-label">In this issue</p><ol class="toc"><li><a href="#started"><span class="toc-n">A</span><span class="toc-t">Where it started</span><span class="toc-p" aria-hidden="true">2</span></a></li><li><a href="#posters"><span class="toc-n">B</span><span class="toc-t">Posters</span><span class="toc-p" aria-hidden="true">3</span></a></li><li><a href="#ui"><span class="toc-n">C</span><span class="toc-t">Interfaces</span><span class="toc-p" aria-hidden="true">4</span></a></li><li><a href="#identity"><span class="toc-n">D</span><span class="toc-t">Identity</span><span class="toc-p" aria-hidden="true">5</span></a></li><li><a href="#brands"><span class="toc-n">E</span><span class="toc-t">Brands</span><span class="toc-p" aria-hidden="true">6</span></a></li><li><a href="#films"><span class="toc-n">F</span><span class="toc-t">Photography & film</span><span class="toc-p" aria-hidden="true">7</span></a></li><li><a href="#ships"><span class="toc-n">G</span><span class="toc-t">Design that ships</span><span class="toc-p" aria-hidden="true">8</span></a></li></ol></nav>
-        <figure class="np-corr" aria-hidden="true"><img class="sprite cv-spr" src="/assets/sprites/v2/shehroz-draw-anim.webp" alt="" aria-hidden="true" width="302" height="436"><figcaption>Our correspondent, drawing.</figcaption></figure>
-      </aside>
+      <figure class="np-fig tone"><img src="/assets/design/photo-lake.webp" alt="A lake under mountains with a red pavilion, and a handwritten line: wherever you go becomes a part of you somehow" width="1800" height="684" fetchpriority="high"><figcaption><b>Pictured:</b> a lake, a red pavilion, and my own lettering. Photo and hand by the author.</figcaption></figure>
+    </div>
+    <div class="np-toc c">
+      <nav aria-label="In this issue"><p class="np-label">In this issue</p><ol class="toc"><li><a href="#started"><span class="toc-n">A</span><span class="toc-t">Where it started</span><span class="toc-p" aria-hidden="true">Page 2</span></a></li><li><a href="#posters"><span class="toc-n">B</span><span class="toc-t">Posters</span><span class="toc-p" aria-hidden="true">Page 3</span></a></li><li><a href="#ui"><span class="toc-n">C</span><span class="toc-t">Interfaces</span><span class="toc-p" aria-hidden="true">Page 4</span></a></li><li><a href="#brands"><span class="toc-n">D</span><span class="toc-t">Brands</span><span class="toc-p" aria-hidden="true">Page 5</span></a></li><li><a href="#films"><span class="toc-n">E</span><span class="toc-t">Photography & film</span><span class="toc-p" aria-hidden="true">Page 6</span></a></li><li><a href="#ships"><span class="toc-n">F</span><span class="toc-t">Design that ships</span><span class="toc-p" aria-hidden="true">Page 7</span></a></li><li><a href="#back"><span class="toc-n">G</span><span class="toc-t">Classifieds</span><span class="toc-p" aria-hidden="true">Page 8</span></a></li></ol></nav>
+      <figure class="np-corr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-draw-anim.webp" alt="" width="302" height="436"><figcaption>Our correspondent, drawing.</figcaption></figure>
     </div>
     <div class="np-feat c" data-strip>
-      <p class="np-tip"><b>TIP!</b> Drag sideways to navigate</p>
-      <div class="ft-track" tabindex="0" aria-label="Featured work, scroll sideways"><a class="ft" href="#posters"><span class="ft-img"><img src="/assets/design/poster-distort.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>Distort 001</b><span>Poster</span></span></a><a class="ft" href="#brands"><span class="ft-img"><img src="/assets/design/ui-npc-hero.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>NPC Filter</b><span>Brand & site</span></span></a><a class="ft" href="#films"><span class="ft-img"><img src="/assets/design/photo-lake.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>Wherever you go</b><span>Photo & lettering</span></span></a><a class="ft" href="#posters"><span class="ft-img"><img src="/assets/design/poster-instagram-filter.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>Instagram filter</b><span>Poster</span></span></a><a class="ft" href="#brands"><span class="ft-img"><img src="/assets/design/ui-yolk-hero.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>Yolk</b><span>Brand & site</span></span></a><a class="ft" href="#brands"><span class="ft-img"><img src="/assets/design/ui-closr-cta.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>myClosr</b><span>Brand & site</span></span></a><a class="ft" href="#posters"><span class="ft-img"><img src="/assets/design/poster-founder.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>The Founder</b><span>Poster</span></span></a><a class="ft" href="#films"><span class="ft-img"><img src="/assets/design/photo-castle.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>The castle</b><span>Photo</span></span></a><a class="ft" href="#posters"><span class="ft-img"><img src="/assets/design/poster-advisory.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>Album cover</b><span>Poster</span></span></a></div>
+      <p class="np-tip"><b>Psst.</b> This strip drags sideways.</p>
+      <div class="ft-track" tabindex="0" aria-label="Featured work, scroll sideways"><a class="ft tone" href="#posters"><span class="ft-img"><img src="/assets/design/poster-distort.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>Distort 001</b><span>Poster</span></span></a><a class="ft tone" href="#brands"><span class="ft-img"><img src="/assets/design/ui-npc-hero.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>NPC Filter</b><span>Brand & site</span></span></a><a class="ft tone" href="#films"><span class="ft-img"><img src="/assets/design/photo-lake.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>Wherever you go</b><span>Photo & lettering</span></span></a><a class="ft tone" href="#posters"><span class="ft-img"><img src="/assets/design/poster-instagram-filter.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>Instagram filter</b><span>Poster</span></span></a><a class="ft tone" href="#brands"><span class="ft-img"><img src="/assets/design/ui-yolk-hero.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>Yolk</b><span>Brand & site</span></span></a><a class="ft tone" href="#brands"><span class="ft-img"><img src="/assets/design/ui-closr-cta.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>myClosr</b><span>Brand & site</span></span></a><a class="ft tone" href="#posters"><span class="ft-img"><img src="/assets/design/poster-founder.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>The Founder</b><span>Poster</span></span></a><a class="ft tone" href="#films"><span class="ft-img"><img src="/assets/design/photo-castle.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>The castle</b><span>Photo</span></span></a><a class="ft tone" href="#posters"><span class="ft-img"><img src="/assets/design/poster-advisory.webp" alt="" loading="lazy" draggable="false"></span><span class="ft-cap"><b>Album cover</b><span>Poster</span></span></a></div>
     </div>
     <dl class="np-stats c"><div><dt>2015</dt><dd>my first published game, every pixel mine</dd></div><div><dt>25</dt><dd>designers and developers on the team I trained</dd></div><div><dt>6</dt><dd>products of my own, each with its own brand</dd></div><div><dt>1</dt><dd>person behind the brand, the site and the film</dd></div></dl>
   </div>
-  <span class="way wd" data-o="2" data-v style="left:var(--gut);top:calc(100% - 40px)"></span>
 </section>
-<section class="ch spread " id="started" aria-labelledby="h-started">
+<div class="np-fold" aria-hidden="true"></div>
+<section class="ch spread" id="started" aria-labelledby="h-started">
   <div class="wrap">
-    <span class="way" data-o="3" data-v style="left:-24px;top:0"></span>
-    <header class="sp-head c">
-      <p class="sp-bar"><span>Section A</span><span>Where it started</span><span aria-hidden="true">Page 2</span></p>
-      <h2 id="h-started" data-reveal="words">No budget. So I opened <span class="it">Photoshop.</span></h2>
-    </header>
-    <div class="sp-grid c">
-      <figure class="sp-fig" data-reveal="print" style="--r:-1.5deg"><span class="snap-img"><img src="/assets/media/flappy-banner.webp" alt="Flappy Returns, my first published game" loading="lazy" width="1000" height="767"></span><figcaption>Flappy Returns, 2015. My first published game. <span class="hand">every pixel, mine.</span></figcaption></figure>
-      <div class="sp-cols" data-reveal>
-        <p class="drop">No budget. So I opened Photoshop. A student trip company at NUST led to freelance gigs, then a design agency contract.</p>
-        <p>Then I built what I designed: Flappy Returns, my first published game, built on a physics engine. Since then the design and the code have usually been the same job.</p>
+    <header class="sp-head c"><p class="sp-bar bar-type"><span>Section A</span><span>Where it started</span><span aria-hidden="true">Page 2</span></p></header>
+    <div class="brief c">
+      <figure class="tone" data-reveal="print"><img src="/assets/media/flappy-banner.webp" alt="Flappy Returns, my first published game" loading="lazy" width="1000" height="767"><figcaption>Flappy Returns, 2015: my first game design.</figcaption></figure>
+      <div class="brief-story">
+        <h2 id="h-started" data-reveal="words">A trip company, <span class="it">and Photoshop.</span></h2>
+        <div class="brief-text" data-reveal>
+          <p class="drop">My first company was a student trip company at NUST. I liked design software like Photoshop, so I took over the design. That led to freelance gigs, then a design agency contract.</p>
+          <p>Then I built what I designed: Flappy Returns, my first published game, built on a physics engine. Since then the design and the code have usually been the same job.</p>
+        </div>
+      </div>
+      <div class="route" data-reveal>
+        <p class="np-label">The route</p>
+        <ol><li><span>A student trip company at NUST</span></li><li><span>I take over the design</span></li><li><span>Freelance gigs</span></li><li><span>A design agency contract</span></li><li><span>Flappy Returns, my first published game</span></li></ol>
       </div>
     </div>
+    <p class="jump c"><a href="#posters">Continued on Page 3 <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></p>
   </div>
 </section>
-<section class="ch spread " id="posters" aria-labelledby="h-posters">
+<section class="ch spread" id="posters" aria-labelledby="h-posters">
   <div class="wrap">
-    <span class="way" data-o="10" data-v style="left:-24px;top:0"></span>
-    <header class="sp-head c">
-      <p class="sp-bar"><span>Section B</span><span>Posters</span><span aria-hidden="true">Page 3</span></p>
-      <h2 id="h-posters" data-reveal="words">On the <span class="it">wall.</span></h2>
-    </header>
-    <div class="posters c">
-      <figure class="poster" style="--r:-2deg" data-reveal="print"><img src="/assets/design/poster-distort.webp" alt="Distort 001, a portrait poster" loading="lazy"><figcaption>Distort 001 · portrait posters, 2021</figcaption></figure><figure class="poster" style="--r:1.5deg" data-reveal="print"><img src="/assets/design/poster-instagram-filter.webp" alt="Instagram filter: out now" loading="lazy"><figcaption>An Instagram filter launch · CodeJunkie</figcaption></figure><figure class="poster" style="--r:-1deg" data-reveal="print"><img src="/assets/design/poster-founder.webp" alt="5 lessons learned from The Founder" loading="lazy"><figcaption>5 lessons from The Founder · CodeJunkie</figcaption></figure><figure class="poster" style="--r:2.2deg" data-reveal="print"><img src="/assets/design/poster-advisory.webp" alt="A motion-blur portrait in an album-cover style" loading="lazy"><figcaption>An album-cover portrait</figcaption></figure>
-    </div>
-    <p class="sp-note c" data-reveal><span class="hand">made in Photoshop, like the first ones</span></p>
-  </div>
-</section>
-<section class="ch spread " id="ui" aria-labelledby="h-ui">
-  <div class="wrap">
-    <span class="way" data-o="20" data-v style="left:-24px;top:0"></span>
-    <header class="sp-head c">
-      <p class="sp-bar"><span>Section C</span><span>Interfaces</span><span aria-hidden="true">Page 4</span></p>
-      <h2 id="h-ui" data-reveal="words">Screens people <span class="it">actually use.</span></h2>
-    </header>
-    <div class="cases c">
-      <article class="case" data-reveal>
-        <div class="case-media"><div class="ss" data-ss><div class="ss-bar" aria-hidden="true"><i></i><i></i><i></i><span>reachworx</span></div><div class="ss-view" tabindex="0" aria-label="The ReachWorx landing page, top to bottom, scroll to look through it"><img src="/assets/design/ui-reachworx-long.webp" alt="The ReachWorx landing page, top to bottom" loading="lazy"></div></div></div>
-        <div class="case-text"><p class="kicker">Landing page · ReachWorx</p><h3>Scheduling, made seamless.</h3><p>A long landing page for a scheduling product: bold colour, cut-out photography and a classical statue for “does all the heavy lifting”.</p><p class="hint"><span class="hand">it scrolls: hover to stop it</span></p></div>
-      </article>
-      <article class="case flip" data-reveal>
-        <div class="case-media"><img class="dev" src="/assets/design/ui-agri-devices.webp" alt="A website for an agricultural company in Pakistan, on a tablet and a laptop" loading="lazy"></div>
-        <div class="case-text"><p class="kicker">Website · agriculture</p><h3>Pioneering agricultural innovation in Pakistan.</h3><p>A company website for an agricultural business, shown across tablet and laptop.</p></div>
-      </article>
-      <article class="case" data-reveal>
-        <div class="case-media"><div class="ss" data-ss><div class="ss-bar" aria-hidden="true"><i></i><i></i><i></i><span>vorsprech.com/exams/fsp</span></div><div class="ss-view" tabindex="0" aria-label="The Vorsprech page for the FSP exam, top to bottom, scroll to look through it"><img src="/assets/design/ui-vorsprech-fsp-long.webp" alt="The Vorsprech page for the FSP exam, top to bottom" loading="lazy"></div></div></div>
-        <div class="case-text"><p class="kicker">Product page · Vorsprech</p><h3>Pass the FSP. <span class="it">Approbation, on schedule.</span></h3><p>The exam page for my own product: what the FSP Sprechen actually looks like, the kind of prompt you’ll hear, and what’s at stake.</p></div>
-      </article>
-    </div>
-  </div>
-</section>
-<section class="ch spread " id="identity" aria-labelledby="h-identity">
-  <div class="wrap">
-    <span class="way" data-o="25" data-v style="left:-24px;top:0"></span>
-    <header class="sp-head c">
-      <p class="sp-bar"><span>Section D</span><span>Identity</span><span aria-hidden="true">Page 5</span></p>
-      <h2 id="h-identity" data-reveal="words">Logos, colours, <span class="it">the whole guide.</span></h2><p class="sp-dek" data-reveal>The brand behind each product, as I handed it to myself.</p>
-    </header><div class="bsheets c">
-      <article class="bsheet" data-reveal>
-        <header class="bs-head"><h3>Slaptastic</h3><p>Creator-style ads from one product photo.</p></header>
-        <div class="bs-marks"><figure class="bs-mark"><img src="/assets/design/brand/slaptastic/mark.svg" alt="The Slaptastic mark" loading="lazy"></figure></div>
-        <ul class="bs-sw" aria-label="Slaptastic colours"><li style="--c:#DFF721"><span>#DFF721</span></li><li style="--c:#F7448B"><span>#F7448B</span></li><li style="--c:#1D1D1B"><span>#1D1D1B</span></li></ul>
-        
-        
-      </article></div>
-  </div>
-</section>
-<section class="ch spread " id="brands" aria-labelledby="h-brands">
-  <div class="wrap">
-    <span class="way" data-o="30" data-v style="left:-24px;top:0"></span>
-    <header class="sp-head c">
-      <p class="sp-bar"><span>Section E</span><span>Brands</span><span aria-hidden="true">Page 6</span></p>
-      <h2 id="h-brands" data-reveal="words">A name and a brand, <span class="it">before the code.</span></h2><p class="sp-dek" data-reveal>Homepages and sections from my own products. Scroll sideways.</p>
-    </header>
-    <div class="reel c" data-reel>
-      <div class="reel-track" tabindex="0" aria-label="Brands, scroll sideways">
-        <a class="page" href="https://getyolk.tech" target="_blank" rel="noopener"><span class="pg-img"><img src="/assets/design/ui-yolk-hero.webp" alt="Yolk homepage" loading="lazy"></span><span class="pg-cap"><b>Yolk</b><span>Your Muse. Within reach.</span></span><span class="pg-no" aria-hidden="true">01</span></a><a class="page" href="https://npcfilter.com" target="_blank" rel="noopener"><span class="pg-img"><img src="/assets/design/ui-npc-hero.webp" alt="NPC Filter homepage" loading="lazy"></span><span class="pg-cap"><b>NPC Filter</b><span>“Keep the weird. Skip the filler.”</span></span><span class="pg-no" aria-hidden="true">02</span></a><a class="page" href="https://npcfilter.com" target="_blank" rel="noopener"><span class="pg-img"><img src="/assets/design/ui-npc-break.webp" alt="NPC Filter homepage" loading="lazy"></span><span class="pg-cap"><b>NPC Filter</b><span>You came for a break. Not more noise.</span></span><span class="pg-no" aria-hidden="true">03</span></a><a class="page" href="https://myclosr.com" target="_blank" rel="noopener"><span class="pg-img"><img src="/assets/design/ui-closr-cta.webp" alt="myClosr homepage" loading="lazy"></span><span class="pg-cap"><b>myClosr</b><span>Ready to stop guessing and start closing?</span></span><span class="pg-no" aria-hidden="true">04</span></a><a class="page" href="https://getslaptastic.com" target="_blank" rel="noopener"><span class="pg-img"><img src="/assets/shots/slaptastic.webp" alt="Slaptastic homepage" loading="lazy"></span><span class="pg-cap"><b>Slaptastic</b><span>Creator-style ads from one product photo.</span></span><span class="pg-no" aria-hidden="true">05</span></a><a class="page" href="https://roomrush.de" target="_blank" rel="noopener"><span class="pg-img"><img src="/assets/shots/roomrush.webp" alt="RoomRush homepage" loading="lazy"></span><span class="pg-cap"><b>RoomRush</b><span>A flat hunt, turned into a product.</span></span><span class="pg-no" aria-hidden="true">06</span></a>
+    <header class="sp-head c"><p class="sp-bar bar-type"><span>Section B</span><span>Posters</span><span aria-hidden="true">Page 3</span></p></header>
+    <div class="wall c">
+      <figure class="poster tone" data-reveal="print"><img src="/assets/design/poster-distort.webp" alt="Distort 001, a portrait poster" loading="lazy" width="1100" height="1095"><figcaption>Distort 001 · portrait posters, 2021</figcaption></figure>
+      <div class="wall-side">
+        <h2 id="h-posters" data-reveal="words">On the <span class="it">wall.</span></h2>
+        <p class="sp-dek" data-reveal>Portrait posters, launch graphics and an album cover.</p>
+        <div class="jrow">
+          <figure class="poster tone" style="--a:.828" data-reveal="print"><img src="/assets/design/poster-instagram-filter.webp" alt="Instagram filter: out now" loading="lazy"><figcaption>An Instagram filter launch · CodeJunkie</figcaption></figure>
+          <figure class="poster tone" style="--a:.802" data-reveal="print"><img src="/assets/design/poster-founder.webp" alt="5 lessons learned from The Founder" loading="lazy"><figcaption>5 lessons from The Founder · CodeJunkie</figcaption></figure>
+          <figure class="poster tone" style="--a:.998" data-reveal="print"><img src="/assets/design/poster-advisory.webp" alt="A motion-blur portrait in an album-cover style" loading="lazy"><figcaption>An album-cover portrait</figcaption></figure>
+        </div>
+        <p class="cap" data-reveal>All made in Photoshop.</p>
       </div>
-      <div class="reel-nav"><button type="button" data-dir="-1" aria-label="Previous">←</button><span class="reel-count" aria-hidden="true">01 / 06</span><button type="button" data-dir="1" aria-label="Next">→</button></div>
     </div>
+    <p class="jump c"><a href="#ui">Continued on Page 4 <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></p>
   </div>
 </section>
-<section class="ch spread " id="films" aria-labelledby="h-films">
+<section class="ch spread" id="ui" aria-labelledby="h-ui">
   <div class="wrap">
-    <span class="way" data-o="40" data-v style="left:-24px;top:0"></span>
-    <header class="sp-head c">
-      <p class="sp-bar"><span>Section F</span><span>Photography & film</span><span aria-hidden="true">Page 7</span></p>
-      <h2 id="h-films" data-reveal="words">Where the taste <span class="it">comes from.</span></h2><p class="sp-dek" data-reveal>Photography with my own lettering, drone footage, and the launch films.</p>
+    <header class="sp-head c"><p class="sp-bar bar-type"><span>Section C</span><span>Interfaces</span><span aria-hidden="true">Page 4</span></p></header>
+    <div class="shots c">
+      <div class="shots-head">
+        <h2 id="h-ui" data-reveal="words">Screens people <span class="it">actually use.</span></h2>
+        <p class="sp-dek" data-reveal>A client’s landing page, and the homepage of my own product.</p>
+      </div>
+      <article class="shot" data-reveal>
+        <div class="ss"><div class="ss-bar" aria-hidden="true"><i></i><i></i><i></i><span>reachworx</span></div><div class="ss-view" tabindex="0" aria-label="The ReachWorx landing page, top to bottom, scroll to look through it"><img src="/assets/design/ui-reachworx-long.webp" alt="The ReachWorx landing page, top to bottom" loading="lazy"></div></div>
+        <p class="kicker">Landing page · ReachWorx</p>
+        <p>A long landing page for a scheduling product: bold colour and cut-out photography. Click it to scroll.</p>
+      </article>
+      <article class="shot" data-reveal>
+        <div class="ss"><div class="ss-bar" aria-hidden="true"><i></i><i></i><i></i><span>vorsprech.com</span></div><div class="ss-view still"><img src="/assets/design/ui-vorsprech-home.webp" alt="The Vorsprech homepage: Speak with confidence. Practice without pressure." loading="lazy" width="800" height="500"></div></div>
+        <p class="kicker">Homepage · Vorsprech</p>
+        <p>My own product: practice for the spoken German medical exam.</p>
+      </article>
+    </div>
+    <p class="jump c"><a href="#brands">Continued on Page 5 <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></p>
+  </div>
+</section>
+<section class="ch spread" id="brands" aria-labelledby="h-brands">
+  <div class="wrap">
+    <header class="sp-head inv c">
+      <p class="sp-bar bar-type"><span>Section D</span><span>Brands</span><span aria-hidden="true">Page 5</span></p>
+      <h2 id="h-brands" data-reveal="words">A name and a brand, <span class="it">before the code.</span></h2>
+      <p class="sp-dek" data-reveal>Each product gets its own mark, colours and site. Four of them have a feature of their own.</p>
     </header>
-    <div class="lens c">
-      <figure class="l-wide" data-reveal="print" style="--r:0deg"><img src="/assets/design/photo-lake.webp" alt="A lake under mountains with a red pavilion, and a handwritten line: wherever you go becomes a part of you somehow" loading="lazy"><figcaption>Photo and lettering, signed.</figcaption></figure>
-      <figure class="l-sq" data-reveal="print" style="--r:0deg"><img src="/assets/design/photo-castle.webp" alt="A white castle on a hill above a lake" loading="lazy"><figcaption>A castle above the lake.</figcaption></figure>
-      <figure class="l-half" data-reveal="print" style="--r:0deg"><img src="/assets/design/photo-adventure.webp" alt="Someone looking out over a valley, with the word Adventure written across it" loading="lazy"><figcaption>Adventure, written across the valley.</figcaption></figure>
-      <figure class="l-half" data-reveal="print" style="--r:0deg"><img src="/assets/design/photo-mountains.webp" alt="Clouds over a bare mountain range" loading="lazy"><figcaption>Clouds over the range.</figcaption></figure>
-    </div>
-    <div class="films2 c">
-      <figure class="f-big" data-reveal="print" style="--r:0deg"><video src="/assets/media/drone.mp4" poster="/assets/media/drone-poster.webp" muted loop playsinline preload="none" aria-label="Drone shot over a beach town"></video><figcaption>A beach town, from the drone. Flown and edited by me.</figcaption></figure>
-      <figure class="f-tall" data-reveal="print" style="--r:0deg"><video src="/assets/media/yolk-film.mp4" poster="/assets/media/yolk-film-poster.webp" muted loop playsinline preload="none" aria-label="The Yolk launch film"></video><figcaption>Yolk, the launch film.</figcaption></figure>
-      <figure data-reveal="print" style="--r:0deg"><video src="/assets/media/npc-film.mp4" poster="/assets/media/npc-film-poster.webp" muted loop playsinline preload="none" aria-label="The NPC Filter launch film"></video><figcaption>NPC Filter, the launch film.</figcaption></figure>
-      <figure data-reveal="print" style="--r:0deg"><img src="/assets/media/photo-bridge.webp" alt="A bridge at night, shot from above" loading="lazy"><figcaption>A bridge, at night.</figcaption></figure>
-      <figure data-reveal="print" style="--r:0deg"><img src="/assets/media/photo-dome.webp" alt="A lit dome at night" loading="lazy"><figcaption>A dome, at night.</figcaption></figure>
-      <blockquote class="pull" data-reveal>I shoot photo and video, fly a drone and edit everything myself. That’s why Yolk and NPC Filter both launched <span class="it">with a film.</span></blockquote>
-    </div>
+    <ol class="bx c">
+      <li><a class="bx-row" href="/design/yolk" data-bg="#FFCF32" style="--ground:#FFCF32" data-reveal>
+        <span class="bx-n" aria-hidden="true">01</span>
+        <span class="bx-mark"><span class="yolk-logo" aria-hidden="true"><i></i>yolk</span></span>
+        <span class="bx-name"><b>Yolk</b><span class="bx-line">Your Muse. Within reach.</span></span>
+        <span class="bx-side"><span class="kicker">Device · brand · site · film</span><span class="bx-pal" aria-hidden="true"><i style="--c:#FFCF32"></i><i style="--c:#232720"></i><i style="--c:#2058A6"></i><i style="--c:#EFA58B"></i><i style="--c:#F5F2E9"></i></span></span>
+        <span class="bx-go">Read the feature <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span>
+      </a></li>
+      <li><a class="bx-row" href="/design/npc-filter" data-bg="#171915" style="--ground:#171915" data-reveal>
+        <span class="bx-n" aria-hidden="true">02</span>
+        <span class="bx-mark"><img src="/assets/design/brand/npcfilter/mark.svg" alt="" loading="lazy"></span>
+        <span class="bx-name"><b>NPC Filter</b><span class="bx-line">Keep the weird. Skip the filler.</span></span>
+        <span class="bx-side"><span class="kicker">Brand · site · film</span><span class="bx-pal" aria-hidden="true"><i style="--c:#D5FA39"></i><i style="--c:#6E850D"></i><i style="--c:#FFF0C2"></i><i style="--c:#171915"></i></span></span>
+        <span class="bx-go">Read the feature <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span>
+      </a></li>
+      <li><a class="bx-row" href="/design/myclosr" data-bg="#0A0A0A" style="--ground:#0A0A0A" data-reveal>
+        <span class="bx-n" aria-hidden="true">03</span>
+        <span class="bx-mark"><img src="/assets/design/brand/myclosr/mark.svg" alt="" loading="lazy"></span>
+        <span class="bx-name"><b>myClosr</b><span class="bx-line">Live coaching during sales calls.</span></span>
+        <span class="bx-side"><span class="kicker">Brand · site · promo</span><span class="bx-pal" aria-hidden="true"><i style="--c:#0A0A0A"></i><i style="--c:#F5F5F5"></i><i style="--c:#8CFF2E"></i></span></span>
+        <span class="bx-go">Read the feature <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span>
+      </a></li>
+      <li><a class="bx-row" href="/design/slaptastic" data-bg="#1D1D1B" style="--ground:#1D1D1B" data-reveal>
+        <span class="bx-n" aria-hidden="true">04</span>
+        <span class="bx-mark"><img src="/assets/design/brand/slaptastic/mark.svg" alt="" loading="lazy"></span>
+        <span class="bx-name"><b>Slaptastic</b><span class="bx-line">Creator-style ads from one product photo.</span></span>
+        <span class="bx-side"><span class="kicker">Brand · site</span><span class="bx-pal" aria-hidden="true"><i style="--c:#DFF721"></i><i style="--c:#F7448B"></i><i style="--c:#1D1D1B"></i></span></span>
+        <span class="bx-go">Read the feature <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span>
+      </a></li>
+      <li><a class="bx-row" href="https://roomrush.de" target="_blank" rel="noopener" style="--ground:#162D3C" data-reveal>
+        <span class="bx-n" aria-hidden="true">05</span>
+        <span class="bx-mark"><img src="/assets/design/brand/roomrush/mark.png" alt="" loading="lazy"></span>
+        <span class="bx-name"><b>RoomRush</b><span class="bx-line">A flat hunt, turned into a product.</span></span>
+        <span class="bx-side"><span class="kicker">Brand · site</span><span class="bx-pal" aria-hidden="true"><i style="--c:#EEFE90"></i><i style="--c:#14B082"></i><i style="--c:#162D3C"></i></span></span>
+        <span class="bx-go">roomrush.de <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></span>
+      </a></li>
+    </ol>
+    <p class="jump c"><a href="#films">Continued on Page 6 <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></p>
   </div>
 </section>
-<section class="ch spread " id="ships" aria-labelledby="h-ships">
+<section class="ch spread" id="films" aria-labelledby="h-films">
   <div class="wrap">
-    <span class="way" data-o="50" data-v style="left:-24px;top:0"></span>
     <header class="sp-head c">
-      <p class="sp-bar"><span>Section G</span><span>Design that ships</span><span aria-hidden="true">Page 8</span></p>
+      <p class="sp-bar bar-type"><span>Section E</span><span>Photography &amp; film</span><span aria-hidden="true">Page 6</span></p>
+      <h2 id="h-films" data-reveal="words">Where the taste <span class="it">comes from.</span></h2>
+      <p class="sp-dek" data-reveal>Photography with my own lettering, drone footage, a student film and a reel.</p>
+    </header>
+    <div class="jrow c">
+      <figure class="tone" style="--a:1" data-reveal><img src="/assets/design/photo-castle.webp" alt="A white castle on a hill above a lake" loading="lazy"><figcaption>A castle above the lake.</figcaption></figure>
+      <figure class="tone" style="--a:2.024" data-reveal><img src="/assets/design/photo-adventure.webp" alt="Someone looking out over a valley, with the word Adventure written across it" loading="lazy"><figcaption>Adventure, written across the valley.</figcaption></figure>
+      <figure class="tone" style="--a:1.501" data-reveal><img src="/assets/design/photo-mountains.webp" alt="Clouds over a bare mountain range" loading="lazy"><figcaption>Clouds over the range.</figcaption></figure>
+    </div>
+    <div class="jrow c">
+      <figure class="tone tall" style="--a:.863" data-reveal><img src="/assets/media/photo-bridge.webp" alt="A bridge at night, shot from above" loading="lazy"><figcaption>A bridge, at night.</figcaption></figure>
+      <figure class="" style="--a:1.779" data-reveal><video src="/assets/media/drone.mp4" poster="/assets/media/drone-poster.webp" muted loop playsinline preload="none" aria-label="Drone shot over a beach town"></video><figcaption>A beach town, from the drone. Flown and edited by me.</figcaption></figure>
+      <figure class="tone tall" style="--a:.666" data-reveal><img src="/assets/media/photo-dome.webp" alt="A lit dome at night" loading="lazy"><figcaption>A dome, at night.</figcaption></figure>
+    </div>
+    <div class="jrow c">
+      <figure class="" style="--a:2.341" data-reveal><video src="/assets/media/student-film-trailer.mp4" poster="/assets/media/student-film-trailer-poster.webp" muted loop playsinline preload="none" aria-label="The trailer of a film I worked on during my studies"></video><figcaption>A film I worked on during my studies: the trailer.</figcaption></figure>
+      <figure class="tall" style="--a:.5625" data-reveal><video src="/assets/media/reel-recent.mp4" poster="/assets/media/reel-recent-poster.webp" muted loop playsinline preload="none" aria-label="A recent Instagram reel of mine"></video><figcaption>A recent Instagram reel.</figcaption></figure>
+    </div>
+    <blockquote class="pull c" data-reveal>I shoot photo and video, fly a drone and edit everything <span class="caps">myself.</span></blockquote>
+    <p class="jump c"><a href="#ships">Continued on Page 7 <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></p>
+  </div>
+</section>
+<section class="ch spread" id="ships" aria-labelledby="h-ships">
+  <div class="wrap">
+    <header class="sp-head c">
+      <p class="sp-bar bar-type"><span>Section F</span><span>Design that ships</span><span aria-hidden="true">Page 7</span></p>
       <h2 id="h-ships" data-reveal="words">From the interface <span class="it">to the web app.</span></h2>
     </header>
     <div class="sp-grid c">
-      <figure class="sp-fig" data-reveal="print" style="--r:1.5deg"><span class="snap-img"><img src="/assets/media/codejunkie-team.webp" alt="The CodeJunkie team on a day out" loading="lazy" width="800" height="480"></span><figcaption>CodeJunkie, a day away from our desks.</figcaption></figure>
-      <div class="sp-cols" data-reveal>
+      <div class="sp-text" data-reveal>
         <p class="drop">At CodeJunkie, the company I co-founded and ran as CTO, I trained our designers and developers as the team grew to 25.</p>
         <p>My computer science background let me take projects from interface design into full web apps, for startups and for corporate clients, including banks in the UAE and Oman.</p>
       </div>
+      <div class="jrow">
+        <figure class="tone" style="--a:1.501" data-reveal><img src="/assets/media/codejunkie-team-2.webp" alt="The CodeJunkie team together at a dinner" loading="lazy" width="1024" height="682"><figcaption>The whole team.</figcaption></figure>
+        <figure class="tone" style="--a:1.667" data-reveal><img src="/assets/media/codejunkie-team.webp" alt="The CodeJunkie team on a day out" loading="lazy" width="800" height="480"><figcaption>A day away from our desks.</figcaption></figure>
+        <figure class="tone" style="--a:1.499" data-reveal><img src="/assets/media/codejunkie-poster.webp" alt="A CodeJunkie internship poster" loading="lazy" width="1000" height="667"><figcaption>An internship poster: we were growing.</figcaption></figure>
+      </div>
     </div>
     <aside class="allwork c" aria-labelledby="h-all">
-      <p class="aw-head" id="h-all">All work!</p>
-      <ul><li><a href="https://getyolk.tech" target="_blank" rel="noopener"><b>Yolk</b><span>device, brand, site, film</span></a></li><li><a href="https://npcfilter.com" target="_blank" rel="noopener"><b>NPC Filter</b><span>brand, site, film</span></a></li><li><a href="https://myclosr.com" target="_blank" rel="noopener"><b>myClosr</b><span>brand, site, promo</span></a></li><li><a href="https://getslaptastic.com" target="_blank" rel="noopener"><b>Slaptastic</b><span>brand, site</span></a></li><li><a href="https://roomrush.de" target="_blank" rel="noopener"><b>RoomRush</b><span>brand, site</span></a></li><li><a href="https://vorsprech.com" target="_blank" rel="noopener"><b>Vorsprech</b><span>brand, product pages</span></a></li></ul>
+      <p class="aw-head" id="h-all">Everything, listed.</p>
+      <ul><li><a href="/design/yolk"><b>Yolk</b><span>device, brand, site, film</span></a></li><li><a href="/design/npc-filter"><b>NPC Filter</b><span>brand, site, film</span></a></li><li><a href="/design/myclosr"><b>myClosr</b><span>brand, site, promo</span></a></li><li><a href="/design/slaptastic"><b>Slaptastic</b><span>brand, site</span></a></li><li><a href="https://roomrush.de" target="_blank" rel="noopener"><b>RoomRush</b><span>brand, site</span></a></li><li><a href="https://vorsprech.com" target="_blank" rel="noopener"><b>Vorsprech</b><span>brand, product pages</span></a></li></ul>
     </aside>
+    <p class="jump c"><a href="#back">Continued on Page 8 <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></p>
   </div>
 </section>
-<section class="ch others" aria-labelledby="h-others">
+<section class="ch spread back" id="back" aria-labelledby="h-others">
   <div class="wrap">
-    <span class="way" data-o="80" data-v style="left:-24px;top:0"></span>
-    <h2 id="h-others" class="c" data-reveal="words">The other sides of <span class="it">the same work.</span></h2>
-    <div class="doors three c"><a class="door sm" href="/code"><span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-think-anim.webp" alt="" aria-hidden="true" width="199" height="484"></span><span class="door-t"><b>AI engineering</b><span>My main work: the platform behind real-time AI avatars.</span></span><span class="door-go" aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></a><a class="door sm" href="/ai"><span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" aria-hidden="true" width="248" height="481"></span><span class="door-t"><b>Side projects</b><span>AI products I build and sell on the side.</span></span><span class="door-go" aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></a><a class="door sm" href="/hardware"><span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-solder-anim.webp" alt="" aria-hidden="true" width="260" height="431"></span><span class="door-t"><b>Hardware</b><span>Where the AI leaves the screen.</span></span><span class="door-go" aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></a></div>
-    <p class="long c" data-reveal>Or read <a class="act" href="/story">the long story <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>, from Photoshop to now.</p>
+    <header class="sp-head c">
+      <p class="sp-bar bar-type"><span>Back page</span><span>Classifieds</span><span aria-hidden="true">Page 8</span></p>
+      <h2 id="h-others" data-reveal="words">The other sides of <span class="it">the same work.</span></h2>
+    </header>
+    <div class="ads c" data-reveal>
+      <a class="ad" href="/code"><span class="ad-kind">Situations</span><img class="sprite ad-spr" src="/assets/sprites/v2/shehroz-think-anim.webp" alt="" aria-hidden="true" width="199" height="484"><b>AI engineering</b><span class="ad-line">My main work: the platform behind real-time AI avatars.</span><span class="ad-go">Turn to this section <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></a>
+      <a class="ad" href="/ai"><span class="ad-kind">For sale</span><img class="sprite ad-spr" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" aria-hidden="true" width="248" height="481"><b>Side projects</b><span class="ad-line">AI products I build and sell on the side.</span><span class="ad-go">Turn to this section <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></a>
+      <a class="ad" href="/hardware"><span class="ad-kind">Workshop</span><img class="sprite ad-spr" src="/assets/sprites/v2/shehroz-solder-anim.webp" alt="" aria-hidden="true" width="260" height="431"><b>Hardware</b><span class="ad-line">Where the AI leaves the screen.</span><span class="ad-go">Turn to this section <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></a>
+    </div>
+    <a class="serial c" href="/story" data-reveal><span class="ad-kind">Serial</span><b>The long story</b><span class="ad-line">From Photoshop to now, in full.</span><span class="ad-go">Read on <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></a>
   </div>
 </section>
+<a class="callbar" href="https://cal.com/mshehrozsajjad" target="_blank" rel="noopener" aria-label="This paper costs one call. Book it."><span class="callbar-in" aria-hidden="true"><span>This paper costs one call</span><b>Book it</b><span>This paper costs one call</span><b>Book it</b><span>This paper costs one call</span><b>Book it</b><span>This paper costs one call</span><b>Book it</b></span></a>
 
 </main>
 

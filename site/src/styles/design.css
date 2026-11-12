@@ -1,247 +1,306 @@
-@import url("https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Grotesk:wght@700&display=swap");
 /* ===== /design: a newspaper =====
-   The Design Paper, Vol. 01. A broadsheet of warm, grainy stock laid on a dark desk: a masthead across the full width,
-   condensed caps for the headlines with an italic serif for the turn, column rules, drop caps, a strip of featured work
-   to drag sideways, a row of big numbers, and an ALL WORK box at the end. */
-:root.pg-design,:root.pg-design[data-theme]{--paper:#ECE5D5; --raised:#F4EFE3; --ink:#1D1D1B; --muted:#5A564C; --line:#C9C0AC; --signal:#1D1D1B; --hl:#E8452C;
-  --news:"Newsreader",Georgia,serif; --cond:"Anton","Oswald",Impact,sans-serif; --disp:"Playfair Display",Georgia,serif; color-scheme:light; background:#1D1D1B}
-.pg-design body{max-width:1480px;margin-inline:auto;font-family:var(--news);box-shadow:0 0 120px rgba(0,0,0,.55);
-  background:radial-gradient(ellipse at 30% 0%,rgba(255,255,255,.35),transparent 60%),radial-gradient(ellipse at 100% 100%,rgba(120,96,60,.12),transparent 55%),var(--paper)}
+   The Design Paper, Vol. 02 of the collected works. A broadsheet of warm stock laid on a dark desk, set in the site's
+   own type: the condensed caps and the italic serif of the homepage, and the book's blue as
+   the one spot colour. Newsreader is the only face of its own, for the running text.
+   Brand pages (/design/<brand>, brand.css) are printed on the same paper and share everything in this file. */
+:root.pg-design,:root.pg-design[data-theme]{--paper:#ECE5D5; --raised:#F4EFE3; --ink:#1D1D1B; --muted:#5A564C; --line:#C9C0AC; --signal:#2D2BE0; --on-signal:#fff;
+  --desk:#1D1D1B; --news:"Newsreader",Georgia,serif; color-scheme:light; background:var(--desk)}
+.pg-design body{--stock:url(/assets/textures/news-paper.webp) 0 0/820px,radial-gradient(ellipse at 30% 0%,rgba(255,255,255,.35),transparent 60%),radial-gradient(ellipse at 100% 100%,rgba(120,96,60,.12),transparent 55%),var(--paper);
+  max-width:1480px;margin-inline:auto;box-shadow:0 0 120px rgba(0,0,0,.55);background:var(--stock);background-blend-mode:multiply,normal,normal,normal}
 .pg-design body::after{opacity:.16}
-.pg-design main .wrap,.pg-design .np-cover .wrap{max-width:1280px}
-.pg-design .theme{display:none}
-.pg-design #trail path{stroke:var(--ink) !important}
-.pg-design .dot{background:var(--ink)}
-.pg-design .hand{color:var(--hl)}
-.pg-design h2,.pg-design h1{font-family:var(--cond);font-weight:400;letter-spacing:-.005em;text-transform:uppercase}
-.pg-design .it{font-family:var(--disp);font-style:italic;font-weight:400;text-transform:none;letter-spacing:-.02em}
-.pg-design .kicker{font:700 11px/1.3 var(--disp);letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
-.pg-design .act{color:var(--ink)}
-.pg-design :where(p,li){font-family:var(--news)}
-.pg-design #trail{display:none}
+.pg-design main .wrap,.pg-design .top .wrap{max-width:1280px;padding-left:var(--gl)}
+.pg-design .theme,.pg-design #trail,.pg-design .way{display:none}
+/* the paper's type stops at the edge of the page: the menu, the twin and the footer are the shell's, set in their own (shell.css, menu.css) */
+.pg-design main,.pg-design :where(main) :where(p,li,dd,figcaption){font-family:var(--news)}   /* :where(main): scoped, but no heavier than before */
+/* the paper's two voices: condensed caps, and the italic serif for the turn of a headline, in the spot colour */
+.pg-design :where(main) :is(h1,h2,h3),.caps{font-family:var(--sans);font-weight:700;font-stretch:75%;text-transform:uppercase;letter-spacing:-.02em}
+.pg-design :where(main) .it{font-family:var(--serif);font-style:italic;font-weight:400;font-stretch:normal;text-transform:none;letter-spacing:-.02em;color:var(--signal)}
+.pg-design :where(main) .kicker,.bar-type{font:600 11px/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+.pg-design .hi-line{font:italic 400 16px/1.4 var(--news);color:var(--muted)}
+.np-label{font:700 26px/1 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:-.01em}
+.cap,.pg-design :where(main) figcaption{font:italic 400 14px/1.4 var(--news);color:var(--muted)}
+.pg-design :where(main) figure{margin:0}
+:where(.pg-design figure) img:where(:not(.sprite)){height:auto}   /* the width and height attributes only reserve the space */
+.drop::first-letter{float:left;font:700 4.3em/.78 var(--sans);font-stretch:75%;margin:.05em .09em 0 0;text-transform:uppercase}
+/* the header is the paper's top line: his name, the volume, the menu */
+.pg-design .top{padding-block:14px 8px}
+.pg-design .top .wrap{position:relative}
+.pg-design .top .wrap::before{content:"Vol. 02 · The design side";position:absolute;left:50%;translate:-50% 0;font:italic 400 13px/1 var(--news);color:var(--ink);white-space:nowrap}
+.pg-design:not(.menu-on) .burger{color:var(--ink)}   /* open, the menu turns it to paper (menu.css) */
+.menu-on.pg-design .top .wrap::before{color:var(--paper)}
+
+/* photographs and posters are printed in one ink until you look at them. Touch screens, with no hover, get the colour */
+@media (hover:hover) and (pointer:fine){
+  .tone img{filter:grayscale(1) contrast(1.06);transition:filter .5s var(--ease)}
+  .tone:hover img,a:focus-visible .tone img{filter:none}
+}
 
 /* ---------- the front page ---------- */
-.np-cover{position:relative;padding-block:var(--sp-3) var(--sp-6)}
-.np-top{display:flex;justify-content:space-between;gap:var(--sp-2);padding-bottom:8px;font:500 12px/1.2 var(--news);font-style:italic}
-.np-mast{margin:0;padding:6px 0 0;display:inline-block;min-width:100%;border-top:3px double var(--ink);font:500 min(11vw,150px)/.95 var(--news);text-transform:uppercase;letter-spacing:-.02em;text-align:center;white-space:nowrap}
-.np-sub{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 16px;margin-top:8px;padding:8px 0;border-block:1px solid var(--ink);box-shadow:0 3px 0 -2px var(--ink);font:700 11px/1.2 var(--disp);letter-spacing:.16em;text-transform:uppercase}
-.np-lead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) minmax(0,.8fr);margin-top:var(--sp-3)}
-.np-lead > *{padding:0 var(--sp-3)}
-.np-lead > * + *{border-left:1px solid var(--ink)}
-.np-lead > :first-child{padding-left:0}.np-lead > :last-child{padding-right:0}
-.np-h{font-size:clamp(46px,5vw,76px) !important;line-height:.95 !important;margin-top:var(--sp-2)}
-.np-h .it{display:block;font-size:.72em;line-height:1.05;margin-top:.15em}
-.np-dek{margin-top:var(--sp-3);font:400 17px/1.55 var(--news);text-align:justify;hyphens:auto}
-.np-fig{margin:0}
-.np-fig img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;filter:grayscale(.15) contrast(1.05)}
-.np-fig figcaption{margin-top:8px;font:italic 400 14px/1.4 var(--news);color:var(--muted)}
+.np-cover{position:relative;padding-block:var(--sp-1) var(--sp-4)}
+.np-mast{margin:0;padding:2px 0 0;display:inline-block;min-width:100%;border-top:3px double var(--ink);font:400 min(12.6vw,168px)/.92 var(--serif);text-transform:uppercase;letter-spacing:-.02em;text-align:center;white-space:nowrap}
+.np-sub{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 16px;margin-top:6px;padding:8px 0;border-block:1px solid var(--ink)}
+/* the lead headline, knocked out of a block of ink as wide as the page (mag.js fits it) */
+.np-h{margin-top:var(--sp-2);padding:.06em .12em .02em;background:var(--ink);color:var(--paper);font-size:min(11.4vw,154px);line-height:.92;white-space:nowrap;overflow:hidden}
+.np-h span{display:inline-block}
+.np-lead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.1fr);margin-top:var(--sp-3)}
+.np-col{padding-right:var(--sp-3);display:flex;flex-direction:column}
+.np-turn{font-size:clamp(46px,5.4vw,84px);line-height:.95;margin-top:4px}
+.np-dek{margin-top:var(--sp-2);font:400 17px/1.55 var(--news);text-align:justify;hyphens:auto}
+.np-fig{padding-left:var(--sp-3);border-left:1px solid var(--ink)}
+.np-fig img{display:block;width:100%}
+.np-fig figcaption{margin-top:8px}
 .np-fig figcaption b{font-style:normal;color:var(--ink)}
-.np-label{font:400 26px/1 var(--cond);text-transform:uppercase;padding-bottom:8px;border-bottom:2px solid var(--ink)}
-.toc{list-style:none;padding:0;margin:0}
-.toc a{display:grid;grid-template-columns:22px minmax(0,1fr) auto;align-items:baseline;gap:8px;padding:9px 0;border-bottom:1px dotted var(--ink);text-decoration:none;color:var(--ink)}
-.toc-n{font:400 18px/1 var(--cond)}
-.toc-t{font:500 15px/1.25 var(--news)}
+/* in this issue: the contents as one ruled row, the correspondent at the end of it */
+.np-toc{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--sp-3);align-items:end;margin-top:var(--sp-3);padding-top:10px;border-top:3px double var(--ink)}
+.toc{list-style:none;padding:0;margin:8px 0 0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.toc a{display:grid;gap:6px;height:100%;padding:4px 12px 2px;border-left:1px solid var(--ink);text-decoration:none;color:var(--ink)}
+.toc li:first-child a{padding-left:0;border-left:0}
+.toc-n{font:700 30px/1 var(--sans);font-stretch:75%;transition:color .2s}
+.toc-t{font:500 15px/1.2 var(--news)}
 .toc-p{font:italic 400 13px/1 var(--news);color:var(--muted)}
-.toc a:hover .toc-t{text-decoration:underline;text-decoration-color:var(--hl);text-decoration-thickness:2px}
-.np-corr{margin:var(--sp-3) 0 0;display:grid;justify-items:center;gap:4px}
-.np-corr .cv-spr{position:static;--h:150px}
-.np-corr figcaption{font:italic 400 13px/1.3 var(--news);color:var(--muted)}
+.toc a:hover .toc-n,.toc a:focus-visible .toc-n{color:var(--signal)}
+.np-corr{display:grid;justify-items:center;gap:2px}
+.np-corr .sprite{--h:104px}
+.np-corr figcaption{font-size:12px}
 
-/* the strip of featured work: drag it */
-.np-feat{margin-top:var(--sp-4);padding-top:10px;border-top:3px double var(--ink)}
+/* the strip of featured work: every piece at one height and its own width, like a contact sheet. It drags */
+.np-feat{margin-top:var(--sp-3);padding-top:10px;border-top:1px solid var(--ink)}
 .np-tip{font:italic 400 15px/1 var(--news);margin-bottom:12px}
-.np-tip b{font:400 18px/1 var(--cond);font-style:normal;color:var(--hl);margin-right:4px}
-.ft-track{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(180px,19vw,250px);gap:0;overflow-x:auto;scrollbar-width:none;cursor:grab;user-select:none;outline-offset:4px}
+.np-tip b{font:700 18px/1 var(--sans);font-stretch:75%;font-style:normal;text-transform:uppercase;color:var(--signal);margin-right:4px}
+.ft-track{display:grid;grid-auto-flow:column;grid-auto-columns:max-content;overflow-x:auto;scrollbar-width:none;cursor:grab;user-select:none;outline-offset:4px}
 .ft-track::-webkit-scrollbar{display:none}
 .ft-track.drag{cursor:grabbing}
 .ft-track.drag .ft{pointer-events:none}
 .ft{display:grid;gap:8px;padding:0 14px;border-left:1px solid var(--ink);text-decoration:none;color:var(--ink)}
 .ft:first-child{padding-left:0;border-left:0}
-.ft-img{display:block;aspect-ratio:4/5;overflow:hidden;background:#d9d0bd}
-.ft-img img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;filter:grayscale(1) contrast(1.08);transition:filter .4s,transform .6s var(--ease)}
-.ft:hover .ft-img img,.ft:focus-visible .ft-img img{filter:none;transform:scale(1.03)}
-.ft-cap{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
-.ft-cap b{font:400 20px/1 var(--cond);text-transform:uppercase}
+.ft-img{display:block;height:clamp(200px,21vw,280px);overflow:hidden}
+.ft-img img{display:block;height:100%;width:auto;transition:filter .5s var(--ease),transform .6s var(--ease)}
+.ft:hover .ft-img img{transform:scale(1.03)}
+.ft-cap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 8px;align-items:baseline;width:0;min-width:100%}
+.ft-cap b{font:700 20px/1 var(--sans);font-stretch:75%;text-transform:uppercase}
 .ft-cap span{font:italic 400 13px/1 var(--news);color:var(--muted)}
 
 /* the numbers */
-.np-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:var(--sp-4) 0 0;border-block:1px solid var(--ink)}
+.np-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:var(--sp-3) 0 0;border-block:1px solid var(--ink)}
 .np-stats div{padding:var(--sp-2) var(--sp-3) var(--sp-3)}
 .np-stats div + div{border-left:1px solid var(--ink)}
 .np-stats div:first-child{padding-left:0}
-.np-stats dt{font:400 clamp(56px,7vw,104px)/1 var(--cond)}
+.np-stats dt{font:700 clamp(56px,7vw,108px)/.95 var(--sans);font-stretch:75%;letter-spacing:-.03em}
 .np-stats dd{margin:6px 0 0;font:italic 400 15px/1.35 var(--news);color:var(--muted);max-width:22ch}
+/* the sheet's fold, under the front page */
+.np-fold{height:120px;margin-block:-60px;background:url(/assets/textures/news-fold.webp) center/100% 100% no-repeat;mix-blend-mode:multiply;pointer-events:none;position:relative;z-index:1}
 
-/* ---------- sections ---------- */
-.spread{padding-block:var(--sp-5) var(--sp-6)}
-.sp-head{margin-bottom:var(--sp-4)}
-.sp-bar{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-block:1px solid var(--ink);box-shadow:0 -4px 0 -3px var(--ink);font:700 11px/1.2 var(--disp);letter-spacing:.16em;text-transform:uppercase}
-.sp-head h2{font-size:clamp(48px,7.4vw,118px);line-height:.9;margin-top:var(--sp-2);max-width:none}
-.sp-head h2 .it{font-size:.78em}
+/* ---------- a page of the paper ---------- */
+.spread{padding-block:var(--sp-4) var(--sp-3)}
+.sp-bar{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-block:1px solid var(--ink);box-shadow:0 -4px 0 -3px var(--ink)}
+.sp-head{margin-bottom:var(--sp-3)}
+.sp-head h2,.wall h2{font-size:clamp(46px,7vw,112px);line-height:.88;margin-top:var(--sp-2);max-width:none}
+.sp-head h2 .it,.wall h2 .it{font-size:.84em}
 .sp-dek{margin-top:var(--sp-2);color:var(--muted);max-width:56ch;font:italic 400 19px/1.45 var(--news)}
-.sp-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:var(--sp-4);align-items:start}
-.sp-fig{margin:0;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .4s var(--ease)}
-.sp-fig .snap-img img{display:block;width:100%;filter:grayscale(.2)}
-.sp-fig figcaption{padding-top:8px;font:italic 400 14px/1.4 var(--news);color:var(--muted)}
-.sp-fig figcaption .hand{display:block;margin-top:6px;font-style:normal}
-.sp-cols{column-count:2;column-gap:var(--sp-4);column-rule:1px solid var(--ink);font:400 17px/1.6 var(--news);text-align:justify;hyphens:auto;padding-left:var(--sp-4);border-left:1px solid var(--ink)}
+.jump{margin-top:var(--sp-4);padding-top:10px;border-top:1px solid var(--ink);text-align:right}
+.jump a{display:inline-flex;align-items:center;gap:8px;font:italic 400 15px/1 var(--news);color:var(--ink);text-decoration:none}
+.ar{transition:transform .3s var(--ease)}
+.jump .ar{width:12px;height:12px}
+.jump a:hover{color:var(--signal)}
+.jump a:hover .ar{transform:translateX(4px)}
+.sp-cols{column-count:2;column-gap:var(--sp-4);column-rule:1px solid var(--ink);font:400 17px/1.6 var(--news);text-align:justify;hyphens:auto}
 .sp-cols p + p{margin-top:1em}
-.drop::first-letter{float:left;font:400 4.4em/.8 var(--cond);margin:.04em .1em 0 0;text-transform:uppercase}
-.spread .way{display:none}
+.sp-cols.one{column-count:1;max-width:52ch}   /* a story too short to break into two columns */
 
-/* ALL WORK! */
-.allwork{margin-top:var(--sp-5);border:2px solid var(--ink);padding:var(--sp-3);box-shadow:6px 6px 0 var(--ink);background:var(--raised)}
-.aw-head{font:400 clamp(40px,5vw,68px)/1 var(--cond);text-transform:uppercase;color:var(--hl);border-bottom:1px solid var(--ink);padding-bottom:10px}
+/* a row of pictures at one height, each at its own shape (--a, its width over its height): nothing cropped, no holes */
+.jrow{display:flex;gap:var(--sp-2);align-items:flex-start}
+.jrow + .jrow{margin-top:var(--sp-2)}
+.jrow figure{flex:var(--a) 1 0;min-width:0}
+.jrow :is(img,video){display:block;width:100%;height:auto;aspect-ratio:var(--a);background:#000}
+.jrow figcaption{margin-top:8px}
+
+/* A. where it started: the first thing he designed, the story beside it, and the route as a numbered list */
+#started .sp-head{margin-bottom:0}
+.brief{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,5fr) minmax(0,3fr);align-items:start;padding-top:var(--sp-3)}
+.brief > *{padding-inline:var(--sp-3)}
+.brief > :first-child{padding-left:0}
+.brief > :last-child{padding-right:0}
+.brief > * + *{border-left:1px solid var(--ink)}
+.brief h2{font-size:clamp(38px,4.6vw,72px);line-height:.9}
+.brief h2 .it{display:block;margin-top:.06em}
+.brief-text{margin-top:var(--sp-3);font:400 17px/1.6 var(--news);text-align:justify;hyphens:auto}
+.brief-text p + p{margin-top:1em}
+.brief img{display:block;width:100%;border:1px solid var(--ink)}
+.brief figcaption{padding-top:8px}
+.route ol{list-style:none;margin:10px 0 0;padding:0;counter-reset:route;border-top:2px solid var(--ink)}
+.route li{counter-increment:route;display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:baseline;padding:11px 0;border-bottom:1px dotted var(--ink);font:500 16px/1.3 var(--news)}
+.route li::before{content:"(" counter(route) ")";font:400 26px/1 var(--serif);color:var(--muted)}
+.route li:last-child{border-bottom:0}
+.route li:last-child::before{color:var(--signal)}
+
+/* B. posters: the lead poster large, the headline and the rest beside it */
+.wall{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--sp-4);align-items:start;margin-top:var(--sp-3)}
+.wall h2{margin-top:0}
+.wall-side{display:grid;gap:var(--sp-3);padding-left:var(--sp-4);border-left:1px solid var(--ink);align-content:start}
+.wall .sp-dek{margin-top:0}
+.poster{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .4s var(--ease)}
+.poster img{display:block;width:100%;border:1px solid var(--ink)}
+.poster figcaption{margin-top:8px}
+.wall .cap{justify-self:end}
+
+/* C. interfaces: a short page. The headline in one column, two long pages beside it, each held still in a
+   small browser frame until it is clicked */
+#ui .sp-head{margin-bottom:0}
+.shots{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,1.1fr);align-items:start;padding-top:var(--sp-3)}
+.shots > *{padding-inline:var(--sp-3)}
+.shots > :first-child{padding-left:0}
+.shots > :last-child{padding-right:0}
+.shots > * + *{border-left:1px solid var(--ink)}
+.shots h2{font-size:clamp(38px,4.6vw,72px);line-height:.9}
+.shots h2 .it{display:block;margin-top:.06em}
+.shot{display:grid;gap:8px}
+.shot .ss{margin-bottom:var(--sp-1)}
+.shot .ss-view{height:auto;aspect-ratio:16/10}   /* both frames one shape: the homepage whole, the long page from its top */
+.ss-view.still{cursor:auto}
+.shot p:not(.kicker){font:400 16px/1.45 var(--news);color:var(--muted)}
+.ss{background:#fff;border:1px solid var(--ink);box-shadow:6px 6px 0 rgba(29,29,27,.85);overflow:hidden}
+.ss-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:var(--raised);border-bottom:1px solid var(--ink);font:500 11px/1 var(--mono);color:var(--muted)}
+.ss-bar i{width:9px;height:9px;border-radius:50%;background:#D8D4CA}
+.ss-bar span{margin-left:10px;padding:4px 10px;border-radius:6px;background:#fff;flex:1;max-width:280px}
+/* the frame shows the top of its page and holds still; it takes the wheel only once it has been clicked or tabbed into,
+   so reading down the page never gets caught in it */
+.ss-view{height:min(340px,44vh);overflow:hidden;scrollbar-width:thin;outline-offset:-3px;cursor:pointer}
+.ss-view:focus{overflow:auto;cursor:auto}
+.ss-view img{display:block;width:100%;height:auto}
+
+/* D. brands: the headline in a block of ink, then the index. One row a brand: its mark on its own ground, its name
+   as large as the row allows, its line, its colours. Four of them open a feature */
+.sp-head.inv h2{margin-top:var(--sp-2);padding:.1em .14em .06em;background:var(--ink);color:var(--paper)}
+.sp-head.inv h2 .it{color:var(--paper)}
+.bx{list-style:none;margin:0;padding:0;border-top:3px double var(--ink)}
+.bx-row{display:grid;grid-template-columns:34px 112px minmax(0,1.5fr) minmax(0,1fr) auto;gap:var(--sp-3);align-items:center;padding:14px 0;border-bottom:1px solid var(--ink);color:var(--ink);text-decoration:none;transition:background-color .3s var(--ease)}
+.bx-n{font:italic 400 15px/1 var(--news)}
+.bx-mark{display:grid;place-items:center;aspect-ratio:1;background:var(--ground);border:1px solid var(--ink)}
+.bx-mark img{display:block;width:46%;max-height:46%;object-fit:contain}
+.bx-mark{container-type:inline-size}
+.bx-mark .yolk-logo{font-size:27cqw}
+.bx-name{display:grid;gap:6px}
+.bx-name b{font:700 clamp(40px,6vw,92px)/.86 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:-.03em}
+.bx-line{font:italic 400 17px/1.3 var(--news)}
+.bx-side{display:grid;gap:10px;justify-items:start}
+.bx-pal{display:flex;gap:4px}
+.bx-pal i{width:20px;height:20px;border:1px solid var(--ink);background:var(--c)}
+.bx-go{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;font:italic 400 15px/1 var(--news)}
+.bx-go .ar{width:12px;height:12px}
+/* pointed at, a row barely tints and its arrow moves: no louder than the rest of the page */
+.bx-row:hover,.bx-row:focus-visible{background:color-mix(in srgb,var(--ink) 5%,transparent)}
+.bx-row:hover .bx-go .ar{transform:translateX(4px)}
+/* Yolk's logo, built the way its own site builds it (21 x 25 mark, 4px ring, 8px gap at a 42px wordmark) */
+.yolk-logo{display:flex;align-items:center;gap:.19em;font:700 30px/.9 "Space Grotesk",var(--sans);font-stretch:normal;letter-spacing:-.08em;text-transform:none;color:#232720}
+.yolk-logo i{display:inline-block;width:.5em;height:.595em;border:.095em solid currentColor;border-radius:54% 54% 46% 46%;transform:rotate(-18deg)}
+
+/* E. photography and film */
+.pull{margin:var(--sp-3) 0 0;padding:var(--sp-2) 0;border-block:3px double var(--ink);font:italic 400 clamp(26px,2.8vw,40px)/1.15 var(--serif);letter-spacing:-.015em}
+.pull .caps{font-style:normal}
+
+/* F. design that ships, and the index of everything */
+.sp-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:var(--sp-4);align-items:start}
+.sp-text{font:400 17px/1.6 var(--news);text-align:justify;hyphens:auto}
+.sp-text p + p{margin-top:1em}
+.sp-grid .jrow{padding-left:var(--sp-4);border-left:1px solid var(--ink)}
+.sp-grid img{border:1px solid var(--ink)}
+.allwork{margin-top:var(--sp-4);border:2px solid var(--ink);padding:var(--sp-3);box-shadow:6px 6px 0 var(--ink);background:var(--raised)}
+.aw-head{font:700 clamp(40px,5vw,68px)/1 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:-.02em;color:var(--signal);border-bottom:1px solid var(--ink);padding-bottom:10px}
 .allwork ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
 .allwork li{border-bottom:1px dotted var(--ink)}
 .allwork li:nth-child(3n+2),.allwork li:nth-child(3n){border-left:1px solid var(--ink)}
 .allwork a{display:grid;gap:2px;padding:12px 14px;text-decoration:none;color:var(--ink)}
-.allwork b{font:400 26px/1 var(--cond);text-transform:uppercase}
+.allwork b{font:700 26px/1 var(--sans);font-stretch:75%;text-transform:uppercase}
 .allwork span{font:italic 400 14px/1.3 var(--news);color:var(--muted)}
-.allwork a:hover b{color:var(--hl)}
+.allwork a:hover b{color:var(--signal)}
 
+/* G. the back page: three boxed ads and a serial, where the other sections of the paper are advertised */
+.ads{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-3)}
+.ad,.serial{position:relative;display:grid;gap:8px;align-content:start;padding:var(--sp-3);border:2px solid var(--ink);background:var(--raised);color:var(--ink);text-decoration:none;transition:translate .25s var(--ease),box-shadow .25s var(--ease)}
+.ad:nth-child(2){border-style:double;border-width:6px}
+.ad:nth-child(3){border-style:dashed}
+.ad-kind{justify-self:start;padding:3px 8px;background:var(--ink);color:var(--paper);font:600 10px/1.3 var(--sans);letter-spacing:.18em;text-transform:uppercase}
+.ad-spr{justify-self:center;--h:128px;margin:6px 0;filter:grayscale(1) contrast(1.1);transition:filter .4s}
+.ad b,.serial b{font:700 clamp(32px,3.4vw,50px)/.92 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:-.02em}
+.ad-line{font:400 16px/1.45 var(--news);color:var(--muted)}
+.ad-go{display:inline-flex;align-items:center;gap:8px;margin-top:6px;padding-top:10px;border-top:1px dotted var(--ink);font:italic 400 15px/1 var(--news)}
+.ad-go .ar{width:12px;height:12px}
+.serial{grid-template-columns:auto minmax(0,auto) minmax(0,1fr) auto;align-items:baseline;gap:var(--sp-3);margin-top:var(--sp-3)}
+.serial .ad-go{margin:0;padding:0;border:0}
+@media (hover:hover) and (pointer:fine){
+  :is(.ad,.serial):hover{translate:-3px -3px;box-shadow:6px 6px 0 var(--ink)}
+  :is(.ad,.serial):hover .ad-go .ar{transform:translateX(4px)}
+  .ad:hover .ad-spr{filter:none}
+  :is(.ad,.serial):hover b{color:var(--signal)}
+}
+.back{padding-bottom:var(--sp-4)}
+
+/* the last line of the paper: what it costs, running across the foot. All of it is the link to the call */
+.callbar{display:block;overflow:hidden;border-block:1px solid var(--ink);padding:14px 0;color:var(--ink);text-decoration:none;white-space:nowrap}
+.callbar-in{display:inline-flex;align-items:center;font:400 clamp(36px,5vw,72px)/1 var(--serif);letter-spacing:-.02em;animation:callbar 36s linear infinite}
+.callbar-in > *{margin-right:var(--sp-3)}   /* a margin each, not a gap, so the two halves of the loop are the same length */
+.callbar b{padding:.08em .22em .02em;background:var(--ink);color:var(--paper);font:700 .8em/1 var(--sans);font-stretch:75%;text-transform:uppercase;letter-spacing:-.01em;transition:background-color .2s}
+.callbar:hover b,.callbar:focus-visible b{background:var(--signal)}
+.callbar:hover .callbar-in{animation-play-state:paused}
+@keyframes callbar{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.callbar-in{animation:none}}
+
+/* ---------- the entrance: the paper spins up out of the dark, the way a film shows a headline (mag.js).
+   The head script puts .spin on <html> before the first paint; until the sheet lands, only the front page exists ---------- */
+.spin body{background:var(--desk);box-shadow:none;overflow:hidden}
+.spin body::after{display:none}
+.spin body > :not(main),.spin main > :not(.np-cover){visibility:hidden}
+.spin .np-cover{background:var(--stock);background-blend-mode:multiply,normal,normal,normal;background-position:0 calc(var(--lift,84px)*-1),0 0,0 0,0 0;
+  clip-path:inset(calc(var(--lift,84px)*-1) 0 max(0px,calc(100% + var(--lift,84px) - 100vh)) 0);box-shadow:0 calc(var(--lift,84px)*-1) 0 0 var(--paper);will-change:transform;opacity:0}
+
+/* ---------- narrower sheets ---------- */
 @media (max-width:1000px){
-  .np-lead{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-  .np-side{grid-column:1 / -1;border-left:0 !important;padding:var(--sp-3) 0 0 !important;margin-top:var(--sp-3);border-top:1px solid var(--ink);display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:var(--sp-3)}
-  .np-corr{margin:0}
+  .toc{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:var(--sp-2)}
+  .toc li:nth-child(5) a{padding-left:0;border-left:0}
   .np-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .np-stats div:nth-child(3){border-left:0;padding-left:0;border-top:1px solid var(--ink)}
   .np-stats div:nth-child(4){border-top:1px solid var(--ink)}
+  .bx-row{grid-template-columns:28px 88px minmax(0,1fr) auto}
+  .bx-side{grid-column:3 / -1;grid-row:2;grid-auto-flow:column;align-items:center;gap:var(--sp-2)}
+  .bx-go{grid-column:4;grid-row:1}
+  .ads{grid-template-columns:minmax(0,1fr)}
+  .serial{grid-template-columns:minmax(0,1fr);gap:8px}
 }
 @media (max-width:760px){
-  .np-top span:nth-child(2){display:none}
-  .np-mast{font-size:15vw}
-  .np-sub span:nth-child(n+4){display:none}
-  .np-lead{grid-template-columns:minmax(0,1fr)}
-  .np-lead > *{padding:0 !important;border-left:0 !important}
-  .np-fig{margin-top:var(--sp-3)}
-  .np-side{grid-template-columns:minmax(0,1fr)}
+  .pg-design .top .wrap::before{display:none}
+  .np-mast{font-size:13.4vw}
+  .np-sub span:nth-child(2){display:none}
+  .np-h{font-size:17vw;white-space:normal;padding:.1em .12em .06em}
+  .np-lead{grid-template-columns:minmax(0,1fr);row-gap:var(--sp-3)}
+  .np-col{padding-right:0}
+  .np-fig{padding-left:0;border-left:0}
+  .np-toc{grid-template-columns:minmax(0,1fr)}
   .np-corr{display:none}
+  .toc{grid-template-columns:minmax(0,1fr)}
+  .toc a{grid-template-columns:28px minmax(0,1fr) auto;align-items:baseline;padding:9px 0;border-left:0;border-bottom:1px dotted var(--ink)}
+  .toc-n{font-size:20px}
   .np-stats dd{font-size:14px}
+  .np-stats div{padding-inline:var(--sp-2)}
   .sp-bar span:last-child{display:none}
+  .sp-cols{column-count:1}
+  .brief{grid-template-columns:minmax(0,1fr);row-gap:var(--sp-3)}
+  .brief > *{padding-inline:0}
+  .brief > * + *{border-left:0}
+  .wall{grid-template-columns:minmax(0,1fr);gap:var(--sp-3)}
+  .wall-side{padding-left:0;border-left:0;order:-1}
+  .shots{grid-template-columns:minmax(0,1fr);row-gap:var(--sp-3)}
+  .shots > *{padding-inline:0}
+  .shots > * + *{border-left:0}
+  .bx-row{grid-template-columns:64px minmax(0,1fr);gap:12px var(--sp-2)}
+  .bx-n{display:none}
+  .bx-side{grid-column:1 / -1;grid-row:auto}
+  .bx-go{grid-column:1 / -1;grid-row:auto}
+  .jrow{flex-wrap:wrap}
+  .jrow figure{flex:1 1 100%}
+  .jrow figure.tall{flex:1 1 40%}
   .sp-grid{grid-template-columns:minmax(0,1fr)}
-  .sp-cols{column-count:1;padding-left:0;border-left:0}
+  .sp-grid .jrow{padding-left:0;border-left:0}
   .allwork ul{grid-template-columns:minmax(0,1fr)}
   .allwork li{border-left:0 !important}
 }
-
-/* posters and interface slots: laid out, waiting for the files */
-.slot{display:grid;place-items:center;text-align:center;border:1.5px dashed currentColor;opacity:.55;font:500 var(--fs-s)/1.4 var(--sans);padding:var(--sp-3)}
-.posters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;align-items:start}
-.poster{padding:0 var(--sp-2)}
-.poster + .poster{border-left:1px solid var(--ink)}
-.poster:first-child{padding-left:0}.poster:last-child{padding-right:0}
-.poster{margin:0;transform:perspective(900px) rotate(var(--r,0deg)) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .4s var(--ease)}
-.poster:nth-child(even){margin-top:var(--sp-5)}
-.poster figcaption{margin-top:10px;font:italic 400 14px/1.35 var(--news);color:var(--muted)}
-.sp-note{margin-top:var(--sp-4);text-align:right}
-.cases{display:grid;gap:var(--sp-6)}
-.case{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.8fr);gap:var(--sp-4);align-items:end}
-.case.flip .case-media{order:2}
-.case-media{transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .4s var(--ease)}
-.case-text{display:grid;gap:10px;border-top:3px double var(--ink);padding-top:12px}
-.case-text h3{font:400 clamp(32px,3.2vw,48px)/.98 var(--cond);text-transform:uppercase}
-.case-text h3 .it{display:block;font-size:.8em;margin-top:.1em}
-.case-text p:not(.kicker){color:var(--muted)}
-
-/* brands: a reel of pages, turned sideways */
-.reel{position:relative}
-.reel-track{display:grid;grid-auto-flow:column;grid-auto-columns:min(78%,560px);column-gap:var(--sp-4);overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 0 var(--sp-3);scrollbar-width:none;outline-offset:6px}
-.reel-track::-webkit-scrollbar{display:none}
-.page{position:relative;scroll-snap-align:start;display:grid;gap:12px;text-decoration:none;color:var(--ink);transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .4s var(--ease)}
-.pg-img{display:block;background:var(--raised);padding:10px;border:1px solid var(--ink);box-shadow:0 24px 50px -32px rgba(0,0,0,.5)}
-.pg-img img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
-.pg-cap{display:grid;gap:4px;border-top:2px solid var(--ink);padding-top:10px}
-.pg-cap b{font:400 30px/1 var(--cond);text-transform:uppercase}
-.pg-cap span{color:var(--muted);font-size:var(--fs-s)}
-.pg-no{position:absolute;right:0;bottom:4px;font:400 54px/1 var(--cond);color:var(--line)}
-.reel-nav{display:flex;align-items:center;gap:16px;justify-content:flex-end}
-.reel-nav button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--ink);background:none;cursor:pointer;font:500 18px/1 var(--sans)}
-.reel-nav button:hover{background:var(--ink);color:var(--paper)}
-.reel-count{font:500 12px/1 var(--mono)}
-
-/* films and photos: a dark spread */
-.films2{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-3);align-items:start}
-.films2 figure{margin:0}
-.films2 video,.films2 img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#000}
-.films2 figcaption{margin-top:8px;font:italic 400 14px/1.35 var(--news);color:var(--muted)}
-.f-big{grid-column:span 3}
-.f-tall{grid-row:span 2}
-.f-tall video{aspect-ratio:9/16}
-.pull{grid-column:2 / -1;margin:var(--sp-3) 0 0;padding:var(--sp-2) 0;border-block:3px double var(--ink);font:italic 400 clamp(26px,2.8vw,40px)/1.15 var(--disp);letter-spacing:-.015em}
-.pull .it{font-style:normal;font-family:var(--cond);text-transform:uppercase}
-
-@media (max-width:900px){.posters{grid-template-columns:repeat(2,minmax(0,1fr))}.films2{grid-template-columns:repeat(2,minmax(0,1fr))}.f-big{grid-column:1 / -1}.pull{grid-column:1 / -1}}
-@media (max-width:760px){
-  .cv-spr{position:static;margin-top:var(--sp-3)}
-  .toc{grid-template-columns:minmax(0,1fr)}
-  .toc ol{grid-template-columns:minmax(0,1fr)}
-  .sp-head{grid-template-columns:minmax(0,1fr);gap:4px}
-  .sp-grid,.case{grid-template-columns:minmax(0,1fr)}
-  .case.flip .case-media{order:0}
-  .sp-cols{column-count:1}
-  .poster:nth-child(even){margin-top:0}
-  .f-tall{grid-row:auto}
-}
-
-/* ---------- the real work ---------- */
-.poster img{display:block;width:100%;box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
-/* a long page in a browser frame: it scrolls itself while on screen; hover or touch hands it to you */
-.ss{border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -40px rgba(0,0,0,.45);border:1px solid var(--line)}
-.ss-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:#F1EFE9;border-bottom:1px solid var(--line);font:500 11px/1 var(--mono);color:var(--muted)}
-.ss-bar i{width:9px;height:9px;border-radius:50%;background:#D8D4CA}
-.ss-bar span{margin-left:10px;padding:4px 10px;border-radius:6px;background:#fff;flex:1;max-width:280px}
-.ss-view{height:min(560px,64vh);overflow:auto;scrollbar-width:thin;outline-offset:-3px}
-.ss-view img{display:block;width:100%;height:auto}
-.case-media .dev{display:block;width:100%;filter:drop-shadow(0 30px 40px rgba(0,0,0,.18))}
-.case-text .hint{margin-top:4px}
-.case{align-items:center}
-/* photography: a wide piece, a square, two halves */
-.lens{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:var(--sp-3);margin-bottom:var(--sp-5)}
-.lens figure{margin:0}
-.lens img{display:block;width:100%;height:100%;object-fit:cover}
-.l-wide{grid-column:1 / -1}
-.l-wide img{aspect-ratio:1800/684}
-.l-sq{grid-row:span 2}
-.l-sq img{aspect-ratio:1}
-.l-half img{aspect-ratio:3/2}
-.lens figcaption{margin-top:8px;font:italic 400 14px/1.35 var(--news);color:var(--muted)}
-.lens .l-sq{order:3}
-.lens{grid-template-areas:"w w" "a s" "m s"}
-.l-wide{grid-area:w}.l-sq{grid-area:s}.lens .l-half:nth-of-type(3){grid-area:a}.lens .l-half:nth-of-type(4){grid-area:m}
-.l-half img{height:auto}
-.l-sq img{height:100%;aspect-ratio:auto}
-@media (max-width:760px){.lens{grid-template-columns:minmax(0,1fr);grid-template-areas:"w" "s" "a" "m"}.l-sq img{aspect-ratio:1}.ss-view{height:420px}}
-
-@media (max-width:900px){.poster{padding:0 var(--sp-2) var(--sp-3)}.poster:nth-child(odd){padding-left:0;border-left:0}.poster:nth-child(even){padding-right:0}}
-.ss{border-radius:0;border:1px solid var(--ink);box-shadow:6px 6px 0 rgba(29,29,27,.85)}
-.ss-bar{background:var(--raised);border-bottom-color:var(--ink)}
-/* a newspaper prints straight: no tilted prints, no staggered columns */
-.poster{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
-.poster:nth-child(even){margin-top:0}
-.poster img{box-shadow:none;border:1px solid var(--ink)}
-.lens figure,.films2 figure{transform:none !important}
-
-/* ---------- identity: one brand sheet per product ---------- */
-.bsheets{display:grid;gap:var(--sp-5)}
-.bsheet{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:0 var(--sp-4);padding-top:12px;border-top:3px double var(--ink)}
-.bs-head{grid-column:1 / -1;display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-2);margin-bottom:var(--sp-3)}
-.bs-head h3{font:400 clamp(40px,4.4vw,64px)/1 var(--cond);text-transform:uppercase}
-.bs-head p{font:italic 400 17px/1.4 var(--news);color:var(--muted)}
-.bs-marks{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;align-content:start}
-.bs-marks figure{margin:0;display:grid;place-items:center;aspect-ratio:1;border:1px solid var(--ink);background:var(--raised);padding:14%}
-.bs-marks img{display:block;max-width:100%;max-height:100%;object-fit:contain}
-.bs-logo{grid-column:1 / -1;aspect-ratio:2/1 !important}
-.bs-sw{list-style:none;padding:0;margin:12px 0 0;display:flex;border:1px solid var(--ink)}
-.bs-sw li{flex:1;background:var(--c);min-height:90px;display:flex;align-items:flex-end;padding:8px}
-.bs-sw li + li{border-left:1px solid var(--ink)}
-.bs-sw span{font:500 11px/1 var(--mono);background:var(--paper);padding:3px 5px}
-.bs-type{margin-top:12px;font:400 15px/1.4 var(--news)}
-.bs-type b{font:400 16px/1 var(--cond);text-transform:uppercase;margin-right:6px}
-.bsheet > :is(.bs-sw,.bs-type){grid-column:1}
-.bs-pages{grid-column:2;grid-row:2 / span 3;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-content:start}
-.bs-pages figure{margin:0;border:1px solid var(--ink)}
-.bs-pages img{display:block;width:100%}
-.bsheet:not(:has(.bs-pages)){grid-template-columns:minmax(0,1fr)}
-.bsheet:not(:has(.bs-pages)) .bs-marks{grid-template-columns:repeat(auto-fit,minmax(200px,280px))}
-@media (max-width:760px){.bsheet{grid-template-columns:minmax(0,1fr)}.bs-pages{grid-column:1;grid-row:auto;margin-top:var(--sp-3)}.bs-head{flex-direction:column}}

@@ -1,41 +1,65 @@
-// The design page's magazine moves: the brands reel turns a page at a time, and prints and posters lean toward the pointer like paper picked up.
+// The design page's moves, shared by the paper (/design) and its brand features (/design/<brand>): headlines fitted to
+// the width of the sheet, the paper spinning in, the strip that drags, and posters that lean toward the pointer like
+// paper picked up.
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-document.querySelectorAll('[data-reel]').forEach(reel => {
-  const track = reel.querySelector('.reel-track'), pages = [...track.children], count = reel.querySelector('.reel-count');
-  const at = () => Math.round(track.scrollLeft/(pages[0].offsetWidth + parseFloat(getComputedStyle(track).columnGap || 0)));
-  const show = () => { count.textContent = `${String(Math.min(pages.length, at() + 1)).padStart(2, '0')} / ${String(pages.length).padStart(2, '0')}`; };
-  reel.querySelectorAll('[data-dir]').forEach(b => b.addEventListener('click', () => { const i = Math.max(0, Math.min(pages.length - 1, at() + +b.dataset.dir)); track.scrollTo({left: pages[i].offsetLeft - pages[0].offsetLeft, behavior: reduce ? 'auto' : 'smooth'}); }));
-  track.addEventListener('scroll', () => requestAnimationFrame(show), {passive: true});
-  track.addEventListener('keydown', e => { const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (d){ e.preventDefault(); reel.querySelector(`[data-dir="${d}"]`).click(); } });
-  show();
-});
-if (!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
-  document.querySelectorAll('.poster,.page,.sp-fig,.case-media').forEach(el => {
-    el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(), x = (e.clientX - r.left)/r.width - .5, y = (e.clientY - r.top)/r.height - .5;
-      el.style.setProperty('--rx', (-y*8).toFixed(2) + 'deg'); el.style.setProperty('--ry', (x*10).toFixed(2) + 'deg'); el.classList.add('tilt'); });
-    el.addEventListener('pointerleave', () => { el.style.removeProperty('--rx'); el.style.removeProperty('--ry'); el.classList.remove('tilt'); });
-  });
+const root = document.documentElement;
+
+// a line marked data-fit runs the full width of its box whatever the font metrics: measured once the fonts are in.
+// Only while it is set on one line; where the stylesheet lets it wrap (phones), the stylesheet's size stands.
+const fits = [...document.querySelectorAll('[data-fit]')];
+function fit(el){
+  el.style.fontSize = '';
+  const cs = getComputedStyle(el);
+  if (cs.whiteSpace !== 'nowrap') return;
+  const box = el.parentElement, bs = getComputedStyle(box);
+  const room = box.clientWidth - parseFloat(bs.paddingLeft) - parseFloat(bs.paddingRight) - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  const probe = document.createRange(); probe.selectNodeContents(el);
+  const width = probe.getBoundingClientRect().width;
+  if (width > 0) el.style.fontSize = (parseFloat(cs.fontSize)*room/width*.995) + 'px';
+}
+let thrown = false;   // while the sheet is in the air its measurements are those of a spinning, shrunken page
+const fitAll = () => { if (!thrown) fits.forEach(fit); };
+const fontsIn = (document.fonts?.ready || Promise.resolve()).then(fitAll);
+if (fits.length) new ResizeObserver(fitAll).observe(document.body);
+
+// the entrance: the front page spins up out of the dark and lands, the way a film shows a headline. The head script
+// put .spin on <html> before the first paint (design/index.html); here the sheet is thrown, and everything else
+// appears once it has landed. A click or a key lands it at once.
+const cover = document.querySelector('.np-cover');
+if (cover && root.classList.contains('spin')){
+  const land = () => { root.classList.remove('spin'); thrown = false; fitAll(); cover.style.removeProperty('--lift'); removeEventListener('keydown', skip); removeEventListener('pointerdown', skip);
+    document.querySelector('.top')?.animate({opacity: [0, 1], translate: ['0 -12px', '0 0']}, {duration: 600, easing: 'ease-out'}); };
+  let throwIt = null;
+  function skip(){ throwIt ? throwIt.finish() : land(); }
+  if (scrollY > 10) land();   // a reload half-way down the page: the front page is not on screen
+  else {
+    addEventListener('keydown', skip); addEventListener('pointerdown', skip);
+    const turned = root.classList.contains('turned') ? 620 : 0;   // let the sheet from the last page clear first (shell.css)
+    Promise.all([Promise.race([fontsIn, new Promise(r => setTimeout(r, 1000))]), new Promise(r => setTimeout(r, turned))]).then(() => {
+      if (!root.classList.contains('spin')) return;   // skipped, or the safety net got there first
+      const top = cover.getBoundingClientRect().top;
+      cover.style.setProperty('--lift', top + 'px');   // the sheet covers the header's strip too, and its stock lines up with the page's
+      cover.style.transformOrigin = `50% ${innerHeight/2 - top}px`;
+      thrown = true;
+      throwIt = cover.animate([
+        {transform: 'rotate(-1080deg) scale(.02)', opacity: 0, easing: 'cubic-bezier(.3,.6,.25,1)'},
+        {opacity: 1, offset: .06},
+        {transform: 'rotate(5deg) scale(1.05)', opacity: 1, offset: .82, easing: 'cubic-bezier(.3,0,.2,1)'},
+        {transform: 'rotate(0deg) scale(1)', opacity: 1},
+      ], {duration: 1900});
+      throwIt.finished.then(land, land);
+    });
+  }
 }
 
-// long pages scroll themselves while on screen, slowly, and wait at the bottom before going back up.
-// Hover, touch, focus or a wheel hands the page to the visitor until they leave it.
-document.querySelectorAll('[data-ss] .ss-view').forEach(v => {
-  if (reduce) return;
-  let on = false, hold = false, pause = 0, raf = 0, y = 0;
-  const step = () => {
-    raf = 0; if (!on || hold) return;
-    const max = v.scrollHeight - v.clientHeight;
-    if (pause > 0) pause--;
-    else if (v.scrollTop >= max - 1){ pause = 120; y = 0; setTimeout(() => { if (!hold) v.scrollTo({top: 0, behavior: 'smooth'}); }, 1500); }
-    else { y = Math.max(y, v.scrollTop) + .7; v.scrollTop = y; }
-    raf = requestAnimationFrame(step);
-  };
-  const go = () => { if (!raf) raf = requestAnimationFrame(step); };
-  const stop = () => { hold = true; }, resume = () => { hold = false; y = v.scrollTop; go(); };
-  ['pointerenter', 'touchstart', 'focus', 'wheel'].forEach(ev => v.addEventListener(ev, stop, {passive: true}));
-  ['pointerleave', 'blur'].forEach(ev => v.addEventListener(ev, resume));
-  new IntersectionObserver(es => { on = es[0].isIntersecting; if (on) go(); }, {threshold: .4}).observe(v);
-});
+// posters lean toward the pointer
+if (!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
+  document.querySelectorAll('.poster').forEach(el => {
+    el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(), x = (e.clientX - r.left)/r.width - .5, y = (e.clientY - r.top)/r.height - .5;
+      el.style.setProperty('--rx', (-y*8).toFixed(2) + 'deg'); el.style.setProperty('--ry', (x*10).toFixed(2) + 'deg'); });
+    el.addEventListener('pointerleave', () => { el.style.removeProperty('--rx'); el.style.removeProperty('--ry'); });
+  });
+}
 
 // the front page carries today's date, like any paper
 document.querySelectorAll('[data-today]').forEach(el => { el.textContent = new Date().toLocaleDateString('en-GB', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'}); });
@@ -51,13 +75,24 @@ document.querySelectorAll('[data-strip] .ft-track').forEach(t => {
     if (!reduce){ const glide = () => { v *= .94; t.scrollLeft -= v; if (Math.abs(v) > .4) raf = requestAnimationFrame(glide); }; raf = requestAnimationFrame(glide); }
   });
   t.addEventListener('click', e => { if (moved > 4) e.preventDefault(); }, true);
+  // so nobody misses that it moves: the first time it is on screen it slides a little way along and back, once,
+  // unless it has already been touched
+  let touched = false;
+  ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach(ev => t.addEventListener(ev, () => { touched = true; }, {passive: true, once: true}));
+  if (!reduce) new IntersectionObserver((es, io) => {
+    if (!es[0].isIntersecting) return;
+    io.disconnect();
+    const far = Math.min(180, t.scrollWidth - t.clientWidth), LONG = 1600;
+    let t0 = 0;
+    const nudge = now => {
+      if (touched) return;
+      if (root.classList.contains('spin')) return requestAnimationFrame(nudge);   // not while the paper is still in the air
+      t0 ||= now + 500;
+      const k = Math.max(0, Math.min(1, (now - t0)/LONG));
+      t.scrollLeft = far*Math.sin(k*Math.PI)**2;   // out and back, eased at both ends
+      if (k < 1) requestAnimationFrame(nudge);
+    };
+    requestAnimationFrame(nudge);
+  }, {threshold: .6}).observe(t);
   t.addEventListener('keydown', e => { const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (d){ e.preventDefault(); t.scrollBy({left: d*t.firstElementChild.offsetWidth, behavior: reduce ? 'auto' : 'smooth'}); } });
 });
-
-// the masthead runs the full width of the page whatever the font metrics: measure it once the fonts are in, and size it to fit
-const mast = document.querySelector('.np-mast');
-if (mast){
-  const fit = () => { mast.style.fontSize = ''; const cs = getComputedStyle(mast.parentElement), w = mast.parentElement.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight); mast.style.minWidth = '0'; const s = mast.scrollWidth; mast.style.minWidth = ''; if (s > 0) mast.style.fontSize = (parseFloat(getComputedStyle(mast).fontSize)*w/s*.995) + 'px'; };
-  (document.fonts?.ready || Promise.resolve()).then(fit);
-  new ResizeObserver(fit).observe(mast.parentElement);
-}
