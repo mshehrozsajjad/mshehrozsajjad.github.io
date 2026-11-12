@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light" class="pg-hw">
+<html lang="en" data-theme="light" class="pg-hw" data-cursor="plain">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -95,25 +95,39 @@
     </div>
   </div>
 </section>
-<section class="ch role-sec" id="tars" aria-labelledby="h-tars">
-  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">02 / Sheet 2 · TARS</div></div>
+<section class="ch role-sec blue" id="tars" aria-labelledby="h-tars">
+  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">02 / Sheet 2 · TARS · schematic</div></div>
   <div class="wrap">
     <span class="way" data-o="9" data-v style="left:-24px;top:0"></span>
     <div class="sec-head c">
       <h2 id="h-tars" data-reveal="words">A robot, <span class="it">on my desk.</span></h2>
-      
     </div>
-    <article class="fs c flip">
-      <span class="dot" data-o="10" data-v></span>
-      <div class="fs-media" data-reveal="print" style="--r:0deg"><div class="m-duo"><figure><video src="/assets/media/tars-falling.mp4" poster="/assets/media/tars-falling-poster.webp" muted loop playsinline preload="none" aria-label="TARS falling, then walking"></video><figcaption>2a · falling, then walking</figcaption></figure><figure><video src="/assets/media/tars-my-face.mp4" poster="/assets/media/tars-my-face-poster.webp" muted loop playsinline preload="none" aria-label="TARS with my avatar face"></video><figcaption>2b · with my avatar face</figcaption></figure></div><p class="fs-cap">Fig. 2</p></div>
-      <div class="fs-text">
-        <p class="kicker" data-reveal>TARS · prototype</p>
-        <h3 data-reveal="words">My first robot, my first soldering, and a walk Claude learned.</h3>
-        <ul class="fs-notes" data-reveal><li><span>body</span>an open-source TARS, 3D-printed</li><li><span>sensor</span>a motion sensor, soldered in: my first time holding an iron</li><li><span>walk</span>worked out by Claude after it kept falling over</li><li><span>face</span>my Beyond Presence avatar</li><li><span>brain</span>the whole stack locally, LLM included, for free</li></ul>
-        <p data-reveal>Two years into building with AI, I wanted to try hardware.</p>
-        <div class="wk-extra" data-reveal><p class="wk-taught"><span>What it taught me</span>Our avatars can run on the edge.</p><a class="act" href="/tars">Read the whole story <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></div>
+    <div class="bp-row c">
+      <!-- the signal path, left to right: what he says, what the Mac does with it, and what the robot does with that -->
+      <ol class="sch" data-reveal aria-label="How TARS works, as a signal path">
+        <li class="blk"><span class="ref">J1</span><b>You speak</b><i>to the robot</i></li>
+        <li class="grp"><p class="grp-t">My Mac · everything local · free</p>
+          <ul class="two"><li class="blk"><span class="ref">U1</span><b>Speech-to-text</b><i>local</i></li><li class="blk"><span class="ref">U2</span><b>LLM</b><i>local</i></li><li class="blk"><span class="ref">U3</span><b>Voice</b><i>local</i></li><li class="blk"><span class="ref">U4</span><b>Face</b><i>my avatar, local</i></li></ul></li>
+        <li class="grp"><p class="grp-t">TARS · 3D-printed</p>
+          <ul><li class="blk"><span class="ref">D1</span><b>Screen</b><i>wears my face</i></li><li class="blk"><span class="ref">S1</span><b>Motion sensor</b><i>soldered in: my first</i></li><li class="blk"><span class="ref">M1</span><b>Legs</b><i>a walk Claude worked out</i></li></ul></li>
+      </ol>
+      <!-- the robot itself (tars-model.js), drawn in the sheet's own line -->
+      <figure class="bp-tars"><div class="bp-stage" data-tars="drawing" role="img" aria-label="A 3D drawing of my TARS, with my avatar on its screen. Drag to turn it."></div><figcaption>Fig. 2 · TARS · drag to turn</figcaption></figure>
+    </div>
+    <div class="bp-notes c">
+      <figure class="bp-photo" data-reveal><img src="/assets/photos/tars-face.webp" alt="My TARS as built: a dark 3D-printed robot in three slabs, with my avatar on its screen" loading="lazy" width="1455" height="1400"><figcaption>Fig. 2a · as built</figcaption></figure>
+      <div data-reveal>
+        <p class="kicker">TARS · prototype</p>
+        <h3>My first robot, my first soldering, and a walk Claude learned.</h3>
+        <p>Two years into building with AI, I wanted to try hardware. I started from an open-source TARS, and Claude ran the walking experiments while TARS did the falling.</p>
+        <p class="wk-taught"><span>What it taught me</span>Our avatars can run on the edge.</p>
+        <a class="act" href="/tars">Read the whole story <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>
       </div>
-    </article>
+      <div class="bp-caps">
+        <figure><video src="/assets/media/tars-falling.mp4" poster="/assets/media/tars-falling-poster.webp" muted loop playsinline preload="none" aria-label="TARS falling, then walking"></video><figcaption>Fig. 2b · falling, then walking</figcaption></figure>
+        <figure><video src="/assets/media/tars-my-face.mp4" poster="/assets/media/tars-my-face-poster.webp" muted loop playsinline preload="none" aria-label="TARS with my avatar face"></video><figcaption>Fig. 2c · with my avatar face</figcaption></figure>
+      </div>
+    </div>
   </div>
 </section>
 <section class="ch role-sec" id="cure" aria-labelledby="h-cure">
@@ -173,6 +187,7 @@
 <!--shell:menu-->
 <!--shell:twin-->
 <script type="module" src="/src/hardware/yolk-scene.js"></script>
+<script type="module" src="/src/tars-model.js"></script>
 <script type="module" src="/src/pages.js"></script>
 </body>
 </html>

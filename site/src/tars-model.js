@@ -1,13 +1,18 @@
 // The 3D TARS in the hero of its story page: the TARS-AI community's CAD (tools/tars-model.cjs makes tars.glb from it),
 // in the silver of his print, with his avatar on its screen. It stands in [data-tars], turns with a drag, idles, and
 // behaves as the humor dial says (story.js sets data-humor on <html>).
+// On the hardware page's blueprint (data-tars="drawing") the same robot is drawn instead: white line on the sheet's blue.
 // Less motion: it stands still, with a still face. No WebGL: the stage is hidden and the page reads as before.
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {RoomEnvironment} from 'three/examples/jsm/environments/RoomEnvironment.js';
+import {LineSegments2} from 'three/examples/jsm/lines/LineSegments2.js';
+import {LineSegmentsGeometry} from 'three/examples/jsm/lines/LineSegmentsGeometry.js';
+import {LineMaterial} from 'three/examples/jsm/lines/LineMaterial.js';
 
 const root = document.documentElement, stage = document.querySelector('[data-tars]');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const drawn = stage?.dataset.tars === 'drawing';
 
 // metal is lit by what it reflects, so each surface is a colour, how metallic it is, and how rough (0 is a mirror)
 const SURFACE = {
@@ -37,8 +42,18 @@ async function mount(){
   scene.add(key, rim);
 
   const model = (await new GLTFLoader().loadAsync('/assets/models/tars.glb')).scene;
-  model.traverse(o => { const s = SURFACE[o.material?.name]; if (s){ o.material.color.set(s.color); o.material.metalness = s.metalness; o.material.roughness = s.roughness; } });
+  let line = null;
+  if (drawn){
+    // every surface takes the sheet's own blue, so it hides the lines behind it; its edges are ruled in white
+    const fill = new THREE.MeshBasicMaterial({color: getComputedStyle(stage).getPropertyValue('--bp').trim() || '#123A66', toneMapped: false, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1});
+    line = new LineMaterial({color: '#F2F6FB', linewidth: 1.1, toneMapped: false});
+    const meshes = []; model.traverse(o => { if (o.isMesh) meshes.push(o); });
+    meshes.forEach(o => { o.material = fill; o.add(new LineSegments2(new LineSegmentsGeometry().fromEdgesGeometry(new THREE.EdgesGeometry(o.geometry, 30)), line)); });
+  } else model.traverse(o => { const s = SURFACE[o.material?.name]; if (s){ o.material.color.set(s.color); o.material.metalness = s.metalness; o.material.roughness = s.roughness; } });
   model.updateMatrixWorld(true);
+  // the room it needs to turn in: the furthest any corner gets from its upright axis, and from its middle in height
+  const box = new THREE.Box3().setFromObject(model);
+  const reach = Math.hypot(Math.max(box.max.x - MID.x, MID.x - box.min.x), Math.max(box.max.z - MID.z, MID.z - box.min.z)), rise = Math.max(box.max.y - MID.y, MID.y - box.min.y);
 
   // his face fills the display, cropped to it, the way it does on the real one
   const pane = {x: GLASS.x1 - GLASS.x0, y: GLASS.y1 - GLASS.y0};
@@ -48,8 +63,16 @@ async function mount(){
   const show = (tex, w, h) => { const k = (pane.x / pane.y) / (w / h);
     tex.repeat.set(Math.min(k, 1), Math.min(1 / k, 1)); tex.offset.set((1 - tex.repeat.x) / 2, (1 - tex.repeat.y) / 2); tex.colorSpace = THREE.SRGBColorSpace;
     face.material.color.set(0xffffff); face.material.map = tex; face.material.needsUpdate = true; run(); };
-  let film = null;
-  if (reduce) new THREE.TextureLoader().load('/assets/media/avatar-poster.webp', t => show(t, t.image.width, t.image.height));
+  let film = null, blink = null;
+  if (drawn){
+    // on the blueprint its screen is a terminal: what is running, and the humor setting from its own story
+    const pad = Object.assign(document.createElement('canvas'), {width: 308, height: 484}), ctx = pad.getContext('2d'), tex = new THREE.CanvasTexture(pad);
+    const LINES = ['TARS · local', '', '> stt    ok', '> llm    ok', '> voice  ok', '> face   ok', '', 'humor  75%', ''];
+    blink = on => { ctx.fillStyle = '#0B2747'; ctx.fillRect(0, 0, pad.width, pad.height); ctx.fillStyle = '#F2F6FB'; ctx.font = '500 26px "JetBrains Mono", ui-monospace, monospace';
+      LINES.forEach((l, i) => ctx.fillText(l, 22, 56 + i*44)); ctx.fillText(on ? '> _' : '>', 22, 56 + LINES.length*44); tex.needsUpdate = true; };
+    (document.fonts?.ready || Promise.resolve()).then(() => { blink(true); show(tex, pad.width, pad.height); });   // once the mono face is in, and the loop below exists
+  }
+  else if (reduce) new THREE.TextureLoader().load('/assets/media/avatar-poster.webp', t => show(t, t.image.width, t.image.height));
   else { film = Object.assign(document.createElement('video'), {src: '/assets/media/avatar-loop.mp4', muted: true, loop: true, playsInline: true});
     film.addEventListener('loadeddata', () => show(new THREE.VideoTexture(film), film.videoWidth, film.videoHeight), {once: true}); }
 
@@ -61,7 +84,7 @@ async function mount(){
   camera.position.set(0, 30, SPAN / 2 / Math.tan(FOV * RAD / 2)); camera.lookAt(0, 0, 0);
   stage.append(canvas);
 
-  let raf = 0, seen = false, drag = 0, grabbed = false, turn = REST.fun, lean = 0;
+  let raf = 0, seen = false, lit = true, drag = 0, grabbed = false, turn = REST.fun, lean = 0;
   function draw(now){
     raf = 0;
     const t = now / 1000, humor = root.dataset.humor || 'fun';
@@ -69,7 +92,8 @@ async function mount(){
     turn += (REST[humor] - turn) * .08; lean += (LEAN[humor] - lean) * .08;
     yaw.rotation.y = turn + drag + (reduce || humor === 'dry' ? 0 : Math.sin(t * .5) * .2);
     tip.rotation.z = -lean * RAD;
-    const stride = humor === 'max' && !reduce ? Math.sin(t * 3) * .16 : 0;   // no filter: it walks on the spot
+    const stride = reduce ? 0 : drawn ? Math.sin(t * 2) * .22 : humor === 'max' ? Math.sin(t * 3) * .16 : 0;   // no filter, or on the blueprint: it walks on the spot
+    if (blink && (t % 1 < .5) !== lit) blink(lit = !lit);
     hips[0].rotation.x = stride; hips[1].rotation.x = -stride;
     renderer.render(scene, camera);
     if (seen && !reduce) run();
@@ -77,7 +101,10 @@ async function mount(){
   function run(){ if (!raf) raf = requestAnimationFrame(draw); }
 
   new ResizeObserver(() => { const w = stage.clientWidth, h = stage.clientHeight; if (!w || !h) return;
-    renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); run(); }).observe(stage);
+    renderer.setSize(w, h, false); line?.resolution.set(w, h); camera.aspect = w / h; camera.updateProjectionMatrix();
+    // on the blueprint it turns freely in a narrow stage: stand back until its whole turning circle fits, nearest corner included
+    if (drawn){ const tv = Math.tan(FOV * RAD / 2), th = tv * camera.aspect; camera.position.z = 1.08 * (reach + Math.max(reach / th, rise / tv)); camera.lookAt(0, 0, 0); }
+    run(); }).observe(stage);
   // it rests (film too) while it is off screen
   new IntersectionObserver(([e]) => { seen = e.isIntersecting; if (film) seen ? film.play().catch(() => {}) : film.pause(); run(); }).observe(stage);
 

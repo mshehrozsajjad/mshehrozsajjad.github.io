@@ -336,7 +336,7 @@ addEventListener('pageshow', e => { if (e.persisted) document.querySelectorAll('
 
 /* ---------- his doodles: played back, or drawn on the dev server with ?doodle; and his pen as the cursor ---------- */
 if (import.meta.env.DEV && new URLSearchParams(location.search).has('doodle')) import('./doodle-editor.js');   // keeps its crosshair
-else { playDoodles(); mountCursor(); }
+else { playDoodles(); if (document.documentElement.dataset.cursor !== 'plain') mountCursor(); }   // a drafting sheet keeps the ordinary pointer
 
 build();
 })();
