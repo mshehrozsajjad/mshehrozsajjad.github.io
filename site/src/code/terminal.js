@@ -15,7 +15,7 @@ const CMD = {
   ls: () => ['shipped/           a night, a few days, a month', 'beyond-presence/   the platform I own', 'open-source/       given away', 'before/            CTO, Keyhole, cureVision, a car company', 'contact'],
   now: () => ['Beyond Presence, founding engineer. I own the creator and call platforms,', 'frontend and backend. Plus customer meetings and fast turnarounds.'],
   stats: () => ['200,000+   avatar sessions served', '1,000+     running at the same time', '15,000+    startups, scaleups and enterprise teams', '(public figures, beyondpresence.ai)'],
-  contact: () => ['mshehrozsajjad@gmail.com', 'or: open contact'],
+  contact: () => ['hello@shehrozsajjad.com', 'or: open contact'],
   sudo: () => ['Nice try. Book a call instead: open contact'],
 };
 function print(lines, cls = ''){ (Array.isArray(lines) ? lines : [lines]).forEach(t => { const p = document.createElement('p'); if (cls) p.className = cls; p.textContent = t; out.appendChild(p); }); out.scrollTop = out.scrollHeight; }

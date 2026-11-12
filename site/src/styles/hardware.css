@@ -21,65 +21,232 @@
 .tblock dt{color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-size:10px}
 .tblock dd{margin:4px 0 0;color:var(--ink)}
 
-/* ---------- Fig. 1: Yolk, exploded ---------- */
-.xp{position:relative;height:300vh;height:300svh}
-.xp-stage{position:sticky;top:0;height:100vh;height:100svh;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);grid-template-rows:auto 1fr auto;column-gap:var(--sp-4);align-items:center;padding-block:var(--sp-4)}
+/* ---------- Yolk, drawn from its CAD (hardware/yolk-scene.js) ----------
+   One fixed layer holds the drawing; the script lays it over whichever slot is on screen. */
+.yk-layer{position:fixed;inset:0;z-index:3;pointer-events:none;visibility:hidden}
+.yk-layer.on{visibility:visible}
+.yk-layer canvas,.yk-marks{position:absolute;inset:0;width:100%;height:100%}
+.yk-marks{overflow:visible}
+.yk-dim{font:500 12px/1 var(--mono);fill:var(--signal);text-anchor:middle;dominant-baseline:middle}
+.yk-grab{position:absolute;pointer-events:auto;cursor:grab;touch-action:pan-y;border-radius:50%}
+.yk-grab:active{cursor:grabbing}
+.yk-bal{opacity:0;transition:opacity .35s;pointer-events:none}
+.yk-bal.on{opacity:1;pointer-events:auto;cursor:default}
+.yk-bal line{stroke:var(--signal);stroke-width:1}
+.yk-bal .dot{fill:var(--signal)}
+.yk-bal .ring{fill:var(--raised);stroke:var(--signal);stroke-width:1.25;transition:fill .2s}
+.yk-bal text{font:500 11px/1 var(--mono);fill:var(--signal);text-anchor:middle;dominant-baseline:central;transition:fill .2s}
+.yk-bal.hot .ring{fill:var(--signal)}
+.yk-bal.hot text{fill:#fff}
+.yk-slot{position:relative;width:100%}
+@media (min-width:761px){.pg-hw .hw-hero > .wrap:first-of-type{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}}
+.yk-slot[data-yk="cover"]{height:clamp(340px,54vh,500px)}
+.yk-still{display:none;width:100%;height:100%;object-fit:contain;border-radius:6px}
+.yk-off .yk-still{display:block}
+.yk-tip{position:absolute;left:0;right:0;bottom:-28px;margin:0;text-align:center;font:500 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--signal);transition:opacity .4s}
+.yk-off .yk-tip,.yk-layer.turned ~ * .yk-tip{opacity:0}
+.tb-row{display:flex;align-items:flex-end;gap:var(--sp-4)}
+.tb-row .tblock{flex:1}
+.tb-row .sprite-fig{position:relative;flex:none;margin:0 0 -6px auto}
+.tb-row .sprite{--h:132px}
+
+/* ---------- Fig. 1: Yolk, exploded, with its parts list ---------- */
+.xp{position:relative;height:250vh;height:250svh}
+.xp-stage{position:sticky;top:0;height:100vh;height:100svh;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);grid-template-rows:auto minmax(0,1fr) auto;column-gap:var(--sp-4);align-items:center;padding-block:var(--sp-5) var(--sp-3)}
 .xp-head{grid-column:1 / -1}
 .xp-head h3{max-width:26ch;margin-top:8px}
-.xp-scene{--e:0;--tx:0;--ty:0;--gap:calc(10px + var(--e)*96px);position:relative;height:min(64vh,560px);perspective:1600px;display:grid;place-items:center}
-.xp-rig{position:relative;width:min(300px,36vw);aspect-ratio:300/380;transform-style:preserve-3d;transform:rotateX(calc(56deg + var(--ty)*-10deg)) rotateZ(calc(-36deg + var(--tx)*12deg));transition:transform .25s ease-out}
-.layer{position:absolute;inset:0;transform:translateZ(calc((var(--i) - 2)*var(--gap)));transform-style:preserve-3d}
-.ply{width:100%;height:100%;overflow:visible}
-.ply *{fill:rgba(251,250,246,.86);stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
-.ply line,.ply path{fill:none}
-.l-front .ply > rect:first-child{fill:color-mix(in srgb,var(--yolk) 78%,transparent)}
-.l-back .ply > rect:first-child{fill:color-mix(in srgb,var(--yolk) 55%,transparent)}
-.l-screen .glass{fill:#DCDAD0}
-.l-core .ply rect:first-child{fill:rgba(40,110,70,.18)}
-.l-dial circle:first-child{fill:#2A2A2A}
-.l-dial circle:nth-child(2){fill:#3a3a3a}
-.l-dial rect{fill:var(--yolk)}
-/* callouts: the parts list, lit as each part comes away */
-.xp-calls{list-style:none;padding:0;display:grid;gap:14px;counter-reset:c}
-.xp-calls li{display:grid;grid-template-columns:36px minmax(0,1fr);column-gap:12px;row-gap:2px;padding:12px 0;border-top:1.5px solid var(--line);opacity:.35;transform:translateX(8px);transition:opacity .4s,transform .5s var(--ease),border-color .4s}
-.xp-calls li.on{opacity:1;transform:none;border-top-color:var(--ink)}
-.xp-calls .cn{grid-row:span 2;font:500 12px/1.6 var(--mono);color:var(--signal)}
-.xp-calls b{font:600 var(--fs-body)/1.2 var(--sans)}
-.xp-calls span:last-child{font-size:var(--fs-s);color:var(--muted)}
-.xp-hint{grid-column:1 / -1;text-align:center;transition:opacity .4s}
-.xp.apart .xp-hint{opacity:0}
+.yk-slot[data-yk="apart"]{height:100%;max-height:600px}
+/* the parts list: a row is named as its part comes away, and lights its part under the pointer */
+.bom{list-style:none;padding:0;margin:0;border-bottom:1.5px solid var(--ink)}
+.bom li{display:grid;grid-template-columns:30px minmax(0,1fr) auto;column-gap:10px;padding:7px 0 8px;border-top:1px solid var(--line);opacity:.3;transition:opacity .4s,border-color .4s,background-color .2s}
+.bom li:first-child{border-top:1.5px solid var(--ink)}
+.bom li.on{opacity:1}
+.bom li.hot{background:var(--signal-soft)}
+.bom .cn{grid-row:span 2;font:500 11px/1.7 var(--mono);color:var(--signal)}
+.bom b{font:600 var(--fs-s)/1.25 var(--sans)}
+.bom i{font:500 10px/1.9 var(--mono);font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.bom li > span:last-child{grid-column:2 / -1;font-size:var(--fs-xs);line-height:1.3;color:var(--muted)}
+.xp-hint{grid-column:1 / -1;display:grid;justify-items:center;margin:0;font:500 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--signal)}
+.xp-hint span{grid-area:1/1;transition:opacity .4s}
+.xp-hint .h-print,.xp.apart .h-apart{opacity:0}
+.xp.printed .h-print{opacity:1}
+@media (max-height:760px){.bom li > span:last-child{display:none}}
 
-/* the Yolk story under the drawing */
-.sheet-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--sp-5);align-items:center;margin-top:var(--sp-5)}
-.sr-media{--ch:min(420px,60vh)}
-.sr-text{display:grid;gap:12px;color:var(--muted)}
-.sr-text .kicker{color:var(--ink)}
+/* Yolk as built, in one calm row: his photograph of the real one, the story, and two small films */
+.yk-row{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.05fr) minmax(0,1fr);gap:var(--sp-5);align-items:center;margin-top:var(--sp-5)}
+.yk-row figure{margin:0}
+.yk-photo img{display:block;width:100%;height:auto}
+.yk-story{display:grid;gap:12px;align-content:start;color:var(--muted)}
+.yk-story .kicker{color:var(--ink)}
+.yk-films{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-2)}
+.yk-films video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border:1.5px solid var(--ink);border-radius:4px;background:#000}
+.yk-row figcaption{margin-top:12px;font:500 11px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--signal)}
 
-/* ---------- the other sheets ---------- */
-.fs{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--sp-5);align-items:center}
-.fs > .dot{left:-30px;top:12px}
-.fs.flip .fs-media{order:2}
-.fs-media{--ch:min(440px,62vh);position:relative;display:grid;justify-items:center;padding:22px;border:1.5px solid var(--ink);background:var(--raised)}
-.fs-media img,.fs-media video{display:block;width:100%}
-.fs-media .m-shot,.fs-media .m-film,.fs-media .m-duo video{border-radius:4px;box-shadow:none}
-.fs-media .m-shot.tall{width:calc(var(--ch)*.62)}
-.fs-cap{position:absolute;left:-1.5px;bottom:-26px;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--signal)}
-.fs-text{display:grid;gap:12px}
-.fs-text > p:not(.kicker){color:var(--muted)}
-.fs-notes{list-style:none;padding:0;margin:6px 0;display:grid;gap:0;border-top:1.5px solid var(--ink)}
-.fs-notes li{display:grid;grid-template-columns:90px minmax(0,1fr);gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:var(--fs-s)}
-.fs-notes li > span{font:500 11px/1.8 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--signal)}
-.pg-hw .m-duo figcaption{font:500 11px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--signal)}
+/* ---------- Sheet 2: TARS, as a blueprint ----------
+   The one dark sheet: white line on blue, the accent in Yolk yellow. The tokens are redefined here, so the shared
+   headings, labels and links recolour themselves. */
+.blue,.pg-bp main,.pg-bp .ft{--ink:#F2F6FB;--muted:rgba(242,246,251,.72);--line:rgba(242,246,251,.28);--raised:#18477C;--tint:#18477C;--bp:#123A66;color:var(--ink);
+  background:
+    linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px) 0 0/16px 16px,
+    linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px) 0 0/16px 16px,
+    linear-gradient(rgba(255,255,255,.11) 1px,transparent 1px) 0 0/80px 80px,
+    linear-gradient(90deg,rgba(255,255,255,.11) 1px,transparent 1px) 0 0/80px 80px,
+    var(--bp)}
+.blue{--signal:var(--yolk);padding-block:var(--sp-6)}
+.bp-row{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(0,1fr);gap:var(--sp-5);align-items:center}
+/* the schematic: blocks joined by wires that carry a moving signal (--wire is the gap a wire has to cross) */
+.sch,.sch ul{list-style:none;padding:0;margin:0}
+.sch{--wire:34px;display:grid;grid-template-columns:.7fr 1.9fr 1.1fr;gap:var(--wire);align-items:center}
+.sch ul{display:grid;gap:14px}
+.sch ul.two{grid-template-columns:1fr 1fr}
+.sch > li{position:relative}
+.blk{display:grid;gap:1px;padding:9px 12px 10px;border:1.5px solid var(--ink);background:var(--bp)}
+.blk .ref{font:500 10px/1.5 var(--mono);color:var(--signal)}
+.blk b{font:600 var(--fs-s)/1.25 var(--sans)}
+.blk i{font:500 10px/1.4 var(--mono);font-style:normal;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.blk.cloud{border-style:dashed}
+.grp{padding:26px 12px 12px;border:1px dashed var(--line)}
+.grp-t{position:absolute;left:12px;top:8px;margin:0;font:500 10px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--signal)}
+.sch > li + li::before{content:"";position:absolute;right:100%;top:50%;width:var(--wire);height:1.5px;margin-top:-1px;
+  background:repeating-linear-gradient(90deg,var(--ink) 0 6px,transparent 6px 12px);animation:bp-flow .7s linear infinite}
+.sch > li + li::after{content:"";position:absolute;right:100%;top:50%;margin:-4px -1px 0 0;border:4px solid transparent;border-left:7px solid var(--ink);border-right:0}
+@keyframes bp-flow{to{background-position:12px 0}}
+/* the robot itself, drawn (tars-model.js) */
+.bp-tars{margin:0}
+.bp-stage{height:clamp(300px,46vh,430px)}
+.bp-stage canvas{display:block;width:100%;height:100%;touch-action:pan-y;cursor:grab}
+.bp-stage canvas:active{cursor:grabbing}
+.bp-tars figcaption{text-align:center}
+.bp-stage[hidden] + figcaption{display:none}
+/* the two films, as captures off the bench */
+.bp-caps{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-2)}
+.bp-caps figure{margin:0}
+.bp-caps video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border:1.5px solid var(--ink);background:#000}
+.bp-photo{margin:0}
+.bp-photo img{display:block;width:100%;height:auto}
+.bp-photo figcaption,.bp-tars figcaption,.bp-caps figcaption{margin-top:10px;font:500 11px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--signal)}
+/* under the drawing: the real one, the story, and the two films */
+.bp-notes{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1fr);gap:var(--sp-5);align-items:center;margin-top:var(--sp-5);padding-top:var(--sp-3);border-top:1.5px solid var(--ink)}
+.bp-notes > div > p:not(.kicker,.wk-taught){color:var(--muted);margin:0}
+.bp-notes > div{display:grid;gap:12px;justify-items:start}
+.bp-notes h3{margin:0}
+@media (prefers-reduced-motion:reduce){.sch > li + li::before{animation:none}}
+
+/* ---------- Sheet 3: cureVision ----------
+   On the paper like the rest: the device with its screen called out in red pencil, and beside it the rating plate off
+   its back, screwed to the sheet, with the result stamped across it. */
+.cv{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:var(--sp-5);align-items:center}
+.cv-fig{margin:0}
+.cv-dev{position:relative}
+.cv-dev img{display:block;width:100%;height:auto;filter:drop-shadow(0 22px 20px rgba(40,30,10,.2))}
+.cv-dev svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.cv-dev path{fill:none;stroke:var(--signal);stroke-width:1.25;vector-effect:non-scaling-stroke}
+.cv-dev i{position:absolute;width:7px;height:7px;margin:-3.5px;border-radius:50%;background:var(--signal)}
+.cv-dev span{position:absolute;translate:-100% -50%;padding-right:8px;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;color:var(--signal)}
+.cv-dev span.r{translate:0 -50%;padding:0 0 0 8px}
+.cv-fig figcaption{margin-top:var(--sp-2);font:500 11px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--signal)}
+/* the plate: brushed metal, a screw in each corner, its lines engraved; the labels boxed the way a device label boxes REF and SN */
+.plate{position:relative;justify-self:center;width:min(100%,400px);padding:30px 34px 26px;border:1.5px solid var(--ink);border-radius:12px;
+  background:#D9D6CC url(/assets/textures/plate-metal.webp) center/cover;
+  box-shadow:0 1px 0 #fff inset,0 14px 22px -14px rgba(40,30,10,.45);rotate:-1.2deg}
+.screw{position:absolute;width:11px;height:11px;border:1.5px solid var(--ink);border-radius:50%;background:linear-gradient(45deg,transparent 44%,var(--ink) 44% 56%,transparent 56%),#C9C6BA}
+.screw:nth-of-type(1){left:10px;top:10px}.screw:nth-of-type(2){right:10px;top:10px;rotate:50deg}.screw:nth-of-type(3){left:10px;bottom:10px;rotate:80deg}.screw:nth-of-type(4){right:10px;bottom:10px;rotate:20deg}
+.plate-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 14px;padding-bottom:12px;border-bottom:1.5px solid var(--ink)}
+.plate-h b{font:700 26px/1 var(--sans);letter-spacing:-.02em}
+.plate-h span,.plate-code span{font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.plate dl{margin:0;display:grid;gap:9px}
+.plate dl div{display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;align-items:center;font-size:var(--fs-s);line-height:1.3}
+.plate dt{padding:4px 0;border:1.5px solid var(--ink);font:500 10px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;text-align:center}
+.plate dd{margin:0}
+.plate-code{display:flex;align-items:flex-end;gap:12px;margin:18px 0 0}
+.plate-code i{flex:none;width:120px;height:26px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 3px,var(--ink) 3px 4px,transparent 4px 7px,var(--ink) 7px 10px,transparent 10px 12px)}
+/* the result, rubber-stamped across the plate's corner in the page's red */
+.stamp{position:absolute;right:-34px;bottom:-40px;display:grid;place-content:center;justify-items:center;gap:3px;width:138px;height:138px;margin:0;border:3px solid var(--signal);border-radius:50%;outline:1.5px solid var(--signal);outline-offset:-9px;color:var(--signal);rotate:-13deg;mix-blend-mode:multiply;text-align:center;transition:scale .35s cubic-bezier(.2,1.6,.4,1) .5s,opacity .2s .5s}
+.stamp b{font:700 34px/1 var(--sans);font-stretch:75%;letter-spacing:-.02em}
+.stamp span{font:500 9px/1.25 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.js .plate:not(.shown) .stamp{scale:1.7;opacity:0}
+
+/* ---------- Sheet 4: the kiosk, as an installation drawing ----------
+   An elevation: the screen on its stand with the film playing in it, him standing beside it, a hatched floor under both. */
+.kio{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,220px);gap:var(--sp-5);align-items:center}
+.kio figure{margin:0}
+.kio-el{position:relative;display:flex;align-items:flex-end;gap:var(--sp-3);padding:0 var(--sp-3) 14px;
+  background:repeating-linear-gradient(135deg,var(--ink) 0 1.5px,transparent 1.5px 8px) 0 100%/100% 12px no-repeat;border-bottom:1.5px solid var(--ink)}
+.kio-el::after{content:"";position:absolute;left:0;right:0;bottom:12px;border-top:1.5px solid var(--ink)}
+/* the screen: a thick bezel, then a pole and a foot drawn under it */
+.kio-stand{position:relative;width:150px;padding-bottom:104px}
+.kio-stand video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border:7px solid var(--ink);border-radius:8px;background:#000}
+.kio-stand::before{content:"";position:absolute;left:50%;bottom:8px;width:10px;height:100px;margin-left:-5px;background:var(--raised);border:1.5px solid var(--ink)}
+.kio-stand::after{content:"";position:absolute;left:18%;right:18%;bottom:0;height:9px;background:var(--raised);border:1.5px solid var(--ink);border-radius:3px 3px 0 0}
+/* a figure for scale, the way an elevation has one */
+.kio-man{height:214px;width:auto;overflow:visible}
+.kio-man *{fill:var(--raised);stroke:var(--ink);stroke-width:1.5;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.kio figcaption{margin-top:12px;font:500 11px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--signal)}
+.kio-text{display:grid;gap:12px}
+.kio-text h3{margin:0}
+.kio-notes{list-style:none;padding:0;margin:6px 0 0;border-top:1.5px solid var(--ink)}
+.kio-notes li{display:grid;grid-template-columns:84px minmax(0,1fr);gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:var(--fs-s)}
+.kio-notes li > span{font:500 11px/1.8 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--signal)}
+.kio-photo img{display:block;width:100%;height:auto;border:1.5px solid var(--ink);padding:8px 8px 0;background:var(--raised)}
+.kio-photo figcaption{margin:0;padding:8px;border:1.5px solid var(--ink);border-top:0;background:var(--raised)}
+
+/* ---------- the way out: a selector panel ----------
+   Yolk's own dial on a faceplate, with a position for each of the other pages. Pointing at a page turns the dial to it
+   (--to, set per row below) and lights its lamp. */
+.pg-hw .others .kicker{color:var(--signal);margin-bottom:var(--sp-2)}
+.sel{--to:0deg;--ink:#141414;--muted:#5F5E58;--line:#D6D2C4;--signal:#E0442A;--signal-soft:#F7DDD6;color:var(--ink);display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--sp-5);align-items:center;margin-top:var(--sp-4);padding:var(--sp-4) var(--sp-5);border:1.5px solid var(--ink);border-radius:10px;background:var(--raised) url(/assets/textures/panel-coat.webp) center/cover;box-shadow:0 1px 0 #fff inset,0 16px 24px -18px rgba(40,30,10,.5)}
+.sel-dial{display:grid;place-items:center;width:210px;aspect-ratio:1;border-radius:50%;
+  background:repeating-conic-gradient(from -1deg,var(--ink) 0 2deg,transparent 2deg 15deg);-webkit-mask:radial-gradient(circle,#000 0 calc(50% - 16px),transparent calc(50% - 15px) calc(50% - 8px),#000 calc(50% - 7px));mask:radial-gradient(circle,#000 0 calc(50% - 16px),transparent calc(50% - 15px) calc(50% - 8px),#000 calc(50% - 7px))}
+.sel-knob{display:grid;align-items:center;justify-items:end;width:150px;aspect-ratio:1;border-radius:50%;rotate:var(--to);transition:rotate .45s cubic-bezier(.3,1.5,.5,1);
+  background:radial-gradient(circle,#333 0 56%,transparent 57%),repeating-conic-gradient(#111 0 4deg,#3a3a3a 4deg 8deg);box-shadow:0 10px 18px -8px rgba(20,20,20,.6)}
+.sel-knob i{width:34px;height:12px;margin-right:26px;border-radius:6px;background:var(--yolk)}
+.sel:has(li:nth-child(1) a:is(:hover,:focus-visible)){--to:-27deg}
+.sel:has(li:nth-child(3) a:is(:hover,:focus-visible)){--to:27deg}
+.sel-list{list-style:none;margin:0;padding:0;border-top:1.5px solid var(--ink)}
+.sel-list a{display:grid;grid-template-columns:auto 64px minmax(0,.7fr) minmax(0,1.3fr) auto;gap:var(--sp-3);align-items:center;padding:20px 4px;border-bottom:1.5px solid var(--ink);color:var(--ink);text-decoration:none}
+.lamp{width:12px;height:12px;border:1.5px solid var(--ink);border-radius:50%;background:var(--line);transition:background-color .2s,box-shadow .2s}
+.sel-n{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.sel-list b{font:600 clamp(20px,1.8vw,25px)/1.2 var(--sans);letter-spacing:-.02em}
+.sel-d{font-size:var(--fs-s);color:var(--muted)}
+.sel-list .ar{transition:translate .25s var(--ease)}
+.sel-list a:is(:hover,:focus-visible) .lamp{background:var(--signal);box-shadow:0 0 0 4px var(--signal-soft)}
+.sel-list a:is(:hover,:focus-visible) .ar{translate:5px 0;color:var(--signal)}
 
 @media (max-width:760px){
   .tblock{grid-template-columns:repeat(2,minmax(0,1fr))}
   .tblock div{border-left:0;border-top:1.5px solid var(--ink)}
   .tblock div:nth-child(-n+2){border-top:0}
+  .pg-hw .role-side{display:flex;min-height:0}
+  .yk-slot[data-yk="cover"]{height:300px}
+  .tb-row .sprite-fig{display:none}
   .xp{height:auto}
-  .xp-stage{position:relative;height:auto;grid-template-columns:minmax(0,1fr);row-gap:var(--sp-3)}
-  .xp-scene{height:420px}
-  .xp-rig{width:200px}
+  .xp-stage{position:relative;height:auto;grid-template-columns:minmax(0,1fr);row-gap:var(--sp-3);padding-block:0}
+  .yk-slot[data-yk="apart"]{height:460px}
   .xp-hint{display:none}
-  .sheet-row,.fs{grid-template-columns:minmax(0,1fr)}
-  .fs.flip .fs-media{order:0}
+  .bom li > span:last-child{display:block}
+  .yk-row{grid-template-columns:minmax(0,1fr);gap:var(--sp-4)}
+  .yk-photo{width:70%}
+  .cv{grid-template-columns:minmax(0,1fr);gap:var(--sp-5)}
+  .cv-dev span{font-size:9px}
+  .cv-dev span.r{translate:-100% 50%;padding:8px 0 0}   /* no room to the right of the device on a phone: the label hangs under the end of its line */
+  .stamp{right:-6px;bottom:-56px}
+  .plate{margin-bottom:var(--sp-5)}
+  .kio-man{height:190px}
+  .sel{grid-template-columns:minmax(0,1fr);padding:var(--sp-3)}
+  .sel-dial{width:150px;justify-self:center}
+  .sel-knob{width:104px}
+  .sel-knob i{width:24px;height:9px;margin-right:18px}
+  .sel-list a{grid-template-columns:auto minmax(0,1fr) auto;gap:4px 12px}
+  .sel-n{display:none}
+  .sel-d{grid-column:2}
+  .sel-list .ar{grid-column:3;grid-row:1}
+  .bp-row,.bp-notes{grid-template-columns:minmax(0,1fr)}
+  .bp-notes{gap:var(--sp-3)}
+  .sch{--wire:28px;grid-template-columns:minmax(0,1fr)}
+  .bp-stage{height:340px}
+  .bp-photo{width:70%}
+  .sch > li + li::before{right:auto;left:50%;top:auto;bottom:100%;width:1.5px;height:var(--wire);margin:0;background:repeating-linear-gradient(var(--ink) 0 6px,transparent 6px 12px);animation-name:bp-fall}
+  .sch > li + li::after{right:auto;left:50%;top:auto;bottom:100%;margin:0 0 -1px -4px;border:4px solid transparent;border-top:7px solid var(--ink);border-bottom:0}
 }
+@media (prefers-reduced-motion:reduce){.xp{height:auto}.xp-stage{position:relative}.xp-hint{display:none}}
+@keyframes bp-fall{to{background-position:0 12px}}

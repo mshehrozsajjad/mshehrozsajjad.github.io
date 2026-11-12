@@ -1652,7 +1652,7 @@ footer a{text-underline-offset:4px}
 
 <footer>
   <div class="wrap">
-    <span>mshehrozsajjad@gmail.com <button class="copy" type="button" id="copy">Copy</button></span>
+    <span>hello@shehrozsajjad.com <button class="copy" type="button" id="copy">Copy</button></span>
     <span><a href="https://github.com/mshehrozsajjad" target="_blank" rel="noopener">GitHub</a> · LinkedIn · Cal.com · Impressum · Datenschutz</span>
     <span>Prototype · placeholders mark where real media goes</span>
   </div>
@@ -2194,8 +2194,8 @@ $('#nl').addEventListener('submit', e => {
   e.preventDefault(); const v = $('#nl-email').value.trim();
   $('#nl-msg').textContent = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? 'Thanks. Sign-up isn’t connected yet, so your email hasn’t been saved.' : 'That email looks off. Check it and try again.';
 });
-$('#book').addEventListener('click', () => { $('#book-msg').textContent = 'The booking link is coming soon. Until then, email me at mshehrozsajjad@gmail.com.'; });
-$('#copy').addEventListener('click', async e => { const b = e.currentTarget; try { await navigator.clipboard.writeText('mshehrozsajjad@gmail.com'); b.textContent = 'Copied'; } catch(_) { b.textContent = 'Select it'; } setTimeout(() => b.textContent = 'Copy', 1800); });
+$('#book').addEventListener('click', () => { $('#book-msg').textContent = 'The booking link is coming soon. Until then, email me at hello@shehrozsajjad.com.'; });
+$('#copy').addEventListener('click', async e => { const b = e.currentTarget; try { await navigator.clipboard.writeText('hello@shehrozsajjad.com'); b.textContent = 'Copied'; } catch(_) { b.textContent = 'Select it'; } setTimeout(() => b.textContent = 'Copy', 1800); });
 
 /* drawers */
 const scrim = $('#scrim'); let lastFocus = null;
@@ -2217,8 +2217,8 @@ const A = {
   saas:{t:"myClosr, Slaptastic, Vorsprech and NPC Filter are live. RoomRush got 50 signups in its first 10 minutes, but the unit economics didn't hold, so I stopped it.", go:['Open the lab', () => labOpen('software','roomrush')]},
   oss:{t:"reels-in-code, the LiveKit JS plugin for Beyond Presence avatars, and free n8n workflows for using Beyond Presence.", go:['Show me', () => labOpen('given','reels')]},
   story:{t:"Design work in my first semester, then my own apps, then CodeJunkie, which I co-founded and ran as CTO with 25 people. Then product work at Keyhole, a top German car company and cureVision, and Beyond Presence at pre-seed, before there was a product.", go:['Walk the story', () => go('#story')]},
-  hire:{t:"Book a call or email me at mshehrozsajjad@gmail.com. Tell me what you're building and where it's stuck.", go:['Book a call', () => go('#contact')]},
-  none:{t:"I don't know that one, and I only answer from what I've confirmed. Email me at mshehrozsajjad@gmail.com.", go:null}
+  hire:{t:"Book a call or email me at hello@shehrozsajjad.com. Tell me what you're building and where it's stuck.", go:['Book a call', () => go('#contact')]},
+  none:{t:"I don't know that one, and I only answer from what I've confirmed. Email me at hello@shehrozsajjad.com.", go:null}
 };
 function route(q){
   const s = q.toLowerCase();

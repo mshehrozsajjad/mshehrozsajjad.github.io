@@ -1,0 +1,194 @@
+/* ===== /tars: Sheet 2 of the hardware page, at full length =====
+   The whole page is the blueprint: white line on blue, the accent in Yolk yellow (the tokens come from hardware.css,
+   shared with that page's TARS sheet). story-page.css still runs the humor dial and the copy it switches. This file
+   gives each chapter the instrument or drawing that tells it: two panel meters, a chart recorder, an elevation, a
+   bank of readouts, a revision table. */
+.pg-bp body{--sig0:var(--yolk)}                       /* what the humor dial drains: yellow here, not the site's blue */
+.pg-bp:not(.has-dial) :is(main,.ft){--signal:var(--yolk)}
+.pg-bp .btn{background:var(--yolk);color:#141414}
+.pg-bp .st-hw{font:italic 400 1em/1 var(--serif);transform:none}   /* the headline's handwritten word, set like the page's other accents */
+.pg-bp .m-film{border:1.5px solid var(--ink);border-radius:0;box-shadow:none}
+.pg-bp .dial{border-color:var(--line)}
+.pg-bp .tblock{margin-top:var(--sp-4)}
+.pg-bp .tblock a{color:var(--signal);text-decoration:none}
+.pg-bp .others .kicker{color:var(--signal);margin-bottom:var(--sp-2)}
+.pg-bp .ch{padding-block:var(--sp-6)}
+.tr-cap{margin:12px 0 0;font:500 11px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--signal)}
+
+/* the header that comes back on the way up is a strip of the same sheet, not of the paper */
+.pg-bp:not(.menu-on) .top.solid{background:color-mix(in srgb,var(--bp) 90%,transparent);border-bottom:1px solid var(--line)}
+
+/* the way back to the sheet this page belongs to */
+.bp-back{display:inline-flex;align-items:center;gap:8px;margin-bottom:var(--sp-3);padding:8px 12px;border:1.5px solid var(--ink);font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:background-color .2s,color .2s}
+.bp-back:is(:hover,:focus-visible){background:var(--ink);color:var(--bp)}
+.bp-back .ar{rotate:180deg}
+
+/* the footer stays on the sheet: the same blue and grid, the drawing of Munich in white line */
+.pg-bp .ft{--paper:var(--bp);--on-signal:#141414;border-top:1.5px solid var(--ink);color-scheme:dark}
+.pg-bp .ft-film{filter:invert(1) grayscale(1) brightness(1.5);mix-blend-mode:screen;opacity:.8}
+
+/* ---------- the hero: the robot on a test bench, and under it the console that sets its humor ---------- */
+.pg-bp .st-hero > .wrap{grid-template-columns:minmax(0,1fr) clamp(320px,38vw,460px)}
+.pg-bp .st-stage{height:clamp(300px,46vh,440px);border-bottom:1.5px solid var(--ink);background:repeating-linear-gradient(135deg,var(--line) 0 1.5px,transparent 1.5px 8px) 0 100%/100% 12px no-repeat}
+.pg-bp .st-stage::after{left:22%;right:22%;bottom:12px;background:radial-gradient(closest-side,rgba(5,18,36,.75),transparent)}
+.tr-bench-cap{margin:8px 0 0;text-align:center}
+/* the console: a ruled panel, a lit readout, and the setting as twenty segments */
+.tr-console{display:grid;gap:10px;padding:16px 18px 14px;border:1.5px solid var(--ink);background:#0B2747;box-shadow:0 18px 30px -22px rgba(0,0,0,.8)}
+.pg-bp .st-dial-row{align-items:center}
+.pg-bp .st-dial-n{padding:6px 12px 4px;border:1.5px solid var(--line);background:#071C36;font:500 clamp(34px,3.6vw,52px)/1 var(--mono);letter-spacing:-.04em;scale:1;text-shadow:0 0 18px color-mix(in srgb,var(--signal) 70%,transparent)}
+.pg-bp .st-range{height:40px}
+/* until someone has touched it, the handle breathes, so it is plainly a thing to drag */
+.pg-bp:not(.hm-live) .tr-console{animation:tr-ask 2.4s ease-in-out 1.5s 3}
+@keyframes tr-ask{50%{box-shadow:0 0 0 3px color-mix(in srgb,var(--yolk) 55%,transparent),0 18px 30px -22px rgba(0,0,0,.8)}}
+.pg-bp .st-range::-webkit-slider-runnable-track{height:20px;border-radius:0;-webkit-mask:repeating-linear-gradient(90deg,#000 0 calc(5% - 3px),transparent 0 5%);mask:repeating-linear-gradient(90deg,#000 0 calc(5% - 3px),transparent 0 5%)}
+.pg-bp .st-range::-moz-range-track{height:20px;border-radius:0;mask:repeating-linear-gradient(90deg,#000 0 calc(5% - 3px),transparent 0 5%)}
+.pg-bp .st-range::-webkit-slider-thumb{width:34px;height:34px;margin-top:-7px;border-radius:50%;background:var(--ink);border:3px solid #0B2747;box-shadow:0 0 0 2.5px var(--yolk),0 0 0 9px color-mix(in srgb,var(--yolk) 22%,transparent),0 8px 16px -6px rgba(0,0,0,.7);transition:scale .16s ease-out}
+.pg-bp .st-range:hover::-webkit-slider-thumb{scale:1.1}
+.pg-bp .st-range::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:var(--ink);border:3px solid #0B2747;box-shadow:0 0 0 2.5px var(--yolk),0 0 0 9px color-mix(in srgb,var(--yolk) 22%,transparent)}
+.pg-bp .st-dial-hint{margin-top:10px}
+
+/* ---------- 01: the headline, measured ----------
+   Two dimension lines to one scale: two years of AI runs the width of the sheet; the soldering beside it is too short
+   to letter, so its figure hangs underneath. Then the same thing on two panel meters. */
+.tr-conf{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) auto;gap:var(--sp-4) var(--sp-5);align-items:center}
+.tr-conf h2{grid-column:1 / -1;max-width:none}
+.tr-conf .st-text{margin:0;max-width:none;font-size:var(--fs-body)}
+.tr-span{grid-column:1 / -1;display:grid;grid-template-columns:minmax(0,1fr) 18px;gap:34px;margin:var(--sp-2) 0;padding-top:30px}
+.tr-span div{position:relative;height:58px;border-inline:2px solid var(--ink)}
+/* the dimension line itself, drawn out from the left, with a mark for every month hanging under it */
+.tr-span div::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:2px solid var(--ink);transform-origin:0 50%;transition:scale 1.8s var(--ease) .2s}
+.sp-long{background:repeating-linear-gradient(90deg,var(--line) 0 1.5px,transparent 1.5px calc(100%/24)) 0 100%/100% 14px no-repeat,linear-gradient(var(--ink),var(--ink)) 50% 100%/1.5px 22px no-repeat}
+.js .tr-span:not(.shown) div::before{scale:0 1}
+.tr-span span{position:absolute;left:50%;top:50%;translate:-50% -50%;padding:0 18px;background:var(--bp);font:600 clamp(16px,2vw,26px)/1 var(--sans);letter-spacing:-.01em;white-space:nowrap}
+.tr-span i{position:absolute;top:calc(100% + 8px);translate:-50% 0;font:500 10px/1 var(--mono);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.tr-span i:nth-of-type(1){left:25%}.tr-span i:nth-of-type(2){left:75%}
+.sp-short{border-color:var(--yolk)!important}
+.sp-short::before{border-color:var(--yolk)!important}
+.sp-short span{left:auto;right:-2px;top:auto;bottom:calc(100% + 12px);translate:none;padding:0;background:none;font:500 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--yolk)}
+.sp-short span::after{content:"";position:absolute;right:10px;top:100%;height:11px;border-left:1.5px solid var(--yolk)}
+.js .tr-span .sp-short{transition:opacity .3s 1.9s}
+.js .tr-span:not(.shown) .sp-short{opacity:0}
+.tr-meters{display:contents}
+.tr-meters .gauge{align-self:center}
+.tr-meters .sprite{--h:190px;align-self:end}
+.tr-gauges{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-2)}
+.gauge{min-width:0;margin:0;padding:14px 14px 12px;border:1.5px solid var(--ink);background:#0B2747}
+.g-face{position:relative;aspect-ratio:2/1;overflow:hidden}
+/* the scale: a half ring of ticks */
+.g-face::before{content:"";position:absolute;left:0;top:0;width:100%;aspect-ratio:1;border-radius:50%;
+  background:repeating-conic-gradient(from -90.75deg,var(--ink) 0 1.5deg,transparent 1.5deg 15deg);
+  -webkit-mask:radial-gradient(closest-side,transparent 0 80%,#000 81% 96%,transparent 97%);mask:radial-gradient(closest-side,transparent 0 80%,#000 81% 96%,transparent 97%)}
+.g-face::after{content:"";position:absolute;left:50%;bottom:-7px;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--ink)}
+.g-face i{position:absolute;left:50%;bottom:0;width:2px;height:82%;margin-left:-1px;background:var(--yolk);transform-origin:50% 100%;rotate:-82deg;transition:rotate 1.3s cubic-bezier(.3,1.5,.4,1) .3s}
+.js .tr-meters.shown .g-full i,html:not(.js) .g-full i{rotate:80deg}
+.js .tr-meters.shown .g-zero i{animation:g-twitch 1.6s ease-out 1.5s both}
+@keyframes g-twitch{0%{rotate:-82deg}25%{rotate:-60deg}45%{rotate:-80deg}62%{rotate:-70deg}100%{rotate:-76deg}}
+.gauge figcaption{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px;margin-top:10px;padding-top:8px;border-top:1px solid var(--line);font:500 11px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--signal)}
+.gauge b{font-weight:500;color:var(--ink)}
+/* the credit, set as the drawing's notes */
+.tr-notes{grid-column:1 / -1;display:grid;grid-template-columns:84px minmax(0,1fr);gap:12px;margin:0;padding-top:12px;border-top:1.5px solid var(--ink);max-width:none;color:var(--muted)}
+.tr-notes b{font:500 11px/1.8 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--signal)}
+
+/* ---------- 02: the falls, on a chart recorder the width of the sheet ---------- */
+.tr-walk{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,230px);gap:var(--sp-4) var(--sp-5);align-items:center}
+.tr-walk > .dot{left:-30px;top:12px}
+.tr-walk figure{margin:0}
+.tr-walk .wk-text > p{font-size:var(--fs-lead);max-width:44ch}
+.tr-walk .wk-text h2{font-size:var(--fs-h2,clamp(34px,4.4vw,60px));line-height:1.02;max-width:none}
+.tr-shot .m-film{width:100%}
+.tr-shot video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover}
+.strip{grid-column:1 / -1;border:1.5px solid var(--ink);background:#0B2747}
+.strip-bar{display:flex;flex-wrap:wrap;gap:6px 22px;margin:0;padding:10px 14px;border-bottom:1.5px solid var(--ink);font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.strip-bar .rec{color:var(--yolk)}
+.strip-bar .rec::before{content:"";display:inline-block;width:8px;height:8px;margin-right:7px;border-radius:50%;background:#E0442A;animation:rec 1.2s steps(2,start) infinite}
+@keyframes rec{to{opacity:.2}}
+/* the roll: chart paper ruled in fifths and twentieths, the trace drawn across it */
+.strip-roll{position:relative;height:clamp(170px,24vw,260px);background:linear-gradient(var(--line) 1px,transparent 1px) 0 0/100% 20%,linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/5% 100%}
+.strip-roll svg{display:block;width:100%;height:100%}
+.strip .trace{fill:none;stroke:var(--yolk);stroke-width:2.5;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:0;filter:drop-shadow(0 0 6px color-mix(in srgb,var(--yolk) 70%,transparent));transition:stroke-dashoffset 3.6s linear .3s}
+.js .strip:not(.shown) .trace{stroke-dashoffset:1}
+.strip-roll span{position:absolute;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.strip-roll .fell{top:5%;translate:-50% 0;transition:opacity .25s calc(.9s + var(--i)*.48s)}
+.strip-roll .walks{top:52%;translate:-50% 0;padding:5px 8px;border:1.5px solid var(--yolk);color:var(--yolk);transition:opacity .3s 3.5s}
+.strip-roll .ax{left:8px;color:var(--muted)}
+.js .strip:not(.shown) :is(.fell,.walks){opacity:0}
+
+/* ---------- 03: the face, in front elevation ----------
+   Three slabs ruled into panels, and the one opening that matters, with the avatar live in it. Beside it, what sits
+   behind that opening, layer by layer. */
+.tr-face{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px) minmax(0,190px);grid-template-areas:"t e s" "c e s";gap:var(--sp-3) var(--sp-5);align-items:center}
+.tr-face > .dot{left:-30px;top:12px}
+.tr-face figure{margin:0}
+.tr-face .wk-text{grid-area:t;align-self:end}
+.tr-face .tr-shot{grid-area:s}
+.tr-el{grid-area:e}
+/* the drawing stands on a datum line, between two height marks */
+.el-stage{height:clamp(340px,50vh,480px);border-bottom:1.5px solid var(--ink);background:repeating-linear-gradient(135deg,var(--line) 0 1.5px,transparent 1.5px 8px) 0 100%/100% 12px no-repeat}
+.el-stage canvas{display:block;width:100%;height:100%;touch-action:pan-y;cursor:grab}
+.el-stage canvas:active{cursor:grabbing}
+.tr-el .tr-cap{text-align:center}
+/* what sits behind the opening, layer by layer */
+.el-call{grid-area:c;align-self:start;display:grid;gap:0;margin:0;padding:0;list-style:none;counter-reset:lay;border-top:1.5px solid var(--ink)}
+.el-call li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:var(--fs-s);counter-increment:lay}
+.el-call li::before{content:counter(lay,decimal-leading-zero);font:500 11px/1.8 var(--mono);letter-spacing:.08em;color:var(--signal)}
+
+/* ---------- 04: the bill comes out of a printer on the sheet ---------- */
+.pg-bp .st-receipt{position:relative;padding-top:30px}
+.pg-bp .st-receipt::before{content:"Cost printer";position:absolute;left:-14px;right:-14px;top:0;z-index:1;height:34px;display:grid;place-items:center;border:1.5px solid var(--ink);border-radius:4px;background:#0B2747;font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);box-shadow:0 5px 0 -2px #071C36}
+
+/* ---------- 05: the numbers as a bank of readouts, and the post on a scope ---------- */
+.tr-impact{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:var(--sp-5);align-items:center}
+.pg-bp .st-nums{gap:var(--sp-2)}
+.pg-bp .st-nums div{display:flex;flex-direction:column-reverse;padding:12px 14px 14px;border:1.5px solid var(--ink);background:#0B2747}
+.pg-bp .st-nums dt{font:500 clamp(26px,3.3vw,46px)/1 var(--mono);letter-spacing:-.04em;font-variant-numeric:tabular-nums;text-shadow:0 0 18px color-mix(in srgb,var(--signal) 55%,transparent)}
+.pg-bp .st-nums dd{margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid var(--line);font:500 10px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.scope{margin:0;justify-self:center;width:min(100%,380px)}
+/* the screen: range rings and a cross, a sweep going round, and a blip wherever the sweep has just passed */
+.sc{position:relative;aspect-ratio:1;border:1.5px solid var(--ink);border-radius:50%;overflow:hidden;
+  background:linear-gradient(var(--line),var(--line)) 50% 0/1px 100% no-repeat,linear-gradient(var(--line),var(--line)) 0 50%/100% 1px no-repeat,
+  repeating-radial-gradient(circle,transparent 0 calc(12.5% - 1px),var(--line) calc(12.5% - 1px) 12.5%),#0B2747}
+.sc i{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 78%,color-mix(in srgb,var(--yolk) 55%,transparent) 100%);animation:sweep 5s linear infinite}
+@keyframes sweep{to{rotate:360deg}}
+.sc b{position:absolute;width:7px;height:7px;margin:-3.5px;border-radius:50%;background:var(--yolk);box-shadow:0 0 10px 2px color-mix(in srgb,var(--yolk) 70%,transparent);opacity:.12;animation:blip 5s linear infinite;animation-delay:var(--d)}
+@keyframes blip{0%{opacity:1;scale:1.5}18%{opacity:.75;scale:1}70%,100%{opacity:.12}}
+.sc span{position:absolute;left:50%;top:50%;translate:-50% -50%;padding:5px 8px;border:1.5px solid var(--ink);background:var(--bp);font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.scope figcaption{text-align:center}
+
+/* ---------- 06: what he learnt, as the drawing's revision table ---------- */
+.tr-rev-h,.pg-bp .st-learnt li{display:grid;grid-template-columns:64px minmax(0,1fr) minmax(0,1.3fr);gap:var(--sp-3);align-items:baseline;max-width:none}
+.tr-rev-h{margin:var(--sp-4) 0 0;padding:10px 14px;border:1.5px solid var(--ink);border-bottom:0;color:var(--muted)}
+.pg-bp .st-learnt{gap:0;margin:0;border:1.5px solid var(--ink);counter-reset:rev}
+.pg-bp .st-learnt li{padding:16px 14px;border-top:1px solid var(--line);counter-increment:rev}
+.pg-bp .st-learnt li:first-child{border-top:0}
+.pg-bp .st-learnt li::before{content:counter(rev,upper-alpha);font:500 var(--fs-body)/1.2 var(--mono);color:var(--signal)}
+.pg-bp .st-learnt .dot{display:none}
+.pg-bp .st-learnt h3{margin:0;font-size:var(--fs-body);line-height:1.3;letter-spacing:-.01em}
+.pg-bp .st-learnt p{margin:0;font-size:var(--fs-s)}
+
+@media (max-width:900px){
+  .tr-conf{grid-template-columns:minmax(0,1fr) auto}
+  .tr-conf .st-text{grid-column:1 / -1}
+  .tr-face{grid-template-columns:minmax(0,1fr) minmax(0,170px);grid-template-areas:"t t" "e e" "c s"}
+  .tr-impact{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:760px){
+  .pg-bp .ch{padding-block:var(--sp-5)}
+  .pg-bp .st-hero > .wrap{grid-template-columns:minmax(0,1fr)}
+  .tr-conf{grid-template-columns:minmax(0,1fr)}
+  .tr-meters .sprite{display:none}
+  .tr-span div{height:44px}
+  .tr-face{grid-template-columns:minmax(0,1fr);grid-template-areas:"t" "e" "c" "s"}
+  .tr-notes{grid-template-columns:minmax(0,1fr);gap:4px}
+  .tr-walk{grid-template-columns:minmax(0,1fr)}
+  .tr-shot{width:60%}
+  .strip-bar span:nth-child(n+3){display:none}
+  .pg-bp .st-nums{grid-template-columns:minmax(0,1fr)}
+  .tr-rev-h{display:none}
+  .pg-bp .st-learnt li{grid-template-columns:32px minmax(0,1fr)}
+  .pg-bp .st-learnt p{grid-column:2}
+}
+@media (prefers-reduced-motion:reduce){
+  .g-face i,.strip .trace,.tr-span div::before{transition:none}
+  .js .tr-meters.shown .g-zero i,.sc i,.sc b,.strip-bar .rec::before{animation:none}
+  .sc b{opacity:.8}
+}

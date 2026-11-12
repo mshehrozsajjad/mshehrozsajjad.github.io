@@ -596,9 +596,9 @@ $('#nl').addEventListener('submit', e => {
   e.preventDefault(); const v = $('#nl-email').value.trim();
   $('#nl-msg').textContent = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? 'Thanks. Sign-up isn’t connected yet, so your email hasn’t been saved.' : 'That email looks off. Check it and try again.';
 });
-$('#book').addEventListener('click', () => { $('#book-msg').textContent = 'The booking link is coming soon. Until then, email me at mshehrozsajjad@gmail.com.'; });
+$('#book').addEventListener('click', () => { $('#book-msg').textContent = 'The booking link is coming soon. Until then, email me at hello@shehrozsajjad.com.'; });
 // the "copied!" note is drawn by the micro layer below; only a failed copy changes the hint
-$('#copy').addEventListener('click', async () => { try { await navigator.clipboard.writeText('mshehrozsajjad@gmail.com'); } catch(_) { const h = $('#copy-hint'); h.textContent = 'select it'; setTimeout(() => h.textContent = 'tap to copy', 1800); } });
+$('#copy').addEventListener('click', async () => { try { await navigator.clipboard.writeText('hello@shehrozsajjad.com'); } catch(_) { const h = $('#copy-hint'); h.textContent = 'select it'; setTimeout(() => h.textContent = 'tap to copy', 1800); } });
 
 /* drawers */
 const scrim = $('#scrim'); let lastFocus = null;
@@ -620,8 +620,8 @@ const A = {
   saas:{t:"myClosr, Slaptastic, Vorsprech and NPC Filter are live. RoomRush got 50 signups in its first 10 minutes, but the unit economics didn't hold, so I stopped it.", go:['Open the lab', () => labOpen('software','roomrush')]},
   oss:{t:"reels-in-code, the LiveKit JS plugin for Beyond Presence avatars, and free n8n workflows for using Beyond Presence.", go:['Show me', () => labOpen('opensource','reels')]},
   story:{t:"Design work in my first semester, then my own apps, then CodeJunkie, the award-winning agency I co-founded. Then product work at Keyhole, a top German car company and cureVision, and Beyond Presence at pre-seed, before there was a product.", go:['Walk the story', () => go('#story')]},
-  hire:{t:"Book a call or email me at mshehrozsajjad@gmail.com. Tell me what you're building and where it's stuck.", go:['Book a call', () => go('#contact')]},
-  none:{t:"I don't know that one, and I only answer from what I've confirmed. Email me at mshehrozsajjad@gmail.com.", go:null}
+  hire:{t:"Book a call or email me at hello@shehrozsajjad.com. Tell me what you're building and where it's stuck.", go:['Book a call', () => go('#contact')]},
+  none:{t:"I don't know that one, and I only answer from what I've confirmed. Email me at hello@shehrozsajjad.com.", go:null}
 };
 function route(q){
   const s = q.toLowerCase();

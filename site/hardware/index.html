@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light" class="pg-hw">
+<html lang="en" data-theme="light" class="pg-hw" data-cursor="plain">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -26,6 +26,7 @@
 </svg>
 <a class="skip-link" href="#h1">Skip to content</a>
 <main id="main">
+<div class="yk-layer" id="ykLayer" aria-hidden="true"></div>
 <svg id="trail" aria-hidden="true"><path id="pMain" style="stroke:var(--signal);stroke-width:2"/></svg>
 
 <!--shell:header-->
@@ -39,10 +40,16 @@
       <div class="hero-actions"><a class="btn" href="#work">Take it apart <svg class="ar" aria-hidden="true"><use href="#i-down"/></svg></a><a class="act" href="#contact">Book a call <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></div>
     </div>
     <div class="hero-side role-side">
-      <figure class="sprite-fig s-role c" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-solder-anim.webp" alt="" aria-hidden="true" width="260" height="431"></figure>
+      <div class="yk-slot" data-yk="cover" role="img" aria-label="Yolk, drawn assembled: a small handheld with a square e-paper screen, a dial in one corner and a loop for a lanyard">
+        <img class="yk-still" src="/assets/media/yolk-built-front.webp" alt="" width="1057" height="1288">
+        <p class="yk-tip" aria-hidden="true">Fig. 0 · Yolk, assembled · drag to turn</p>
+      </div>
     </div>
   </div>
-  <div class="wrap"><dl class="tblock c" aria-label="Drawing details"><div><dt>Drawing</dt><dd>SS-HW-01</dd></div><div><dt>Title</dt><dd>Hardware</dd></div><div><dt>Drawn by</dt><dd>Shehroz Sajjad</dd></div><div><dt>Where</dt><dd>Munich</dd></div><div><dt>Sheets</dt><dd>4</dd></div></dl></div>
+  <div class="wrap tb-row">
+    <dl class="tblock c" aria-label="Drawing details"><div><dt>Drawing</dt><dd>SS-HW-01</dd></div><div><dt>Subject</dt><dd data-yk-size>Yolk</dd></div><div><dt>Drawn by</dt><dd>Shehroz Sajjad</dd></div><div><dt>Where</dt><dd>Munich</dd></div><div><dt>Sheets</dt><dd>4</dd></div></dl>
+    <figure class="sprite-fig s-role c" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-solder-anim.webp" alt="" aria-hidden="true" width="260" height="431"></figure>
+  </div>
   <span class="way wd" data-o="2" data-v style="left:var(--gut);top:calc(100% - 40px)"></span>
 </section>
 <section class="ch role-sec xp-sec" id="work" aria-labelledby="h-work">
@@ -53,45 +60,74 @@
     <div class="xp" id="xp">
       <div class="xp-stage">
         <div class="xp-head c">
-          <p class="kicker">Fig. 1 · Yolk, exploded</p>
+          <p class="kicker">Fig. 1 · Yolk, exploded · parts list</p>
           <h3>My own AI device. <span class="it">It makes my phone calls in German.</span></h3>
         </div>
-        <div class="xp-scene" id="xpScene" aria-hidden="true"><div class="xp-rig"><div class="layer l-back" style="--i:0"><svg class="ply " viewBox="-20 -20 340 420" aria-hidden="true"><rect x="0" y="0" width="300" height="380" rx="46"/><circle cx="40" cy="40" r="16"/><path d="M40 24 C 40 6, 66 -6, 80 10"/><line x1="60" y1="330" x2="60" y2="352"/><line x1="74" y1="330" x2="74" y2="352"/><line x1="88" y1="330" x2="88" y2="352"/><line x1="102" y1="330" x2="102" y2="352"/><line x1="116" y1="330" x2="116" y2="352"/><line x1="130" y1="330" x2="130" y2="352"/></svg></div><div class="layer l-core" style="--i:1"><svg class="ply pcb" viewBox="-20 -20 340 420" aria-hidden="true"><rect x="26" y="40" width="248" height="300" rx="18"/><rect x="50" y="80" width="44" height="34" rx="4"/><rect x="120" y="80" width="44" height="34" rx="4"/><rect x="190" y="80" width="44" height="34" rx="4"/><rect x="50" y="150" width="44" height="34" rx="4"/><rect x="120" y="150" width="44" height="34" rx="4"/><rect x="190" y="150" width="44" height="34" rx="4"/><path d="M50 300 H 250 M70 300 V 270 M130 300 V 280 M190 300 V 266"/></svg></div><div class="layer l-dial" style="--i:2"><svg class="ply part" viewBox="-20 -20 340 420" aria-hidden="true"><circle cx="236" cy="306" r="40"/><circle cx="236" cy="306" r="26"/><line x1="276.0" y1="306.0" x2="282.0" y2="306.0"/><line x1="270.6" y1="326.0" x2="275.8" y2="329.0"/><line x1="256.0" y1="340.6" x2="259.0" y2="345.8"/><line x1="236.0" y1="346.0" x2="236.0" y2="352.0"/><line x1="216.0" y1="340.6" x2="213.0" y2="345.8"/><line x1="201.4" y1="326.0" x2="196.2" y2="329.0"/><line x1="196.0" y1="306.0" x2="190.0" y2="306.0"/><line x1="201.4" y1="286.0" x2="196.2" y2="283.0"/><line x1="216.0" y1="271.4" x2="213.0" y2="266.2"/><line x1="236.0" y1="266.0" x2="236.0" y2="260.0"/><line x1="256.0" y1="271.4" x2="259.0" y2="266.2"/><line x1="270.6" y1="286.0" x2="275.8" y2="283.0"/><rect x="230" y="290" width="12" height="32" rx="6"/></svg></div><div class="layer l-screen" style="--i:3"><svg class="ply part" viewBox="-20 -20 340 420" aria-hidden="true"><rect x="56" y="44" width="188" height="188" rx="10"/><rect x="72" y="60" width="156" height="156" rx="4" class="glass"/><path d="M122 150 c 0 -26, 56 -26, 56 0 v 22 h -56 z"/><circle cx="140" cy="146" r="4"/><circle cx="160" cy="146" r="4"/></svg></div><div class="layer l-front" style="--i:4"><svg class="ply " viewBox="-20 -20 340 420" aria-hidden="true"><rect x="0" y="0" width="300" height="380" rx="46"/><rect x="56" y="44" width="188" height="188" rx="10"/><circle cx="236" cy="306" r="44"/><line x1="14" y1="120" x2="30" y2="120"/><line x1="14" y1="134" x2="30" y2="134"/><line x1="14" y1="148" x2="30" y2="148"/></svg></div></div></div>
-        <ol class="xp-calls c" aria-label="What Yolk is made of"><li class="call-front" style="--i:4"><span class="cn">01</span><b>Front shell</b><span>custom, in Yolk yellow</span></li><li class="call-screen" style="--i:3"><span class="cn">02</span><b>E-paper screen</b><span>low power, readable in daylight</span></li><li class="call-dial" style="--i:2"><span class="cn">03</span><b>Rotary encoder</b><span>the dial: turn to read, press to ask</span></li><li class="call-core" style="--i:1"><span class="cn">04</span><b>Electronics</b><span>designed around Meta’s open-sourced Muse Gadgets</span></li><li class="call-back" style="--i:0"><span class="cn">05</span><b>Back shell</b><span>custom enclosure, with a loop for the lanyard</span></li></ol>
-        <p class="xp-hint" aria-hidden="true"><span class="hand">scroll to take it apart</span></p>
+        <div class="yk-slot" data-yk="apart" aria-hidden="true"></div>
+        <ol class="bom c" aria-label="What Yolk is made of">
+          <li><span class="cn">01</span><b>Dial cap</b><i>printed</i><span>turn to read, press to ask</span></li>
+          <li><span class="cn">02</span><b>Screen surround</b><i>printed</i><span>the frame around the e-paper</span></li>
+          <li><span class="cn">03</span><b>Talk paddle</b><i>printed</i><span>hold it and speak</span></li>
+          <li><span class="cn">04</span><b>Front shell</b><i>printed</i><span>Yolk yellow, with the loop for the lanyard</span></li>
+          <li><span class="cn">05</span><b>Rotary encoder</b><i>EC11</i><span>the click under the dial</span></li>
+          <li><span class="cn">06</span><b>E-paper board</b><i>ESP32-S3</i><span>screen and brain on one board, readable in daylight</span></li>
+          <li><span class="cn">07</span><b>USB-C extension</b><i>66 mm</i><span>the port, brought out to the edge</span></li>
+          <li><span class="cn">08</span><b>Speaker</b><i>bought</i><span>how it talks back</span></li>
+          <li><span class="cn">09</span><b>Battery</b><i>430 mAh</i><span>one 602035 cell</span></li>
+          <li><span class="cn">10</span><b>Rear tray</b><i>printed</i><span>closed with four M3 screws</span></li>
+        </ol>
+        <p class="xp-hint" aria-hidden="true"><span class="h-apart">scroll to take it apart</span><span class="h-print">drawing approved · printing</span></p>
       </div>
     </div>
-    <div class="sheet-row c">
-      <div class="sr-media"><div class="m-duo"><figure><video src="/assets/media/yolk-in-hand.mp4" poster="/assets/media/yolk-in-hand-poster.webp" muted loop playsinline preload="none" aria-label="Yolk in my hand"></video><figcaption>Fig. 1a · in my hand</figcaption></figure><figure><video src="/assets/media/yolk-film.mp4" poster="/assets/media/yolk-film-poster.webp" muted loop playsinline preload="none" aria-label="The Yolk launch film"></video><figcaption>Fig. 1b · the launch film</figcaption></figure></div></div>
-      <div class="sr-text">
+    <div class="yk-row c">
+      <figure class="yk-photo"><img src="/assets/media/yolk-built-front.webp" alt="The Yolk I built: a yellow printed handheld with a black dial and a lanyard, its e-paper screen showing a sleeping mascot and “Press to wake”" loading="lazy" width="1057" height="1288"><figcaption>Fig. 1a · as built</figcaption></figure>
+      <div class="yk-story">
         <p class="kicker">Yolk · launched · waitlist open</p>
         <p>I always wanted a Pokédex. When Meta open-sourced Muse Gadgets, I designed my own device around it: custom hardware, an e-paper screen and a rotary encoder that drives an AI agent.</p>
         <p>It calls on my behalf in German, using what I learned building real-time AI. It waits on hold, says it’s an AI and books the table. So far it has also filled in a refund form and booked water-heater maintenance.</p>
         <p>I made its brand, its website and its launch film.</p>
         <div class="wk-extra"><a class="act" href="https://getyolk.tech" target="_blank" rel="noopener">Join the waitlist <svg class="ar" aria-hidden="true"><use href="#i-ne"/></svg></a></div>
       </div>
+      <div class="yk-films">
+        <figure><video src="/assets/media/yolk-in-hand.mp4" poster="/assets/media/yolk-in-hand-poster.webp" muted loop playsinline preload="none" aria-label="Yolk in my hand"></video><figcaption>Fig. 1b · in my hand</figcaption></figure>
+        <figure><video src="/assets/media/yolk-film.mp4" poster="/assets/media/yolk-film-poster.webp" muted loop playsinline preload="none" aria-label="The Yolk launch film"></video><figcaption>Fig. 1c · the launch film</figcaption></figure>
+      </div>
     </div>
   </div>
 </section>
-<section class="ch role-sec" id="tars" aria-labelledby="h-tars">
-  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">02 / Sheet 2 · TARS</div></div>
+<section class="ch role-sec blue" id="tars" aria-labelledby="h-tars">
+  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">02 / Sheet 2 · TARS · schematic</div></div>
   <div class="wrap">
     <span class="way" data-o="9" data-v style="left:-24px;top:0"></span>
     <div class="sec-head c">
       <h2 id="h-tars" data-reveal="words">A robot, <span class="it">on my desk.</span></h2>
-      
     </div>
-    <article class="fs c flip">
-      <span class="dot" data-o="10" data-v></span>
-      <div class="fs-media" data-reveal="print" style="--r:0deg"><div class="m-duo"><figure><video src="/assets/media/tars-falling.mp4" poster="/assets/media/tars-falling-poster.webp" muted loop playsinline preload="none" aria-label="TARS falling, then walking"></video><figcaption>2a · falling, then walking</figcaption></figure><figure><video src="/assets/media/tars-my-face.mp4" poster="/assets/media/tars-my-face-poster.webp" muted loop playsinline preload="none" aria-label="TARS with my avatar face"></video><figcaption>2b · with my avatar face</figcaption></figure></div><p class="fs-cap">Fig. 2</p></div>
-      <div class="fs-text">
-        <p class="kicker" data-reveal>TARS · prototype</p>
-        <h3 data-reveal="words">My first robot, my first soldering, and a walk Claude learned.</h3>
-        <ul class="fs-notes" data-reveal><li><span>body</span>an open-source TARS, 3D-printed</li><li><span>sensor</span>a motion sensor, soldered in: my first time holding an iron</li><li><span>walk</span>worked out by Claude after it kept falling over</li><li><span>face</span>my Beyond Presence avatar</li><li><span>brain</span>the whole stack locally, LLM included, for free</li></ul>
-        <p data-reveal>Two years into building with AI, I wanted to try hardware.</p>
-        <div class="wk-extra" data-reveal><p class="wk-taught"><span>What it taught me</span>Our avatars can run on the edge.</p><a class="act" href="/tars">Read the whole story <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></div>
+    <div class="bp-row c">
+      <!-- the signal path, left to right: what he says, what the Mac does with it, and what the robot does with that -->
+      <ol class="sch" data-reveal aria-label="How TARS works, as a signal path">
+        <li class="blk"><span class="ref">J1</span><b>You speak</b><i>to the robot</i></li>
+        <li class="grp"><p class="grp-t">My Mac · everything local · free</p>
+          <ul class="two"><li class="blk"><span class="ref">U1</span><b>Speech-to-text</b><i>local</i></li><li class="blk"><span class="ref">U2</span><b>LLM</b><i>local</i></li><li class="blk"><span class="ref">U3</span><b>Voice</b><i>local</i></li><li class="blk"><span class="ref">U4</span><b>Face</b><i>my avatar, local</i></li></ul></li>
+        <li class="grp"><p class="grp-t">TARS · 3D-printed</p>
+          <ul><li class="blk"><span class="ref">D1</span><b>Screen</b><i>wears my face</i></li><li class="blk"><span class="ref">S1</span><b>Motion sensor</b><i>soldered in: my first</i></li><li class="blk"><span class="ref">M1</span><b>Legs</b><i>a walk Claude worked out</i></li></ul></li>
+      </ol>
+      <!-- the robot itself (tars-model.js), drawn in the sheet's own line -->
+      <figure class="bp-tars"><div class="bp-stage" data-tars="drawing" role="img" aria-label="A 3D drawing of my TARS, with my avatar on its screen. Drag to turn it."></div><figcaption>Fig. 2 · TARS · drag to turn</figcaption></figure>
+    </div>
+    <div class="bp-notes c">
+      <figure class="bp-photo" data-reveal><img src="/assets/photos/tars-face.webp" alt="My TARS as built: a dark 3D-printed robot in three slabs, with my avatar on its screen" loading="lazy" width="1455" height="1400"><figcaption>Fig. 2a · as built</figcaption></figure>
+      <div data-reveal>
+        <p class="kicker">TARS · prototype</p>
+        <h3>My first robot, my first soldering, and a walk Claude learned.</h3>
+        <p>Two years into building with AI, I wanted to try hardware. I started from an open-source TARS, and Claude ran the walking experiments while TARS did the falling.</p>
+        <p class="wk-taught"><span>What it taught me</span>Our avatars can run on the edge.</p>
+        <a class="act" href="/tars">Read the whole story <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>
       </div>
-    </article>
+      <div class="bp-caps">
+        <figure><video src="/assets/media/tars-falling.mp4" poster="/assets/media/tars-falling-poster.webp" muted loop playsinline preload="none" aria-label="TARS falling, then walking"></video><figcaption>Fig. 2b · falling, then walking</figcaption></figure>
+        <figure><video src="/assets/media/tars-my-face.mp4" poster="/assets/media/tars-my-face-poster.webp" muted loop playsinline preload="none" aria-label="TARS with my avatar face"></video><figcaption>Fig. 2c · with my avatar face</figcaption></figure>
+      </div>
+    </div>
   </div>
 </section>
 <section class="ch role-sec" id="cure" aria-labelledby="h-cure">
@@ -100,47 +136,73 @@
     <span class="way" data-o="19" data-v style="left:-24px;top:0"></span>
     <div class="sec-head c">
       <h2 id="h-cure" data-reveal="words">Closer to <span class="it">the real thing.</span></h2>
-      
     </div>
-    <article class="fs c">
-      <span class="dot" data-o="20" data-v></span>
-      <div class="fs-media" data-reveal="print" style="--r:0deg"><div class="m-shot tall"><img src="/assets/media/curevision-device.webp" alt="The cureVision device: a tablet on a stand showing a body map" loading="lazy" width="619" height="1100"></div><p class="fs-cap">Fig. 3</p></div>
-      <div class="fs-text">
-        <p class="kicker" data-reveal>cureVision · Munich · medical technology</p>
-        <h3 data-reveal="words">Software for our own hardware, with ML on the device.</h3>
-        <ul class="fs-notes" data-reveal><li><span>joined</span>as a founding engineer, 2022 to 2024</li><li><span>result</span><b class="big">≈90%</b> faster wound documentation</li></ul>
-        
-        
+    <!-- the device with its screen called out like a figure in a manual, and beside it the rating plate off its back:
+         what a real device carries where a page would put a paragraph. The result is stamped across the plate. -->
+    <article class="cv c">
+      <figure class="cv-fig" data-reveal>
+        <div class="cv-dev">
+          <img src="/assets/media/curevision-device-render.webp" alt="The cureVision device: a handheld tablet showing its wound examination screen, with a body map" loading="lazy" width="1000" height="666">
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M33 47 L12 12 M51.5 40 L40 6 M80 50 L88 88"/></svg>
+          <i style="left:33%;top:47%"></i><i style="left:51.5%;top:40%"></i><i style="left:80%;top:50%"></i>
+          <span style="left:12%;top:12%">patient list</span><span style="left:40%;top:6%">body map</span><span class="r" style="left:88%;top:88%">start examination</span>
+        </div>
+        <figcaption>Fig. 3 · the device, on its examination screen</figcaption>
+      </figure>
+      <div class="plate" data-reveal>
+        <span class="screw" aria-hidden="true"></span><span class="screw" aria-hidden="true"></span><span class="screw" aria-hidden="true"></span><span class="screw" aria-hidden="true"></span>
+        <p class="plate-h"><b>cureVision</b><span>medical technology</span></p>
+        <dl>
+          <div><dt>Made</dt><dd>Munich, 2022 to 2024</dd></div>
+          <div><dt>Role</dt><dd>Founding engineer</dd></div>
+          <div><dt>SW</dt><dd>Software for our own hardware</dd></div>
+          <div><dt>ML</dt><dd>On the device</dd></div>
+        </dl>
+        <p class="plate-code" aria-hidden="true"><i></i><span>SS-HW-01 / 3</span></p>
+        <p class="stamp"><b>≈90%</b><span>faster wound<br>documentation</span></p>
       </div>
     </article>
   </div>
 </section>
 <section class="ch role-sec" id="kiosk" aria-labelledby="h-kiosk">
-  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">04 / Sheet 4 · Kiosk</div></div>
+  <div class="chap" data-reveal aria-hidden="true"><div class="wrap">04 / Sheet 4 · Kiosk · installation</div></div>
   <div class="wrap">
     <span class="way" data-o="29" data-v style="left:-24px;top:0"></span>
     <div class="sec-head c">
       <h2 id="h-kiosk" data-reveal="words">Avatars, <span class="it">in a room.</span></h2>
-      
     </div>
-    <article class="fs c flip">
-      <span class="dot" data-o="30" data-v></span>
-      <div class="fs-media" data-reveal="print" style="--r:0deg"><div class="m-film tall"><video src="/assets/media/kiosk.mp4" poster="/assets/media/kiosk-poster.webp" muted loop playsinline preload="none" aria-label="Our kiosk: an avatar on a standing screen, speaking German"></video></div><p class="fs-cap">Fig. 4</p></div>
-      <div class="fs-text">
+    <!-- an installation drawing: the screen on its stand, drawn side-on with the film playing in it and him beside it; then the notes, and it as installed -->
+    <article class="kio c">
+      <figure class="kio-draw" data-reveal>
+        <div class="kio-el">
+          <div class="kio-stand"><video src="/assets/media/kiosk.mp4" poster="/assets/media/kiosk-poster.webp" muted loop playsinline preload="none" aria-label="Our kiosk: an avatar on a standing screen, speaking German"></video></div>
+          <svg class="kio-man" viewBox="0 0 60 134" aria-hidden="true"><circle cx="30" cy="11" r="9"/><path d="M30 23c-10 0-14 6-14 14v36h6V44h2v88h6V82h2v50h6V44h2v29h6V37c0-8-4-14-14-14z"/></svg>
+        </div>
+        <figcaption>Fig. 4 · elevation · not to scale</figcaption>
+      </figure>
+      <div class="kio-text">
         <p class="kicker" data-reveal>Beyond Presence · kiosk</p>
         <h3 data-reveal="words">Our kiosk: an avatar on a standing screen.</h3>
-        <ul class="fs-notes" data-reveal><li><span>screen</span>a portrait display on a stand</li><li><span>runs</span>our real-time avatars, speaking German</li><li><span>me</span>I worked on it</li></ul>
-        
-        
+        <ul class="kio-notes" data-reveal><li><span>screen</span>a portrait display on a stand</li><li><span>runs</span>our real-time avatars, speaking German</li><li><span>me</span>I worked on it</li></ul>
       </div>
+      <figure class="kio-photo" data-reveal="print" style="--r:2deg"><img src="/assets/media/kiosk-event.webp" alt="The kiosk at an event: a visitor talking to an avatar on a portrait screen" loading="lazy" width="914" height="1296"><figcaption>Fig. 4a · as installed</figcaption></figure>
     </article>
   </div>
 </section>
 <section class="ch others" aria-labelledby="h-others">
   <div class="wrap">
     <span class="way" data-o="80" data-v style="left:-24px;top:0"></span>
+    <p class="kicker c" data-reveal>Selector · same hands, other work</p>
     <h2 id="h-others" class="c" data-reveal="words">The other sides of <span class="it">the same work.</span></h2>
-    <div class="doors three c"><a class="door sm" href="/code"><span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-think-anim.webp" alt="" aria-hidden="true" width="199" height="484"></span><span class="door-t"><b>AI engineering</b><span>My main work: the platform behind real-time AI avatars.</span></span><span class="door-go" aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></a><a class="door sm" href="/design"><span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-draw-anim.webp" alt="" aria-hidden="true" width="302" height="436"></span><span class="door-t"><b>Design</b><span>Brands, interfaces and films, made by the hands that build them.</span></span><span class="door-go" aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></a><a class="door sm" href="/ai"><span class="door-spr" aria-hidden="true"><img class="sprite" src="/assets/sprites/v2/shehroz-wave-anim.webp" alt="" aria-hidden="true" width="248" height="481"></span><span class="door-t"><b>Side projects</b><span>AI products I build and sell on the side.</span></span><span class="door-go" aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></span></a></div>
+    <!-- a control panel: Yolk's dial, and a position for each of the other pages. Pointing at a page turns the dial to it and lights its lamp. -->
+    <div class="sel c" data-reveal>
+      <div class="sel-dial" aria-hidden="true"><div class="sel-knob"><i></i></div></div>
+      <ol class="sel-list">
+        <li><a href="/code"><span class="lamp" aria-hidden="true"></span><span class="sel-n">Pos. 1</span><b>AI engineering</b><span class="sel-d">My main work: the platform behind real-time AI avatars.</span><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+        <li><a href="/design"><span class="lamp" aria-hidden="true"></span><span class="sel-n">Pos. 2</span><b>Design</b><span class="sel-d">Brands, interfaces and films, made by the hands that build them.</span><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+        <li><a href="/ai"><span class="lamp" aria-hidden="true"></span><span class="sel-n">Pos. 3</span><b>Side projects</b><span class="sel-d">AI products I build and sell on the side.</span><svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+      </ol>
+    </div>
     <p class="long c" data-reveal>Or read <a class="act" href="/story">the long story <svg class="ar" aria-hidden="true"><use href="#i-right"/></svg></a>, from Photoshop to now.</p>
   </div>
 </section>
@@ -150,7 +212,8 @@
 <!--shell:footer-->
 <!--shell:menu-->
 <!--shell:twin-->
-<script type="module" src="/src/hardware/explode.js"></script>
+<script type="module" src="/src/hardware/yolk-scene.js"></script>
+<script type="module" src="/src/tars-model.js"></script>
 <script type="module" src="/src/pages.js"></script>
 </body>
 </html>

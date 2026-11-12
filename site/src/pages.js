@@ -258,11 +258,11 @@ const nl = $('#nl');
 if (nl) nl.addEventListener('submit', e => { e.preventDefault(); const v = $('#nl-email').value.trim();
   $('#nl-msg').textContent = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? 'Thanks. Sign-up isn’t connected yet, so your email hasn’t been saved.' : 'That email looks off. Check it and try again.'; });
 const book = $('#book');
-if (book) book.addEventListener('click', () => { $('#book-msg').textContent = 'The booking link is coming soon. Until then, email me at mshehrozsajjad@gmail.com.'; });
+if (book) book.addEventListener('click', () => { $('#book-msg').textContent = 'The booking link is coming soon. Until then, email me at hello@shehrozsajjad.com.'; });
 const copy = $('#copy');
 if (copy) copy.addEventListener('click', async () => {
   const h = $('#copy-hint');
-  try { await navigator.clipboard.writeText('mshehrozsajjad@gmail.com'); h.textContent = 'copied!'; } catch (_) { h.textContent = 'select it'; }
+  try { await navigator.clipboard.writeText('hello@shehrozsajjad.com'); h.textContent = 'copied!'; } catch (_) { h.textContent = 'select it'; }
   setTimeout(() => h.textContent = 'tap to copy', 1800);
 });
 
@@ -336,7 +336,7 @@ addEventListener('pageshow', e => { if (e.persisted) document.querySelectorAll('
 
 /* ---------- his doodles: played back, or drawn on the dev server with ?doodle; and his pen as the cursor ---------- */
 if (import.meta.env.DEV && new URLSearchParams(location.search).has('doodle')) import('./doodle-editor.js');   // keeps its crosshair
-else { playDoodles(); mountCursor(); }
+else { playDoodles(); if (document.documentElement.dataset.cursor !== 'plain') mountCursor(); }   // a drafting sheet keeps the ordinary pointer
 
 build();
 })();
