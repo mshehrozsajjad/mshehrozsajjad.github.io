@@ -2,7 +2,7 @@
 // Opening the drawer calls the twin; until its video arrives the screen shows a loader, never a recording. Questions
 // (the buttons or the input) go to the twin as text; it answers on video and its words appear in the log as it speaks.
 // The mic is an extra, off until the visitor turns it on. Closing the drawer, leaving the page or three minutes end it.
-const EMAIL = 'mshehrozsajjad@gmail.com';
+const EMAIL = 'hello@shehrozsajjad.com';
 const WHY = {   // what to say when a call can't start, by the code /api/twin answered with
   busy: 'My twin is in another call right now.',
   unavailable: 'My twin is offline at the moment.',
