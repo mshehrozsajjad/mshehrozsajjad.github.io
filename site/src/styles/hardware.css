@@ -85,13 +85,14 @@
 /* ---------- Sheet 2: TARS, as a blueprint ----------
    The one dark sheet: white line on blue, the accent in Yolk yellow. The tokens are redefined here, so the shared
    headings, labels and links recolour themselves. */
-.blue{--ink:#F2F6FB;--muted:rgba(242,246,251,.72);--line:rgba(242,246,251,.28);--signal:var(--yolk);--bp:#123A66;color:var(--ink);padding-block:var(--sp-6);
+.blue,.pg-bp main,.pg-bp .ft{--ink:#F2F6FB;--muted:rgba(242,246,251,.72);--line:rgba(242,246,251,.28);--raised:#18477C;--tint:#18477C;--bp:#123A66;color:var(--ink);
   background:
     linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px) 0 0/16px 16px,
     linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px) 0 0/16px 16px,
     linear-gradient(rgba(255,255,255,.11) 1px,transparent 1px) 0 0/80px 80px,
     linear-gradient(90deg,rgba(255,255,255,.11) 1px,transparent 1px) 0 0/80px 80px,
     var(--bp)}
+.blue{--signal:var(--yolk);padding-block:var(--sp-6)}
 .bp-row{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(0,1fr);gap:var(--sp-5);align-items:center}
 /* the schematic: blocks joined by wires that carry a moving signal (--wire is the gap a wire has to cross) */
 .sch,.sch ul{list-style:none;padding:0;margin:0}
@@ -193,7 +194,7 @@
    Yolk's own dial on a faceplate, with a position for each of the other pages. Pointing at a page turns the dial to it
    (--to, set per row below) and lights its lamp. */
 .pg-hw .others .kicker{color:var(--signal);margin-bottom:var(--sp-2)}
-.sel{--to:0deg;display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--sp-5);align-items:center;margin-top:var(--sp-4);padding:var(--sp-4) var(--sp-5);border:1.5px solid var(--ink);border-radius:10px;background:var(--raised) url(/assets/textures/panel-coat.webp) center/cover;box-shadow:0 1px 0 #fff inset,0 16px 24px -18px rgba(40,30,10,.5)}
+.sel{--to:0deg;--ink:#141414;--muted:#5F5E58;--line:#D6D2C4;--signal:#E0442A;--signal-soft:#F7DDD6;color:var(--ink);display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--sp-5);align-items:center;margin-top:var(--sp-4);padding:var(--sp-4) var(--sp-5);border:1.5px solid var(--ink);border-radius:10px;background:var(--raised) url(/assets/textures/panel-coat.webp) center/cover;box-shadow:0 1px 0 #fff inset,0 16px 24px -18px rgba(40,30,10,.5)}
 .sel-dial{display:grid;place-items:center;width:210px;aspect-ratio:1;border-radius:50%;
   background:repeating-conic-gradient(from -1deg,var(--ink) 0 2deg,transparent 2deg 15deg);-webkit-mask:radial-gradient(circle,#000 0 calc(50% - 16px),transparent calc(50% - 15px) calc(50% - 8px),#000 calc(50% - 7px));mask:radial-gradient(circle,#000 0 calc(50% - 16px),transparent calc(50% - 15px) calc(50% - 8px),#000 calc(50% - 7px))}
 .sel-knob{display:grid;align-items:center;justify-items:end;width:150px;aspect-ratio:1;border-radius:50%;rotate:var(--to);transition:rotate .45s cubic-bezier(.3,1.5,.5,1);
